@@ -1,0 +1,10 @@
+TinyOL.c:9:6:OL_lettToSoft	32	static
+TinyOL.c:29:6:OL_feedForward	24	static
+TinyOL.c:47:6:OL_softmax	48	static
+TinyOL.c:81:6:OL_gradientDescend	72	dynamic
+TinyOL.c:115:6:OL_increaseWeightDim	32	static
+TinyOL.c:139:6:OL_increaseLabel	32	static
+TinyOL.c:166:6:OL_increaseBiasDim	32	static
+TinyOL.c:189:6:OL_checkNewClass	24	static
+TinyOL.c:224:6:OL_train	40	static
+TinyOL.c:260:6:PRINT_checkLabels	48	static

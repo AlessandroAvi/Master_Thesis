@@ -1,0 +1,126 @@
+Neural Network Tools for STM32AI v1.5.1 (STM.ai v7.0.0-RC8)
+Created date          : 2021-09-15 17:37:12
+Parameters            : generate --name network -m C:/Users/massi/UNI/Magistrale/Anno 5/Semestre 2/Tesi/Code/Python/Saved_models/model/model.h5 --type keras --compression 1 --verbosity 1 --workspace C:\Users\massi\AppData\Local\Temp\mxAI_workspace1191457299227001551931925808223917 --output C:\Users\massi\.stm32cubemx
+
+Exec/report summary (generate)
+------------------------------------------------------------------------------------------------------------------------
+model file            : C:\Users\massi\UNI\Magistrale\Anno 5\Semestre 2\Tesi\Code\Python\Saved_models\model\model.h5
+type                  : keras
+c_name                : network
+workspace dir         : C:\Users\massi\AppData\Local\Temp\mxAI_workspace1191457299227001551931925808223917
+output dir            : C:\Users\massi\.stm32cubemx
+
+model_name            : model
+model_hash            : acf912bd963280e1ccb0197eada00288
+input                 : input_0 [600 items, 2.34 KiB, ai_float, float, (1, 1, 1, 600)]
+inputs (total)        : 2.34 KiB
+output                : output_layer_nl [5 items, 20 B, ai_float, float, (1, 1, 1, 5)]
+outputs (total)       : 20 B
+params #              : 94,085 items (367.52 KiB)
+macc                  : 94,416
+weights (ro)          : 376,340 B (367.52 KiB)
+activations (rw)      : 1,024 B (1024 B) 
+ram (total)           : 3,444 B (3.36 KiB) = 1,024 + 2,400 + 20
+
+Model name - model ['input_0'] ['output_layer_nl']
+----------------------------------------------------------------------------------------------------------------------------
+id   layer (type)                     oshape    param/size       macc     connected to     |   c_size   c_macc   c_type    
+----------------------------------------------------------------------------------------------------------------------------
+0    input_0 (Input)                  (c:600)                                              |                    
+     input_layer (Dense)              (c:128)   76,928/307,712   76,928   input_0          |                     dense()[0]
+     input_layer_nl (Nonlinearity)    (c:128)                    128      input_layer      |                     nl()[1]   
+----------------------------------------------------------------------------------------------------------------------------
+1    hidden1 (Dense)                  (c:128)   16,512/66,048    16,512   input_layer_nl   |                     dense()[2]
+     hidden1_nl (Nonlinearity)        (c:128)                    128      hidden1          |                     nl()[3]   
+----------------------------------------------------------------------------------------------------------------------------
+2    output_layer (Dense)             (c:5)     645/2,580        645      hidden1_nl       |                     dense()[4]
+     output_layer_nl (Nonlinearity)   (c:5)                      75       output_layer     |                     nl()/o[5] 
+----------------------------------------------------------------------------------------------------------------------------
+model/c-model: macc=94,416/94,416  weights=376,340/376,340  activations=--/1,024 io=--/2,420
+
+
+
+Generated C-graph summary
+------------------------------------------------------------------------------------------------------------------------
+model name            : model
+c-name                : network
+c-node #              : 6
+c-array #             : 13
+activations size      : 1024
+weights size          : 376340
+macc                  : 94416
+inputs                : ['input_0_output']
+outputs               : ['output_layer_nl_output']
+
+
+
+C-Arrays (13)
+------------------------------------------------------------------------------------------------------------------------
+c_id  name (*_array)          item/size           mem-pool     c-type       fmt    comment            
+------------------------------------------------------------------------------------------------------------------------
+0     input_0_output          600/2400            user         float        float  /input             
+1     input_layer_output      128/512             activations  float        float                     
+2     input_layer_nl_output   128/512             activations  float        float                     
+3     hidden1_output          128/512             activations  float        float                     
+4     hidden1_nl_output       128/512             activations  float        float                     
+5     output_layer_output     5/20                activations  float        float                     
+6     output_layer_nl_output  5/20                user         float        float  /output            
+7     input_layer_weights     76800/307200        weights      const float  float                     
+8     input_layer_bias        128/512             weights      const float  float                     
+9     hidden1_weights         16384/65536         weights      const float  float                     
+10    hidden1_bias            128/512             weights      const float  float                     
+11    output_layer_weights    640/2560            weights      const float  float                     
+12    output_layer_bias       5/20                weights      const float  float                     
+------------------------------------------------------------------------------------------------------------------------
+
+
+
+C-Layers (6)
+------------------------------------------------------------------------------------------------------------------------
+c_id  name (*_layer)   id  layer_ macc        rom         tensors                    shape (array id)                       
+------------------------------------------------------------------------------------------------------------------------
+0     input_layer      0   dense  76928       307712      I: input_0_output          (1, 1, 1, 600) (0)                     
+                                                          W: input_layer_weights                                            
+                                                          W: input_layer_bias                                               
+                                                          O: input_layer_output      (1, 1, 1, 128) (1)                     
+------------------------------------------------------------------------------------------------------------------------
+1     input_layer_nl   0   nl     128         0           I: input_layer_output      (1, 1, 1, 128) (1)                     
+                                                          O: input_layer_nl_output   (1, 1, 1, 128) (2)                     
+------------------------------------------------------------------------------------------------------------------------
+2     hidden1          1   dense  16512       66048       I: input_layer_nl_output   (1, 1, 1, 128) (2)                     
+                                                          W: hidden1_weights                                                
+                                                          W: hidden1_bias                                                   
+                                                          O: hidden1_output          (1, 1, 1, 128) (3)                     
+------------------------------------------------------------------------------------------------------------------------
+3     hidden1_nl       1   nl     128         0           I: hidden1_output          (1, 1, 1, 128) (3)                     
+                                                          O: hidden1_nl_output       (1, 1, 1, 128) (4)                     
+------------------------------------------------------------------------------------------------------------------------
+4     output_layer     2   dense  645         2580        I: hidden1_nl_output       (1, 1, 1, 128) (4)                     
+                                                          W: output_layer_weights                                           
+                                                          W: output_layer_bias                                              
+                                                          O: output_layer_output     (1, 1, 1, 5) (5)                       
+------------------------------------------------------------------------------------------------------------------------
+5     output_layer_nl  2   nl     75          0           I: output_layer_output     (1, 1, 1, 5) (5)                       
+                                                          O: output_layer_nl_output  (1, 1, 1, 5) (6)                       
+------------------------------------------------------------------------------------------------------------------------
+
+
+
+Complexity report per layer - macc=94,416 weights=376,340 act=1,024 ram_io=2,420
+--------------------------------------------------------------------------------
+id   name              c_macc                    c_rom                     c_id
+--------------------------------------------------------------------------------
+0    input_layer       ||||||||||||||||  81.5%   ||||||||||||||||  81.8%   [0] 
+0    input_layer_nl    |                  0.1%   |                  0.0%   [1] 
+1    hidden1           ||||              17.5%   ||||              17.6%   [2] 
+1    hidden1_nl        |                  0.1%   |                  0.0%   [3] 
+2    output_layer      |                  0.7%   |                  0.7%   [4] 
+2    output_layer_nl   |                  0.1%   |                  0.0%   [5] 
+
+Generated files (5)
+------------------------------------------------------
+C:\Users\massi\.stm32cubemx\network_config.h
+C:\Users\massi\.stm32cubemx\network.h
+C:\Users\massi\.stm32cubemx\network.c
+C:\Users\massi\.stm32cubemx\network_data.h
+C:\Users\massi\.stm32cubemx\network_data.c

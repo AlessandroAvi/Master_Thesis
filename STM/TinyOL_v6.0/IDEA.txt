@@ -1,0 +1,17 @@
+IDEA CODICE STM TONYOL:
+
+- premo blue button
+- inizia waiting per i dati in ingresso
+- prende una letterea in ingresso
+- fa inference sul frozen e poi training sul layer OL
+- output risultato
+
+
+TO DO:
+- ciclo che prende dati dalla uart
+- libreria tinyol
+	- deve inizializzare una matrice di pesi (non da 0)
+	- deve inizializzare un vettore di bias (non da 0)
+	- deve contenere la funzione per il gradient
+	- deve contenere la funzione che fa la prediction del layer OL
+	- deve contenere la funzione che ingrandisce la matrice
