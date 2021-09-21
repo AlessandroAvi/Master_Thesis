@@ -2,7 +2,7 @@
   ******************************************************************************
   * @file    network_config.h
   * @author  AST Embedded Analytics Research Platform
-  * @date    Wed Sep 15 17:37:12 2021
+  * @date    Tue Sep 21 17:30:40 2021
   * @brief   AI Tool Automatic Code Generator for Embedded NN computing
   ******************************************************************************
   * @attention
@@ -25,10 +25,10 @@
 #undef AI_TOOLS_VERSION_MAJOR
 #undef AI_TOOLS_VERSION_MINOR
 #undef AI_TOOLS_VERSION_MICRO
-#define AI_TOOLS_VERSION_MAJOR 7
+#define AI_TOOLS_VERSION_MAJOR 6
 #define AI_TOOLS_VERSION_MINOR 0
 #define AI_TOOLS_VERSION_MICRO 0
-#define AI_TOOLS_VERSION_EXTRA "RC8"
+#define AI_TOOLS_VERSION_EXTRA "RC6"
 
 
 #undef AI_PLATFORM_API_MAJOR

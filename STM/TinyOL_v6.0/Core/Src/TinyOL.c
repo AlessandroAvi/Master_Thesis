@@ -4,6 +4,20 @@
 
 //#define DEBUG_ACTIVE
 
+//#define MSG_ACTIVE
+
+
+
+void OL_resetInfo(OL_LAYER_STRUCT * layer){
+
+	layer->prediction_correct = 0;
+	layer->new_class = 0;
+	layer->w_update = 0;
+	layer->vowel_guess = 0;
+
+}
+
+
 
 
 void OL_lettToSoft(OL_LAYER_STRUCT * layer, char *lett, float * y_true){
@@ -16,9 +30,9 @@ void OL_lettToSoft(OL_LAYER_STRUCT * layer, char *lett, float * y_true){
 	// Check if letter is inside label of the layer
 	for(int i=0; i<layer->WIDTH; i++){
 		if(lett[0] == layer->label[i]){
-			y_true[i] = 1.0;
+			y_true[i] = 1;
 		}else{
-			y_true[i] = 0.0;
+			y_true[i] = 0;
 		}
 	}
 };
@@ -87,6 +101,7 @@ void OL_gradientDescend(OL_LAYER_STRUCT * layer, float* input, float *y_true){
 
 	float cost[layer->WIDTH],dW, deltaW;
 
+	layer->w_update = 1;
 
 	// Compute the cost (prediction-true)
 	for(int k=0; k<layer->WIDTH; k++){
@@ -204,9 +219,12 @@ void OL_checkNewClass(OL_LAYER_STRUCT * layer, char *letter){
 	// If the letter is new perform the following
 	if(found==0){
 		// Update dimensions
+#ifdef MSG_ACTIVE
 		msgLen = sprintf(msgDebug, "\n\n\r    New letter found %c", letter[0]);
 		HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
+#endif
 
+		layer->new_class = 1;
 		layer->WIDTH +=1;
 
 		OL_increaseLabel(layer, letter[0]);
@@ -235,11 +253,36 @@ void OL_train(OL_LAYER_STRUCT * layer, float *x, float *y_true, char *letter){
 		OL_feedForward(layer, x);
 		OL_softmax(layer);
 
-		// Update weights
-		OL_gradientDescend(layer, x, y_true);
+		// Find the max value
+		layer->vowel_guess = 0;
+		uint8_t max = 0;
+		for(int i=0; i<layer->WIDTH; i++){
+			if(max < layer->y_pred[i]){
+				layer->vowel_guess = layer->label[i];
+				max = layer->y_pred[i];
+			}
+		}
 
-		msgLen = sprintf(msgDebug, "\n\r    Performing weights update");
-		HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
+		// Check if prediction is correct or not
+		for(int i=0; i<layer->WIDTH; i++){
+			if(layer->y_pred[i] != y_true[i]){
+#ifdef MSG_ACTIVE
+				msgLen = sprintf(msgDebug, "\r    Performing weights update\n");
+				HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
+#endif
+				layer->prediction_correct = 1;
+				// Update weights
+				OL_gradientDescend(layer, x, y_true);
+
+				break;
+			}else{
+				layer->prediction_correct = 2;
+			}
+		}
+
+
+
+
 	}
 };
 
@@ -259,26 +302,32 @@ void OL_train(OL_LAYER_STRUCT * layer, float *x, float *y_true, char *letter){
 
 void PRINT_checkLabels(OL_LAYER_STRUCT * layer, float * y_true){
 
-	  msgLen = sprintf(msgDebug, "\n\n\r    LABEL CHECK:");
+	  msgLen = sprintf(msgDebug, "\r    LABEL CHECK:");
 	  HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
 	  for(int i=0; i<layer->WIDTH; i++){
 		  msgLen = sprintf(msgDebug, "  %c       ", layer->label[i]);
 		  HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
 	  }
+	  msgLen = sprintf(msgDebug, "\n");
+	  HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
 
-	  msgLen = sprintf(msgDebug,   "\n\r      Inference:");
+	  msgLen = sprintf(msgDebug,   "\r      Inference:");
 	  HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
 	  for(int i=0; i<layer->WIDTH; i++){
 		  msgLen = sprintf(msgDebug, "  %f", layer->y_pred[i]);
 		  HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
 	  }
+	  msgLen = sprintf(msgDebug, "\n");
+	  HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
 
-	  msgLen = sprintf(msgDebug,   "\n\r      True:     ");
+	  msgLen = sprintf(msgDebug,   "\r      True:     ");
 	  HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
 	  for(int i=0; i<layer->WIDTH; i++){
 		  msgLen = sprintf(msgDebug,   "  %f", y_true[i]);
 		  HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
 	  }
+	  msgLen = sprintf(msgDebug, "\n");
+	  HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
 
 	  int correct = 0;
 	  for(int i=0; i<layer->WIDTH; i++){
@@ -288,9 +337,9 @@ void PRINT_checkLabels(OL_LAYER_STRUCT * layer, float * y_true){
 	  }
 
 	  if(correct==0){
-		  msgLen = sprintf(msgDebug, "\n\r    Prediction -> 	OK");
+		  msgLen = sprintf(msgDebug, "\r    Prediction -> 	OK\n");
 	  }else{
-		  msgLen = sprintf(msgDebug, "\n\r    Prediction -> ERROR");
+		  msgLen = sprintf(msgDebug, "\r    Prediction -> ERROR\n");
 	  }
 	  HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
 }

@@ -1,23 +1,23 @@
 {
     "_allocate_inputs": 0,
     "_allocate_outputs": 0,
-    "cli_parameters": "generate --name network -m C:/Users/massi/UNI/Magistrale/Anno 5/Semestre 2/Tesi/Code/Python/Saved_models/model/model.h5 --type keras --compression 1 --verbosity 1 --workspace C:\\Users\\massi\\AppData\\Local\\Temp\\mxAI_workspace1191457299227001551931925808223917 --output C:\\Users\\massi\\.stm32cubemx",
+    "cli_parameters": "generate --name network -m C:/Users/massi/UNI/Magistrale/Anno 5/Semestre 2/Tesi/Code/Python/Saved_models/ML_model/model.h5 --type keras --compression 1 --verbosity 1 --workspace C:\\Users\\massi\\AppData\\Local\\Temp\\mxAI_workspace1189388694851008109485388687539380 --output C:\\Users\\massi\\.stm32cubemx",
     "cli_version": {
         "major": 1,
         "micro": 1,
-        "minor": 5
+        "minor": 4
     },
-    "cli_version_str": "1.5.1",
+    "cli_version_str": "1.4.1",
     "compression": {
         "factor": null,
         "layers": {}
     },
-    "date_time": "Wed Sep 15 17:37:12 2021",
+    "date_time": "Tue Sep 21 17:30:40 2021",
     "error": 0,
     "error_str": [],
     "exec_cmd": "generate",
     "exec_duration": 0.0,
-    "hash": "acf912bd963280e1ccb0197eada00288",
+    "hash": "e0199ed33c3d950d101a99af710f3e8c",
     "inputs": [
         "input_0"
     ],
@@ -149,74 +149,22 @@
             ],
             "name": "hidden1_nl",
             "type": "Nonlinearity"
-        },
-        {
-            "extras": {
-                "n_macc": 645,
-                "n_params": 645,
-                "psize": 2580,
-                "rom_output": {
-                    "c_size": 20,
-                    "fmt": {
-                        "format": "float"
-                    },
-                    "shape": [
-                        1,
-                        1,
-                        5,
-                        1
-                    ]
-                },
-                "rom_size": 2580
-            },
-            "id": 2,
-            "inputs": [
-                "hidden1_nl"
-            ],
-            "name": "output_layer",
-            "type": "Dense"
-        },
-        {
-            "extras": {
-                "n_macc": 75,
-                "n_params": 0,
-                "psize": 0,
-                "rom_output": {
-                    "c_size": 20,
-                    "fmt": {
-                        "format": "float"
-                    },
-                    "shape": [
-                        1,
-                        1,
-                        5,
-                        1
-                    ]
-                },
-                "rom_size": 0
-            },
-            "id": 2,
-            "inputs": [
-                "output_layer"
-            ],
-            "name": "output_layer_nl",
-            "type": "Nonlinearity"
         }
     ],
     "model_files": [
-        "C:\\Users\\massi\\UNI\\Magistrale\\Anno 5\\Semestre 2\\Tesi\\Code\\Python\\Saved_models\\model\\model.h5"
+        "C:\\Users\\massi\\UNI\\Magistrale\\Anno 5\\Semestre 2\\Tesi\\Code\\Python\\Saved_models\\ML_model\\model.h5"
     ],
-    "model_n_params": 94085,
+    "model_n_params": 93440,
     "model_name": "model",
-    "model_size": 376340,
+    "model_size": 373760,
     "model_type": "keras",
     "name": "network",
     "outputs": [
-        "output_layer_nl"
+        "hidden1_nl"
     ],
     "ram_io_size": [
         2400,
-        20
+        512
     ],
     "ram_size": [
         1024,
@@ -232,28 +180,28 @@
             "name": "input_0"
         }
     ],
-    "rom_n_macc": 94416,
+    "rom_n_macc": 93696,
     "rom_outputs": [
         {
-            "c_size": 20,
+            "c_size": 512,
             "c_type": "float",
-            "name": "output_layer_nl"
+            "name": "hidden1_nl"
         }
     ],
-    "rom_size": 376340,
-    "strategy": "heap_overlay",
+    "rom_size": 373760,
+    "strategy": "heap_overlay_pool",
     "tools_api_version": {
         "major": 1,
         "micro": 1,
-        "minor": 5
+        "minor": 4
     },
     "tools_version": {
-        "extra": "RC8",
-        "major": 7,
+        "extra": "RC6",
+        "major": 6,
         "micro": 0,
         "minor": 0
     },
     "val_error": -1.0,
-    "val_error_desc": "None (None) #-1",
+    "val_error_desc": "None (None) #0",
     "val_metrics": []
 }

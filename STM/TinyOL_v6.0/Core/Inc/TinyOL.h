@@ -10,38 +10,46 @@
 
 typedef struct {
 
+	// Shape
 	int WIDTH;
 	int HEIGHT;
 
+	// Training parameters
 	float l_rate;
 	int n_epochs;
 
+	// Containers
 	char* label;
-
 	float *weights;
 	float *biases;
-
 	float *y_pred;
 
+
+	// Info parameters
+	uint8_t prediction_correct;	// True/flase
+	uint8_t new_class;	// True/flase
+	uint8_t w_update;	// True/flase
+	char vowel_guess;
+
 }OL_LAYER_STRUCT;
-
-
 
 
 // Containers for the debug messages
 #define BUFF_LEN 128
 #define LETTER_LEN 1
+#define DATA_LEN 1200
 
 char msgDebug[BUFF_LEN];
-char msgRx[LETTER_LEN];
+uint8_t msgRxData[DATA_LEN];
+char msgRxLett[LETTER_LEN];
 int msgLen;
-
-
-
 
 // ******************************
 //						FUNCTIONS
 // ******************************
+
+/*   Function that resets the fields denominated "info" inside the struct of the layer  */
+void OL_resetInfo(OL_LAYER_STRUCT * layer);
 
 
 /*   Function that transorfms a letter into a numbered label array      */
@@ -80,8 +88,6 @@ void OL_increaseWeightDim(OL_LAYER_STRUCT * layer);
 /*   Function that increases the dimension of the bias array
  *   Note that it allocated a new array and de allocated the old one       */
 void OL_increaseBiasDim(OL_LAYER_STRUCT * layer);
-
-
 
 
 void PRINT_checkLabels(OL_LAYER_STRUCT * layer, float * y_true);

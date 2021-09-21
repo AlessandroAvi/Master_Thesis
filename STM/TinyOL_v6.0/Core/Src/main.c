@@ -38,11 +38,10 @@
 #include "TinyOL.h"
 
 // Includes that contains MY DATA
-#include "letters.h"
 #include "layer_weights.h"
 
 // Include accelerometer library
-#include "iks01a2_motion_sensors.h"
+//#include "iks01a2_motion_sensors.h"
 
 
 /* USER CODE END Includes */
@@ -55,8 +54,9 @@
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 
-// defined -> data from accelerometer       not defined -> data from letters.h
-//#define DATA_MODE_ACC
+// 0 -> data from accelerometer    2-> data from UART
+// #############
+		#define DATA_MODE 2
 
 /* USER CODE END PD */
 
@@ -73,12 +73,14 @@
 
 
 // Accelerometer parameters
+#if DATA_MODE == 0
 float accelerometer_odr;
 float accelerometer_sens;
 int32_t accelerometer_fs;
 IKS01A2_MOTION_SENSOR_Axes_t acceleration;
+#endif
 
-int counter = 0;
+uint8_t counter = 0;
 int enable_acquisition = 0;
 int data_counter = 0;
 int max_sample = 200; 	// Record data for 2 seconds
@@ -92,11 +94,14 @@ int enable_inference = 0;
 char letter[1];
 int rnd;
 
+uint8_t msgInfo[9];
+
 
 // Time passed parameters
 uint32_t startTime;
 uint32_t endFrozenTime;
 uint32_t endOLTime;
+
 
 
 /* USER CODE END PV */
@@ -146,12 +151,12 @@ int main(void)
   MX_X_CUBE_AI_Init();
   /* USER CODE BEGIN 2 */
 
-  // Greetings
+
+  // Start timer for the data recording
+#if DATA_MODE == 0
   msgLen = sprintf(msgDebug, "\n\n\r### TEST X-CUBEMX-AI ###");
   HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
 
-  // Start timer for the data recording
-#ifdef DATA_MODE_ACC
   int init_acc = IKS01A2_MOTION_SENSOR_Init(IKS01A2_LSM6DSL_0 , MOTION_ACCELERO );
   if ( init_acc == 0 ){
 	  msgLen = sprintf(msgDebug, "\n\n\r>Accelerometer initialisation: completed");
@@ -176,18 +181,8 @@ int main(void)
 #endif
 
 
-
-  /* The initialization and creation of the network is done in the function  MX_X_CUBE_AI_Init()
-   * This creates the network in the memory and saves inside it the correct values for the nodes
-   *
-   * The inference from the network is done by the function    ai_run_v2()
-   * This takes only the in_data and out_data pointers and then performs the inference   *
-   */
-
-
-
-
   // ***** Initialize the OL layer ****************************
+
 
   OL_LAYER_STRUCT OL_layer;
 
@@ -199,14 +194,6 @@ int main(void)
   OL_layer.n_epochs = 1;
   OL_layer.l_rate = 0.01;
 
-  OL_layer.label[0] = 'A';
-  OL_layer.label[1] = 'E';
-  OL_layer.label[2] = 'I';
-  OL_layer.label[3] = 'O';
-  OL_layer.label[4] = 'U';
-
-  msgLen = sprintf(msgDebug, "\n\r DEBUG 1");
-  HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 1000);
 
   OL_layer.weights = (float*)calloc(OL_layer.WIDTH*OL_layer.HEIGHT, sizeof(float));
   if(OL_layer.weights==NULL){
@@ -232,10 +219,15 @@ int main(void)
 	  HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
   }
 
-  msgLen = sprintf(msgDebug, "\n\r DEBUG 2");
-  HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 1000);
 
   // ***********************************
+
+  // Fill up the initial labels
+  OL_layer.label[0] = 'A';
+  OL_layer.label[1] = 'E';
+  OL_layer.label[2] = 'I';
+  OL_layer.label[3] = 'O';
+  OL_layer.label[4] = 'U';
 
   // Fill up weigths and biases
   for(int i=0; i<OL_layer.WIDTH*OL_layer.HEIGHT; i++){
@@ -246,21 +238,20 @@ int main(void)
 	  OL_layer.biases[i]=saved_biases[i];
   }
 
-
-  //Create container for the output of OL layer
+  //Create container for the output prediction of OL layer
   float * y_true = (float*)calloc(OL_layer.WIDTH, sizeof(float));
 
+  // ***********************************
 
+#if DATA_MODE == 0
   msgLen = sprintf(msgDebug, "\n\n\r Initializations done\n\r");
   HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
-
-#ifdef DATA_MODE_ACC
   msgLen = sprintf(msgDebug, "\n\n\r Data acquisition mode: ACCELEROMETER\n\r");
   HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
-#else
-  msgLen = sprintf(msgDebug, "\n\n\r Data acquisition mode: TXT FILE\n\r");
+  msgLen = sprintf(msgDebug, "\n\n\r When ready press BLUE button for inference.\n");
   HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
 #endif
+
 
 
   /* USER CODE END 2 */
@@ -270,29 +261,33 @@ int main(void)
   while (1)
   {
 
-#ifndef DATA_MODE_ACC
-	  for(int i =0; i<599; i++){
-		  rnd = rand()%100;
-	  }
-#endif
-
-
+	  // When blue button is pressed perform these actions
 	  if(enable_inference == 1){
 
-		  counter +=1;
+		  // Reset the info carried from the OL layer
+		  OL_resetInfo(&OL_layer);
 
-#ifndef DATA_MODE_ACC
-		  rnd = rand()% 25; // 12 + 11
 
-		  for(int k=0; k<AI_NETWORK_IN_1_SIZE; k++){
-			  in_data[k] = rand_letters[rnd][k];
-			  letter[0] = rand_labels[rnd];
+#if DATA_MODE == 2
+		  uint8_t tmp;
+		  for(int k=0; k<600; k++){
+			  tmp = msgRxData[k*2];
+			  if((tmp&128) == 128){
+				  tmp = tmp & 127;
+				  in_data[k] = -((tmp << 8) | (msgRxData[(k*2)+1]));
+			  }else{
+				  in_data[k] = (msgRxData[(k*2)] << 8) | (msgRxData[(k*2)+1]);
+			  }
+
 		  }
 #endif
 
-
-		  msgLen = sprintf(msgDebug, "\n\r    Begin now inference num: %d", counter);
+#if DATA_MODE == 0
+		  msgLen = sprintf(msgDebug, "\n\r    Begin now inference num: %d\n", counter);
 		  HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
+#endif
+
+		  counter +=1;
 
 		  startTime = HAL_GetTick();
 
@@ -310,25 +305,42 @@ int main(void)
 
 		  endOLTime = HAL_GetTick();
 
-
-
+#if DATA_MODE == 0
 		  // Output messages
 		  PRINT_checkLabels(&OL_layer, y_true);
 
-		  msgLen = sprintf(msgDebug, "\n\n\r    Time needed:  frozen model-> %ld ms;    OL layer -> %ld ms;    Total -> %ld ms \n\n\r", endFrozenTime-startTime, endOLTime-endFrozenTime, endOLTime-startTime);
+		  msgLen = sprintf(msgDebug, "\r    Time needed:  frozen model-> %ld ms;    OL layer -> %ld ms;    Total -> %ld ms \n\n\r", endFrozenTime-startTime, endOLTime-endFrozenTime, endOLTime-startTime);
 		  HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
+#else
 
+		  // Send msg to pc with informations about inference encoded
+		  msgInfo[0] = counter;
+		  msgInfo[1] = (endFrozenTime-startTime);
+		  msgInfo[2] = (endOLTime-endFrozenTime);
+		  msgInfo[3] = OL_layer.new_class;
+		  msgInfo[4] = OL_layer.prediction_correct;
+		  msgInfo[5] = OL_layer.w_update;
+		  msgInfo[6] = OL_layer.WIDTH;
+		  msgInfo[7] = OL_layer.HEIGHT;
+		  msgInfo[8] = OL_layer.vowel_guess;
 
+		  HAL_UART_Transmit(&huart2, (uint8_t*)msgInfo, 9, 100);
+#endif
+
+		  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
 		  enable_inference = 0;
 	  }
 
+
+#if DATA_MODE == 0
 	  HAL_Delay(250);
 	  msgLen = sprintf(msgDebug, ".");
 	  HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
+#endif
+
 
     /* USER CODE END WHILE */
 
-  //MX_X_CUBE_AI_Process();
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -380,30 +392,43 @@ void SystemClock_Config(void)
 
 /* USER CODE BEGIN 4 */
 
+
+
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 
 	if(GPIO_Pin == B1_Pin){
 
-	  // Inital messages
-	  msgLen = sprintf(msgDebug, "\n\r    Blue button pressed");
-	  HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
+		HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
 
-#ifdef DATA_MODE_ACC
+#if DATA_MODE == 0
 		enable_acquisition = 1;
 
 		msgLen = sprintf(msgDebug, "\n\r    Insert the letter you will draw (in caps):");
 		HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
 		HAL_UART_Receive(&huart2, (uint8_t*)msgRx, 1, 100);
 		letter[0] = msgRx[0];
-#else
-		enable_inference = 1;
+#elif DATA_MODE == 2
+
+		if(enable_inference == 0){
+
+			msgLen = sprintf(msgDebug, "OK");
+			HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);		// Send to pc message in order to sync
+
+			HAL_UART_Receive(&huart2, (uint8_t*)msgRxData, DATA_LEN, 100);	    // Receive all the data
+
+			HAL_UART_Receive(&huart2, (uint8_t*)msgRxLett, LETTER_LEN, 100);		// Receive the label
+
+			letter[0] = msgRxLett[0];
+
+			enable_inference = 1;
+		}
 #endif
 	}
-
 }
 
 
-#ifdef DATA_MODE_ACC
+
+#if DATA_MODE == 0
 void HAL_TIM_PeriodElapsedCallback( TIM_HandleTypeDef *htim){
 
 	if(data_counter == max_sample){

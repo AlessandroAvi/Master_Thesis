@@ -25,7 +25,7 @@ Drivers/BSP/Components/hts221 \
 Drivers/BSP/Components/lps22hb \
 Drivers/BSP/Components/lsm303agr \
 Drivers/BSP/Components/lsm6dsl \
-Drivers/BSP/IKS01A2 \
 Drivers/STM32F4xx_HAL_Driver/Src \
 X-CUBE-AI/App \
+Drivers/BSP/IKS01A2 \
 

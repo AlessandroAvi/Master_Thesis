@@ -2,7 +2,7 @@
   ******************************************************************************
   * @file    network.h
   * @author  AST Embedded Analytics Research Platform
-  * @date    Wed Sep 15 17:37:12 2021
+  * @date    Tue Sep 21 17:30:40 2021
   * @brief   AI Tool Automatic Code Generator for Embedded NN computing
   ******************************************************************************
   * @attention
@@ -45,14 +45,16 @@
 #define AI_NETWORK_IN_SIZE_BYTES { \
   AI_NETWORK_IN_1_SIZE_BYTES, \
 }
+#define AI_NETWORK_IN_1_HEIGHT      (1)
+#define AI_NETWORK_IN_1_WIDTH       (1)
 #define AI_NETWORK_IN_1_CHANNEL     (600)
-#define AI_NETWORK_IN_1_SIZE        (600)
+#define AI_NETWORK_IN_1_SIZE        (1 * 1 * 600)
 #define AI_NETWORK_IN_1_SIZE_BYTES  (AI_NETWORK_IN_1_SIZE * 4)
 
 /******************************************************************************/
 #define AI_NETWORK_OUT_NUM       (1)
 #define AI_NETWORK_OUT { \
-  AI_BUFFER_OBJ_INIT(AI_BUFFER_FORMAT_FLOAT, 1, 1, 5, 1, NULL), \
+  AI_BUFFER_OBJ_INIT(AI_BUFFER_FORMAT_FLOAT, 1, 1, 128, 1, NULL), \
 }
 #define AI_NETWORK_OUT_SIZE { \
   AI_NETWORK_OUT_1_SIZE, \
@@ -60,12 +62,14 @@
 #define AI_NETWORK_OUT_SIZE_BYTES { \
   AI_NETWORK_OUT_1_SIZE_BYTES, \
 }
-#define AI_NETWORK_OUT_1_CHANNEL     (5)
-#define AI_NETWORK_OUT_1_SIZE        (5)
+#define AI_NETWORK_OUT_1_HEIGHT      (1)
+#define AI_NETWORK_OUT_1_WIDTH       (1)
+#define AI_NETWORK_OUT_1_CHANNEL     (128)
+#define AI_NETWORK_OUT_1_SIZE        (1 * 1 * 128)
 #define AI_NETWORK_OUT_1_SIZE_BYTES  (AI_NETWORK_OUT_1_SIZE * 4)
 
 /******************************************************************************/
-#define AI_NETWORK_N_NODES (6)
+#define AI_NETWORK_N_NODES (4)
 
 
 AI_API_DECLARE_BEGIN
@@ -91,26 +95,12 @@ AI_API_DECLARE_BEGIN
 /*!
  * @brief Get network library info as a datastruct.
  * @ingroup network
- * @param[in] network: the handler to the network context
  * @param[out] report a pointer to the report struct where to
  * store network info. See @ref ai_network_report struct for details
  * @return a boolean reporting the exit status of the API
  */
-AI_DEPRECATED
 AI_API_ENTRY
 ai_bool ai_network_get_info(
-  ai_handle network, ai_network_report* report);
-
-/*!
- * @brief Get network library report as a datastruct.
- * @ingroup network
- * @param[in] network: the handler to the network context
- * @param[out] report a pointer to the report struct where to
- * store network info. See @ref ai_network_report struct for details
- * @return a boolean reporting the exit status of the API
- */
-AI_API_ENTRY
-ai_bool ai_network_get_report(
   ai_handle network, ai_network_report* report);
 
 /*!
