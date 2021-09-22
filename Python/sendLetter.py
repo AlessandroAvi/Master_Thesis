@@ -182,7 +182,7 @@ vowels = ['A', 'E', 'I', 'O', 'U', 'NEW', 'NEW', 'NEW']
 
 
 
-send_max = 40
+send_max = 100
 
 counter         = np.zeros(send_max)
 frozen_time     = np.zeros(send_max)
@@ -193,6 +193,7 @@ w_updated       = np.zeros(send_max)
 OL_width        = np.zeros(send_max)
 OL_height       = np.zeros(send_max)
 vowel_guess     = np.zeros(send_max)
+vowel_true      = []
 
 iter = 0
 
@@ -209,11 +210,14 @@ while iter<send_max-1:
 
     rx = serialInst.read(2)
 
+    time.sleep(0.001)
+
     n = int(random.uniform(0, data_prova.shape[0]))
 
     # Transform array in transferable uint8_t array
     txAry = aryToLowHigh(data_prova[n,:])
     txLett = label_prova[n]
+    vowel_true.append(txLett)
 
     serialInst.write(txAry)                 # Send data array
     serialInst.write(txLett.encode())       # Send lebel letter
@@ -241,6 +245,7 @@ while iter<send_max-1:
     print(f'   Random index is:                  {n}')
     print(f'   Inference number:                 {counter[iter]}')
     print(f'   The letter sent is:               {txLett}')
+
 
     if(vowel_guess[iter] == 0):
         print(f'   The letter predicted is:          NULL')
@@ -286,6 +291,61 @@ def histSTM(predic_error):
     data = [correct, mistake]
     plt.bar(['CORRECT', 'ERROR'], data)
     plt.show()
+
+
+def histSTM_letters(vowel_true, predic_error):
+
+    correct = np.zeros(8)
+    errors = np.zeros(8)
+    tot = np.zeros(8)
+
+    
+    for i in range(0, len(vowel_true)):
+
+        if(vowel_true[i]=='A'):
+            k=0
+        elif(vowel_true[i]=='E'):
+            k= 1
+        elif(vowel_true[i]=='I'):
+            k= 2
+        elif(vowel_true[i]=='O'):
+            k= 3
+        elif(vowel_true[i]=='U'):
+            k=4
+        elif(vowel_true[i]=='R'):
+            k=5
+        elif(vowel_true[i]=='B'):
+            k=6
+        elif(vowel_true[i]=='M'):
+            k=7
+
+        tot[k] +=1
+
+        if(predic_error[i] == 2):
+            correct[k] += 1
+        else:
+            errors[k] += 1
+    
+    width = 0.25
+    fig = plt.subplots(figsize =(12, 8))
+    
+    # Set position of bar on X axis
+    br1 = np.arange(len(correct))
+    br2 = [x + width for x in br1]
+    
+    # Make the plot
+    plt.bar(br1, correct, color ='g', width = width, edgecolor ='grey', label ='CORR')
+    plt.bar(br2, errors,  color ='r', width = width, edgecolor ='grey', label ='ERR')
+
+    # Adding Xticks
+    plt.ylabel('%', fontweight ='bold', fontsize = 15)
+    plt.xticks([r + width for r in range(len(correct))], ['A', 'E', 'I', 'O', 'U', 'R', 'B', 'M'],fontweight ='bold', fontsize = 15)
+    plt.title('Plot')
+
+
+    plt.legend()
+    plt.show()
+
     
 print('\n\n\n###################################')
 print('ANALYSIS OF DATA')
@@ -305,15 +365,8 @@ print(f'Average inference time for the OL model is: {round(avrg_OL,3)}ms')
 
 print()
 histSTM(predic_error)
+histSTM_letters(vowel_true, predic_error)
 
 
 
 
-
-
-
-    # Wait for space to be pressed
-    #while 1:    
-    #    if msvcrt.kbhit():
-    #        if ord(msvcrt.getch()) == 32:
-    #            break

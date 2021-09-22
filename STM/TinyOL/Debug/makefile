@@ -56,7 +56,7 @@ main-build: TinyOL.elf secondary-outputs
 
 # Tool invocations
 TinyOL.elf: $(OBJS) $(USER_OBJS) C:\Users\massi\UNI\Magistrale\Anno\ 5\Semestre\ 2\Tesi\Code\STM\TinyOL\STM32F401RETX_FLASH.ld
-	arm-none-eabi-gcc -o "TinyOL.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\massi\UNI\Magistrale\Anno 5\Semestre 2\Tesi\Code\STM\TinyOL\STM32F401RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TinyOL.map" -Wl,--gc-sections -static -L../Middlewares/ST/AI/Lib --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+	arm-none-eabi-gcc -o "TinyOL.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\massi\UNI\Magistrale\Anno 5\Semestre 2\Tesi\Code\STM\TinyOL\STM32F401RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TinyOL.map" -Wl,--gc-sections -static -L../Middlewares/ST/AI/Lib -u_printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

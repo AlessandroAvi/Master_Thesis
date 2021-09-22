@@ -1,7 +1,7 @@
 {
     "_allocate_inputs": 0,
     "_allocate_outputs": 0,
-    "cli_parameters": "generate --name network -m C:/Users/massi/UNI/Magistrale/Anno 5/Semestre 2/Tesi/Code/Python/Saved_models/ML_model/model.h5 --type keras --compression 1 --verbosity 1 --workspace C:\\Users\\massi\\AppData\\Local\\Temp\\mxAI_workspace1189388694851008109485388687539380 --output C:\\Users\\massi\\.stm32cubemx",
+    "cli_parameters": "generate --name network -m C:/Users/massi/UNI/Magistrale/Anno 5/Semestre 2/Tesi/Code/Python/Saved_models/ML_model/model.h5 --type keras --compression 1 --verbosity 1 --workspace C:\\Users\\massi\\AppData\\Local\\Temp\\mxAI_workspace1961237942650008880573148191370404 --output C:\\Users\\massi\\.stm32cubemx",
     "cli_version": {
         "major": 1,
         "micro": 1,
@@ -12,12 +12,12 @@
         "factor": null,
         "layers": {}
     },
-    "date_time": "Tue Sep 21 17:30:40 2021",
+    "date_time": "Wed Sep 22 14:56:56 2021",
     "error": 0,
     "error_str": [],
     "exec_cmd": "generate",
     "exec_duration": 0.0,
-    "hash": "e0199ed33c3d950d101a99af710f3e8c",
+    "hash": "84f5c5440eb88d23732d8f7a06053bb2",
     "inputs": [
         "input_0"
     ],

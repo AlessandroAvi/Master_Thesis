@@ -1,5 +1,5 @@
 PARAMETERS SAVED FROM THE TRAINING
- Batch size: 64
+ Batch size: 32
  Epochs: 25
  Validation split: 0.2
  Metrics: ['accuracy']

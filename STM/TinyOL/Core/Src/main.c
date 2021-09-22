@@ -141,7 +141,7 @@ int main(void)
   OL_layer.HEIGHT = AI_NETWORK_OUT_1_SIZE;
 
   OL_layer.n_epochs = 1;
-  OL_layer.l_rate = 0.005;
+  OL_layer.l_rate = 0.001;
 
 
   OL_layer.weights = (float*)calloc(OL_layer.WIDTH*OL_layer.HEIGHT, sizeof(float));
@@ -256,7 +256,7 @@ int main(void)
 	  }
 
 	  if(BlueButton == 1){
-		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10, GPIO_PIN_SET);
+		  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_10, GPIO_PIN_SET);
 	  }
 
 
@@ -318,7 +318,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 
 	if(GPIO_Pin == B1_Pin){
 
-		HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+		HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);	// LED
 
 		if(BlueButton == 0){
 
@@ -335,10 +335,10 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 
 			enable_inference = 1;
 		}
-	}else if(GPIO_Pin == GPIO_PIN_7){
+	}else if(GPIO_Pin == GPIO_PIN_5){
 
 		if(BlueButton == 1){
-			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10, GPIO_PIN_RESET);
+			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_10, GPIO_PIN_RESET);
 
 			msgLen = sprintf(msgDebug, "OK");
 			HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);		// Send to pc message in order to sync
