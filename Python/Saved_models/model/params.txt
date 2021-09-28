@@ -1,6 +1,6 @@
 PARAMETERS SAVED FROM THE TRAINING
- Batch size: 32
- Epochs: 25
+ Batch size: 16
+ Epochs: 20
  Validation split: 0.2
  Metrics: ['accuracy']
  Optimizer: Adam
@@ -12,11 +12,11 @@ Layer (type)                 Output Shape              Param #
 =================================================================
 input_layer (Dense)          (None, 128)               76928     
 _________________________________________________________________
-hidden1 (Dense)              (None, 128)               16512     
+hidden2 (Dense)              (None, 300)               38700     
 _________________________________________________________________
-output_layer (Dense)         (None, 5)                 645       
+output_layer (Dense)         (None, 5)                 1505      
 =================================================================
-Total params: 94,085
-Trainable params: 94,085
+Total params: 117,133
+Trainable params: 117,133
 Non-trainable params: 0
 _________________________________________________________________
