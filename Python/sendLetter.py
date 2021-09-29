@@ -15,17 +15,14 @@ import msvcrt
 #     FUNCTION DEFINITIONS
 ########################################
 
-def parseTXT(datasetname):
-    
+def loadDataFromTxt(filename):
     folder_path = 'C:/Users/massi/UNI/Magistrale/Anno 5/Semestre 2/Tesi/Code/STM/Letter_dataset/'
-    dataset_path = folder_path + datasetname + ".txt"
+    dataset_path = folder_path + 'Clean_dataset/' + filename + ".txt"
 
-    # Now use panda to handle the dataset
     columnNames = ['acquisition','letter','ax','ay','az']
     dataset = pd.read_csv(dataset_path,header = None, names=columnNames,na_values=',')
 
-    # Find the number of tests
-    last_index = max(np.unique(dataset.acquisition))
+    last_index = max(np.unique(dataset.acquisition)) # Find the number of tests
 
     second_axis = []
     for acq_index in range(1,last_index):
@@ -40,24 +37,20 @@ def parseTXT(datasetname):
         ax = temp.ax
         ay = temp.ay
         az = temp.az
-        timesteps = az.shape[0]
         dtensor = np.vstack([dtensor,np.concatenate((ax, ay, az))])
         labels = np.append(labels,np.unique(temp.letter))
         labels_lett = np.append(labels,np.unique(temp.letter))
     contains = np.append(contains, np.unique(labels_lett))
-
-    labels = np.asarray(pd.get_dummies(labels),dtype = np.int8)
 
     print(f'******* Dataset for letter {contains}\n')
     print(f'Raw shape        -> {dataset.shape}')
     print(f'Columns          -> {columnNames}' )
     print()
     print(f'Tot samples      -> {last_index}')
-    print(f'1 Sample is long -> {timesteps}')
+    print(f'1 Sample is long -> {az.shape[0]}')
     print()
-    
-    return dtensor, labels_lett
 
+    return dtensor, labels_lett
 
 
 def parseTrainValid(dtensor, labels):
@@ -131,19 +124,19 @@ serialInst.open()
 print('Serial port initialized')
 
 # DATASET FOR VOWELS
-tmp_1, tmp_2 = parseTXT('dataset_vowels')
+tmp_1, tmp_2 = loadDataFromTxt('augmented_vowels')
 train_data, train_label = parseTrainValid(tmp_1, tmp_2)
 
 # DATASET FOR LETTER B
-tmp_1, tmp_2 = parseTXT('dataset_b')
+tmp_1, tmp_2 = loadDataFromTxt('B_dataset')
 B_train_data, B_train_label = parseTrainValid(tmp_1, tmp_2)
 
 # DATASET FOR LETTER R
-tmp_1, tmp_2 = parseTXT('dataset_r')
+tmp_1, tmp_2 = loadDataFromTxt('R_dataset')
 R_train_data, R_train_label = parseTrainValid(tmp_1, tmp_2)
 
 # DATASET FOR LETTER M
-tmp_1, tmp_2 = parseTXT('dataset_m')
+tmp_1, tmp_2 = loadDataFromTxt('M_dataset')
 M_train_data, M_train_label = parseTrainValid(tmp_1, tmp_2)
 
 # DATASET OF ALL THE LETTERS
@@ -210,7 +203,7 @@ while iter<send_max-1:
 
     rx = serialInst.read(2)
 
-    time.sleep(0.001)
+    time.sleep(0.005)
 
     n = int(random.uniform(0, data_prova.shape[0]))
 
