@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
 
 
 def plotDatasetTF(TF_train, TF_test):
@@ -34,11 +35,14 @@ def plotSimuRes(plotEnable):
     
     avrg_accuracy = np.zeros(len(names_ary))
     avrg_err = np.zeros(len(names_ary))
+    
+
 
     count = 0
     for filename in names_ary:
         
         data = np.loadtxt(ROOT_TXT_PATH + filename +'.txt', delimiter=',')
+        accuracy = np.zeros(int(data.shape[0]/3))
 
         for i in range(0, int(data.shape[0]/3)):
             k=i*3

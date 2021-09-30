@@ -33,6 +33,8 @@
 #include "ai_platform.h"
 #include "ai_datatypes_defines.h"
 
+#include "letter_B.h"
+
 // My library include
 #include "TinyOL.h"
 
@@ -48,6 +50,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+//#define MOBA_X_DEBUG
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -192,7 +195,7 @@ int main(void)
 
   // ***********************************
 
-
+  int CICCIO = 0;
 
   /* USER CODE END 2 */
 
@@ -200,14 +203,18 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-
 	  // When blue button is pressed perform these actions
 	  if(enable_inference == 1){
 
 		  // Reset the info carried from the OL layer
 		  OL_resetInfo(&OL_layer);
 
-		  // Reconstruct the message sent from the lapton (IMPORTANT FOR NEGATIVE NUMBERS)
+#ifdef MOBA_X_DEBUG
+		  for(int k =0; k<600; k++){
+			  in_data[k] = sample_B[CICCIO][k];
+		  }
+#else
+		  // Reconstruct the message sent from the laptop (IMPORTANT FOR NEGATIVE NUMBERS)
 		  uint8_t tmp;
 		  for(int k=0; k<600; k++){
 			  tmp = msgRxData[k*2];
@@ -218,7 +225,7 @@ int main(void)
 				  in_data[k] = (msgRxData[(k*2)] << 8) | (msgRxData[(k*2)+1]);
 			  }
 		  }
-
+#endif
 
 		  startTime = HAL_GetTick();
 
@@ -237,31 +244,44 @@ int main(void)
 		  endOLTime = HAL_GetTick();
 
 		  // Send info data to laptop
-			msgInfo[0] = counter;
-			msgInfo[1] = endFrozenTime-startTime;
-			msgInfo[2] = endOLTime-endFrozenTime;
-			msgInfo[3] = OL_layer.new_class;
-			msgInfo[4] = OL_layer.prediction_correct;
-			msgInfo[5] = OL_layer.w_update;
-			msgInfo[6] = OL_layer.WIDTH;
-			msgInfo[7] = OL_layer.HEIGHT;
-			msgInfo[8] = OL_layer.vowel_guess;
+		  msgInfo[0] = counter;
+		  msgInfo[1] = (uint8_t)(endFrozenTime-startTime);
+		  msgInfo[2] = (uint8_t)(endOLTime-endFrozenTime);
+		  msgInfo[3] = OL_layer.new_class;
+		  msgInfo[4] = OL_layer.prediction_correct;
+		  msgInfo[5] = OL_layer.w_update;
+		  msgInfo[6] = OL_layer.WIDTH;
+		  msgInfo[7] = OL_layer.HEIGHT;
+		  msgInfo[8] = OL_layer.vowel_guess;
 
-			HAL_UART_Transmit(&huart2, (uint8_t*)msgInfo, 9, 100);
+#ifdef  MOBA_X_DEBUG
+		  msgLen = sprintf(msgDebug, "\n\r%d, %d, %d, %d, %d, %d, %d, %d, %c\n\n", msgInfo[0],msgInfo[1],msgInfo[2],msgInfo[3],msgInfo[4],msgInfo[5],msgInfo[6],msgInfo[7],msgInfo[8]);
+		  HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
+#else
+		  HAL_UART_Transmit(&huart2, (uint8_t*)msgInfo, 9, 100);
+#endif
 
 
 		  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
 		  counter +=1;
 		  enable_inference = 0;
+		  BlueButton = 0;
+
 	  }
 
-	  if(BlueButton == 1){
+	  if(BlueButton == 1 && enable_inference == 0){
+		  HAL_Delay(10);
 		  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_10, GPIO_PIN_SET);
 	  }
 
+	  // ************************************************************************************
+	  // IMPORTANT
+	  // Remember to always comment the line below -> MX_X_CUBE_AI_Process();
+	  // ************************************************************************************
 
     /* USER CODE END WHILE */
 
+  //MX_X_CUBE_AI_Process();
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -316,42 +336,53 @@ void SystemClock_Config(void)
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 
-	if(GPIO_Pin == B1_Pin){
+	// IF BLUE BUTTON IS PRESSED
+	if(BlueButton == 0){
 
-		HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);	// LED
+		if(GPIO_Pin == B1_Pin){
 
-		if(BlueButton == 0){
+			HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);	// LED
 
 			BlueButton = 1;
 
+#ifndef MOBA_X_DEBUG
 			msgLen = sprintf(msgDebug, "OK");
 			HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);		// Send to pc message in order to sync
 
 			HAL_UART_Receive(&huart2, (uint8_t*)msgRxData, DATA_LEN, 100);	    // Receive all the data
 
-			HAL_UART_Receive(&huart2, (uint8_t*)msgRxLett, LETTER_LEN, 100);		// Receive the label
+			HAL_UART_Receive(&huart2, (uint8_t*)msgRxLett, LETTER_LEN, 100);	// Receive the label
 
 			letter[0] = msgRxLett[0];
-
-			enable_inference = 1;
-		}
-	}else if(GPIO_Pin == GPIO_PIN_5){
-
-		if(BlueButton == 1){
-			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_10, GPIO_PIN_RESET);
-
-			msgLen = sprintf(msgDebug, "OK");
-			HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);		// Send to pc message in order to sync
-
-			HAL_UART_Receive(&huart2, (uint8_t*)msgRxData, DATA_LEN, 100);	    // Receive all the data
-
-			HAL_UART_Receive(&huart2, (uint8_t*)msgRxLett, LETTER_LEN, 100);		// Receive the label
-
-			letter[0] = msgRxLett[0];
+#endif
 
 			enable_inference = 1;
 		}
 	}
+
+/*
+	if(BlueButton == 1){
+		if(GPIO_Pin == GPIO_PIN_5){
+
+			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_10, GPIO_PIN_RESET);
+
+#ifndef MOBA_X_DEBUG
+			msgLen = sprintf(msgDebug, "OK");
+			HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);		// Send to pc message in order to sync
+
+			HAL_UART_Receive(&huart2, (uint8_t*)msgRxData, DATA_LEN, 100);	    // Receive all the data
+
+			HAL_UART_Receive(&huart2, (uint8_t*)msgRxLett, LETTER_LEN, 100);	// Receive the label
+
+			letter[0] = msgRxLett[0];
+#endif
+
+			enable_inference = 1;
+		}
+	}
+*/
+
+
 }
 
 

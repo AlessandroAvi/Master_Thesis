@@ -15,6 +15,10 @@ void OL_resetInfo(OL_LAYER_STRUCT * layer){
 	layer->w_update = 0;
 	layer->vowel_guess = 'Q';
 
+	for(int i =0; i<layer->WIDTH; i++){
+		layer->y_pred[i] = 0;
+	}
+
 }
 
 
@@ -47,12 +51,27 @@ void OL_feedForward(OL_LAYER_STRUCT * layer, float * input){
 	HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
 #endif
 
-	for(int i=0; i<layer->WIDTH; i++){			// Da 0 a 5
-		for(int j=0; j< layer->HEIGHT; j++){	// 0 a 128
-			layer->y_pred[i] += layer->weights[layer->HEIGHT*i+j]* input[j];
-		}
-		layer->y_pred[i] += layer->biases[i];
+
+	int h = layer->HEIGHT;
+	int w = layer->WIDTH;
+
+	int tmp_y_vec[layer->WIDTH];
+
+	for(int i=0; i<layer->WIDTH; i++){
+		tmp_y_vec[i]=0;
 	}
+
+	for(int i=0; i<w; i++){
+		for(int j=0; j< h; j++){
+			tmp_y_vec[i] += layer->weights[h*i+j]*input[j];
+		}
+		tmp_y_vec[i] += layer->biases[i];
+	}
+
+	for(int i=0; i<layer->WIDTH; i++){
+		layer->y_pred[i]=tmp_y_vec[i];
+	}
+
 };
 
 
@@ -138,6 +157,11 @@ void OL_increaseWeightDim(OL_LAYER_STRUCT * layer){
 	uint8_t w = layer->WIDTH;
 
 	float * tmp_ptr = calloc(h*w,sizeof(float));
+	if(tmp_ptr==NULL){
+		msgLen = sprintf(msgDebug, "\n\r ERROR: Failed to allocate memory for increased weights ");
+		HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
+	}
+
 
 	for(int i=0; i<(h-1)*(w-1); i++){
 			tmp_ptr[i] = layer->weights[i]; 	// If weight already exist fill with old ones
@@ -161,6 +185,10 @@ void OL_increaseLabel(OL_LAYER_STRUCT * layer, char new_letter){
 	uint8_t w = layer->WIDTH;
 
 	char * tmp_ptr = malloc(w*sizeof(char));
+	if(tmp_ptr==NULL){
+		msgLen = sprintf(msgDebug, "\n\r ERROR: Failed to allocate memory for increased label ");
+		HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
+	}
 
 	for(int i=0; i<w; i++){
 		if(i<w-1){
@@ -188,6 +216,12 @@ void OL_increaseBiasDim(OL_LAYER_STRUCT * layer){
 	uint8_t w = layer->WIDTH;
 
 	float * tmp_ptr = calloc(w,sizeof(float));
+	if(tmp_ptr==NULL){
+		msgLen = sprintf(msgDebug, "\n\r ERROR: Failed to allocate memory for increased bias ");
+		HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
+	}
+
+
 
 	for(int i=0; i<w-1; i++){
 			tmp_ptr[i] = layer->biases[i]; 		// If bias already exist, fill with old ones
@@ -249,11 +283,13 @@ void OL_train(OL_LAYER_STRUCT * layer, float *x, float *y_true, char *letter){
 
 	for(int i=0; i<layer->n_epochs; i++){
 
-		// Perform inference of OL LAYER
+		// INFERENCE
 		OL_feedForward(layer, x);
+		// IL BACO E QUA SOPRA
 		OL_softmax(layer);
 
-		// Find the max value in the prediction and in the true label
+
+		// FIND MAX HOT ONE ENCODED
 		layer->vowel_guess = 0;
 		uint8_t max_pred = 0;
 		uint8_t max_true = 0;
@@ -268,14 +304,10 @@ void OL_train(OL_LAYER_STRUCT * layer, float *x, float *y_true, char *letter){
 			if(max_true < y_true[i]){
 				max_i_true=i;
 				max_true = y_true[i];
-
 			}
 		}
 
-
-
-		// Check if prediction is correct or not
-
+		// COMPARE TRUE AND PREDICTION
 		if(max_i_true != max_i_pred){
 #ifdef MSG_ACTIVE
 				msgLen = sprintf(msgDebug, "\r    Performing weights update\n");
@@ -287,10 +319,6 @@ void OL_train(OL_LAYER_STRUCT * layer, float *x, float *y_true, char *letter){
 		}else{
 			layer->prediction_correct = 2;
 		}
-
-
-
-
 
 	}
 };
