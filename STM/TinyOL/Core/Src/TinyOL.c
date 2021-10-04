@@ -51,11 +51,12 @@ void OL_feedForward(OL_LAYER_STRUCT * layer, float * input){
 	HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
 #endif
 
+	uint8_t msg_tmp[1];
 
 	int h = layer->HEIGHT;
 	int w = layer->WIDTH;
 
-	int tmp_y_vec[layer->WIDTH];
+	float tmp_y_vec[layer->WIDTH];
 
 	for(int i=0; i<layer->WIDTH; i++){
 		tmp_y_vec[i]=0;

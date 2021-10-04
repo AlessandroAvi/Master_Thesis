@@ -33,8 +33,6 @@
 #include "ai_platform.h"
 #include "ai_datatypes_defines.h"
 
-#include "letter_B.h"
-
 // My library include
 #include "TinyOL.h"
 

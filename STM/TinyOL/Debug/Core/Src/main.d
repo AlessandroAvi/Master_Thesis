@@ -30,8 +30,8 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Core/Inc/gpio.h ../X-CUBE-AI/App/app_x-cube-ai.h \
  ../Middlewares/ST/AI/Inc/ai_platform.h ../X-CUBE-AI/App/network.h \
  ../X-CUBE-AI/App/network_config.h ../X-CUBE-AI/App/network_data.h \
- ../Middlewares/ST/AI/Inc/ai_datatypes_defines.h ../Core/Inc/letter_B.h \
- ../Core/Inc/TinyOL.h ../Core/Inc/usart.h ../Core/Inc/layer_weights.h
+ ../Middlewares/ST/AI/Inc/ai_datatypes_defines.h ../Core/Inc/TinyOL.h \
+ ../Core/Inc/usart.h ../Core/Inc/layer_weights.h
 
 ../Core/Inc/main.h:
 
@@ -108,8 +108,6 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../X-CUBE-AI/App/network_data.h:
 
 ../Middlewares/ST/AI/Inc/ai_datatypes_defines.h:
-
-../Core/Inc/letter_B.h:
 
 ../Core/Inc/TinyOL.h:
 

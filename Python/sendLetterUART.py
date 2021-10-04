@@ -240,7 +240,7 @@ serialInst.open()
 print('Serial port initialized')
 
 
-send_max = 20
+send_max = 100
 
 # STM COMMUNICATION - Init info containers
 counter         = np.zeros(send_max)
@@ -255,8 +255,8 @@ vowel_guess     = np.zeros(send_max)
 vowel_true      = []
 
 
-data_prova  = B_train_data
-label_prova = B_train_label
+data_prova  = mixed_data       # train_data      B_train_data      mixed_data
+label_prova = mixed_label      # train_label     B_train_label     mixed_label
 
 print('\n\n')
 print('----------------------------------------------------------------')
@@ -269,27 +269,26 @@ print('\n')
 
 
 iter = 0
+n=0
 while iter<send_max-1:
 
     rx = serialInst.read(2)     # Read the message "OK" from the STM
 
-    if(chr(int(rx[0])) != 'O' and chr(int(rx[0])) != 'K'):
-        print('**** OUT OF SYNC ***')
+    #n = int(random.uniform(0, data_prova.shape[0]))     # Generate a random number
 
-    n = int(random.uniform(0, data_prova.shape[0]))     # Generate a random number
+    n += 1
 
-    # Transform array in transferable uint8_t array
+    # DATA: Preapare output data
     txAry = aryToLowHigh(data_prova[n,:])
     txLett = label_prova[n]
     vowel_true.append(txLett)
 
-    print(txAry[-10:])
-
+    # DATA: Send the data to uart
     serialInst.write(txAry)                 # Send data array
     serialInst.write(txLett.encode())       # Send lebel letter
 
     print('PC: Sent, wait to receive info...')
-   
+
     rx = serialInst.read(9)     # Read the encoded message sent from STM
 
     iter +=1
