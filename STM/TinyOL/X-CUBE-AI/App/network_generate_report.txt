@@ -1,6 +1,6 @@
 Neural Network Tools for STM32AI v1.4.1 (STM.ai v6.0.0-RC6)
-Created date       : 2021-09-30 10:48:28
-Parameters         : generate --name network -m C:/Users/massi/UNI/Magistrale/Anno 5/Semestre 2/Tesi/Code/Python/Saved_models/Frozen_model/model.h5 --type keras --compression 1 --verbosity 1 --workspace C:\Users\massi\AppData\Local\Temp\mxAI_workspace620411408587004857796026789623078 --output C:\Users\massi\.stm32cubemx
+Created date       : 2021-10-04 18:02:55
+Parameters         : generate --name network -m C:/Users/massi/UNI/Magistrale/Anno 5/Semestre 2/Tesi/Code/Python/Saved_models/Frozen_model/model.h5 --type keras --compression 1 --verbosity 1 --workspace C:\Users\massi\AppData\Local\Temp\mxAI_workspace1175912549197006193299309976211713 --output C:\Users\massi\.stm32cubemx
 
 Exec/report summary (generate)
 ------------------------------------------------------------------------------------------------------------------------
@@ -9,11 +9,11 @@ type               : keras
 c_name             : network
 compression        : None
 quantize           : None
-workspace dir      : C:\Users\massi\AppData\Local\Temp\mxAI_workspace620411408587004857796026789623078
+workspace dir      : C:\Users\massi\AppData\Local\Temp\mxAI_workspace1175912549197006193299309976211713
 output dir         : C:\Users\massi\.stm32cubemx
 
 model_name         : model
-model_hash         : 6e0f018c540403eaacc9d299f84e29be
+model_hash         : 08b5f8d589cad5f82a2d562ec06f1f09
 input              : input_0 [600 items, 2.34 KiB, ai_float, FLOAT32, (1, 1, 600)]
 inputs (total)     : 2.34 KiB
 output             : hidden2_nl [300 items, 1.17 KiB, ai_float, FLOAT32, (1, 1, 300)]

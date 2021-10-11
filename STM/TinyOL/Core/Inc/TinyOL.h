@@ -8,7 +8,22 @@
 
 
 
+// ******************************
+//		  CONTAINERS DECLARATIONS
+// ******************************
+
+
+typedef enum{
+	MODE_OL=0,
+	MODE_OL_V2,
+	MODE_CWR
+} OL_LAYER_ALGORITHM;
+
+
 typedef struct {
+
+	// Type of algorithm to use for updating weights
+	int ALGORITHM;
 
 	// Shape
 	int WIDTH;
@@ -17,13 +32,15 @@ typedef struct {
 	// Training parameters
 	float l_rate;
 	int n_epochs;
+	int batch_size;
 
 	// Containers
 	char* label;
 	float *weights;
 	float *biases;
 	float *y_pred;
-
+	float *weights_2;	// TO BE USED ONLY IN THE LWF/CWR/mini batches CASE
+	float *biases_2;    // TO BE USED ONLY IN THE LWF/CWR/mini batches CASE
 
 	// Info parameters
 	uint8_t prediction_correct;	// True/flase
@@ -31,7 +48,12 @@ typedef struct {
 	uint8_t w_update;	// True/flase
 	char vowel_guess;
 
+	uint16_t OL_ERROR;
+
 }OL_LAYER_STRUCT;
+
+
+
 
 
 // Containers for the debug messages
@@ -41,12 +63,18 @@ typedef struct {
 
 char msgDebug[BUFF_LEN];
 uint8_t msgRxData[DATA_LEN];
-uint8_t msgInfo[9];
+uint8_t msgInfo[8];
 char msgRxLett[LETTER_LEN];
 int msgLen;
 
+
+
+
+
+
+
 // ******************************
-//						FUNCTIONS
+//	       FUNCTIONS DECLARATIONS
 // ******************************
 
 /*   Function that resets the fields denominated "info" inside the struct of the layer  */
@@ -64,34 +92,39 @@ void OL_softmax(OL_LAYER_STRUCT * layer);
 
 /*   Function that performs the feed forward of the OL layer
  *   output = W*input + bias                         */
-void OL_feedForward(OL_LAYER_STRUCT * layer, float *input);
+void OL_feedForward(OL_LAYER_STRUCT * layer, float * input, float * weights, float * bias);
 
 
 /*   Function that performs update of weights and biases according to the
  *   gradient descent rule applied on softmax and Cross entropy loss func   */
-void OL_gradientDescend(OL_LAYER_STRUCT * layer, float* input, float *y_true);
+void OL_gradientDescend(OL_LAYER_STRUCT * layer, float * input, float * y_true);
 
 
 /*   Function that finds if the new data in input is a known label, if not
  *   enlarge the weight and bias matrix and add the letter   */
-void OL_checkNewClass(OL_LAYER_STRUCT * layer, char *letter);
+void OL_checkNewClass(OL_LAYER_STRUCT * layer, char * letter);
 
 
 /*   Function that performs the entire training of the OL layer    */
-void OL_train(OL_LAYER_STRUCT * layer, float *x, float *y_true, char *letter);
+void OL_train(OL_LAYER_STRUCT * layer, float * x, float * y_true, char * letter);
 
 
 /*   Function that increases the dimension of the weight array
- *   Note that it allocated a new array and de allocated the old one       */
-void OL_increaseWeightDim(OL_LAYER_STRUCT * layer);
+ *   Note that it allocated a new array and de-allocated the old one       */
+void OL_increaseWeightDim(OL_LAYER_STRUCT * layer, float * weight_matr);
 
 
 /*   Function that increases the dimension of the bias array
- *   Note that it allocated a new array and de allocated the old one       */
-void OL_increaseBiasDim(OL_LAYER_STRUCT * layer);
+ *   Note that it allocated a new array and de-allocated the old one       */
+void OL_increaseBiasDim(OL_LAYER_STRUCT * layer, float * bias_ary);
 
 
+/*   Function that checks if the prediction is correct and builds
+ *   a message that makes it easier to understand the outcome      */
 void PRINT_checkLabels(OL_LAYER_STRUCT * layer, float * y_true);
 
 
-void UART_sendInfo(uint8_t counter, uint8_t froz_time, uint8_t OL_time, OL_LAYER_STRUCT * layer);
+
+
+
+

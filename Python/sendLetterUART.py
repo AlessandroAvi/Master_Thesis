@@ -98,11 +98,13 @@ def histSTM_letters(vowel_true, predic_error):
     correct = np.zeros(8)
     errors  = np.zeros(8)
     tot     = np.zeros(8)
+    correct_perc = np.zeros(8)
+    mistake_perc = np.zeros(8)
 
     for i in range(0, len(vowel_true)):
 
         if(vowel_true[i]=='A'):
-            k=0
+            k= 0
         elif(vowel_true[i]=='E'):
             k= 1
         elif(vowel_true[i]=='I'):
@@ -110,13 +112,13 @@ def histSTM_letters(vowel_true, predic_error):
         elif(vowel_true[i]=='O'):
             k= 3
         elif(vowel_true[i]=='U'):
-            k=4
+            k= 4
         elif(vowel_true[i]=='R'):
-            k=5
+            k= 5
         elif(vowel_true[i]=='B'):
-            k=6
+            k= 6
         elif(vowel_true[i]=='M'):
-            k=7
+            k= 7
 
         tot[k] +=1
 
@@ -124,6 +126,13 @@ def histSTM_letters(vowel_true, predic_error):
             correct[k] += 1
         else:
             errors[k] += 1
+
+
+    for i in range(0, len(correct)):
+        if(correct[i]!=0):
+            correct_perc[i] = round(correct[i]/tot[i],2)*100
+        if(errors[i]!=0):
+            mistake_perc[i] = round(errors[i]/tot[i],2)*100
     
     width = 0.25
     fig = plt.subplots(figsize =(12, 8))
@@ -133,8 +142,8 @@ def histSTM_letters(vowel_true, predic_error):
     br2 = [x + width for x in br1]
     
     # Make the plot
-    plt.bar(br1, correct, color ='g', width = width, edgecolor ='grey', label ='CORR')
-    plt.bar(br2, errors,  color ='r', width = width, edgecolor ='grey', label ='ERR')
+    plt.bar(br1, correct_perc, color ='g', width = width, edgecolor ='grey', label ='CORR')
+    plt.bar(br2, mistake_perc, color ='r', width = width, edgecolor ='grey', label ='ERR')
 
     # Adding Xticks
     plt.ylabel('%', fontweight ='bold', fontsize = 15)
@@ -142,6 +151,10 @@ def histSTM_letters(vowel_true, predic_error):
     plt.title('Plot')
 
     plt.legend()
+
+    PLOT_PATH = 'C:/Users/massi/UNI/Magistrale/Anno 5/Semestre 2/Tesi/Code/Python/Plots/'
+    plt.savefig(PLOT_PATH + 'STM_detailedPerformance.png')
+
     plt.show()
 
 
@@ -158,11 +171,18 @@ def histSTM(predic_error):
         elif(predic_error[i] == 1):
             mistake += 1
 
-    print(f'Correct inferences -> {round(correct/len(predic_error),2) *100} %')
-    print(f'Wrong inferences   -> {round(mistake/len(predic_error),2) *100} %')
+    correct_perc = round(correct/len(predic_error),4) *100
+    mistake_perc = round(mistake/len(predic_error),4) *100
 
-    data = [correct, mistake]
+    print(f'Correct inferences -> {correct_perc} %')
+    print(f'Wrong inferences   -> {mistake_perc} %')
+
+    data = [correct_perc, mistake_perc]
     plt.bar(['CORRECT', 'ERROR'], data)
+
+    PLOT_PATH = 'C:/Users/massi/UNI/Magistrale/Anno 5/Semestre 2/Tesi/Code/Python/Plots/'
+    plt.savefig(PLOT_PATH + 'STM_performance.png')
+
     plt.show()
 
 
@@ -179,12 +199,13 @@ def histSTM(predic_error):
 
 print('\n\n\n')
 print('---------------------------------------------------------')
-print('  ____   _    ____  ____  _____   ____    _  _____  _   ')
-print(' |  _ \ / \  |  _ \/ ___|| ____| |  _ \  / \|_   _|/ \   ')
-print(' | |_) / _ \ | |_) \___ \|  _|   | | | |/ _ \ | | / _ \  ')
-print(' |  __/ ___ \|  _ < ___) | |___  | |_| / ___ \| |/ ___ \ ')
-print(' |_| /_/   \_\_| \_\____/|_____| |____/_/   \_\_/_/   \_\ ')
+print('  ____  ____  _____ ____   _    ____  _____   ____    _  _____  _    ____  _____ _____ ')
+print(' |  _ \|  _ \| ____|  _ \ / \  |  _ \| ____| |  _ \  / \|_   _|/ \  / ___|| ____|_   _|')
+print(' | |_) | |_) |  _| | |_) / _ \ | |_) |  _|   | | | |/ _ \ | | / _ \ \___ \|  _|   | |  ')
+print(' |  __/|  _ <| |___|  __/ ___ \|  _ <| |___  | |_| / ___ \| |/ ___ \ ___) | |___  | |  ')
+print(' |_|   |_| \_\_____|_| /_/   \_\_| \_\_____| |____/_/   \_\_/_/   \_\____/|_____| |_|  ')
 print('\n')
+
 
 
 # DATASET - Vowels
@@ -240,7 +261,7 @@ serialInst.open()
 print('Serial port initialized')
 
 
-send_max = 100
+send_max = 60
 
 # STM COMMUNICATION - Init info containers
 counter         = np.zeros(send_max)
@@ -274,9 +295,7 @@ while iter<send_max-1:
 
     rx = serialInst.read(2)     # Read the message "OK" from the STM
 
-    #n = int(random.uniform(0, data_prova.shape[0]))     # Generate a random number
-
-    n += 1
+    n = int(random.uniform(0, data_prova.shape[0]))     # Generate a random number
 
     # DATA: Preapare output data
     txAry = aryToLowHigh(data_prova[n,:])
@@ -289,7 +308,10 @@ while iter<send_max-1:
 
     print('PC: Sent, wait to receive info...')
 
-    rx = serialInst.read(9)     # Read the encoded message sent from STM
+    debug = serialInst.read(3)
+    print(debug)
+
+    rx = serialInst.read(8)     # Read the encoded message sent from STM
 
     iter +=1
 
@@ -301,8 +323,7 @@ while iter<send_max-1:
     predic_error[iter]    = rx[4]
     w_updated[iter]       = rx[5]
     OL_width[iter]        = rx[6]
-    OL_height[iter]       = rx[7]
-    vowel_guess[iter]     = rx[8]
+    vowel_guess[iter]     = rx[7]
 
 
     print('\nSTM INFERENCE RESULT')
@@ -321,7 +342,7 @@ while iter<send_max-1:
     else:
         print(f'   New class has been detected:      NO')
 
-    print(f'   Current shape of OL layer is:     {OL_width[iter]}, {OL_height[iter]}')
+    print(f'   Current shape of OL layer is:     {OL_width[iter]}')
 
     if(w_updated[iter] == 0):
         print(f'   The weights have been updated:    NO')

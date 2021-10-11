@@ -48,7 +48,6 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-//#define MOBA_X_DEBUG
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -129,44 +128,69 @@ int main(void)
   MX_X_CUBE_AI_Init();
   /* USER CODE BEGIN 2 */
 
-  // Start timer for the data recording
-
 
 
   // ***** Initialize the OL layer ****************************
   OL_LAYER_STRUCT OL_layer;
 
-  // Assign the weight and bias matrices
+  // Available algorithms are
+  //	MODE_OL
+  //	MODE_OL_V2
+  //	MODE_CWF
+  OL_layer.ALGORITHM = MODE_OL;
 
   OL_layer.WIDTH = 5;
   OL_layer.HEIGHT = AI_NETWORK_OUT_1_SIZE;
 
   OL_layer.n_epochs = 1;
-  OL_layer.l_rate = 0.001;
+  OL_layer.l_rate = 0.00005;
+  OL_layer.batch_size = 10;
+
+  OL_layer.OL_ERROR = 0;
 
 
   OL_layer.weights = (float*)calloc(OL_layer.WIDTH*OL_layer.HEIGHT, sizeof(float));
   if(OL_layer.weights==NULL){
 	  msgLen = sprintf(msgDebug, "\n\r ERROR: Failed to allocate memory for weights");
 	  HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
+	  OL_layer.OL_ERROR = 1;
   }
 
   OL_layer.biases = (float*)calloc(OL_layer.WIDTH, sizeof(float));
   if(OL_layer.biases==NULL){
 	  msgLen = sprintf(msgDebug, "\n\r ERROR: Failed to allocate memory for biases");
 	  HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
+	  OL_layer.OL_ERROR = 2;
   }
 
   OL_layer.label = (char*)calloc(OL_layer.WIDTH, sizeof(char));
   if(OL_layer.label==NULL){
 	  msgLen = sprintf(msgDebug, "\n\r ERROR: Failed to allocate memory for label");
 	  HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
+	  OL_layer.OL_ERROR = 3;
   }
 
   OL_layer.y_pred = (float*)calloc(OL_layer.WIDTH, sizeof(float));
   if(OL_layer.y_pred==NULL){
 	  msgLen = sprintf(msgDebug, "\n\r ERROR: Failed to allocate memory for y_pred");
 	  HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
+	  OL_layer.OL_ERROR = 4;
+  }
+
+  if(OL_layer.ALGORITHM == MODE_CWR){
+	  OL_layer.weights_2 = (float*)calloc(OL_layer.WIDTH*OL_layer.HEIGHT, sizeof(float));
+	  if(OL_layer.weights_2==NULL){
+		  msgLen = sprintf(msgDebug, "\n\r ERROR: Failed to allocate memory for weights_2");
+		  HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
+		  OL_layer.OL_ERROR = 5;
+	  }
+
+	  OL_layer.biases_2 = (float*)calloc(OL_layer.WIDTH, sizeof(float));
+	  if(OL_layer.biases_2==NULL){
+		  msgLen = sprintf(msgDebug, "\n\r ERROR: Failed to allocate memory for biases_2");
+		  HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
+		  OL_layer.OL_ERROR = 6;
+	  }
   }
 
 
@@ -188,12 +212,27 @@ int main(void)
 	  OL_layer.biases[i]=saved_biases[i];
   }
 
+  // Fill up weigths_2 and biases_2
+  if(OL_layer.ALGORITHM == MODE_CWR){
+	  for(int i=0; i<OL_layer.WIDTH*OL_layer.HEIGHT; i++){
+	  	  OL_layer.weights_2[i]=0;
+	  }
+
+	  for(int i=0; i<OL_layer.WIDTH; i++){
+		  OL_layer.biases_2[i]=0;
+	  }
+  }
+
   //Create container for the output prediction of OL layer
   float * y_true = (float*)calloc(OL_layer.WIDTH, sizeof(float));
+  if(y_true== NULL){
+	  msgLen = sprintf(msgDebug, "\n\r ERROR: Failed to allocate memory for y_true");
+	  HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
+	  OL_layer.OL_ERROR = 7;
+  }
 
   // ***********************************
 
-  int CICCIO = 0;
 
   /* USER CODE END 2 */
 
@@ -204,14 +243,15 @@ int main(void)
 	  // When blue button is pressed perform these actions
 	  if(enable_inference == 1){
 
+
+
+		  // *************************
+		  //                   DATA IN
+		  // *************************
+
 		  // Reset the info carried from the OL layer
 		  OL_resetInfo(&OL_layer);
 
-#ifdef MOBA_X_DEBUG
-		  for(int k =0; k<600; k++){
-			  in_data[k] = sample_B[CICCIO][k];
-		  }
-#else
 		  // Reconstruct the message sent from the laptop (IMPORTANT FOR NEGATIVE NUMBERS)
 		  uint8_t tmp;
 		  for(int k=0; k<600; k++){
@@ -223,52 +263,61 @@ int main(void)
 				  in_data[k] = (msgRxData[(k*2)] << 8) | (msgRxData[(k*2)+1]);
 			  }
 		  }
-#endif
 
-		  startTime = HAL_GetTick();
+		  startTime = HAL_GetTick();	// Time interval
+
+
+		  // *************************
+		  //                 INFERENCE
+		  // *************************
 
 		  // Perform inference from FROZEN MODEL
 		  ai_run_v2(&in_data, &out_data);
 
-		  endFrozenTime = HAL_GetTick();
+		  endFrozenTime = HAL_GetTick();	// Time interval
 
-		  // Check if the letter is known, otherwise increase dimensions
-		  OL_checkNewClass(&OL_layer, letter);
-		  OL_lettToSoft(&OL_layer, letter, y_true);
+		  OL_checkNewClass(&OL_layer, letter);			// Check if the letter is known, otherwise increase dimensions
+		  OL_lettToSoft(&OL_layer, letter, y_true);		// Transform the letter label into a hot one encoded softmax array
 
 		  // Perform training on last captured sample
 		  OL_train(&OL_layer, out_data, y_true, letter);
 
 		  endOLTime = HAL_GetTick();
 
+
+		  // *************************
+		  //                  DATA OUT
+		  // *************************
+
 		  // Send info data to laptop
-		  msgInfo[0] = counter;
-		  msgInfo[1] = (uint8_t)(endFrozenTime-startTime);
-		  msgInfo[2] = (uint8_t)(endOLTime-endFrozenTime);
-		  msgInfo[3] = OL_layer.new_class;
-		  msgInfo[4] = OL_layer.prediction_correct;
-		  msgInfo[5] = OL_layer.w_update;
-		  msgInfo[6] = OL_layer.WIDTH;
-		  msgInfo[7] = OL_layer.HEIGHT;
-		  msgInfo[8] = OL_layer.vowel_guess;
+		  msgInfo[0] = counter;								// number
+		  msgInfo[1] = (uint8_t)(endFrozenTime-startTime);	// number
+		  msgInfo[2] = (uint8_t)(endOLTime-endFrozenTime);	// number
+		  msgInfo[3] = OL_layer.new_class;					// 0 or 1
+		  msgInfo[4] = OL_layer.prediction_correct;			// 0, 1, 2
+		  msgInfo[5] = OL_layer.w_update;					// 0 or 1
+		  msgInfo[6] = OL_layer.WIDTH;						// number
+		  msgInfo[7] = OL_layer.vowel_guess;				// char
 
-#ifdef  MOBA_X_DEBUG
-		  msgLen = sprintf(msgDebug, "\n\r%d, %d, %d, %d, %d, %d, %d, %d, %c\n\n", msgInfo[0],msgInfo[1],msgInfo[2],msgInfo[3],msgInfo[4],msgInfo[5],msgInfo[6],msgInfo[7],msgInfo[8]);
-		  HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
-#else
-		  HAL_UART_Transmit(&huart2, (uint8_t*)msgInfo, 9, 100);
-#endif
+		  HAL_UART_Transmit(&huart2, (uint8_t*)msgInfo, 8, 100);
 
 
-		  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+
+		  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);	// Set low value for interrupt for infinity cycle
 		  counter +=1;
 		  enable_inference = 0;
-		  BlueButton = 0;
+		  //BlueButton = 0;
 
 	  }
 
+
+
+	  HAL_Delay(100);
+
+
+
+	  // Interrupt for infinite cycle
 	  if(BlueButton == 1 && enable_inference == 0){
-		  HAL_Delay(10);
 		  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_10, GPIO_PIN_SET);
 	  }
 
@@ -343,28 +392,29 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 
 			BlueButton = 1;
 
-#ifndef MOBA_X_DEBUG
 			msgLen = sprintf(msgDebug, "OK");
 			HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);		// Send to pc message in order to sync
 
-			HAL_UART_Receive(&huart2, (uint8_t*)msgRxData, DATA_LEN, 100);	    // Receive all the data
+			HAL_UART_Receive(&huart2, (uint8_t*)msgRxData, DATA_LEN, 100);	    // Receive all the data - array of 600
 
-			HAL_UART_Receive(&huart2, (uint8_t*)msgRxLett, LETTER_LEN, 100);	// Receive the label
+			HAL_UART_Receive(&huart2, (uint8_t*)msgRxLett, LETTER_LEN, 100);	// Receive the label - char of 1
 
 			letter[0] = msgRxLett[0];
-#endif
 
 			enable_inference = 1;
 		}
 	}
 
-/*
+	// Remember the jumper is connecte between these 2 pins for the interrupt
+	// Output: PB5
+	// Input:  PB10
+
+
 	if(BlueButton == 1){
 		if(GPIO_Pin == GPIO_PIN_5){
 
 			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_10, GPIO_PIN_RESET);
 
-#ifndef MOBA_X_DEBUG
 			msgLen = sprintf(msgDebug, "OK");
 			HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);		// Send to pc message in order to sync
 
@@ -373,12 +423,11 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 			HAL_UART_Receive(&huart2, (uint8_t*)msgRxLett, LETTER_LEN, 100);	// Receive the label
 
 			letter[0] = msgRxLett[0];
-#endif
 
 			enable_inference = 1;
 		}
 	}
-*/
+
 
 
 }

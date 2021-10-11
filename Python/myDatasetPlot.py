@@ -31,7 +31,7 @@ def plotSimuRes(plotEnable):
     
     ROOT_TXT_PATH = 'C:/Users/massi/UNI/Magistrale/Anno 5/Semestre 2/Tesi/Code/Python/SimuRes/'
     
-    names_ary = ['orig', 'vowels', 'OL', 'OL_mini', 'LWF', 'LWF_mini', 'OL_v2', 'OL_v2_min', 'CWR']
+    names_ary = ['Keras', 'OL_vowels', 'OL', 'OL_mini', 'LWF', 'LWF_mini', 'OL_v2', 'OL_v2_min', 'CWR']
     
     avrg_accuracy = np.zeros(len(names_ary))
     avrg_err = np.zeros(len(names_ary))
@@ -70,7 +70,7 @@ def plotSimuRes(plotEnable):
 
         # Adding Xticks
         plt.ylabel('%', fontweight ='bold', fontsize = 15)
-        plt.xticks([r + width for r in range(len(avrg_accuracy))], ['orig', 'vowels', 'OL', 'OL_mini', 'LWF', 'LWF_mini', 'OL_v2', 'OL_v2_min', 'CWR'],fontweight ='bold', fontsize = 15)
+        plt.xticks([r + width for r in range(len(avrg_accuracy))], ['Keras', 'OL_vowels', 'OL', 'OL_mini', 'LWF', 'LWF_mini', 'OL_v2', 'OL_v2_mini', 'CWR'],fontweight ='bold', fontsize = 15, rotation='vertical')
         plt.title('Average over 10 simulation',fontweight ='bold', fontsize = 15)
 
         PLOT_PATH = 'C:/Users/massi/UNI/Magistrale/Anno 5/Semestre 2/Tesi/Code/Python/Plots/'
