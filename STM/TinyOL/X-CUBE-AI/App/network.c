@@ -2,7 +2,7 @@
   ******************************************************************************
   * @file    network.c
   * @author  AST Embedded Analytics Research Platform
-  * @date    Mon Oct  4 18:02:55 2021
+  * @date    Tue Oct 12 09:57:32 2021
   * @brief   AI Tool Automatic Code Generator for Embedded NN computing
   ******************************************************************************
   * @attention
@@ -49,14 +49,14 @@
 #define AI_NET_OBJ_INSTANCE g_network
  
 #undef AI_NETWORK_MODEL_SIGNATURE
-#define AI_NETWORK_MODEL_SIGNATURE     "08b5f8d589cad5f82a2d562ec06f1f09"
+#define AI_NETWORK_MODEL_SIGNATURE     "67de4f0468834c651965b85a90053b0b"
 
 #ifndef AI_TOOLS_REVISION_ID
 #define AI_TOOLS_REVISION_ID     ""
 #endif
 
 #undef AI_TOOLS_DATE_TIME
-#define AI_TOOLS_DATE_TIME   "Mon Oct  4 18:02:55 2021"
+#define AI_TOOLS_DATE_TIME   "Tue Oct 12 09:57:32 2021"
 
 #undef AI_TOOLS_COMPILE_TIME
 #define AI_TOOLS_COMPILE_TIME    __DATE__ " " __TIME__
@@ -72,38 +72,38 @@ AI_STATIC ai_network AI_NET_OBJ_INSTANCE;
 AI_STATIC ai_array input_0_output_array;   /* Array #0 */
 AI_STATIC ai_array input_layer_output_array;   /* Array #1 */
 AI_STATIC ai_array input_layer_nl_output_array;   /* Array #2 */
-AI_STATIC ai_array hidden2_output_array;   /* Array #3 */
-AI_STATIC ai_array hidden2_nl_output_array;   /* Array #4 */
+AI_STATIC ai_array hidden1_output_array;   /* Array #3 */
+AI_STATIC ai_array hidden1_nl_output_array;   /* Array #4 */
 AI_STATIC ai_array input_layer_weights_array;   /* Array #5 */
 AI_STATIC ai_array input_layer_bias_array;   /* Array #6 */
-AI_STATIC ai_array hidden2_weights_array;   /* Array #7 */
-AI_STATIC ai_array hidden2_bias_array;   /* Array #8 */
+AI_STATIC ai_array hidden1_weights_array;   /* Array #7 */
+AI_STATIC ai_array hidden1_bias_array;   /* Array #8 */
 
 
 /**  Forward network tensor declarations  *************************************/
 AI_STATIC ai_tensor input_0_output;   /* Tensor #0 */
 AI_STATIC ai_tensor input_layer_output;   /* Tensor #1 */
 AI_STATIC ai_tensor input_layer_nl_output;   /* Tensor #2 */
-AI_STATIC ai_tensor hidden2_output;   /* Tensor #3 */
-AI_STATIC ai_tensor hidden2_nl_output;   /* Tensor #4 */
+AI_STATIC ai_tensor hidden1_output;   /* Tensor #3 */
+AI_STATIC ai_tensor hidden1_nl_output;   /* Tensor #4 */
 AI_STATIC ai_tensor input_layer_weights;   /* Tensor #5 */
 AI_STATIC ai_tensor input_layer_bias;   /* Tensor #6 */
-AI_STATIC ai_tensor hidden2_weights;   /* Tensor #7 */
-AI_STATIC ai_tensor hidden2_bias;   /* Tensor #8 */
+AI_STATIC ai_tensor hidden1_weights;   /* Tensor #7 */
+AI_STATIC ai_tensor hidden1_bias;   /* Tensor #8 */
 
 
 /**  Forward network tensor chain declarations  *******************************/
 AI_STATIC_CONST ai_tensor_chain input_layer_chain;   /* Chain #0 */
 AI_STATIC_CONST ai_tensor_chain input_layer_nl_chain;   /* Chain #1 */
-AI_STATIC_CONST ai_tensor_chain hidden2_chain;   /* Chain #2 */
-AI_STATIC_CONST ai_tensor_chain hidden2_nl_chain;   /* Chain #3 */
+AI_STATIC_CONST ai_tensor_chain hidden1_chain;   /* Chain #2 */
+AI_STATIC_CONST ai_tensor_chain hidden1_nl_chain;   /* Chain #3 */
 
 
 /**  Forward network layer declarations  **************************************/
 AI_STATIC ai_layer_dense input_layer_layer; /* Layer #0 */
 AI_STATIC ai_layer_nl input_layer_nl_layer; /* Layer #1 */
-AI_STATIC ai_layer_dense hidden2_layer; /* Layer #2 */
-AI_STATIC ai_layer_nl hidden2_nl_layer; /* Layer #3 */
+AI_STATIC ai_layer_dense hidden1_layer; /* Layer #2 */
+AI_STATIC ai_layer_nl hidden1_nl_layer; /* Layer #3 */
 
 
 
@@ -126,13 +126,13 @@ AI_ARRAY_OBJ_DECLARE(
 
 /* Array#3 */
 AI_ARRAY_OBJ_DECLARE(
-  hidden2_output_array, AI_ARRAY_FORMAT_FLOAT,
-  NULL, NULL, 300, AI_STATIC)
+  hidden1_output_array, AI_ARRAY_FORMAT_FLOAT,
+  NULL, NULL, 128, AI_STATIC)
 
 /* Array#4 */
 AI_ARRAY_OBJ_DECLARE(
-  hidden2_nl_output_array, AI_ARRAY_FORMAT_FLOAT|AI_FMT_FLAG_IS_IO,
-  NULL, NULL, 300, AI_STATIC)
+  hidden1_nl_output_array, AI_ARRAY_FORMAT_FLOAT|AI_FMT_FLAG_IS_IO,
+  NULL, NULL, 128, AI_STATIC)
 
 /* Array#5 */
 AI_ARRAY_OBJ_DECLARE(
@@ -146,13 +146,13 @@ AI_ARRAY_OBJ_DECLARE(
 
 /* Array#7 */
 AI_ARRAY_OBJ_DECLARE(
-  hidden2_weights_array, AI_ARRAY_FORMAT_FLOAT,
-  NULL, NULL, 38400, AI_STATIC)
+  hidden1_weights_array, AI_ARRAY_FORMAT_FLOAT,
+  NULL, NULL, 16384, AI_STATIC)
 
 /* Array#8 */
 AI_ARRAY_OBJ_DECLARE(
-  hidden2_bias_array, AI_ARRAY_FORMAT_FLOAT,
-  NULL, NULL, 300, AI_STATIC)
+  hidden1_bias_array, AI_ARRAY_FORMAT_FLOAT,
+  NULL, NULL, 128, AI_STATIC)
 
 /**  Tensor declarations section  *********************************************/
 /* Tensor #0 */
@@ -178,17 +178,17 @@ AI_TENSOR_OBJ_DECLARE(
 
 /* Tensor #3 */
 AI_TENSOR_OBJ_DECLARE(
-  hidden2_output, AI_STATIC,
+  hidden1_output, AI_STATIC,
   3, 0x0,
-  AI_SHAPE_INIT(4, 1, 300, 1, 1), AI_STRIDE_INIT(4, 4, 4, 1200, 1200),
-  1, &hidden2_output_array, NULL)
+  AI_SHAPE_INIT(4, 1, 128, 1, 1), AI_STRIDE_INIT(4, 4, 4, 512, 512),
+  1, &hidden1_output_array, NULL)
 
 /* Tensor #4 */
 AI_TENSOR_OBJ_DECLARE(
-  hidden2_nl_output, AI_STATIC,
+  hidden1_nl_output, AI_STATIC,
   4, 0x0,
-  AI_SHAPE_INIT(4, 1, 300, 1, 1), AI_STRIDE_INIT(4, 4, 4, 1200, 1200),
-  1, &hidden2_nl_output_array, NULL)
+  AI_SHAPE_INIT(4, 1, 128, 1, 1), AI_STRIDE_INIT(4, 4, 4, 512, 512),
+  1, &hidden1_nl_output_array, NULL)
 
 /* Tensor #5 */
 AI_TENSOR_OBJ_DECLARE(
@@ -206,17 +206,17 @@ AI_TENSOR_OBJ_DECLARE(
 
 /* Tensor #7 */
 AI_TENSOR_OBJ_DECLARE(
-  hidden2_weights, AI_STATIC,
+  hidden1_weights, AI_STATIC,
   7, 0x0,
-  AI_SHAPE_INIT(4, 128, 300, 1, 1), AI_STRIDE_INIT(4, 4, 512, 153600, 153600),
-  1, &hidden2_weights_array, NULL)
+  AI_SHAPE_INIT(4, 128, 128, 1, 1), AI_STRIDE_INIT(4, 4, 512, 65536, 65536),
+  1, &hidden1_weights_array, NULL)
 
 /* Tensor #8 */
 AI_TENSOR_OBJ_DECLARE(
-  hidden2_bias, AI_STATIC,
+  hidden1_bias, AI_STATIC,
   8, 0x0,
-  AI_SHAPE_INIT(4, 1, 300, 1, 1), AI_STRIDE_INIT(4, 4, 4, 1200, 1200),
-  1, &hidden2_bias_array, NULL)
+  AI_SHAPE_INIT(4, 1, 128, 1, 1), AI_STRIDE_INIT(4, 4, 4, 512, 512),
+  1, &hidden1_bias_array, NULL)
 
 
 
@@ -252,40 +252,40 @@ AI_LAYER_OBJ_DECLARE(
   NL_TYPE, 0x0, NULL,
   nl, forward_relu,
   &input_layer_nl_chain,
-  &AI_NET_OBJ_INSTANCE, &hidden2_layer, AI_STATIC, 
+  &AI_NET_OBJ_INSTANCE, &hidden1_layer, AI_STATIC, 
   .nl_params = NULL, 
 )
 
 AI_TENSOR_CHAIN_OBJ_DECLARE(
-  hidden2_chain, AI_STATIC_CONST, 4,
+  hidden1_chain, AI_STATIC_CONST, 4,
   AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &input_layer_nl_output),
-  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &hidden2_output),
-  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &hidden2_weights, &hidden2_bias),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &hidden1_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &hidden1_weights, &hidden1_bias),
   AI_TENSOR_LIST_OBJ_EMPTY
 )
 
 AI_LAYER_OBJ_DECLARE(
-  hidden2_layer, 1,
+  hidden1_layer, 1,
   DENSE_TYPE, 0x0, NULL,
   dense, forward_dense,
-  &hidden2_chain,
-  &AI_NET_OBJ_INSTANCE, &hidden2_nl_layer, AI_STATIC, 
+  &hidden1_chain,
+  &AI_NET_OBJ_INSTANCE, &hidden1_nl_layer, AI_STATIC, 
 )
 
 AI_TENSOR_CHAIN_OBJ_DECLARE(
-  hidden2_nl_chain, AI_STATIC_CONST, 4,
-  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &hidden2_output),
-  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &hidden2_nl_output),
+  hidden1_nl_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &hidden1_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &hidden1_nl_output),
   AI_TENSOR_LIST_OBJ_EMPTY,
   AI_TENSOR_LIST_OBJ_EMPTY
 )
 
 AI_LAYER_OBJ_DECLARE(
-  hidden2_nl_layer, 1,
+  hidden1_nl_layer, 1,
   NL_TYPE, 0x0, NULL,
   nl, forward_relu,
-  &hidden2_nl_chain,
-  &AI_NET_OBJ_INSTANCE, &hidden2_nl_layer, AI_STATIC, 
+  &hidden1_nl_chain,
+  &AI_NET_OBJ_INSTANCE, &hidden1_nl_layer, AI_STATIC, 
   .nl_params = NULL, 
 )
 
@@ -293,13 +293,13 @@ AI_LAYER_OBJ_DECLARE(
 AI_NETWORK_OBJ_DECLARE(
   AI_NET_OBJ_INSTANCE, AI_STATIC,
   AI_BUFFER_OBJ_INIT(AI_BUFFER_FORMAT_U8,
-                     1, 1, 462512, 1,
+                     1, 1, 373760, 1,
                      NULL),
   AI_BUFFER_OBJ_INIT(AI_BUFFER_FORMAT_U8,
-                     1, 1, 1712, 1,
+                     1, 1, 1024, 1,
                      NULL),
   AI_TENSOR_LIST_IO_OBJ_INIT(AI_FLAG_NONE, AI_NETWORK_IN_NUM, &input_0_output),
-  AI_TENSOR_LIST_IO_OBJ_INIT(AI_FLAG_NONE, AI_NETWORK_OUT_NUM, &hidden2_nl_output),
+  AI_TENSOR_LIST_IO_OBJ_INIT(AI_FLAG_NONE, AI_NETWORK_OUT_NUM, &hidden1_nl_output),
   &input_layer_layer, 0, NULL)
 
 
@@ -322,10 +322,10 @@ ai_bool network_configure_activations(
     input_layer_output_array.data_start = AI_PTR(activations + 0);
     input_layer_nl_output_array.data = AI_PTR(activations + 0);
     input_layer_nl_output_array.data_start = AI_PTR(activations + 0);
-    hidden2_output_array.data = AI_PTR(activations + 512);
-    hidden2_output_array.data_start = AI_PTR(activations + 512);
-    hidden2_nl_output_array.data = AI_PTR(NULL);
-    hidden2_nl_output_array.data_start = AI_PTR(NULL);
+    hidden1_output_array.data = AI_PTR(activations + 512);
+    hidden1_output_array.data_start = AI_PTR(activations + 512);
+    hidden1_nl_output_array.data = AI_PTR(NULL);
+    hidden1_nl_output_array.data_start = AI_PTR(NULL);
     
   }
   return true;
@@ -352,12 +352,12 @@ ai_bool network_configure_weights(
     input_layer_bias_array.format |= AI_FMT_FLAG_CONST;
     input_layer_bias_array.data = AI_PTR(weights + 307200);
     input_layer_bias_array.data_start = AI_PTR(weights + 307200);
-    hidden2_weights_array.format |= AI_FMT_FLAG_CONST;
-    hidden2_weights_array.data = AI_PTR(weights + 307712);
-    hidden2_weights_array.data_start = AI_PTR(weights + 307712);
-    hidden2_bias_array.format |= AI_FMT_FLAG_CONST;
-    hidden2_bias_array.data = AI_PTR(weights + 461312);
-    hidden2_bias_array.data_start = AI_PTR(weights + 461312);
+    hidden1_weights_array.format |= AI_FMT_FLAG_CONST;
+    hidden1_weights_array.data = AI_PTR(weights + 307712);
+    hidden1_weights_array.data_start = AI_PTR(weights + 307712);
+    hidden1_bias_array.format |= AI_FMT_FLAG_CONST;
+    hidden1_bias_array.data = AI_PTR(weights + 373248);
+    hidden1_bias_array.data_start = AI_PTR(weights + 373248);
   }
 
   return true;
@@ -392,7 +392,7 @@ ai_bool ai_network_get_info(
       .api_version            = ai_platform_api_get_version(),
       .interface_api_version  = ai_platform_interface_api_get_version(),
       
-      .n_macc            = 116056,
+      .n_macc            = 93696,
       .n_inputs          = 0,
       .inputs            = NULL,
       .n_outputs         = 0,

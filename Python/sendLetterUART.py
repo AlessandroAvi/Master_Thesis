@@ -174,8 +174,8 @@ def histSTM(predic_error):
     correct_perc = round(correct/len(predic_error),4) *100
     mistake_perc = round(mistake/len(predic_error),4) *100
 
-    print(f'Correct inferences -> {correct_perc} %')
-    print(f'Wrong inferences   -> {mistake_perc} %')
+    print(f'Correct inferences -> {round(correct_perc,2)} %')
+    print(f'Wrong inferences   -> {round(mistake_perc,2)} %')
 
     data = [correct_perc, mistake_perc]
     plt.bar(['CORRECT', 'ERROR'], data)
@@ -264,6 +264,7 @@ print('Serial port initialized')
 send_max = 60
 
 # STM COMMUNICATION - Init info containers
+method          = 0
 counter         = np.zeros(send_max)
 frozen_time     = np.zeros(send_max)
 OL_time         = np.zeros(send_max)
@@ -274,6 +275,8 @@ OL_width        = np.zeros(send_max)
 OL_height       = np.zeros(send_max)
 vowel_guess     = np.zeros(send_max)
 vowel_true      = []
+
+algorithm_ary = ['OL', 'OL_V2', 'CWR']
 
 
 data_prova  = mixed_data       # train_data      B_train_data      mixed_data
@@ -308,25 +311,24 @@ while iter<send_max-1:
 
     print('PC: Sent, wait to receive info...')
 
-    debug = serialInst.read(3)
-    print(debug)
-
-    rx = serialInst.read(8)     # Read the encoded message sent from STM
+    rx = serialInst.read(11)     # Read the encoded message sent from STM
 
     iter +=1
 
     # Save the data in the containers 
-    counter[iter]         = rx[0]
-    frozen_time[iter]     = rx[1]
-    OL_time[iter]         = rx[2]
-    new_class[iter]       = rx[3]
-    predic_error[iter]    = rx[4]
-    w_updated[iter]       = rx[5]
-    OL_width[iter]        = rx[6]
-    vowel_guess[iter]     = rx[7]
+    method                = rx[0]
+    counter[iter]         = rx[1]
+    frozen_time[iter]     = rx[2] | (rx[3]<<8)
+    OL_time[iter]         = rx[4] | (rx[5]<<8)
+    new_class[iter]       = rx[6]
+    predic_error[iter]    = rx[7]
+    w_updated[iter]       = rx[8]
+    OL_width[iter]        = rx[9]
+    vowel_guess[iter]     = rx[10]
 
 
     print('\nSTM INFERENCE RESULT')
+    print(f'   The algorithm is:                 {algorithm_ary[method]}')
     print(f'   Random index is:                  {n}')
     print(f'   Inference number:                 {counter[iter]}')
     print(f'   The letter sent is:               {txLett}')
@@ -356,7 +358,7 @@ while iter<send_max-1:
     else:
         print(f'   The prediction is:                NULL')
 
-    print(f'   Time taken for the inference is:  frozen {frozen_time[iter]}ms,   OL {OL_time[iter]}ms,   tot {frozen_time[iter]+OL_time[iter]}ms\n')
+    print(f'   Time taken for the inference is:  frozen {frozen_time[iter]/100}ms,   OL {OL_time[iter]/100}ms,   tot {round(frozen_time[iter]/100+OL_time[iter]/100,2)}ms\n')
 
 
 
@@ -376,11 +378,11 @@ for i in range(0, len(frozen_time)):
     sum1 += frozen_time[i]
     sum2 += OL_time[i]
 
-avrg_frozen = sum1/len(frozen_time)
-avrg_OL = sum2/(len(OL_time))
+avrg_frozen = sum1/len(frozen_time)/100
+avrg_OL = sum2/(len(OL_time))/100
 
-print(f'\nAverage inference time for the FROZEN model is: {round(avrg_frozen,3)}ms')
-print(f'Average inference time for the OL model is:     {round(avrg_OL,3)}ms\n')
+print(f'\nAverage inference time for the FROZEN model is: {round(avrg_frozen,2)}ms')
+print(f'Average inference time for the OL model is:     {round(avrg_OL,2)}ms\n')
 
 histSTM(predic_error)
 histSTM_letters(vowel_true, predic_error)

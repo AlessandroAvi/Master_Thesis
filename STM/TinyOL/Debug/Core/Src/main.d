@@ -25,9 +25,11 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
- ../Core/Inc/crc.h ../Core/Inc/main.h ../Core/Inc/usart.h \
- ../Core/Inc/gpio.h ../X-CUBE-AI/App/app_x-cube-ai.h \
+ ../Core/Inc/crc.h ../Core/Inc/main.h ../Core/Inc/tim.h \
+ ../Core/Inc/usart.h ../Core/Inc/gpio.h ../X-CUBE-AI/App/app_x-cube-ai.h \
  ../Middlewares/ST/AI/Inc/ai_platform.h ../X-CUBE-AI/App/network.h \
  ../X-CUBE-AI/App/network_config.h ../X-CUBE-AI/App/network_data.h \
  ../Middlewares/ST/AI/Inc/ai_datatypes_defines.h ../Core/Inc/TinyOL.h \
@@ -87,11 +89,17 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h:
 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:
+
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
+
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
 
 ../Core/Inc/crc.h:
 
 ../Core/Inc/main.h:
+
+../Core/Inc/tim.h:
 
 ../Core/Inc/usart.h:
 

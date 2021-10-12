@@ -20,6 +20,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "crc.h"
+#include "tim.h"
 #include "usart.h"
 #include "gpio.h"
 #include "app_x-cube-ai.h"
@@ -61,7 +62,6 @@
 
 // Define debug messages
 
-uint8_t counter = 0;
 int enable_acquisition = 0;
 int data_counter = 0;
 int max_sample = 200; 	// Record data for 2 seconds
@@ -78,9 +78,9 @@ uint8_t BlueButton = 0;
 
 
 // Time passed parameters
-uint32_t startTime;
-uint32_t endFrozenTime;
-uint32_t endOLTime;
+uint32_t timer_counter = 0;
+uint32_t inferenceTime_frozen = 0;
+uint32_t inferenceTime_OL = 0;
 
 /* USER CODE END PV */
 
@@ -125,12 +125,14 @@ int main(void)
   MX_GPIO_Init();
   MX_USART2_UART_Init();
   MX_CRC_Init();
+  MX_TIM10_Init();
   MX_X_CUBE_AI_Init();
   /* USER CODE BEGIN 2 */
 
+  // *************************************
+  //                  INITIALIZE OL-STRUCT
+  // *************************************
 
-
-  // ***** Initialize the OL layer ****************************
   OL_LAYER_STRUCT OL_layer;
 
   // Available algorithms are
@@ -143,96 +145,100 @@ int main(void)
   OL_layer.HEIGHT = AI_NETWORK_OUT_1_SIZE;
 
   OL_layer.n_epochs = 1;
-  OL_layer.l_rate = 0.00005;
+  OL_layer.l_rate = 0.0003;
   OL_layer.batch_size = 10;
+  OL_layer.counter = 0;
 
   OL_layer.OL_ERROR = 0;
 
 
-  OL_layer.weights = (float*)calloc(OL_layer.WIDTH*OL_layer.HEIGHT, sizeof(float));
+  // MALLOC / CALLOC
+
+  OL_layer.weights = calloc(OL_layer.WIDTH*OL_layer.HEIGHT, sizeof(float));
   if(OL_layer.weights==NULL){
 	  msgLen = sprintf(msgDebug, "\n\r ERROR: Failed to allocate memory for weights");
 	  HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
 	  OL_layer.OL_ERROR = 1;
   }
 
-  OL_layer.biases = (float*)calloc(OL_layer.WIDTH, sizeof(float));
+  OL_layer.biases = calloc(OL_layer.WIDTH, sizeof(float));
   if(OL_layer.biases==NULL){
 	  msgLen = sprintf(msgDebug, "\n\r ERROR: Failed to allocate memory for biases");
 	  HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
 	  OL_layer.OL_ERROR = 2;
   }
 
-  OL_layer.label = (char*)calloc(OL_layer.WIDTH, sizeof(char));
+  OL_layer.label = calloc(OL_layer.WIDTH, sizeof(char));
   if(OL_layer.label==NULL){
 	  msgLen = sprintf(msgDebug, "\n\r ERROR: Failed to allocate memory for label");
 	  HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
 	  OL_layer.OL_ERROR = 3;
   }
 
-  OL_layer.y_pred = (float*)calloc(OL_layer.WIDTH, sizeof(float));
+  OL_layer.y_pred = calloc(OL_layer.WIDTH, sizeof(float));
   if(OL_layer.y_pred==NULL){
 	  msgLen = sprintf(msgDebug, "\n\r ERROR: Failed to allocate memory for y_pred");
 	  HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
 	  OL_layer.OL_ERROR = 4;
   }
 
+
   if(OL_layer.ALGORITHM == MODE_CWR){
-	  OL_layer.weights_2 = (float*)calloc(OL_layer.WIDTH*OL_layer.HEIGHT, sizeof(float));
+	  OL_layer.weights_2 = calloc(OL_layer.WIDTH*OL_layer.HEIGHT, sizeof(float));
 	  if(OL_layer.weights_2==NULL){
 		  msgLen = sprintf(msgDebug, "\n\r ERROR: Failed to allocate memory for weights_2");
 		  HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
 		  OL_layer.OL_ERROR = 5;
 	  }
 
-	  OL_layer.biases_2 = (float*)calloc(OL_layer.WIDTH, sizeof(float));
+	  OL_layer.biases_2 = calloc(OL_layer.WIDTH, sizeof(float));
 	  if(OL_layer.biases_2==NULL){
 		  msgLen = sprintf(msgDebug, "\n\r ERROR: Failed to allocate memory for biases_2");
 		  HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
 		  OL_layer.OL_ERROR = 6;
 	  }
+
+	  OL_layer.found_lett = calloc(OL_layer.WIDTH, sizeof(uint8_t));
+	  if(OL_layer.found_lett==NULL){
+		  msgLen = sprintf(msgDebug, "\n\r ERROR: Failed to allocate memory for found lett");
+		  HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
+		  OL_layer.OL_ERROR = 7;
+	  }
   }
 
 
-  // ***********************************
 
-  // Fill up the initial labels
+
+  // FILL UP CONTAINERS WITH DATA
+
   OL_layer.label[0] = 'A';
   OL_layer.label[1] = 'E';
   OL_layer.label[2] = 'I';
   OL_layer.label[3] = 'O';
   OL_layer.label[4] = 'U';
 
-  // Fill up weigths and biases
+  // Fill up weights
   for(int i=0; i<OL_layer.WIDTH*OL_layer.HEIGHT; i++){
   	  OL_layer.weights[i]=saved_weights[i];
   }
-
+  // Fill up biases
   for(int i=0; i<OL_layer.WIDTH; i++){
 	  OL_layer.biases[i]=saved_biases[i];
   }
 
-  // Fill up weigths_2 and biases_2
-  if(OL_layer.ALGORITHM == MODE_CWR){
-	  for(int i=0; i<OL_layer.WIDTH*OL_layer.HEIGHT; i++){
-	  	  OL_layer.weights_2[i]=0;
-	  }
-
-	  for(int i=0; i<OL_layer.WIDTH; i++){
-		  OL_layer.biases_2[i]=0;
-	  }
-  }
 
   //Create container for the output prediction of OL layer
-  float * y_true = (float*)calloc(OL_layer.WIDTH, sizeof(float));
+  float * y_true = calloc(OL_layer.WIDTH, sizeof(float));
   if(y_true== NULL){
 	  msgLen = sprintf(msgDebug, "\n\r ERROR: Failed to allocate memory for y_true");
 	  HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
-	  OL_layer.OL_ERROR = 7;
+	  OL_layer.OL_ERROR = 8;
   }
 
   // ***********************************
 
+  // Start the timer
+  HAL_TIM_Base_Start_IT(&htim10);
 
   /* USER CODE END 2 */
 
@@ -264,17 +270,16 @@ int main(void)
 			  }
 		  }
 
-		  startTime = HAL_GetTick();	// Time interval
-
 
 		  // *************************
 		  //                 INFERENCE
 		  // *************************
+		  timer_counter = 0;
 
 		  // Perform inference from FROZEN MODEL
 		  ai_run_v2(&in_data, &out_data);
 
-		  endFrozenTime = HAL_GetTick();	// Time interval
+		  inferenceTime_frozen = timer_counter;
 
 		  OL_checkNewClass(&OL_layer, letter);			// Check if the letter is known, otherwise increase dimensions
 		  OL_lettToSoft(&OL_layer, letter, y_true);		// Transform the letter label into a hot one encoded softmax array
@@ -282,7 +287,7 @@ int main(void)
 		  // Perform training on last captured sample
 		  OL_train(&OL_layer, out_data, y_true, letter);
 
-		  endOLTime = HAL_GetTick();
+		  inferenceTime_OL = timer_counter-inferenceTime_frozen;
 
 
 		  // *************************
@@ -290,21 +295,24 @@ int main(void)
 		  // *************************
 
 		  // Send info data to laptop
-		  msgInfo[0] = counter;								// number
-		  msgInfo[1] = (uint8_t)(endFrozenTime-startTime);	// number
-		  msgInfo[2] = (uint8_t)(endOLTime-endFrozenTime);	// number
-		  msgInfo[3] = OL_layer.new_class;					// 0 or 1
-		  msgInfo[4] = OL_layer.prediction_correct;			// 0, 1, 2
-		  msgInfo[5] = OL_layer.w_update;					// 0 or 1
-		  msgInfo[6] = OL_layer.WIDTH;						// number
-		  msgInfo[7] = OL_layer.vowel_guess;				// char
+		  msgInfo[0] = OL_layer.ALGORITHM;									// number
+		  msgInfo[1] = OL_layer.counter;												// number
+		  msgInfo[2] = (uint8_t)(inferenceTime_frozen & LOW_BYTE); 	 		// number - low byte
+		  msgInfo[3] = (uint8_t)((inferenceTime_frozen>>8) & LOW_BYTE); 	// number - high byte
+		  msgInfo[4] = (uint8_t)(inferenceTime_OL & LOW_BYTE);				// number - low byte
+		  msgInfo[5] = (uint8_t)((inferenceTime_OL>>8) & LOW_BYTE);			// number - high byte
+		  msgInfo[6] = OL_layer.new_class;						// 0 or 1
+		  msgInfo[7] = OL_layer.prediction_correct;				// 0, 1, 2
+		  msgInfo[8] = OL_layer.w_update;						// 0 or 1
+		  msgInfo[9] = OL_layer.WIDTH;							// number
+		  msgInfo[10] = OL_layer.vowel_guess;					// char
 
-		  HAL_UART_Transmit(&huart2, (uint8_t*)msgInfo, 8, 100);
+		  HAL_UART_Transmit(&huart2, (uint8_t*)msgInfo, INFO_LEN, 100);
 
 
 
 		  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);	// Set low value for interrupt for infinity cycle
-		  counter +=1;
+		  OL_layer.counter +=1;
 		  enable_inference = 0;
 		  //BlueButton = 0;
 
@@ -312,7 +320,7 @@ int main(void)
 
 
 
-	  HAL_Delay(100);
+	  HAL_Delay(10);
 
 
 
@@ -405,7 +413,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 		}
 	}
 
-	// Remember the jumper is connecte between these 2 pins for the interrupt
+	// Remember the jumper is connected between these 2 pins for the interrupt
 	// Output: PB5
 	// Input:  PB10
 
@@ -432,6 +440,14 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 
 }
 
+
+
+
+void HAL_TIM_PeriodElapsedCallback( TIM_HandleTypeDef *htim){
+
+	timer_counter += 1;	// 10 micro sec has passed
+
+}
 
 /* USER CODE END 4 */
 
