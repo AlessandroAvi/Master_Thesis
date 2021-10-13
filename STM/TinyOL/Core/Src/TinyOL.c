@@ -28,8 +28,7 @@ void OL_resetInfo(OL_LAYER_STRUCT * layer){
 void OL_lettToSoft(OL_LAYER_STRUCT * layer, char *lett, float * y_true){
 
 #ifdef DEBUG_ACTIVE
-	msgLen = sprintf(msgDebug, "\n\n\r    -- OL_lettToSoft");
-	HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
+	UART_debug("\n\n\r    -- OL_lettToSoft");
 #endif
 
 	// Check if letter is inside label of the layer
@@ -45,11 +44,10 @@ void OL_lettToSoft(OL_LAYER_STRUCT * layer, char *lett, float * y_true){
 
 
 
-void OL_feedForward(OL_LAYER_STRUCT * layer, float * input, float * weights, float * bias){
+void OL_feedForward(OL_LAYER_STRUCT * layer, float * input, float * weights, float * bias, float * y_pred){
 
 #ifdef DEBUG_ACTIVE
-	msgLen = sprintf(msgDebug, "\n\n\r      -- OL_feedForward");
-	HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
+	UART_debug("\n\n\r      -- OL_feedForward");
 #endif
 
 	int h = layer->HEIGHT;
@@ -57,16 +55,16 @@ void OL_feedForward(OL_LAYER_STRUCT * layer, float * input, float * weights, flo
 
 	// Reset the prediction
 	for(int i=0; i<layer->WIDTH; i++){
-		layer->y_pred[i]=0;
+		y_pred[i]=0;
 	}
 
 	// Perform the feed forward
 	for(int i=0; i<w; i++){
 		for(int j=0; j< h; j++){
 
-			layer->y_pred[i] += weights[h*i+j]*input[j];
+			y_pred[i] += weights[h*i+j]*input[j];
 		}
-		layer->y_pred[i] += bias[i];
+		y_pred[i] += bias[i];
 	}
 
 };
@@ -75,34 +73,33 @@ void OL_feedForward(OL_LAYER_STRUCT * layer, float * input, float * weights, flo
 
 
 
-void OL_softmax(OL_LAYER_STRUCT * layer){
+void OL_softmax(OL_LAYER_STRUCT * layer, float * y_pred){
 
 #ifdef DEBUG_ACTIVE
-	msgLen = sprintf(msgDebug, "\n\n\r    -- OL_softmax");
-	HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
+	UART_debug("\n\n\r    -- OL_softmax");
 #endif
 
 	int i;
 	float m;
 	int size = layer->WIDTH;
 
-	m = layer->y_pred[0];
+	m = y_pred[0];
 	// Find the highest value in array input
 	for (i = 0; i < size; ++i) {
-		if (layer->y_pred[i] > m) {
-			m = layer->y_pred[i];
+		if (y_pred[i] > m) {
+			m = y_pred[i];
 		}
 	}
 
 	// Compute the sum of the exponentials
 	float sum = 0.0;
 	for (i = 0; i < size; ++i) {
-		sum += exp(layer->y_pred[i] - m);
+		sum += exp(y_pred[i] - m);
 	}
 
 	// Compute the softmax value for each input entry
 	for (i = 0; i < size; ++i) {
-		layer->y_pred[i] = exp(layer->y_pred[i] - m - log(sum));
+		y_pred[i] = exp(y_pred[i] - m - log(sum));
 	}
 };
 
@@ -113,62 +110,47 @@ void OL_softmax(OL_LAYER_STRUCT * layer){
 void OL_gradientDescend(OL_LAYER_STRUCT * layer, float* input, float *y_true){
 
 #ifdef DEBUG_ACTIVE
-	msgLen = sprintf(msgDebug, "\n\n\r      -- OL_gradientDescend");
-	HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
+	UART_debug("\n\n\r      -- OL_gradientDescend");
 #endif
+
+	int w = layer->WIDTH;
+	int h = layer->HEIGHT;
+	float cost[w];
 
 	layer->w_update = 1;
 
 	if(layer->ALGORITHM == MODE_OL){
 
-		float cost[layer->WIDTH],dW, deltaW;
+		for(int j=0; j<w; j++){
+			cost[j] = layer->y_pred[j]-y_true[j];	// Compute the cost
 
-		// Compute the cost (prediction-true)
-		for(int k=0; k<layer->WIDTH; k++){
-			// Compute label error
-			cost[k] = layer->y_pred[k]-y_true[k];
 
-			// Update the biases
-			layer->biases[k] -= cost[k]*layer->l_rate;
-		}
-
-		// Update the weights
-		for(int i=0; i<layer->HEIGHT; i++){		// da 0 a 128
-
-			for(int j=0; j<layer->WIDTH; j++){	// da 0 a 5
-
-				deltaW = cost[j]* input[i];
-				dW = deltaW*layer->l_rate;
-				layer->weights[j*layer->HEIGHT+i] -= dW;
+			// Update the weights
+			for(int i=0; i<h; i++){
+				layer->weights[j*h+i] -= cost[j]* input[i]*layer->l_rate;
 			}
+			layer->biases[j] -= cost[j]*layer->l_rate;	// Update the biases
 		}
+
+
 
 	}else if(layer->ALGORITHM == MODE_OL_V2){
 
-		float cost[layer->WIDTH],dW, deltaW;
-
-		// Compute the cost (prediction-true)
-		for(int k=0; k<layer->WIDTH; k++){
-			// Compute label error
-			cost[k] = layer->y_pred[k]-y_true[k];
+		for(int j=0; j<w; j++){
+			cost[j] = layer->y_pred[j]-y_true[j];			// Compute the cost (prediction-true)
 
 			// Update the biases - only new letters
-			if(k>4){
-				layer->biases[k] -= cost[k]*layer->l_rate;
+			if(j>=5){
+				layer->biases[j] -= cost[j]*layer->l_rate;
 			}
 		}
 
 		// Update the weights - only new letters
-		for(int i=0; i<layer->HEIGHT; i++){		// da 0 a 128
-
-			for(int j=5; j<layer->WIDTH; j++){	// da 5 in poi
-
-				deltaW = cost[j]* input[i];
-				dW = deltaW*layer->l_rate;
-				layer->weights[j*layer->HEIGHT+i] -= dW;
+		for(int i=0; i<h; i++){
+			for(int j=5; j<w; j++){
+				layer->weights[j*h+i] -= cost[j]*input[i]*layer->l_rate;
 			}
 		}
-
 	}
 };
 
@@ -179,8 +161,7 @@ void OL_gradientDescend(OL_LAYER_STRUCT * layer, float* input, float *y_true){
 void OL_increaseWeightDim(OL_LAYER_STRUCT * layer){
 
 #ifdef DEBUG_ACTIVE
-	msgLen = sprintf(msgDebug, "\n\n\r        -- OL_increaseWeightDim");
-	HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
+	UART_debug("\n\n\r        -- OL_increaseWeightDim");
 #endif
 
 	int h = layer->HEIGHT;
@@ -189,8 +170,7 @@ void OL_increaseWeightDim(OL_LAYER_STRUCT * layer){
 
 	layer->weights = realloc(layer->weights, h*w*sizeof(float));
 	if(layer->weights== NULL){
-		msgLen = sprintf(msgDebug, "\n\r ERROR: Failed to allocate memory for increased weights");
-		HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
+		UART_debug("\n\r ERROR: Failed to allocate memory for increased weights");
 		layer->OL_ERROR = 9;
 	}
 
@@ -200,12 +180,11 @@ void OL_increaseWeightDim(OL_LAYER_STRUCT * layer){
 	}
 
 
-	if(layer->ALGORITHM == MODE_CWR){
+	if(layer->ALGORITHM == MODE_CWR || layer->ALGORITHM==MODE_LWF){
 
 		layer->weights_2 = realloc(layer->weights_2, h*w*sizeof(float));
 		if(layer->weights_2== NULL){
-			msgLen = sprintf(msgDebug, "\n\r ERROR: Failed to allocate memory for increased weights 2");
-			HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
+			UART_debug("\n\r ERROR: Failed to allocate memory for increased weights 2");
 			layer->OL_ERROR = 10;
 		}
 
@@ -223,27 +202,24 @@ void OL_increaseWeightDim(OL_LAYER_STRUCT * layer){
 void OL_increaseBiasDim(OL_LAYER_STRUCT * layer){
 
 #ifdef DEBUG_ACTIVE
-	msgLen = sprintf(msgDebug, "\n\n\r        -- OL_increaseBiasDim");
-	HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
+	UART_debug("\n\n\r        -- OL_increaseBiasDim");
 #endif
 
 	int w = layer->WIDTH;
 
 	layer->biases = realloc(layer->biases, w*sizeof(float));
 	if(layer->biases==NULL){
-		msgLen = sprintf(msgDebug, "\n\r ERROR: Failed to allocate memory for increased bias ");
-		HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
+		UART_debug("\n\r ERROR: Failed to allocate memory for increased bias ");
 		layer->OL_ERROR = 11;
 	}
 
 	layer->biases[w-1] = 0;
 
 
-	if(layer->ALGORITHM==MODE_CWR){
+	if(layer->ALGORITHM==MODE_CWR || layer->ALGORITHM==MODE_LWF){
 		layer->biases_2 = realloc(layer->biases_2, w*sizeof(float));
 		if(layer->biases_2==NULL){
-			msgLen = sprintf(msgDebug, "\n\r ERROR: Failed to allocate memory for increased bias 2");
-			HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
+			UART_debug("\n\r ERROR: Failed to allocate memory for increased bias 2");
 			layer->OL_ERROR = 12;
 		}
 
@@ -258,16 +234,14 @@ void OL_increaseBiasDim(OL_LAYER_STRUCT * layer){
 void OL_increaseLabel(OL_LAYER_STRUCT * layer, char new_letter){
 
 #ifdef DEBUG_ACTIVE
-	msgLen = sprintf(msgDebug, "\n\n\r        -- OL_increaseLabel");
-	HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
+	UART_debug("\n\n\r        -- OL_increaseLabel");
 #endif
 
 	int w = layer->WIDTH;
 
 	layer->label = realloc(layer->label, w*sizeof(char));
 	if(layer->label==NULL){
-		msgLen = sprintf(msgDebug, "\n\r ERROR: Failed to allocate memory for increased label ");
-		HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
+		UART_debug("\n\r ERROR: Failed to allocate memory for increased label");
 		layer->OL_ERROR = 13;
 	}
 
@@ -278,12 +252,40 @@ void OL_increaseLabel(OL_LAYER_STRUCT * layer, char new_letter){
 
 
 
+void OL_increaseYpredDim(OL_LAYER_STRUCT * layer){
+
+#ifdef DEBUG_ACTIVE
+	UART_debug("\n\n\r        -- OL_increaseYpredDim");
+#endif
+
+	free(layer->y_pred);
+	layer->y_pred = calloc(layer->WIDTH, sizeof(float));
+	if(layer->y_pred==NULL){
+		UART_debug("\n\r ERROR: Failed to allocate memory for increased y_pred");
+		layer->OL_ERROR = 14;
+	}
+
+
+	if(layer->ALGORITHM == MODE_LWF){
+		free(layer->y_pred_2);
+		layer->y_pred_2 = calloc(layer->WIDTH, sizeof(float));
+		if(layer->y_pred_2==NULL){
+			UART_debug("\n\r ERROR: Failed to allocate memory for increased y_pred_2");
+			layer->OL_ERROR = 16;
+		}
+
+	}
+
+};
+
+
+
+
 
 void OL_checkNewClass(OL_LAYER_STRUCT * layer, char *letter){
 
 #ifdef DEBUG_ACTIVE
-	msgLen = sprintf(msgDebug, "\n\n\r    -- OL_checkNewClass");
-	HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
+	UART_debug("\n\n\r    -- OL_checkNewClass");
 #endif
 
 	int found = 0;
@@ -298,8 +300,7 @@ void OL_checkNewClass(OL_LAYER_STRUCT * layer, char *letter){
 	if(found==0){
 		// Update dimensions
 #ifdef MSG_ACTIVE
-		msgLen = sprintf(msgDebug, "\n\n\r    New letter found %c", letter[0]);
-		HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
+		UART_debug_c("\n\n\r    New letter found %c", letter[0]);
 #endif
 
 		layer->new_class = 1;
@@ -308,14 +309,8 @@ void OL_checkNewClass(OL_LAYER_STRUCT * layer, char *letter){
 		OL_increaseLabel(layer, letter[0]);
 		OL_increaseWeightDim(layer);
 		OL_increaseBiasDim(layer);
+		OL_increaseYpredDim(layer);
 
-		free(layer->y_pred);
-		layer->y_pred = calloc(layer->WIDTH, sizeof(float));
-		if(layer->y_pred==NULL){
-			msgLen = sprintf(msgDebug, "\n\r ERROR: Failed to allocate memory for increased y_pred ");
-			HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
-			layer->OL_ERROR = 14;
-		}
 	}
 };
 
@@ -325,113 +320,186 @@ void OL_checkNewClass(OL_LAYER_STRUCT * layer, char *letter){
 void OL_train(OL_LAYER_STRUCT * layer, float *x, float *y_true, char *letter){
 
 #ifdef DEBUG_ACTIVE
-	msgLen = sprintf(msgDebug, "\n\n\r  -- Begin on TRAIN routine --\n\n\r    OL_train");
-	HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
+	UART_debug("\n\n\r  -- Begin on TRAIN routine --\n\n\r    OL_train");
 #endif
 
+	int w = layer->WIDTH;
+	int h = layer->HEIGHT;
+	layer->vowel_guess = 0;
+	uint8_t max_pred = 0;
+	uint8_t max_true = 0;
+	uint8_t max_j_pred;
+	uint8_t max_j_true;
 
+
+
+	//     ***** OL ALGORITHM      |      ***** OL_V2 ALGORITHM
 	if(layer->ALGORITHM == MODE_OL || layer->ALGORITHM == MODE_OL_V2){
 
+		// Inference
+		OL_feedForward(layer, x, layer->weights, layer->biases, layer->y_pred);
+		OL_softmax(layer, layer->y_pred);
 
-		for(int i=0; i<layer->n_epochs; i++){	// ALWAYS 1 TIME
-
-			layer->vowel_guess = 0;
-			uint8_t max_pred = 0;
-			uint8_t max_true = 0;
-			uint8_t max_i_pred;
-			uint8_t max_i_true;
-
-			// INFERENCE
-			OL_feedForward(layer, x, layer->weights, layer->biases);  // <- SI BLOCCA QUA DENTRO QUANDO TROVA NUOVA LETTERA??
-			OL_softmax(layer);
-
-			// FIND MAX HOT ONE ENCODED
-			for(int i=0; i<layer->WIDTH; i++){
-				if(max_pred < layer->y_pred[i]){
-					max_i_pred = i;
-					max_pred = layer->y_pred[i];
-					layer->vowel_guess = layer->label[i];
-				}
-				if(max_true < y_true[i]){
-					max_i_true=i;
-					max_true = y_true[i];
-				}
-			}
-
-			// TRUE & PREDICT COMPARISON + WEIGHT UPDATE
-			if(max_i_true != max_i_pred){
-#ifdef MSG_ACTIVE
-				msgLen = sprintf(msgDebug, "\r    Performing weights update\n");
-				HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
-#endif
-				layer->prediction_correct = 1;	// wrong prediction
-				// Update weights
-				OL_gradientDescend(layer, x, y_true);
-			}else{
-				layer->prediction_correct = 2;  // correct prediction
-			}
-		}
-
-
-	}else if (layer->ALGORITHM == MODE_CWR){	// ***** CWR ALGORITHM
-
-		int w = layer->WIDTH;
-		int h = layer->HEIGHT;
-		float cost[w], dW, deltaW;
-		uint8_t max_true = 0;
-		uint8_t max_j_true;
-
-		OL_feedForward(layer, x, layer->weights_2, layer->biases_2);
-		OL_softmax(layer);
-
-
-		// Back propagation on TB
+		// Find max - one hot encoded
 		for(int j=0; j<w; j++){
-			cost[j] = layer->y_pred[j]-y_true[j];
-
-			layer->biases_2[j] -= cost[j]*layer->l_rate;  // Update biases
-
-			if(max_true < y_true[j]){			// Find the max in the softmax true label
-				max_j_true = j;
+			if(max_pred < layer->y_pred[j]){
+				max_j_pred = j;
+				max_pred = layer->y_pred[j];
+				layer->vowel_guess = layer->label[j];
+			}
+			if(max_true < y_true[j]){
+				max_j_true=j;
 				max_true = y_true[j];
 			}
 		}
 
-		layer->found_lett[max_j_true] += 1;		// Update the found_lett array
-
-		// Back propagation on TW
-		for(int i=0; i<h; i++){
-			for(int j=0; j<w; j++){
-				deltaW = cost[j]*x[i];
-				dW = deltaW*layer->l_rate;
-				layer->weights_2[j*h+i] -= dW;
-			}
+		// Check if prediction is correct
+		if(max_j_true != max_j_pred){
+			layer->prediction_correct = 1;			// wrong prediction
+			OL_gradientDescend(layer, x, y_true);  	// Update weights
+		}else{
+			layer->prediction_correct = 2; 			// correct prediction
 		}
 
 
-		// END OF BATCH
-		if((layer->counter % layer->batch_size == 0) && (layer->counter !=0)){
 
-			// UPDATE CW
+
+	// ***** CWR ALGORITHM
+	}else if (layer->ALGORITHM == MODE_CWR){
+
+		float cost[w];
+
+		// Training phase -> update TW and CW when necessary
+		if(layer->counter < 100){
+			// Prediction
+			OL_feedForward(layer, x, layer->weights_2, layer->biases_2, layer->y_pred);
+			OL_softmax(layer, layer->y_pred);
+
 			for(int j=0; j<w; j++){
-				if(layer->found_lett[j] != 0){
-					for(int i=0; i<h; i++){
-						layer->weights[j*h+i] = ((layer->weights[j*h+i]*layer->found_lett[j])+layer->weights_2[j*h+i])/(layer->found_lett[j]+1);
-					}
-					layer->biases[j] = ((layer->biases[j]*layer->found_lett[j])+layer->biases_2[j])/(layer->found_lett[j]+1);
+				cost[j] = layer->y_pred[j]-y_true[j];		  // Cost computation
+
+
+				// Find max - one hot encoded
+				if(max_true < y_true[j]){
+					max_j_true = j;
+					max_true = y_true[j];
 				}
-			}
+				if(max_pred < layer->y_pred[j]){
+					max_j_pred = j;
+					max_pred = layer->y_pred[j];
+					layer->vowel_guess = layer->label[j];
+				}
 
-			// RESET TW
-			for(int j=0; j<w; j++){
+
+				// Back propagation on TW
 				for(int i=0; i<h; i++){
-					layer->weights_2[j*h+i] = layer->weights[j*h+i];	// reset
+					layer->weights_2[j*h+i] -= cost[j]*x[i]*layer->l_rate;
 				}
-				layer->biases_2[j] = layer->biases[j];					// reset
-				layer->found_lett[j] = 0;								// reset
+				layer->biases_2[j] -= cost[j]*layer->l_rate;  // Back propagation on TB
 			}
+
+			// Check if prediction is correct or not
+			if(max_j_true != max_j_pred){ layer->prediction_correct = 1; }else{ layer->prediction_correct = 2; }
+
+			layer->found_lett[max_j_true] += 1;		// Update the found_lett array
+
+
+
+			// When batch ends
+			if((layer->counter % layer->batch_size == 0) && (layer->counter !=0)){
+
+				// Update CW
+				for(int j=0; j<w; j++){
+					if(layer->found_lett[j] != 0){
+						for(int i=0; i<h; i++){
+							layer->weights[j*h+i] = ((layer->weights[j*h+i]*layer->found_lett[j])+layer->weights_2[j*h+i])/(layer->found_lett[j]+1);
+						}
+						layer->biases[j] = ((layer->biases[j]*layer->found_lett[j])+layer->biases_2[j])/(layer->found_lett[j]+1);
+					}
+				}
+
+				// Reset TW
+				for(int j=0; j<w; j++){
+					for(int i=0; i<h; i++){
+						layer->weights_2[j*h+i] = layer->weights[j*h+i];	// reset
+					}
+					layer->biases_2[j] = layer->biases[j];					// reset
+					layer->found_lett[j] = 0;								// reset
+				}
+			}
+
+		// Inference phase -> use only CW for predictions
+		}else{
+
+			OL_feedForward(layer, x, layer->weights, layer->biases, layer->y_pred);
+			OL_softmax(layer, layer->y_pred);
+
+			// Find max - one hot encoded
+			for(int j=0; j<w; j++){
+				if(max_pred < layer->y_pred[j]){
+					max_j_pred = j;
+					max_pred = layer->y_pred[j];
+					layer->vowel_guess = layer->label[j];
+				}
+				if(max_true < y_true[j]){
+					max_j_true=j;
+					max_true = y_true[j];
+				}
+			}
+
+			if(max_j_true != max_j_pred){ layer->prediction_correct = 1; }else{ layer->prediction_correct = 2; }
+
 		}
-	} // end cwr
+
+
+	// ***** LWF ALGORITHM
+	}else if(layer->ALGORITHM == MODE_LWF){
+
+		float cost_norm[w];
+		float cost_LWF[w];
+		float lambda;
+
+		OL_feedForward(layer, x, layer->weights, layer->biases, layer->y_pred);
+		OL_softmax(layer, layer->y_pred);
+
+		OL_feedForward(layer, x, layer->weights_2, layer->biases_2, layer->y_pred_2);
+		OL_softmax(layer, layer->y_pred_2);
+
+		lambda = 1 - layer->counter/400;
+		if(lambda<0){
+			lambda = 0;
+		}
+
+		for(int j=0; j<w; j++){
+			cost_norm[j] = layer->y_pred[j]  -y_true[j];	// compute normal cost
+			cost_LWF[j]  = layer->y_pred_2[j]-y_true[j];	// compute LWF cost
+
+
+			// Find max - one hot encoded
+			if(max_true < y_true[j]){
+				max_j_true = j;
+				max_true = y_true[j];
+			}
+			if(max_pred < layer->y_pred[j]){
+				max_j_pred = j;
+				max_pred = layer->y_pred[j];
+				layer->vowel_guess = layer->label[j];
+			}
+
+
+			// Update weights
+			for(int i=0; i<h; i++){
+				layer->weights[j*h+i] -= (cost_norm[j]*(1-lambda)+cost_LWF[j]*lambda)*layer->l_rate*x[i];
+			}
+			// Update bias
+			layer->biases[j] -= (cost_norm[j]*(1-lambda)+cost_LWF[j]*lambda)*layer->l_rate;
+		}
+
+		// Check if prediction is correct or not
+		if(max_j_true != max_j_pred){ layer->prediction_correct = 1; }else{ layer->prediction_correct = 2; }
+
+
+	}// end lwf
 
 
 };
@@ -447,7 +515,7 @@ void OL_train(OL_LAYER_STRUCT * layer, float *x, float *y_true, char *letter){
 
 
 // *********************************************************
-//								 PRINT FUNCTIONS
+//								             PRINT FUNCTIONS
 // *********************************************************
 
 
@@ -455,45 +523,64 @@ void OL_train(OL_LAYER_STRUCT * layer, float *x, float *y_true, char *letter){
 
 void PRINT_checkLabels(OL_LAYER_STRUCT * layer, float * y_true){
 
-	  msgLen = sprintf(msgDebug, "\r    LABEL CHECK:");
-	  HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
-	  for(int i=0; i<layer->WIDTH; i++){
-		  msgLen = sprintf(msgDebug, "  %c       ", layer->label[i]);
-		  HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
-	  }
-	  msgLen = sprintf(msgDebug, "\n");
-	  HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
+	UART_debug("\r    LABEL CHECK:");
+	for(int i=0; i<layer->WIDTH; i++){
+		UART_debug_c("  %c       ", layer->label[i]);
+	}
+	UART_debug("\n");
 
-	  msgLen = sprintf(msgDebug,   "\r      Inference:");
-	  HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
-	  for(int i=0; i<layer->WIDTH; i++){
-		  msgLen = sprintf(msgDebug, "  %f", layer->y_pred[i]);
-		  HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
-	  }
-	  msgLen = sprintf(msgDebug, "\n");
-	  HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
+	UART_debug("\r      Inference:");
+	for(int i=0; i<layer->WIDTH; i++){
+		UART_debug_f("  %f", layer->y_pred[i]);
+	}
+	UART_debug("\n");
 
-	  msgLen = sprintf(msgDebug,   "\r      True:     ");
-	  HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
-	  for(int i=0; i<layer->WIDTH; i++){
-		  msgLen = sprintf(msgDebug,   "  %f", y_true[i]);
-		  HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
-	  }
-	  msgLen = sprintf(msgDebug, "\n");
-	  HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
+	UART_debug("\r      True:     ");
+	for(int i=0; i<layer->WIDTH; i++){
+		UART_debug_f("  %f", y_true[i]);
+	}
+	UART_debug("\n");
 
-	  int correct = 0;
-	  for(int i=0; i<layer->WIDTH; i++){
-		  if(layer->y_pred[i] != y_true[i]){
-			  correct = 1;
-		  }
-	  }
+	int correct = 0;
+	for(int i=0; i<layer->WIDTH; i++){
+		if(layer->y_pred[i] != y_true[i]){
+			correct = 1;
+		}
+	}
 
-	  if(correct==0){
-		  msgLen = sprintf(msgDebug, "\r    Prediction -> 	OK\n");
-	  }else{
-		  msgLen = sprintf(msgDebug, "\r    Prediction -> ERROR\n");
-	  }
+	if(correct==0){
+		UART_debug("\r    Prediction -> 	OK\n");
+	}else{
+		UART_debug("\r    Prediction -> ERROR\n");
+	}
+}
+
+
+
+
+// *********************************************************
+//								             DEBUG FUNCTIONS
+// *********************************************************
+
+
+
+void UART_debug(char msg[BUFF_LEN]){
+	  msgLen = sprintf(msgDebug, msg);
+	  HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
+}
+
+void UART_debug_u8(char msg[BUFF_LEN], uint8_t num){
+	  msgLen = sprintf(msgDebug, msg, num);
+	  HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
+}
+
+void UART_debug_c(char msg[BUFF_LEN], char * lett){
+	  msgLen = sprintf(msgDebug, msg, lett);
+	  HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
+}
+
+void UART_debug_f(char msg[BUFF_LEN], float num){
+	  msgLen = sprintf(msgDebug, msg, num);
 	  HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
 }
 

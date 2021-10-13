@@ -186,7 +186,7 @@ def plotTestOL(model):
     # ***** CONFUSION MATRIX PLOT
     plt.figure(figsize=(10,6))
 
-    sns.heatmap(conf_matrix, annot=True, cmap="Spectral", xticklabels=letter_labels, yticklabels=letter_labels)
+    sns.heatmap(conf_matrix, annot=True, cmap="Blues", xticklabels=letter_labels, yticklabels=letter_labels)
 
     # labels, title and ticks
     plt.xlabel('PREDICTED LABELS')

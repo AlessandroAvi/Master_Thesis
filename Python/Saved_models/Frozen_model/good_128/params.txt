@@ -6,17 +6,15 @@ PARAMETERS SAVED FROM THE TRAINING
  Optimizer: Adam
  Loss: categorical_crossentropy
 
-Model: "sequential"
+Model: "sequential_1"
 _________________________________________________________________
 Layer (type)                 Output Shape              Param #   
 =================================================================
 input_layer (Dense)          (None, 128)               76928     
 _________________________________________________________________
-hidden1 (Dense)              (None, 300)               38700     
-_________________________________________________________________
-output_layer (Dense)         (None, 5)                 1505      
+hidden1 (Dense)              (None, 128)               16512     
 =================================================================
-Total params: 117,133
-Trainable params: 117,133
+Total params: 93,440
+Trainable params: 93,440
 Non-trainable params: 0
 _________________________________________________________________

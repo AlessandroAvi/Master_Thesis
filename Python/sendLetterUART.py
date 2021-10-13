@@ -26,7 +26,7 @@ import myDatasetParse as myParse
 
 
 
-def parseTrainValid_v2(dtensor, labels):
+def parseTrainValid_v2(dtensor, labels, separator):
     """
     parseTrainValid_v2: takes a matrix of letters data and an array of labels and splits it 
     train portion and test portion
@@ -35,21 +35,19 @@ def parseTrainValid_v2(dtensor, labels):
     :labels: array that contains the labels that correspond to the matrix, should be 1 high and x large, x is the number of samples
     """
     
-    sep = int(0.30*dtensor.shape[0])
+    sep = int(separator*dtensor.shape[0])
     
-    sample_index = list(range(0,dtensor.shape[0]))
-    #shuffled_indexes = np.random.shuffle(sample_index)
+    train_data = dtensor[sep:,:]
+    train_labels_lett = labels[sep:]
 
-    train_data = dtensor[sample_index,:]
-    train_labels_lett = labels[sample_index]
+    test_data = dtensor[:sep,:]
+    test_labels_lett = labels[:sep]
 
-    train_shape = train_data.shape[1]
     print('\n*** Separate train-valid\n')
     print(f"Train data shape  -> {train_data.shape}")
-    print(f"Train label shape -> {train_labels_lett.shape}")
+    print(f"Test data shape ->   {test_data.shape}\n\n")
 
-    
-    return train_data, train_labels_lett
+    return train_data, train_labels_lett, test_data, test_labels_lett
 
 
 
@@ -93,7 +91,7 @@ def aryToLowHigh(ary):
 
 
 
-def histSTM_letters(vowel_true, predic_error):
+def histSTM_letters(vowel_true, predic_error, algorithm):
 
     correct = np.zeros(8)
     errors  = np.zeros(8)
@@ -148,19 +146,19 @@ def histSTM_letters(vowel_true, predic_error):
     # Adding Xticks
     plt.ylabel('%', fontweight ='bold', fontsize = 15)
     plt.xticks([r + width for r in range(len(correct))], ['A', 'E', 'I', 'O', 'U', 'R', 'B', 'M'],fontweight ='bold', fontsize = 15)
-    plt.title('Plot')
+    plt.title('Bar plot - ' + algorithm, fontsize=18)
 
     plt.legend()
 
     PLOT_PATH = 'C:/Users/massi/UNI/Magistrale/Anno 5/Semestre 2/Tesi/Code/Python/Plots/'
-    plt.savefig(PLOT_PATH + 'STM_detailedPerformance.png')
+    plt.savefig(PLOT_PATH + 'STM_bar_plot.png')
 
     plt.show()
 
 
 
 
-def histSTM(predic_error):
+def histSTM(predic_error, algorithm):
     
     correct = 0
     mistake = 0
@@ -179,11 +177,60 @@ def histSTM(predic_error):
 
     data = [correct_perc, mistake_perc]
     plt.bar(['CORRECT', 'ERROR'], data)
+    plt.title('Accuracy plot - ' + algorithm, fontsize=18)
+
 
     PLOT_PATH = 'C:/Users/massi/UNI/Magistrale/Anno 5/Semestre 2/Tesi/Code/Python/Plots/'
-    plt.savefig(PLOT_PATH + 'STM_performance.png')
+    plt.savefig(PLOT_PATH + 'STM_accuracy.png')
 
     plt.show()
+
+
+
+
+def confusionMatrix(vowel_guess, vowel_true, algorithm):
+
+    conf_matr = np.zeros([8,8])
+    label = ['A','E','I','O','U','B','R','M']
+    itr_true = 0
+    itr_pred = 0
+
+    for i in range(0, len(vowel_true)):
+        for j in range(0,8):
+            if(vowel_true[i] == label[j]):
+                itr_true = j
+            if(chr(int(vowel_guess[i])) == label[j]):
+                itr_pred = j
+
+        conf_matr[itr_true, itr_pred] +=1
+
+
+    # ***** CONFUSION MATRIX PLOT
+    figure = plt.figure()
+    axes = figure.add_subplot(111)
+
+    caxes = axes.matshow(conf_matr, cmap=plt.cm.Blues)
+    figure.colorbar(caxes)
+
+    for i in range(conf_matr.shape[0]):
+        for j in range(conf_matr.shape[1]):
+            axes.text(x=j, y=i,s=int(conf_matr[i, j]), va='center', ha='center', size='large')
+
+
+    axes.set_xticklabels([''] + label)
+    axes.set_yticklabels([''] + label)
+
+    plt.xlabel('PREDICTED LABEL', fontsize=10)
+    plt.ylabel('TRUE LABEL', fontsize=10)
+    plt.title('Confusion Matrix - ' + algorithm, fontsize=10)
+    plt.show()
+
+
+    
+
+
+    
+
 
 
 
@@ -210,19 +257,19 @@ print('\n')
 
 # DATASET - Vowels
 tmp_1, tmp_2 = myParse.loadDataFromTxt('augmented_vowels')
-train_data, train_label = parseTrainValid_v2(tmp_1, tmp_2)
+train_data, train_label, _ , _ = parseTrainValid_v2(tmp_1, tmp_2, 0)
 
 # DATASET - B
 tmp_1, tmp_2 = myParse.loadDataFromTxt('B_dataset')
-B_train_data, B_train_label = parseTrainValid_v2(tmp_1, tmp_2)
+B_train_data, B_train_label, _ , _= parseTrainValid_v2(tmp_1, tmp_2, 0)
 
 # DATASET - R
 tmp_1, tmp_2 = myParse.loadDataFromTxt('R_dataset')
-R_train_data, R_train_label = parseTrainValid_v2(tmp_1, tmp_2)
+R_train_data, R_train_label, _ , _ = parseTrainValid_v2(tmp_1, tmp_2, 0)
 
 # DATASET - M
 tmp_1, tmp_2 = myParse.loadDataFromTxt('M_dataset')
-M_train_data, M_train_label = parseTrainValid_v2(tmp_1, tmp_2)
+M_train_data, M_train_label, _ , _ = parseTrainValid_v2(tmp_1, tmp_2, 0)
 
 # DATASET - All
 order_data = train_data
@@ -247,6 +294,10 @@ for i in range(0, order_data.shape[0]):
     mixed_label[i]  = order_label[index_ary[i]]
 
 
+# DATASET - traina dn test
+print('******* MIXED DATASET - TRAIN & TEST')
+mixed_data_train, mixed_label_train, mixed_data_test, mixed_label_test = parseTrainValid_v2(mixed_data, mixed_label, 0.2)
+
 
 
 # SERIAL COMMUNICATION - Init
@@ -258,25 +309,29 @@ serialInst.port = "COM4"
 
 serialInst.open()
 
-print('Serial port initialized')
+print('\n\nSerial port initialized')
 
 
-send_max = 60
+test_max  = 10 
+train_max = 10
+send_max = test_max+train_max
+
+
 
 # STM COMMUNICATION - Init info containers
 method          = 0
-counter         = np.zeros(send_max)
-frozen_time     = np.zeros(send_max)
-OL_time         = np.zeros(send_max)
-new_class       = np.zeros(send_max)
-predic_error    = np.zeros(send_max)
-w_updated       = np.zeros(send_max)
-OL_width        = np.zeros(send_max)
-OL_height       = np.zeros(send_max)
-vowel_guess     = np.zeros(send_max)
+counter         = np.zeros(test_max)
+frozen_time     = np.zeros(test_max)
+OL_time         = np.zeros(test_max)
+new_class       = np.zeros(test_max)
+predic_error    = np.zeros(test_max)
+w_updated       = np.zeros(test_max)
+OL_width        = np.zeros(test_max)
+OL_height       = np.zeros(test_max)
+vowel_guess     = np.zeros(test_max)
 vowel_true      = []
 
-algorithm_ary = ['OL', 'OL_V2', 'CWR']
+algorithm_ary = ['OL', 'OL_V2', 'CWR', 'LWF']
 
 
 data_prova  = mixed_data       # train_data      B_train_data      mixed_data
@@ -292,73 +347,85 @@ print(' |____/|_____\___/|_____| |____/ \___/  |_|   |_| \___/|_| \_|')
 print('\n')
 
 
-iter = 0
-n=0
-while iter<send_max-1:
+train_iter = 0
+test_iter  = 0
+
+while (train_iter + test_iter)<send_max-1:
 
     rx = serialInst.read(2)     # Read the message "OK" from the STM
 
-    n = int(random.uniform(0, data_prova.shape[0]))     # Generate a random number
+    if(train_iter < train_max):
+        n = int(random.uniform(0, mixed_data_train.shape[0]))     # Generate a random number
 
-    # DATA: Preapare output data
-    txAry = aryToLowHigh(data_prova[n,:])
-    txLett = label_prova[n]
-    vowel_true.append(txLett)
+        # DATA: Preapare output data
+        txAry = aryToLowHigh(mixed_data_train[train_iter,:])
+        txLett = mixed_label_train[train_iter]
+    else:
+        n = int(random.uniform(0, mixed_data_test.shape[0]))    # Generate a random number
+
+        # DATA: Preapare output data
+        txAry = aryToLowHigh(mixed_data_test[test_iter,:])
+        txLett = mixed_label_test[test_iter]
+        vowel_true.append(txLett)
 
     # DATA: Send the data to uart
     serialInst.write(txAry)                 # Send data array
     serialInst.write(txLett.encode())       # Send lebel letter
 
-    print('PC: Sent, wait to receive info...')
+    #print('PC: Sent, wait to receive info...')
 
     rx = serialInst.read(11)     # Read the encoded message sent from STM
 
-    iter +=1
+    if(train_iter < train_max):
 
-    # Save the data in the containers 
-    method                = rx[0]
-    counter[iter]         = rx[1]
-    frozen_time[iter]     = rx[2] | (rx[3]<<8)
-    OL_time[iter]         = rx[4] | (rx[5]<<8)
-    new_class[iter]       = rx[6]
-    predic_error[iter]    = rx[7]
-    w_updated[iter]       = rx[8]
-    OL_width[iter]        = rx[9]
-    vowel_guess[iter]     = rx[10]
+        print(f'Training, sample number:   {train_iter}')
+        train_iter += 1
 
-
-    print('\nSTM INFERENCE RESULT')
-    print(f'   The algorithm is:                 {algorithm_ary[method]}')
-    print(f'   Random index is:                  {n}')
-    print(f'   Inference number:                 {counter[iter]}')
-    print(f'   The letter sent is:               {txLett}')
-
-
-    if(vowel_guess[iter] == 0):
-        print(f'   The letter predicted is:          NULL')
     else:
-        print(f'   The letter predicted is:          {chr(int(vowel_guess[iter]))}')
+        # Save the data in the containers 
+        method                     = rx[0]
+        counter[test_iter]         = rx[1]
+        frozen_time[test_iter]     = rx[2] | (rx[3]<<8)
+        OL_time[test_iter]         = rx[4] | (rx[5]<<8)
+        new_class[test_iter]       = rx[6]
+        predic_error[test_iter]    = rx[7]
+        w_updated[test_iter]       = rx[8]
+        OL_width[test_iter]        = rx[9]
+        vowel_guess[test_iter]     = rx[10]
 
-    if(new_class[iter] == 1):
-        print(f'   New class has been detected:      YES')
-    else:
-        print(f'   New class has been detected:      NO')
+        print('\nSTM INFERENCE RESULT')
+        print(f'   The algorithm is:                 {algorithm_ary[method]}')
+        print(f'   Random index is:                  {n}')
+        print(f'   Inference number:                 {counter[test_iter]}')
+        print(f'   The letter sent is:               {txLett}')
 
-    print(f'   Current shape of OL layer is:     {OL_width[iter]}')
+        if(vowel_guess[test_iter] == 0):
+            print(f'   The letter predicted is:          NULL')
+        else:
+            print(f'   The letter predicted is:          {chr(int(vowel_guess[test_iter]))}')
 
-    if(w_updated[iter] == 0):
-        print(f'   The weights have been updated:    NO')
-    else:
-        print(f'   The weights have been updated:    YES')
+        if(new_class[test_iter] == 1):
+            print(f'   New class has been detected:      YES')
+        else:
+            print(f'   New class has been detected:      NO')
 
-    if(predic_error[iter] == 1):
-        print(f'   The prediction is:                WRONG')
-    elif(predic_error[iter] == 2):
-        print(f'   The prediction is:                CORRECT')
-    else:
-        print(f'   The prediction is:                NULL')
+        print(f'   Current shape of OL layer is:     {OL_width[test_iter]}')
 
-    print(f'   Time taken for the inference is:  frozen {frozen_time[iter]/100}ms,   OL {OL_time[iter]/100}ms,   tot {round(frozen_time[iter]/100+OL_time[iter]/100,2)}ms\n')
+        if(w_updated[test_iter] == 0):
+            print(f'   The weights have been updated:    NO')
+        else:
+            print(f'   The weights have been updated:    YES')
+
+        if(predic_error[test_iter] == 1):
+            print(f'   The prediction is:                WRONG')
+        elif(predic_error[test_iter] == 2):
+            print(f'   The prediction is:                CORRECT')
+        else:
+            print(f'   The prediction is:                NULL')
+
+        print(f'   Time taken for the inference is:  frozen {frozen_time[test_iter]/100}ms,   OL {OL_time[test_iter]/100}ms,   tot {round(frozen_time[test_iter]/100+OL_time[test_iter]/100,2)}ms\n')
+    
+        test_iter += 1
 
 
 
@@ -384,5 +451,6 @@ avrg_OL = sum2/(len(OL_time))/100
 print(f'\nAverage inference time for the FROZEN model is: {round(avrg_frozen,2)}ms')
 print(f'Average inference time for the OL model is:     {round(avrg_OL,2)}ms\n')
 
-histSTM(predic_error)
-histSTM_letters(vowel_true, predic_error)
+histSTM(predic_error, algorithm_ary[method])
+histSTM_letters(vowel_true, predic_error, algorithm_ary[method])
+confusionMatrix(vowel_guess, vowel_true, algorithm_ary[method])

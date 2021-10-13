@@ -16,35 +16,41 @@
 typedef enum{
 	MODE_OL=0,
 	MODE_OL_V2,
-	MODE_CWR
+	MODE_CWR,
+	MODE_LWF,
+	MODE_OL_batch,
+	MODE_OL_V2_batch,
+	MODE_CWR_batch,
+	MODE_LWF_batch,
 } OL_LAYER_ALGORITHM;
+
+
 
 
 typedef struct {
 
-	// Type of algorithm to use for updating weights
-	int ALGORITHM;
-
-	// Shape
+	// BASIC PARAMETERS OF THE NN
+	float l_rate;
+	uint8_t batch_size;
+	int counter;
 	int WIDTH;
 	int HEIGHT;
 
-	// Training parameters
-	float l_rate;
-	int n_epochs;
-	uint8_t batch_size;
-	int counter;
-
-	// Containers
+	// CONTAINERS
 	char* label;
 	float *weights;
 	float *biases;
 	float *y_pred;
-	float *weights_2;	// TO BE USED ONLY IN THE LWF/CWR/mini batches CASE
-	float *biases_2;    // TO BE USED ONLY IN THE LWF/CWR/mini batches CASE
+	// *** Used by mini batches|LWF|CWR
+	float *weights_2;
+	float *biases_2;
+	// *** Used by CWR
 	uint8_t *found_lett;
+	// *** Used by LWF
+	float *y_pred_2;
 
-	// Info parameters
+	// INFO PARAMETERS
+	int ALGORITHM;
 	uint8_t prediction_correct;	// True/flase
 	uint8_t new_class;	// True/flase
 	uint8_t w_update;	// True/flase
@@ -60,20 +66,22 @@ typedef struct {
 
 
 /* 	LIST OF ERRORS CODES:
- *		01 - CALLOC returns null  - layer->weights
- *		02 - CALLOC returns null  - layer->biases
- *		03 - CALLOC returns null  - layer->label
- *		04 - CALLOC returns null  - layer->y_pred
- *		05 - CALLOC returns null  - layer->weights_2
- *		06 - CALLOC returns null  - layer->biases_2
- *		07 - CALLOC returns null  - layer->found_lett
- *		08 - CALLOC returns null  - layer->y_true
- *		09 - REALLOC returns null - layer->weights
- *		10 - REALLOC returns null - layer->weights_2
- *		11 - REALLOC returns null - layer->biases
- *		12 - REALLOC returns null - layer->biases_2
- *		13 - REALLOC returns null - layer->label
- *		14 - MALLOC 2 returns null - layer->y_pred
+ *		01 - CALLOC returns null   - layer->weights
+ *		02 - CALLOC returns null   - layer->biases
+ *		03 - CALLOC returns null   - layer->label
+ *		04 - CALLOC returns null   - layer->y_pred
+ *		05 - CALLOC returns null   - layer->weights_2
+ *		06 - CALLOC returns null   - layer->biases_2
+ *		07 - CALLOC returns null   - layer->found_lett
+ *		08 - CALLOC returns null   - layer->y_true
+ *		09 - REALLOC returns null  - layer->weights
+ *		10 - REALLOC returns null  - layer->weights_2
+ *		11 - REALLOC returns null  - layer->biases
+ *		12 - REALLOC returns null  - layer->biases_2
+ *		13 - REALLOC returns null  - layer->label
+ *		14 - CALLOC 2 returns null - layer->y_pred
+ *		15 - CALLOC returns null   - layer->y_pred_2
+ *		16 - CALLOC 2 returns null - layer->y_pred_2
  */
 
 
@@ -113,12 +121,12 @@ void OL_lettToSoft(OL_LAYER_STRUCT * layer, char * lett, float * lable_ptr);
 
 /*   Function that applies the Softmax activation function on the array
  *   given as input                                  */
-void OL_softmax(OL_LAYER_STRUCT * layer);
+void OL_softmax(OL_LAYER_STRUCT * layer,  float * y_pred);
 
 
 /*   Function that performs the feed forward of the OL layer
  *   output = W*input + bias                         */
-void OL_feedForward(OL_LAYER_STRUCT * layer, float * input, float * weights, float * bias);
+void OL_feedForward(OL_LAYER_STRUCT * layer, float * input, float * weights, float * bias, float * y_pred);
 
 
 /*   Function that performs update of weights and biases according to the
@@ -135,19 +143,24 @@ void OL_checkNewClass(OL_LAYER_STRUCT * layer, char * letter);
 void OL_train(OL_LAYER_STRUCT * layer, float * x, float * y_true, char * letter);
 
 
-/*   Function that increases the dimension of the weight array
- *   Note that it allocated a new array and de-allocated the old one       */
+/*   Function that increases the dimension of the weight array     */
 void OL_increaseWeightDim(OL_LAYER_STRUCT * layer);
 
 
-/*   Function that increases the dimension of the bias array
- *   Note that it allocated a new array and de-allocated the old one       */
+/*   Function that increases the dimension of the bias array       */
 void OL_increaseBiasDim(OL_LAYER_STRUCT * layer);
+
+
+/*   Function that increases the dimension of the y_pred array     */
+void OL_increaseYpredDim(OL_LAYER_STRUCT * layer);
 
 
 /*   Function that checks if the prediction is correct and builds
  *   a message that makes it easier to understand the outcome      */
 void PRINT_checkLabels(OL_LAYER_STRUCT * layer, float * y_true);
+
+/*   Function that sends the debug message through the UART to the pc   */
+void UART_debug(char msg[BUFF_LEN]);
 
 
 
