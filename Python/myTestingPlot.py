@@ -2,8 +2,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix
 import seaborn as sns
+import matplotlib.image as mpimg
 
 
+PLOT_PATH = 'C:/Users/massi/UNI/Magistrale/Anno 5/Semestre 2/Tesi/Code/Python/Plots/'
 
 
 
@@ -163,21 +165,28 @@ def plotTestOL(model):
     # ***** BAR PLOT
     width = 0.25
     fig = plt.subplots(figsize =(12, 8))
-    
-    # Set position of bar on X axis
-    br1 = np.arange(values.shape[1])
-    br2 = [x + width for x in br1]
-    
-    # Make the plot
-    plt.bar(br1, values[0,:], color ='g', width = width, edgecolor ='grey', label ='Correct prediction')
-    plt.bar(br2, values[1,:], color ='r', width = width, edgecolor ='grey', label ='Wrong prediction')
 
+    bar_plot = plt.bar(letter_labels, values[0,:], color='cornflowerblue', edgecolor='grey')
+
+    for p in bar_plot:
+        height = p.get_height()
+        xy_pos = (p.get_x() + p.get_width() / 2, height)
+        xy_txt = (0, -20)
+        txt_coord = "offset points"
+        txt_val = str(height)
+        if(height>10):
+            plt.annotate(txt_val, xy=xy_pos, xytext=xy_txt, textcoords=txt_coord, ha='center', va='bottom', fontsize=12)
+        else:
+            plt.annotate(txt_val, xy=xy_pos, xytext=(0, 3), textcoords=txt_coord, ha='center', va='bottom', fontsize=12)
+
+    
     # Adding Xticks
-    plt.ylabel('%', fontweight ='bold', fontsize = 15)
-    plt.xticks([r + width for r in range(len(corr_ary))], letter_labels, fontweight ='bold', fontsize = 15)
-    plt.title(title,fontweight ='bold', fontsize = 15)
+    plt.ylabel('Accuracy %', fontsize = 15)
+    plt.xlabel('Classes', fontsize = 15)
+    plt.ylim([0, 100])
+    plt.xticks([r for r in range(len(corr_ary))], letter_labels, fontweight ='bold', fontsize = 12)
+    plt.title('Accuracy test - Method used: '+title, fontweight ='bold', fontsize = 15)
 
-    PLOT_PATH = 'C:/Users/massi/UNI/Magistrale/Anno 5/Semestre 2/Tesi/Code/Python/Plots/'
     plt.savefig(PLOT_PATH + 'barPlot_' + filename + '.jpg')
 
 
@@ -191,7 +200,7 @@ def plotTestOL(model):
     # labels, title and ticks
     plt.xlabel('PREDICTED LABELS')
     plt.ylabel('TRUE LABELS') 
-    plt.title('Confusion Matrix')
+    plt.title('Confusion Matrix - ' + title, fontweight ='bold', fontsize = 15)
     plt.savefig(PLOT_PATH + 'confusionMat_' + filename + '.jpg')
 
 
@@ -201,35 +210,34 @@ def plotTestOL(model):
     fig, ax = plt.subplots() 
     ax.set_axis_off() 
 
-    val = np.zeros([4,values.shape[1]])
+    val = np.zeros([3,values.shape[1]])
     val[0,:] = values[0,:]
 
     for i in range(0, val.shape[1]):
         val[1,i] = round(conf_matrix[i,i]/sum(conf_matrix[:,i]),2)     # PRECISION 
-        val[2,i] = round(conf_matrix[i,i]/sum(conf_matrix[i,:]),2)     # RECALL    or SENSITIVITY
-        val[3,i] = round((2*val[1,i]*val[2,i])/(val[1,i]+val[2,i]),2)  # F1 SCORE
+        val[2,i] = round((2*val[1,i]*val[0,i])/(val[1,i]+val[0,i]),2)  # F1 SCORE
 
+        if(np.isnan(val[0,i]) == True):
+            val[0,i] = 0
         if(np.isnan(val[1,i]) == True):
             val[1,i] = 0
         if(np.isnan(val[2,i]) == True):
             val[2,i] = 0
-        if(np.isnan(val[3,i]) == True):
-            val[3,i] = 0
 
 
     table = ax.table( 
         cellText = val,  
-        rowLabels = ['Accuracy', 'Precision', 'Recall', 'F1 score'],  
+        rowLabels = ['Accuracy', 'Precision', 'F1 score'],  
         colLabels = ['A', 'E', 'I', 'O', 'U', 'B', 'R', 'M'], 
-        rowColours =["palegreen"] * 200,  
-        colColours =["palegreen"] * 200, 
+        rowColours =["cornflowerblue"] * 200,  
+        colColours =["cornflowerblue"] * 200, 
         cellLoc ='center',  
         loc ='upper left')         
 
     table.scale(2,2) 
     table.set_fontsize(10)
 
-    ax.set_title(title, fontweight ="bold") 
+    ax.set_title('Parameters table - Method: ' + title, fontweight ="bold") 
 
     plt.savefig(PLOT_PATH + 'table_' + filename + '.jpg',
                 bbox_inches='tight',
@@ -240,8 +248,8 @@ def plotTestOL(model):
 
     # Compute MACRO AVERAGE PRECISION - MACRO AVERAGE RECALL
     model.macro_avrg_precision = round(sum(val[1,:]) / val.shape[1],2)
-    model.macro_avrg_recall    = round(sum(val[2,:]) / val.shape[1],2)
-    model.macro_avrg_F1score   = round(sum(val[3,:]) / val.shape[1],2)
+    model.macro_avrg_recall    = round(sum(val[0,:]) / val.shape[1],2)
+    model.macro_avrg_F1score   = round(sum(val[2,:]) / val.shape[1],2)
     
 
 
@@ -257,71 +265,60 @@ def plotAllTEst():
     rows = 4
     columns = 2
     # create figure
-    fig = plt.figure(figsize=(40,28))
+    
+    fig = plt.figure(figsize=(17,27))
+
+    Image1 = mpimg.imread(r'C:/Users/massi/UNI/Magistrale/Anno 5/Semestre 2/Tesi/Code/Python/Plots/barPlot_origModel.jpg')
+    Image2 = mpimg.imread(r'C:/Users/massi/UNI/Magistrale/Anno 5/Semestre 2/Tesi/Code/Python/Plots/barPlot_trainCWR.jpg')
+    Image3 = mpimg.imread(r'C:/Users/massi/UNI/Magistrale/Anno 5/Semestre 2/Tesi/Code/Python/Plots/barPlot_trainOL.jpg')
+    Image4 = mpimg.imread(r'C:/Users/massi/UNI/Magistrale/Anno 5/Semestre 2/Tesi/Code/Python/Plots/barPlot_trainOL_mini.jpg')
+    Image5 = mpimg.imread(r'C:/Users/massi/UNI/Magistrale/Anno 5/Semestre 2/Tesi/Code/Python/Plots/barPlot_trainLWF_v1.jpg')
+    Image6 = mpimg.imread(r'C:/Users/massi/UNI/Magistrale/Anno 5/Semestre 2/Tesi/Code/Python/Plots/barPlot_trainLWF_v2.jpg')
+    Image7 = mpimg.imread(r'C:/Users/massi/UNI/Magistrale/Anno 5/Semestre 2/Tesi/Code/Python/Plots/barPlot_trainOL_v2.jpg')
+    Image8 = mpimg.imread(r'C:/Users/massi/UNI/Magistrale/Anno 5/Semestre 2/Tesi/Code/Python/Plots/barPlot_trainOL_v2_mini.jpg')
+
     # Adds a subplot at the 1st position
     fig.add_subplot(rows, columns, 1)
-
-    Image1 = mpimg.imread(r'C:/Users/massi/UNI/Magistrale/Anno 5/Semestre 2/Tesi/Code/Python/Plots/origModel.jpg')
-    Image2 = mpimg.imread(r'C:/Users/massi/UNI/Magistrale/Anno 5/Semestre 2/Tesi/Code/Python/Plots/trainVowels.jpg')
-    Image3 = mpimg.imread(r'C:/Users/massi/UNI/Magistrale/Anno 5/Semestre 2/Tesi/Code/Python/Plots/trainOL.jpg')
-    Image4 = mpimg.imread(r'C:/Users/massi/UNI/Magistrale/Anno 5/Semestre 2/Tesi/Code/Python/Plots/trainOL_mini.jpg')
-    Image5 = mpimg.imread(r'C:/Users/massi/UNI/Magistrale/Anno 5/Semestre 2/Tesi/Code/Python/Plots/trainLWF_v1.jpg')
-    Image6 = mpimg.imread(r'C:/Users/massi/UNI/Magistrale/Anno 5/Semestre 2/Tesi/Code/Python/Plots/trainLWF_v2.jpg')
-    Image7 = mpimg.imread(r'C:/Users/massi/UNI/Magistrale/Anno 5/Semestre 2/Tesi/Code/Python/Plots/trainOL_v2.jpg')
-    Image8 = mpimg.imread(r'C:/Users/massi/UNI/Magistrale/Anno 5/Semestre 2/Tesi/Code/Python/Plots/trainOL_v2_mini.jpg')
-
-    # showing image
     plt.imshow(Image1)
     plt.axis('off')
 
     # Adds a subplot at the 2nd position
     fig.add_subplot(rows, columns, 2)
-
-    # showing image
     plt.imshow(Image2)
     plt.axis('off')
 
     # Adds a subplot at the 3rd position
     fig.add_subplot(rows, columns, 3)
-
-    # showing image
     plt.imshow(Image3)
     plt.axis('off')
 
     # Adds a subplot at the 4th position
     fig.add_subplot(rows, columns, 4)
-
-    # showing image
     plt.imshow(Image4)
     plt.axis('off')
 
     # Adds a subplot at the 4th position
     fig.add_subplot(rows, columns, 5)
-
-    # showing image
     plt.imshow(Image5)
     plt.axis('off')
 
     # Adds a subplot at the 4th position
     fig.add_subplot(rows, columns, 6)
-
-    # showing image
     plt.imshow(Image6)
     plt.axis('off')
 
     # Adds a subplot at the 4th position
     fig.add_subplot(rows, columns, 7)
-
-    # showing image
     plt.imshow(Image7)
     plt.axis('off')
 
     # Adds a subplot at the 4th position
     fig.add_subplot(rows, columns, 8)
-
-    # showing image
     plt.imshow(Image8)
     plt.axis('off')
+
+    plt.savefig(PLOT_PATH +  'barPlot_ ALL.jpg', bbox_inches='tight', 
+                edgecolor=fig.get_edgecolor(), facecolor=fig.get_facecolor(), dpi=200 )
 
 
 
@@ -384,8 +381,8 @@ def summaryResults(model1, model2, model3, model4, model5, model6, model7, model
         cellText = table_content,  
         colLabels = ['AVRG Accuracy', 'AVRG Precision', 'AVRG Recall', 'AVRG F1 score'],  
         rowLabels = row_label, 
-        rowColours =["dodgerblue"] * 200,  
-        colColours =["dodgerblue"] * 200, 
+        rowColours =["cornflowerblue"] * 200,  
+        colColours =["cornflowerblue"] * 200, 
         cellLoc ='center',  
         loc ='upper left',
         cellColours=colors)         
@@ -394,10 +391,8 @@ def summaryResults(model1, model2, model3, model4, model5, model6, model7, model
     table.set_fontsize(10)
 
     ax.set_title('Performance parameters', fontweight ="bold") 
-    
-    PLOT_PATH = 'C:/Users/massi/UNI/Magistrale/Anno 5/Semestre 2/Tesi/Code/Python/Plots/summaryResult.jpg'
-    
-    plt.savefig(PLOT_PATH,
+        
+    plt.savefig(PLOT_PATH + 'summaryResult.jpg',
                 bbox_inches='tight',
                 edgecolor=fig.get_edgecolor(),
                 facecolor=fig.get_facecolor(),

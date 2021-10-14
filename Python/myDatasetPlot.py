@@ -2,6 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 
+PLOT_PATH = 'C:/Users/massi/UNI/Magistrale/Anno 5/Semestre 2/Tesi/Code/Python/Plots/'
+
 
 def plotDatasetTF(TF_train, TF_test):
     
@@ -19,7 +21,6 @@ def plotDatasetTF(TF_train, TF_test):
     ax.pie(y, labels = mylabels, colors = mycolors, 
            textprops={'size': 'x-large'})
     
-    PLOT_PATH = 'C:/Users/massi/UNI/Magistrale/Anno 5/Semestre 2/Tesi/Code/Python/Plots/'
     plt.savefig(PLOT_PATH + 'datasetStructureTF.png')
     plt.show() 
 
@@ -60,21 +61,28 @@ def plotSimuRes(plotEnable):
         width = 0.25
         fig = plt.subplots(figsize =(12, 8))
 
-        # Set position of bar on X axis
-        br1 = np.arange(len(avrg_accuracy))
-        br2 = [x + width for x in br1]
-
         # Make the plot
-        plt.bar(br1, avrg_accuracy, color ='g', width = width, edgecolor ='grey', label ='Correct prediction')
-        plt.bar(br2, avrg_err, color ='r', width = width, edgecolor ='grey', label ='Wrong prediction')
+        bar_plot = plt.bar(names_ary, avrg_accuracy, color ='cornflowerblue', edgecolor ='grey')
+
+        for p in bar_plot:
+                height = p.get_height()
+                xy_pos = (p.get_x() + p.get_width() / 2, height)
+                xy_txt = (0, -20)
+                txt_coord = "offset points"
+                txt_val = str(height)
+                if(height>10):
+                    plt.annotate(txt_val, xy=xy_pos, xytext=xy_txt, textcoords=txt_coord, ha='center', va='bottom', fontsize=12)
+                else:
+                    plt.annotate(txt_val, xy=xy_pos, xytext=(0, 3), textcoords=txt_coord, ha='center', va='bottom', fontsize=12)
+
 
         # Adding Xticks
-        plt.ylabel('%', fontweight ='bold', fontsize = 15)
-        plt.xticks([r + width for r in range(len(avrg_accuracy))], ['Keras', 'OL_vowels', 'OL', 'OL_mini', 'LWF', 'LWF_mini', 'OL_v2', 'OL_v2_mini', 'CWR'],fontweight ='bold', fontsize = 15, rotation='vertical')
-        plt.title('Average over 10 simulation',fontweight ='bold', fontsize = 15)
+        plt.ylabel('Accuracy %', fontweight ='bold', fontsize = 15)
+        plt.ylim([0, 100])
+        plt.xticks([r for r in range(len(avrg_accuracy))], names_ary, fontweight ='bold', fontsize = 12, rotation='vertical')
+        plt.title('Accuracy test - Average over '+str(len(accuracy))+' simulations',fontweight ='bold', fontsize = 15)
 
-        PLOT_PATH = 'C:/Users/massi/UNI/Magistrale/Anno 5/Semestre 2/Tesi/Code/Python/Plots/'
-        plt.savefig(PLOT_PATH + 'allAlgorithms.jpg')
+        plt.savefig(PLOT_PATH + 'barPlot_AVERAGE.jpg', bbox_inches='tight', dpi=200 )
 
 
 
@@ -106,7 +114,6 @@ def plotDatasetStructure(TF_train, TF_test, OL_train, OL_test, B_train, B_test, 
     ax.pie(y, labels = mylabels, colors = mycolors, 
            textprops={'size': 'x-large'})
     
-    PLOT_PATH = 'C:/Users/massi/UNI/Magistrale/Anno 5/Semestre 2/Tesi/Code/Python/Plots/'
     plt.savefig(PLOT_PATH + 'datasetStructure.png')
     plt.show() 
 
@@ -137,6 +144,5 @@ def plotDatasetOL(OL_train, OL_test, B_train, B_test, R_train, R_test, M_train, 
     ax.pie(y, labels = mylabels, colors = mycolors, 
            textprops={'size': 'x-large'})
     
-    PLOT_PATH = 'C:/Users/massi/UNI/Magistrale/Anno 5/Semestre 2/Tesi/Code/Python/Plots/'
     plt.savefig(PLOT_PATH + 'datasetStructureOL.png')
     plt.show() 

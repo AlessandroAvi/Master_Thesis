@@ -36,8 +36,6 @@
 
 // My library include
 #include "TinyOL.h"
-
-// Includes that contains MY DATA
 #include "layer_weights.h"
 
 /* USER CODE END Includes */
@@ -139,14 +137,13 @@ int main(void)
   //	MODE_OL
   //	MODE_OL_V2
   //	MODE_CWR
-  //    MODE_LWF,
-  OL_layer.ALGORITHM = MODE_LWF;
-
-  OL_layer.WIDTH = 5;
-  OL_layer.HEIGHT = AI_NETWORK_OUT_1_SIZE;
+  //    MODE_LWF
+  //	MODE_OL_batch
+  //	MODE_OL_V2_batch
+  //	MODE_LWF_batch
+  OL_layer.ALGORITHM = MODE_OL;
 
   OL_layer.batch_size = 10;
-  OL_layer.counter = 0;
 
   // Define the learn rate experimentally
   if(OL_layer.ALGORITHM == MODE_OL){
@@ -157,8 +154,19 @@ int main(void)
 	  OL_layer.l_rate = 0.00005;
   }else if(OL_layer.ALGORITHM == MODE_LWF){
 	  OL_layer.l_rate = 0.0001;
+  }else if(OL_layer.ALGORITHM == MODE_OL_batch){
+	  OL_layer.l_rate = 0.0005;
+  }else if(OL_layer.ALGORITHM == MODE_OL_V2_batch){
+	  OL_layer.l_rate = 0.0007;
+  }else if(OL_layer.ALGORITHM == MODE_LWF_batch){
+	  OL_layer.l_rate = 0.0005;
   }
 
+
+  // Initialize the rest
+  OL_layer.WIDTH = 5;
+  OL_layer.HEIGHT = AI_NETWORK_OUT_1_SIZE;
+  OL_layer.counter = 0;
   OL_layer.OL_ERROR = 0;
 
 
@@ -167,59 +175,65 @@ int main(void)
   OL_layer.weights = calloc(OL_layer.WIDTH*OL_layer.HEIGHT, sizeof(float));
   if(OL_layer.weights==NULL){
 	  UART_debug("\n\r ERROR: Failed to allocate memory for weights");
-	  OL_layer.OL_ERROR = 1;
+	  OL_layer.OL_ERROR = CALLOC_WEIGHTS;
   }
 
   OL_layer.biases = calloc(OL_layer.WIDTH, sizeof(float));
   if(OL_layer.biases==NULL){
 	  UART_debug("\n\r ERROR: Failed to allocate memory for biases");
-	  OL_layer.OL_ERROR = 2;
+	  OL_layer.OL_ERROR = CALLOC_BIASES;
   }
 
   OL_layer.label = calloc(OL_layer.WIDTH, sizeof(char));
   if(OL_layer.label==NULL){
 	  UART_debug("\n\r ERROR: Failed to allocate memory for label");
-	  OL_layer.OL_ERROR = 3;
+	  OL_layer.OL_ERROR = CALLOC_LABEL;
   }
 
   OL_layer.y_pred = calloc(OL_layer.WIDTH, sizeof(float));
   if(OL_layer.y_pred==NULL){
 	  UART_debug("\n\r ERROR: Failed to allocate memory for y_pred");
-	  OL_layer.OL_ERROR = 4;
+	  OL_layer.OL_ERROR = CALLOC_Y_PRED;
   }
 
 
-  if(OL_layer.ALGORITHM == MODE_CWR || OL_layer.ALGORITHM == MODE_LWF){
+  if(OL_layer.ALGORITHM == MODE_CWR || OL_layer.ALGORITHM == MODE_LWF || OL_layer.ALGORITHM == MODE_OL_batch ||
+	 OL_layer.ALGORITHM == MODE_OL_V2_batch || OL_layer.ALGORITHM == MODE_LWF_batch){
+
 	  OL_layer.weights_2 = calloc(OL_layer.WIDTH*OL_layer.HEIGHT, sizeof(float));
 	  if(OL_layer.weights_2==NULL){
 		  UART_debug("\n\r ERROR: Failed to allocate memory for weights_2");
-		  OL_layer.OL_ERROR = 5;
+		  OL_layer.OL_ERROR = CALLOC_WEIGHTS_2;
 	  }
 
 	  OL_layer.biases_2 = calloc(OL_layer.WIDTH, sizeof(float));
 	  if(OL_layer.biases_2==NULL){
 		  UART_debug("\n\r ERROR: Failed to allocate memory for biases_2");
-		  OL_layer.OL_ERROR = 6;
+		  OL_layer.OL_ERROR = CALLOC_BIASES_2;
 	  }
 
 	  if(OL_layer.ALGORITHM == MODE_CWR){
 		  OL_layer.found_lett = calloc(OL_layer.WIDTH, sizeof(uint8_t));
 		  if(OL_layer.found_lett==NULL){
 			  UART_debug("\n\r ERROR: Failed to allocate memory for found lett");
-			  OL_layer.OL_ERROR = 7;
+			  OL_layer.OL_ERROR = CALLOC_FOUND_LETT;
 		  }
 	  }
 
-	  if(OL_layer.ALGORITHM == MODE_LWF){
+	  if(OL_layer.ALGORITHM == MODE_LWF || OL_layer.ALGORITHM == MODE_LWF_batch){
 		  OL_layer.y_pred_2 = calloc(OL_layer.WIDTH, sizeof(float));
 		  if(OL_layer.y_pred_2==NULL){
 			  UART_debug("\n\r ERROR: Failed to allocate memory for y_pred_2");
-			  OL_layer.OL_ERROR = 15;
+			  OL_layer.OL_ERROR = CALLOC_Y_PRED_2;
 		  }
 	  }
   }
 
-
+  float * y_true = calloc(OL_layer.WIDTH, sizeof(float));
+  if(y_true== NULL){
+	  UART_debug("\n\r ERROR: Failed to allocate memory for y_true");
+	  OL_layer.OL_ERROR = CALLOC_Y_TRUE;
+  }
 
 
   // FILL UP CONTAINERS WITH DATA
@@ -239,7 +253,7 @@ int main(void)
 	  OL_layer.biases[i]=saved_biases[i];
   }
 
-  if(OL_layer.ALGORITHM == MODE_LWF){
+  if(OL_layer.ALGORITHM == MODE_LWF || OL_layer.ALGORITHM == MODE_LWF_batch){
 	  for(int i=0; i<OL_layer.WIDTH*OL_layer.HEIGHT; i++){
 	  	  OL_layer.weights_2[i]=saved_weights[i];
 	  }
@@ -248,17 +262,14 @@ int main(void)
 	  }
   }
 
-  //Create container for the output prediction of OL layer
-  float * y_true = calloc(OL_layer.WIDTH, sizeof(float));
-  if(y_true== NULL){
-	  UART_debug("\n\r ERROR: Failed to allocate memory for y_true");
-	  OL_layer.OL_ERROR = 8;
-  }
-
   // ***********************************
+
+
 
   // Start the timer
   HAL_TIM_Base_Start_IT(&htim10);
+
+
 
   /* USER CODE END 2 */
 
@@ -318,16 +329,14 @@ int main(void)
 		  msgInfo[5] = (uint8_t)((inferenceTime_OL>>8) & LOW_BYTE);			// number - high byte
 		  msgInfo[6] = OL_layer.new_class;									// 0 or 1
 		  msgInfo[7] = OL_layer.prediction_correct;							// 0, 1, 2
-		  msgInfo[8] = OL_layer.w_update;									// 0 or 1
-		  msgInfo[9] = OL_layer.WIDTH;										// number
-		  msgInfo[10] = OL_layer.vowel_guess;								// char
+		  msgInfo[8] = OL_layer.WIDTH;										// number
+		  msgInfo[9] = OL_layer.vowel_guess;								// char
 
 		  HAL_UART_Transmit(&huart2, (uint8_t*)msgInfo, INFO_LEN, 100);
 
 
 
 		  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);	// Set low value for interrupt for infinity cycle
-		  OL_layer.counter +=1;
 		  enable_inference = 0;
 	  }
 

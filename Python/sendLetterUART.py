@@ -98,6 +98,7 @@ def histSTM_letters(vowel_true, predic_error, algorithm):
     tot     = np.zeros(8)
     correct_perc = np.zeros(8)
     mistake_perc = np.zeros(8)
+    letter_label = ['A', 'E', 'I', 'O', 'U', 'R', 'B', 'M']
 
     for i in range(0, len(vowel_true)):
 
@@ -135,24 +136,29 @@ def histSTM_letters(vowel_true, predic_error, algorithm):
     width = 0.25
     fig = plt.subplots(figsize =(12, 8))
     
-    # Set position of bar on X axis
-    br1 = np.arange(len(correct))
-    br2 = [x + width for x in br1]
-    
     # Make the plot
-    plt.bar(br1, correct_perc, color ='g', width = width, edgecolor ='grey', label ='CORR')
-    plt.bar(br2, mistake_perc, color ='r', width = width, edgecolor ='grey', label ='ERR')
+    bar_plot = plt.bar(letter_label, correct_perc, color ='cornflowerblue', edgecolor ='grey')
+
+    for p in bar_plot:
+            height = p.get_height()
+            xy_pos = (p.get_x() + p.get_width() / 2, height)
+            xy_txt = (0, -20)
+            txt_coord = "offset points"
+            txt_val = str(height)
+            if(height>10):
+                plt.annotate(txt_val, xy=xy_pos, xytext=xy_txt, textcoords=txt_coord, ha='center', va='bottom', fontsize=12)
+            else:
+                plt.annotate(txt_val, xy=xy_pos, xytext=(0, 3), textcoords=txt_coord, ha='center', va='bottom', fontsize=12)
+
 
     # Adding Xticks
-    plt.ylabel('%', fontweight ='bold', fontsize = 15)
-    plt.xticks([r + width for r in range(len(correct))], ['A', 'E', 'I', 'O', 'U', 'R', 'B', 'M'],fontweight ='bold', fontsize = 15)
-    plt.title('Bar plot - ' + algorithm, fontsize=18)
+    plt.ylabel('Accuracy %', fontsize = 15)
+    plt.xlabel('Classes', fontsize = 15)
+    plt.ylim([0, 100])
+    plt.xticks([r for r in range(len(correct))], letter_label, fontsize = 12)
+    plt.title('STM accuracy test - Method used: ' + algorithm, fontweight ='bold', fontsize=15)
 
-    plt.legend()
-
-    PLOT_PATH = 'C:/Users/massi/UNI/Magistrale/Anno 5/Semestre 2/Tesi/Code/Python/Plots/'
-    plt.savefig(PLOT_PATH + 'STM_bar_plot.png')
-
+    plt.savefig(PLOT_PATH + 'STM_barPlot.jpg')
     plt.show()
 
 
@@ -176,12 +182,24 @@ def histSTM(predic_error, algorithm):
     print(f'Wrong inferences   -> {round(mistake_perc,2)} %')
 
     data = [correct_perc, mistake_perc]
-    plt.bar(['CORRECT', 'ERROR'], data)
-    plt.title('Accuracy plot - ' + algorithm, fontsize=18)
+    bar_plot = plt.bar(['CORRECT', 'ERROR'], data)
+    plt.ylabel('Accuracy %', fontsize = 15)
+    plt.ylim([0, 100])
+    plt.title('STM accuracy - Method: ' + algorithm, fontsize=15, fontweight ='bold')
 
+    for p in bar_plot:
+        height = p.get_height()
+        xy_pos = (p.get_x() + p.get_width() / 2, height)
+        xy_txt = (0, -20)
+        txt_coord = "offset points"
+        txt_val = str(height)
+        if(height>10):
+            plt.annotate(txt_val, xy=xy_pos, xytext=xy_txt, textcoords=txt_coord, ha='center', va='bottom', fontsize=12)
+        else:
+            plt.annotate(txt_val, xy=xy_pos, xytext=(0, 3), textcoords=txt_coord, ha='center', va='bottom', fontsize=12)
 
-    PLOT_PATH = 'C:/Users/massi/UNI/Magistrale/Anno 5/Semestre 2/Tesi/Code/Python/Plots/'
-    plt.savefig(PLOT_PATH + 'STM_accuracy.png')
+    
+    plt.savefig(PLOT_PATH + 'STM_accuracy.jpg')
 
     plt.show()
 
@@ -207,7 +225,7 @@ def confusionMatrix(vowel_guess, vowel_true, algorithm):
 
     # ***** CONFUSION MATRIX PLOT
     figure = plt.figure()
-    axes = figure.add_subplot(111)
+    axes = figure.add_subplot()
 
     caxes = axes.matshow(conf_matr, cmap=plt.cm.Blues)
     figure.colorbar(caxes)
@@ -216,20 +234,68 @@ def confusionMatrix(vowel_guess, vowel_true, algorithm):
         for j in range(conf_matr.shape[1]):
             axes.text(x=j, y=i,s=int(conf_matr[i, j]), va='center', ha='center', size='large')
 
-
+    axes.xaxis.set_ticks_position("bottom")
     axes.set_xticklabels([''] + label)
     axes.set_yticklabels([''] + label)
 
     plt.xlabel('PREDICTED LABEL', fontsize=10)
     plt.ylabel('TRUE LABEL', fontsize=10)
-    plt.title('Confusion Matrix - ' + algorithm, fontsize=10)
+    plt.title('Confusion Matrix - ' + algorithm, fontsize=15, fontweight ='bold')
+    
+    plt.savefig(PLOT_PATH + 'STM_confMatrix.jpg')
     plt.show()
 
+    return conf_matr
+
 
     
-
+def table(conf_matrix, algorithm):
 
     
+    # ***** TABLE
+    fig, ax = plt.subplots(figsize =(25, 2)) 
+    ax.set_axis_off() 
+
+    val = np.zeros([3,conf_matrix.shape[1]])
+
+
+    for i in range(0, val.shape[1]):
+        if(sum(conf_matrix[i,:]) == 0):
+            val[0,i] = 0 
+        else:
+            val[0,i] = round(conf_matrix[i,i]/sum(conf_matrix[i,:]),2)  # RECALL    or SENSITIVITY
+
+        if(sum(conf_matrix[:,i]) == 0):
+            val[1,i] = 0
+        else:
+            val[1,i] = round(conf_matrix[i,i]/sum(conf_matrix[:,i]),2)     # PRECISION 
+
+        if((val[1,i]+val[2,i])==0):
+            val[2,i] = 0
+        else:
+            val[2,i] = round((2*val[0,i]*val[1,i])/(val[0,i]+val[1,i]),2)  # F1 SCORE
+
+    table = ax.table( 
+        cellText = val,  
+        rowLabels = ['Accuracy', 'Precision', 'F1 score'],  
+        colLabels = ['A', 'E', 'I', 'O', 'U', 'B', 'R', 'M'], 
+        rowColours =["cornflowerblue"] * 200,  
+        colColours =["cornflowerblue"] * 200, 
+        cellLoc ='center',  
+        loc ='upper left')         
+
+    table.scale(1,1) 
+    table.set_fontsize(10)
+
+    ax.set_title('STM table - Method: ' + algorithm, fontweight ="bold") 
+
+    plt.savefig(PLOT_PATH + 'STM_table.jpg',
+                bbox_inches='tight',
+                edgecolor=fig.get_edgecolor(),
+                facecolor=fig.get_facecolor(),
+                dpi=150
+                )
+    plt.show()  
 
 
 
@@ -242,6 +308,13 @@ def confusionMatrix(vowel_guess, vowel_true, algorithm):
 #  | |\/| | / _ \  | ||  \| |
 #  | |  | |/ ___ \ | || |\  |
 #  |_|  |_/_/   \_\___|_| \_|
+
+
+
+PLOT_PATH = 'C:/Users/massi/UNI/Magistrale/Anno 5/Semestre 2/Tesi/Code/Python/Plots/'
+
+
+
 
 
 print('\n\n\n')
@@ -312,8 +385,8 @@ serialInst.open()
 print('\n\nSerial port initialized')
 
 
-test_max  = 10 
-train_max = 10
+test_max  = 20
+train_max = 20
 send_max = test_max+train_max
 
 
@@ -325,13 +398,12 @@ frozen_time     = np.zeros(test_max)
 OL_time         = np.zeros(test_max)
 new_class       = np.zeros(test_max)
 predic_error    = np.zeros(test_max)
-w_updated       = np.zeros(test_max)
 OL_width        = np.zeros(test_max)
 OL_height       = np.zeros(test_max)
 vowel_guess     = np.zeros(test_max)
 vowel_true      = []
 
-algorithm_ary = ['OL', 'OL_V2', 'CWR', 'LWF']
+algorithm_ary = ['OL', 'OL_V2', 'CWR', 'LWF', 'OL batch', 'OL_V2 batch', 'LWF batch']
 
 
 data_prova  = mixed_data       # train_data      B_train_data      mixed_data
@@ -374,7 +446,7 @@ while (train_iter + test_iter)<send_max-1:
 
     #print('PC: Sent, wait to receive info...')
 
-    rx = serialInst.read(11)     # Read the encoded message sent from STM
+    rx = serialInst.read(10)     # Read the encoded message sent from STM
 
     if(train_iter < train_max):
 
@@ -389,9 +461,8 @@ while (train_iter + test_iter)<send_max-1:
         OL_time[test_iter]         = rx[4] | (rx[5]<<8)
         new_class[test_iter]       = rx[6]
         predic_error[test_iter]    = rx[7]
-        w_updated[test_iter]       = rx[8]
-        OL_width[test_iter]        = rx[9]
-        vowel_guess[test_iter]     = rx[10]
+        OL_width[test_iter]        = rx[8]
+        vowel_guess[test_iter]     = rx[9]
 
         print('\nSTM INFERENCE RESULT')
         print(f'   The algorithm is:                 {algorithm_ary[method]}')
@@ -410,11 +481,6 @@ while (train_iter + test_iter)<send_max-1:
             print(f'   New class has been detected:      NO')
 
         print(f'   Current shape of OL layer is:     {OL_width[test_iter]}')
-
-        if(w_updated[test_iter] == 0):
-            print(f'   The weights have been updated:    NO')
-        else:
-            print(f'   The weights have been updated:    YES')
 
         if(predic_error[test_iter] == 1):
             print(f'   The prediction is:                WRONG')
@@ -453,4 +519,5 @@ print(f'Average inference time for the OL model is:     {round(avrg_OL,2)}ms\n')
 
 histSTM(predic_error, algorithm_ary[method])
 histSTM_letters(vowel_true, predic_error, algorithm_ary[method])
-confusionMatrix(vowel_guess, vowel_true, algorithm_ary[method])
+conf_matr = confusionMatrix(vowel_guess, vowel_true, algorithm_ary[method])
+table(conf_matr, algorithm_ary[method])

@@ -6,7 +6,7 @@ PARAMETERS SAVED FROM THE TRAINING
  Optimizer: Adam
  Loss: categorical_crossentropy
 
-Model: "sequential_1"
+Model: "sequential_5"
 _________________________________________________________________
 Layer (type)                 Output Shape              Param #   
 =================================================================
