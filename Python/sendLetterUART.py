@@ -96,9 +96,11 @@ def histSTM_letters(vowel_true, predic_error, algorithm):
     correct = np.zeros(8)
     errors  = np.zeros(8)
     tot     = np.zeros(8)
-    correct_perc = np.zeros(8)
+    correct_perc = np.zeros(9)
     mistake_perc = np.zeros(8)
-    letter_label = ['A', 'E', 'I', 'O', 'U', 'R', 'B', 'M']
+    letter_label = ['A', 'E', 'I', 'O', 'U', 'R', 'B', 'M', 'Model']
+    bl = 'cornflowerblue'
+    colors = [bl,bl,bl,bl,bl,bl,bl,bl,'steelblue']
 
     for i in range(0, len(vowel_true)):
 
@@ -129,15 +131,16 @@ def histSTM_letters(vowel_true, predic_error, algorithm):
 
     for i in range(0, len(correct)):
         if(correct[i]!=0):
-            correct_perc[i] = round(correct[i]/tot[i],2)*100
+            correct_perc[i] = round(round(correct[i]/tot[i],4)*100,2)
         if(errors[i]!=0):
-            mistake_perc[i] = round(errors[i]/tot[i],2)*100
+            mistake_perc[i] = round(round(errors[i]/tot[i],4)*100,2)
+
+    correct_perc[-1] = round(round(sum(correct)/sum(tot), 4)*100,2)
     
-    width = 0.25
-    fig = plt.subplots(figsize =(12, 8))
+    fig = plt.subplots(figsize =(11, 7))
     
     # Make the plot
-    bar_plot = plt.bar(letter_label, correct_perc, color ='cornflowerblue', edgecolor ='grey')
+    bar_plot = plt.bar(letter_label, correct_perc, color=colors, edgecolor ='grey')
 
     for p in bar_plot:
             height = p.get_height()
@@ -155,10 +158,10 @@ def histSTM_letters(vowel_true, predic_error, algorithm):
     plt.ylabel('Accuracy %', fontsize = 15)
     plt.xlabel('Classes', fontsize = 15)
     plt.ylim([0, 100])
-    plt.xticks([r for r in range(len(correct))], letter_label, fontsize = 12)
+    plt.xticks([r for r in range(len(correct_perc))], letter_label, fontsize = 12)
     plt.title('STM accuracy test - Method used: ' + algorithm, fontweight ='bold', fontsize=15)
 
-    plt.savefig(PLOT_PATH + 'STM_barPlot.jpg')
+    plt.savefig(PLOT_PATH +'STM_barPlot_'+algorithm+'.jpg')
     plt.show()
 
 
@@ -175,11 +178,11 @@ def histSTM(predic_error, algorithm):
         elif(predic_error[i] == 1):
             mistake += 1
 
-    correct_perc = round(correct/len(predic_error),4) *100
-    mistake_perc = round(mistake/len(predic_error),4) *100
+    correct_perc = round(round(correct/len(predic_error),4)*100,2)
+    mistake_perc = round(round(mistake/len(predic_error),4)*100,2)
 
-    print(f'Correct inferences -> {round(correct_perc,2)} %')
-    print(f'Wrong inferences   -> {round(mistake_perc,2)} %')
+    print(f'Correct inferences -> {correct_perc} %')
+    print(f'Wrong inferences   -> {mistake_perc} %')
 
     data = [correct_perc, mistake_perc]
     bar_plot = plt.bar(['CORRECT', 'ERROR'], data)
@@ -199,7 +202,7 @@ def histSTM(predic_error, algorithm):
             plt.annotate(txt_val, xy=xy_pos, xytext=(0, 3), textcoords=txt_coord, ha='center', va='bottom', fontsize=12)
 
     
-    plt.savefig(PLOT_PATH + 'STM_accuracy.jpg')
+    plt.savefig(PLOT_PATH+'STM_accuracy_'+algorithm+'.jpg')
 
     plt.show()
 
@@ -242,7 +245,7 @@ def confusionMatrix(vowel_guess, vowel_true, algorithm):
     plt.ylabel('TRUE LABEL', fontsize=10)
     plt.title('Confusion Matrix - ' + algorithm, fontsize=15, fontweight ='bold')
     
-    plt.savefig(PLOT_PATH + 'STM_confMatrix.jpg')
+    plt.savefig(PLOT_PATH + 'STM_confMatrix_'+algorithm+'.jpg')
     plt.show()
 
     return conf_matr
@@ -253,7 +256,7 @@ def table(conf_matrix, algorithm):
 
     
     # ***** TABLE
-    fig, ax = plt.subplots(figsize =(25, 2)) 
+    fig, ax = plt.subplots(figsize =(12, 2)) 
     ax.set_axis_off() 
 
     val = np.zeros([3,conf_matrix.shape[1]])
@@ -289,7 +292,7 @@ def table(conf_matrix, algorithm):
 
     ax.set_title('STM table - Method: ' + algorithm, fontweight ="bold") 
 
-    plt.savefig(PLOT_PATH + 'STM_table.jpg',
+    plt.savefig(PLOT_PATH+'STM_table_'+algorithm+'.jpg',
                 bbox_inches='tight',
                 edgecolor=fig.get_edgecolor(),
                 facecolor=fig.get_facecolor(),
@@ -311,7 +314,7 @@ def table(conf_matrix, algorithm):
 
 
 
-PLOT_PATH = 'C:/Users/massi/UNI/Magistrale/Anno 5/Semestre 2/Tesi/Code/Python/Plots/'
+PLOT_PATH = 'C:/Users/massi/UNI/Magistrale/Anno 5/Semestre 2/Tesi/Code/Python/Plots/STM_results/'
 
 
 
@@ -329,7 +332,7 @@ print('\n')
 
 
 # DATASET - Vowels
-tmp_1, tmp_2 = myParse.loadDataFromTxt('augmented_vowels')
+tmp_1, tmp_2 = myParse.loadDataFromTxt('vowels_OL')
 train_data, train_label, _ , _ = parseTrainValid_v2(tmp_1, tmp_2, 0)
 
 # DATASET - B
@@ -385,8 +388,8 @@ serialInst.open()
 print('\n\nSerial port initialized')
 
 
-test_max  = 20
-train_max = 20
+test_max  = 140
+train_max = 500
 send_max = test_max+train_max
 
 
@@ -403,7 +406,7 @@ OL_height       = np.zeros(test_max)
 vowel_guess     = np.zeros(test_max)
 vowel_true      = []
 
-algorithm_ary = ['OL', 'OL_V2', 'CWR', 'LWF', 'OL batch', 'OL_V2 batch', 'LWF batch']
+algorithm_ary = ['OL', 'OL_V2', 'CWR', 'LWF', 'OL_batch', 'OL_V2_batch', 'LWF_batch']
 
 
 data_prova  = mixed_data       # train_data      B_train_data      mixed_data

@@ -127,7 +127,7 @@ void OL_increaseWeightDim(OL_LAYER_STRUCT * layer){
 	}
 
 
-	if(layer->ALGORITHM == MODE_CWR || layer->ALGORITHM == MODE_LWF || layer->ALGORITHM == MODE_OL_V2_batch ||
+	if(layer->ALGORITHM == MODE_CWR || layer->ALGORITHM == MODE_LWF || layer->ALGORITHM == MODE_OL_batch ||
 	   layer->ALGORITHM == MODE_OL_V2_batch || layer->ALGORITHM == MODE_LWF_batch){
 
 		layer->weights_2 = realloc(layer->weights_2, h*w*sizeof(float));
@@ -164,7 +164,7 @@ void OL_increaseBiasDim(OL_LAYER_STRUCT * layer){
 	layer->biases[w-1] = 0;
 
 
-	if(layer->ALGORITHM==MODE_CWR || layer->ALGORITHM==MODE_LWF || layer->ALGORITHM==MODE_OL_V2_batch  ||
+	if(layer->ALGORITHM==MODE_CWR || layer->ALGORITHM==MODE_LWF || layer->ALGORITHM==MODE_OL_batch  ||
 	   layer->ALGORITHM==MODE_OL_V2_batch || layer->ALGORITHM==MODE_LWF_batch){
 
 		layer->biases_2 = realloc(layer->biases_2, w*sizeof(float));
@@ -291,7 +291,7 @@ void OL_compareLabels(OL_LAYER_STRUCT * layer, float * y_true){
 		layer->prediction_correct = 2;
 	}
 
-	if(layer->ALGORITHM == MODE_LWF){
+	if(layer->ALGORITHM == MODE_LWF || layer->ALGORITHM == MODE_LWF_batch){
 		layer->found_lett[max_j_true] += 1;		// Update the found_lett array
 	}
 
@@ -351,7 +351,7 @@ void OL_train(OL_LAYER_STRUCT * layer, float *x, float *y_true, char *letter){
 		float cost[w];
 
 		// Training phase -> update TW and CW when necessary
-		if(layer->counter < 100){
+		if(layer->counter < 100000){
 			// Prediction
 			OL_feedForward(layer, x, layer->weights_2, layer->biases_2, layer->y_pred);
 			OL_softmax(layer, layer->y_pred);
@@ -368,12 +368,10 @@ void OL_train(OL_LAYER_STRUCT * layer, float *x, float *y_true, char *letter){
 
 			OL_compareLabels(layer, y_true);			// Check if prediction is correct or not
 
-
-
 			layer->counter +=1;
 
 			// When batch ends
-			if(layer->counter % layer->batch_size == 0){
+			if((layer->counter % layer->batch_size) == 0){
 
 				// Update CW
 				for(int j=0; j<w; j++){
@@ -421,10 +419,7 @@ void OL_train(OL_LAYER_STRUCT * layer, float *x, float *y_true, char *letter){
 		OL_feedForward(layer, x, layer->weights_2, layer->biases_2, layer->y_pred_2);
 		OL_softmax(layer, layer->y_pred_2);
 
-		lambda = 1 - layer->counter/400;
-		if(lambda<0){
-			lambda = 0;
-		}
+		lambda = 100/(100+layer->counter);
 
 		for(int j=0; j<w; j++){
 			cost_norm[j] = layer->y_pred[j]  -y_true[j];	// compute normal cost
@@ -490,7 +485,7 @@ void OL_train(OL_LAYER_STRUCT * layer, float *x, float *y_true, char *letter){
 
 
 
-	// ***** LWF mini batches ALGORITHM -  SBAGLIATO, DA RIVEDERE
+	// ***** LWF mini batches ALGORITHM
 	}else if(layer->ALGORITHM == MODE_LWF_batch){
 
 		float cost_norm[w];
@@ -504,10 +499,10 @@ void OL_train(OL_LAYER_STRUCT * layer, float *x, float *y_true, char *letter){
 		OL_feedForward(layer, x, layer->weights_2, layer->biases_2, layer->y_pred_2);
 		OL_softmax(layer, layer->y_pred_2);
 
-        if(layer->counter < layer->batch_size){
-        	lambda = 0;
+        if(layer->counter<layer->batch_size){
+        	lambda = 1;
         }else{
-			lambda = 1-(layer->batch_size / layer->counter);
+        	lambda = layer->batch_size/layer->counter;
         }
 
 		for(int j=0; j<w; j++){
@@ -515,23 +510,21 @@ void OL_train(OL_LAYER_STRUCT * layer, float *x, float *y_true, char *letter){
 			cost_LWF[j]  = layer->y_pred_2[j]-y_true[j];	// compute LWF cost
 
 			for(int i=0; i<h; i++){
-				layer->weights_2[j*h+i] += (cost_norm[j]*(1-lambda)+cost_LWF[j]*lambda)*x[i];
+				layer->weights[j*h+i] -= (cost_norm[j]*(1-lambda)+cost_LWF[j]*lambda)*layer->l_rate*x[i];
 			}
-			layer->biases_2[j] += cost_norm[j]*(1-lambda)+cost_LWF[j]*lambda;
+			layer->biases[j] -= (cost_norm[j]*(1-lambda)+cost_LWF[j]*lambda)*layer->l_rate;
 		}
 
 		OL_compareLabels(layer, y_true);	// Check if prediction is correct or not
 
 		layer->counter +=1;
 
-		if(layer->counter % layer->batch_size == 0){
+		if((layer->counter % layer->batch_size) == 0){
 
 			for(int j=0; j<w; j++){
 				for(int i=0; i<h; i++){
-					layer->weights[j*h+i] = layer->weights_2[j*h+i]*layer->l_rate*(1/layer->batch_size);
 					layer->weights_2[j*h+i] = layer->weights[j*h+i];	// reset
 				}
-				layer->biases[j] = layer->biases_2[j]*layer->l_rate*(1/layer->batch_size);
 				layer->biases_2[j] = layer->biases[j];	// reset
 			}
 

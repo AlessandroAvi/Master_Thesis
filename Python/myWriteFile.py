@@ -109,7 +109,13 @@ def writeLastLayer(model):
         new_file.write('\n                       ')
 
         for i in range(0, weights.shape[0]):     
-            new_file.write(str(weights[i,j])+',')
+            new_file.write(str(weights[i,j]))
+            if(i==weights.shape[0]-1 and j==weights.shape[1]-1):
+                dummy=0
+            else:
+                new_file.write(',')
+                
+
             if(i%32==0 and i!=0):
                 new_file.write('\n                       ')
 

@@ -135,12 +135,14 @@ R_data_1, R_label_1 = parseTXT('raw_r')
 
 A_data_2, A_label_2 = parseTXT('new_letter_A')      # 40 samples
 A_data_3, A_label_3 = parseTXT('new_letter_A_2')    # 80 samples
+A_data_4, A_label_4 = parseTXT('new_letter_A_3')    # 50 samples
 
 E_data_2, E_label_2 = parseTXT('new_letter_E')      # 40 samples
 E_data_3, E_label_3 = parseTXT('new_letter_E_2')    # 80 samples
 
 I_data_2, I_label_2 = parseTXT('new_letter_I')      # 40 samples
 I_data_3, I_label_3 = parseTXT('new_letter_I_2')    # 80 samples
+I_data_4, I_label_4 = parseTXT('new_letter_I_3')    # 50 samples
 
 O_data_2, O_label_2 = parseTXT('new_letter_O')      # 40 samples
 O_data_3, O_label_3 = parseTXT('new_letter_O_2')    # 80 samples
@@ -153,6 +155,7 @@ R_data_3, R_label_3 = parseTXT('new_letter_R_2')    # 80 samples
 
 B_data_2, B_label_2 = parseTXT('new_letter_B')      # 40 samples
 B_data_3, B_label_3 = parseTXT('new_letter_B_2')    # 80 samples
+B_data_4, B_label_4 = parseTXT('new_letter_B_3')    # 50 samples
 
 M_data_2, M_label_2 = parseTXT('new_letter_M')      # 40 samples
 M_data_3, M_label_3 = parseTXT('new_letter_M_2')    # 80 samples
@@ -165,10 +168,12 @@ M_data_3, M_label_3 = parseTXT('new_letter_M_2')    # 80 samples
 B_data = B_data_1
 B_data = np.vstack(( B_data, B_data_2))
 B_data = np.vstack(( B_data, B_data_3))
+B_data = np.vstack(( B_data, B_data_4))
 
 B_label = B_label_1
 B_label = np.hstack(( B_label, B_label_2))
 B_label = np.hstack(( B_label, B_label_3))
+B_label = np.hstack(( B_label, B_label_4))
 
 saveDataset(B_data, B_label, 'B_dataset')
 
@@ -230,7 +235,36 @@ for i in range(0, A_label_3.shape[0]):
     vowels_label = np.hstack(( vowels_label, O_label_3[i]))
     vowels_label = np.hstack(( vowels_label, U_label_3[i]))
 
-saveDataset(vowels_data, vowels_label, 'augmented_vowels')
+
+# Shuffle the vowels dataset
+vowel_dim = vowels_data.shape[0]
+
+order_ary = list(range(0, vowel_dim))
+random.shuffle(order_ary)
+
+vowels_data_shuffle  = np.zeros([vowel_dim,600])
+vowels_label_shuffle = []
+
+
+
+for i in range(0, vowel_dim):
+    vowels_data_shuffle[i,:] = vowels_data[order_ary[i],:]
+    vowels_label_shuffle.append(vowels_label[order_ary[i]])
+
+# Separate in 70% for TF and 30% for OL
+sep = int(vowel_dim*0.7)
+
+vowels_data_TF = vowels_data_shuffle[:sep,:]
+vowels_label_TF = vowels_label_shuffle[:sep]
+
+vowels_data_OL = vowels_data_shuffle[sep:,:]
+vowels_label_OL = vowels_label_shuffle[sep:]
+
+saveDataset(vowels_data_TF, vowels_label_TF, 'vowels_TF')
+saveDataset(vowels_data_OL, vowels_label_OL, 'vowels_OL')
+
+
+
 
 
 
@@ -272,4 +306,4 @@ for i in range(0, A_label_3.shape[0]):
     vowels_label = np.hstack(( vowels_label, O_label_3[i]))
     vowels_label = np.hstack(( vowels_label, U_label_3[i]))
 
-saveDataset(vowels_data, vowels_label, 'new_vowels')
+#saveDataset(vowels_data, vowels_label, 'new_vowels')

@@ -22,44 +22,6 @@ def lettToSoft(ary, labels):
 
 
 
-def plotTest(data, label_lett, model, letters):
-    
-    correct = 0
-    mistaken = 0
-        
-    label = np.zeros([len(label_lett), len(letters)])
-    
-    for i in range(0, len(label_lett)):
-        for j in range(0, len(letters)):
-            if(label_lett[i]==letters[j]):
-                label[i,j] = 1
-
-    total = data.shape[0]
-
-    for i in range(0, data.shape[0]):
-        pred = model.predict(data[i,:].reshape(1,data.shape[1]))
-
-        if (np.argmax(pred) == np.argmax(label[i])):
-            correct +=1
-        else:
-            mistaken +=1
-
-    fig = plt.figure()
-    ax = fig.add_axes([0,0,1,1])
-    ax.set_title('Test performance')
-
-    langs = ['Correct', 'Error']
-    langs.reverse
-    bars = [correct,mistaken]
-    bars.reverse
-    ax.bar(langs,bars)
-    plt.show()
-
-    print(f"Total correct guesses {correct}  -> {round(correct/total,2)*100}%")
-    print(f"Total mistaken guesses {mistaken} -> {round(mistaken/total,2)*100}%")
-
-
-
 
 
 
@@ -70,6 +32,7 @@ def testOL(model, OL_data):
     tot_ary = np.zeros([8])
     confusion_matrix = np.zeros([8,8])
 
+    standard_label = ['A','E','I','O','U','B','R','M']
 
     for j in range(0,4):
         if(j==0):
@@ -121,9 +84,9 @@ def testOL(model, OL_data):
 
             # CONFUSION MATRIX
             for k in range(0,len(model.label)):
-                if(model.label[max_i_pred] == model.label[k]):
+                if(model.label[max_i_pred] == standard_label[k]):
                     l = np.copy(k)
-                if(model.label[max_i_true] == model.label[k]):
+                if(model.label[max_i_true] == standard_label[k]):
                     p = np.copy(k)
 
             confusion_matrix[p,l] += 1
@@ -154,19 +117,27 @@ def plotTestOL(model):
     title       = model.title 
     filename    = model.filename
 
+    letter_labels = ['A','E','I','O','U','B','R','M', 'Model']
+    bl = 'cornflowerblue'
+    colors = [bl, bl, bl, bl, bl, bl, bl, bl, 'steelblue']
+
+
     values = np.zeros([2,len(corr_ary)])
-    letter_labels = ['A','E','I','O','U','B','R','M']
+    accuracy_bars = np.zeros([len(letter_labels)])
     
     for i in range(0, len(corr_ary)):
         values[0,i] = int(round(corr_ary[i]/tot_ary[i], 2)*100) # CORRECT
         values[1,i] = int(round(err_ary[i]/tot_ary[i], 2)*100)  # ERRORRS
+
+    accuracy_bars[:len(corr_ary)] = values[0,:]
+    accuracy_bars[-1] = int(round(sum(corr_ary)/sum(tot_ary)  ,2)*100)
     
 
     # ***** BAR PLOT
     width = 0.25
     fig = plt.subplots(figsize =(12, 8))
 
-    bar_plot = plt.bar(letter_labels, values[0,:], color='cornflowerblue', edgecolor='grey')
+    bar_plot = plt.bar(letter_labels, accuracy_bars, color=colors, edgecolor='grey')
 
     for p in bar_plot:
         height = p.get_height()
@@ -184,7 +155,7 @@ def plotTestOL(model):
     plt.ylabel('Accuracy %', fontsize = 15)
     plt.xlabel('Classes', fontsize = 15)
     plt.ylim([0, 100])
-    plt.xticks([r for r in range(len(corr_ary))], letter_labels, fontweight ='bold', fontsize = 12)
+    plt.xticks([r for r in range(len(letter_labels))], letter_labels, fontweight ='bold', fontsize = 12)
     plt.title('Accuracy test - Method used: '+title, fontweight ='bold', fontsize = 15)
 
     plt.savefig(PLOT_PATH + 'barPlot_' + filename + '.jpg')
@@ -214,15 +185,16 @@ def plotTestOL(model):
     val[0,:] = values[0,:]
 
     for i in range(0, val.shape[1]):
-        val[1,i] = round(conf_matrix[i,i]/sum(conf_matrix[:,i]),2)     # PRECISION 
-        val[2,i] = round((2*val[1,i]*val[0,i])/(val[1,i]+val[0,i]),2)  # F1 SCORE
-
-        if(np.isnan(val[0,i]) == True):
-            val[0,i] = 0
-        if(np.isnan(val[1,i]) == True):
+        if(sum(conf_matrix[:,i])==0):
             val[1,i] = 0
-        if(np.isnan(val[2,i]) == True):
+        else:
+            val[1,i] = round(conf_matrix[i,i]/sum(conf_matrix[:,i]),2)     # PRECISION 
+
+        if((val[1,i]+val[0,i])==0):
             val[2,i] = 0
+        else:
+            val[2,i] = round((2*val[1,i]*val[0,i])/(val[1,i]+val[0,i]),2)  # F1 SCORE
+
 
 
     table = ax.table( 
@@ -379,7 +351,7 @@ def summaryResults(model1, model2, model3, model4, model5, model6, model7, model
     
     table = plt.table( 
         cellText = table_content,  
-        colLabels = ['AVRG Accuracy', 'AVRG Precision', 'AVRG Recall', 'AVRG F1 score'],  
+        colLabels = ['Overall Accuracy', 'AVRG Precision', 'AVRG Recall', 'AVRG F1 score'],  
         rowLabels = row_label, 
         rowColours =["cornflowerblue"] * 200,  
         colColours =["cornflowerblue"] * 200, 

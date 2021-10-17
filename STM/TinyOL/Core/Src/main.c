@@ -141,12 +141,12 @@ int main(void)
   //	MODE_OL_batch
   //	MODE_OL_V2_batch
   //	MODE_LWF_batch
-  OL_layer.ALGORITHM = MODE_OL;
+  OL_layer.ALGORITHM = MODE_OL_V2_batch;
 
   OL_layer.batch_size = 10;
 
   // Define the learn rate experimentally
-  if(OL_layer.ALGORITHM == MODE_OL){
+  if(OL_layer.ALGORITHM       == MODE_OL){
 	  OL_layer.l_rate = 0.000005;
   }else if(OL_layer.ALGORITHM == MODE_OL_V2){
 	  OL_layer.l_rate = 0.0005;
@@ -164,9 +164,9 @@ int main(void)
 
 
   // Initialize the rest
-  OL_layer.WIDTH = 5;
-  OL_layer.HEIGHT = AI_NETWORK_OUT_1_SIZE;
-  OL_layer.counter = 0;
+  OL_layer.WIDTH    = 5;
+  OL_layer.HEIGHT   = AI_NETWORK_OUT_1_SIZE;
+  OL_layer.counter  = 0;
   OL_layer.OL_ERROR = 0;
 
 
@@ -340,7 +340,7 @@ int main(void)
 		  enable_inference = 0;
 	  }
 
-	  HAL_Delay(5);
+	  HAL_Delay(5); // Helps the code to not get stuck
 
 	  // Interrupt for infinite cycle
 	  if(BlueButton == 1 && enable_inference == 0){

@@ -1,12 +1,12 @@
 PARAMETERS SAVED FROM THE TRAINING
  Batch size: 16
- Epochs: 20
+ Epochs: 40
  Validation split: 0.2
  Metrics: ['accuracy']
  Optimizer: Adam
  Loss: categorical_crossentropy
 
-Model: "sequential_5"
+Model: "sequential_1"
 _________________________________________________________________
 Layer (type)                 Output Shape              Param #   
 =================================================================
