@@ -30,3 +30,54 @@ The file `parse_dataset.py` is a python code that is used for merging all the tx
 ### OTHER
 
 All the other python files just contain the functions that I use in the Notebook file. I put those functions in new files because the notebook was getting quite difficult to scroll. 
+
+
+
+
+
+
+
+# REQUIREMENTS
+
+import numpy as np
+
+import matplotlib.pyplot as plt
+
+import pandas as pd
+
+import os
+
+import matplotlib.image as mpimg
+
+from sklearn.metrics import confusion_matrix
+
+import seaborn as sns
+
+import time 
+
+import glob
+
+import serial.tools.list_ports
+
+import serial
+
+import copy
+
+import random
+
+import re
+
+import msvcrt
+
+
+
+import tensorflow as tf
+
+from tensorflow import keras
+
+from tensorflow.keras.layers import Dense
+
+from tensorflow.keras.models import Sequential, Model
+
+from tensorflow.keras import optimizers
+

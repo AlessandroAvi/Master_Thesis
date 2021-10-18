@@ -141,7 +141,7 @@ int main(void)
   //	MODE_OL_batch
   //	MODE_OL_V2_batch
   //	MODE_LWF_batch
-  OL_layer.ALGORITHM = MODE_OL_V2_batch;
+  OL_layer.ALGORITHM = MODE_OL;
 
   OL_layer.batch_size = 10;
 

@@ -4289,8 +4289,8 @@ int main(void)
   //	MODE_OL_batch
   //	MODE_OL_V2_batch
   //	MODE_LWF_batch
-  OL_layer.ALGORITHM = MODE_OL_V2_batch;
- 8002612:	2305      	movs	r3, #5
+  OL_layer.ALGORITHM = MODE_OL;
+ 8002612:	2300      	movs	r3, #0
  8002614:	63bb      	str	r3, [r7, #56]	; 0x38
 
   OL_layer.batch_size = 10;
