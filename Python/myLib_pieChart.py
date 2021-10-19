@@ -10,6 +10,9 @@ PLOT_PATH = ROOT_PATH + '\\Plots\\DatasetPlots\\'
 
 
 
+
+
+
 def plot_pieChart_datasetAll(dataset_shapes):
     """ Plots a pie chart showing how the entire dataset is composed
 
@@ -47,9 +50,6 @@ def plot_pieChart_datasetAll(dataset_shapes):
 
 
 
-
-
-
 def plot_pieChart_DatasetTF(TF_train, TF_test):
     """ Plots a pie chart showing how the TF dataset is separated in train and test
 
@@ -65,23 +65,16 @@ def plot_pieChart_DatasetTF(TF_train, TF_test):
         Number of samples of the dataset for the testing on the TF model
     """
     
-    f_size = 10
-    fig, ax = plt.subplots(figsize=(f_size, f_size))
+    fig, ax = plt.subplots(figsize=(10, 10))
 
-    y = np.array([TF_train, TF_test])
-    
     mylabels = ["VOWELS TF train", "VOWELS TF test"]
-    
-    mycolors = ["#af2424", "#e95454"]
+    mycolors = ["#af2424", "#e95454"]  
+    y = np.array([TF_train, TF_test])
+    ax.pie(y, labels = mylabels, colors = mycolors, textprops={'size': 'x-large'})
 
     plt.tight_layout()
-    
-    ax.pie(y, labels = mylabels, colors = mycolors, 
-           textprops={'size': 'x-large'})
-    
     plt.savefig(PLOT_PATH + 'pieChart_datasetTF.png')
     plt.show() 
-
 
 
 
@@ -114,7 +107,6 @@ def plot_pieChart_DatasetOL(dataset_shapes):
                 "#b149c4", "#d774e9",
                 "#c1732f", "#e99e5d"]
 
-    
     ax.pie(dataset_shapes, labels = mylabels, colors = mycolors, textprops={'size': 'x-large'})
     
     plt.savefig(PLOT_PATH + 'pieChart_datasetOL.png')

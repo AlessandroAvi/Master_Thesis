@@ -18,10 +18,10 @@ import matplotlib.pyplot as plt
 """
 
 This python script is used for parsing the raw txt files that are obtained from the MobaXterm terminal. Since the data logged from the 
-accelerometer is actually recorded from the termina is necessary to delete and discard all the lines that do not contain the useful data
-that I want to use.  The following script will read the txt file, save only the important data in temporary matrices/array and later save 
+accelerometer is actually recorded from the terminal, is necessary to delete and discard all the lines that do not contain the useful data
+that I want to use. The following script will read the txt file, save only the important data in temporary matrices/array and later save 
 everything in new txt files. 
-Additionally is possible to save data from the letters in different sessions and later stick all the data together in a single txt file.
+Additionally it's possible to save data from the letters in different sessions and later stick all the data together in a single txt file.
 
 """
 
@@ -217,8 +217,7 @@ B_label = B_label_1
 B_label = np.hstack(( B_label, B_label_2))
 B_label = np.hstack(( B_label, B_label_3))
 B_label = np.hstack(( B_label, B_label_4))
-# Save the big matrix in a txt file where data is formatted clean
-saveDataset(B_data, B_label, 'B_dataset')
+
 
 
 # Stick together in a single matrix all the data related to letter R
@@ -231,8 +230,6 @@ R_label = R_label_1
 R_label = np.hstack(( R_label, R_label_2))
 R_label = np.hstack(( R_label, R_label_3))
 R_label = np.hstack(( R_label, R_label_4))
-# Save the big matrix in a txt file where data is formatted clean
-saveDataset(R_data, R_label, 'R_dataset')
 
 
 # Stick together in a single matrix all the data related to letter M
@@ -245,8 +242,7 @@ M_label = M_label_1
 M_label = np.hstack(( M_label, M_label_2))
 M_label = np.hstack(( M_label, M_label_3))
 M_label = np.hstack(( M_label, M_label_4))
-# Save the big matrix in a txt file where data is formatted clean
-saveDataset(M_data, M_label, 'M_dataset')
+
 
 
 
@@ -293,30 +289,28 @@ for i in range(0, A_label_4.shape[0]):
     vowels_label = np.hstack(( vowels_label, U_label_4[i]))
 
 
-# Shuffle the vowels dataset
-vowel_dim = vowels_data.shape[0]
+# Separate vowels in 70% for TF and 30% for OL
+sep = int(vowels_data.shape[0]*0.7)
 
-order_ary = list(range(0, vowel_dim))
-random.shuffle(order_ary)
+vowels_data_TF  = vowels_data[:sep,:]
+vowels_label_TF = vowels_label[:sep]
 
-vowels_data_shuffle  = np.zeros([vowel_dim,600])
-vowels_label_shuffle = []
+vowels_data_OL  = vowels_data[sep:,:]
+vowels_label_OL = vowels_label[sep:]
 
-for i in range(0, vowel_dim):
-    vowels_data_shuffle[i,:] = vowels_data[order_ary[i],:]
-    vowels_label_shuffle.append(vowels_label[order_ary[i]])
-
-
-# Separate in 70% for TF and 30% for OL
-sep = int(vowel_dim*0.7)
-
-vowels_data_TF = vowels_data_shuffle[:sep,:]
-vowels_label_TF = vowels_label_shuffle[:sep]
-
-vowels_data_OL = vowels_data_shuffle[sep:,:]
-vowels_label_OL = vowels_label_shuffle[sep:]
 
 
 # Save the big matrix in a txt file where data is formatted clean
+saveDataset(B_data, B_label, 'B_dataset')
+print('Dataset for letter B: saved')
+# Save the big matrix in a txt file where data is formatted clean
+saveDataset(R_data, R_label, 'R_dataset')
+print('Dataset for letter R: saved')
+# Save the big matrix in a txt file where data is formatted clean
+saveDataset(M_data, M_label, 'M_dataset')
+print('Dataset for letter M: saved')
+# Save the big matrix in a txt file where data is formatted clean
 saveDataset(vowels_data_TF, vowels_label_TF, 'vowels_TF')
+print('Dataset for letter VOWELS TF: saved')
 saveDataset(vowels_data_OL, vowels_label_OL, 'vowels_OL')
+print('Dataset for letter VOWELS OL: saved')

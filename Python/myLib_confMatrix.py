@@ -9,6 +9,9 @@ PLOT_PATH = ROOT_PATH + '\\Plots\\'
 
 
 
+
+
+
 def plot_confMatrix(model):
     """ Generates and plots the confusion matrix of the test performed.
 
@@ -27,7 +30,6 @@ def plot_confMatrix(model):
 
     letter_labels = ['A','E','I','O','U','B','R','M', 'Model']
     
-    # ***** CONFUSION MATRIX PLOT
     plt.figure(figsize=(10,6))
 
     sns.heatmap(conf_matrix, annot=True, cmap="Blues", xticklabels=letter_labels, yticklabels=letter_labels)

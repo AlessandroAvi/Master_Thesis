@@ -12,6 +12,8 @@ from tensorflow.keras.models import Sequential, Model
 from tensorflow.keras import optimizers
 import myLib_parseData as myParse
 import myLib_writeFile as myWrite
+import myLib_testModel as myTest
+
 
 
 
@@ -59,42 +61,27 @@ The order of actions in this code is:
 #  |_|    \___/|_| \_|\____| |_| |___\___/|_| \_|____/ 
 
 
-def lettToSoft(ary, labels):
-    ret_ary = np.zeros([len(ary), len(labels)])
-    
-    for i in range(0, len(ary)):
-        for j in range(0, len(labels)):
-            if(ary[i]==labels[j]):
-                ret_ary[i,j] = 1
-
-            
-    return ret_ary   
-
-
-"""
-saveParams: 
-
-INPUTS:
-
-RETURN:
-"""
-def saveParams(SAVE_MODEL_PATH, model):
-    
-    new_file = open(SAVE_MODEL_PATH + '/params.txt', "w")
-
-    new_file.write("PARAMETERS SAVED FROM THE TRAINING")
-    new_file.write("\n Batch size: " + str(batch_size))
-    new_file.write("\n Epochs: " + str(epochs))
-    new_file.write("\n Validation split: " + str(0.2))
-    new_file.write("\n Metrics: " + str(metrics))
-    new_file.write("\n Optimizer: " + optimizer)
-    new_file.write("\n Loss: " + loss + "\n\n")
-
-    model.summary(print_fn=lambda x: new_file.write(x + '\n'))
-
-
 
 def plot_TestAccuracy(data, label_lett, model, letters):
+    """ Plots a bar chart of the testing performed on the keras model.
+
+    Generates, saves and shows a bar chart plotof the correct and msitaked prediction performed by
+    the keras model. This is not a method from the keras library so it's slow and not optimized.
+
+    Parameters
+    ----------
+    data : array_like
+        Matrix containing the dataset that I want to test.
+
+    label_lett : array_like
+        Array containing the labels related to the data inside the matrix.
+
+    model : keras class
+        keras model trained with TF
+
+    letter : array_like
+        Array that contains the label known by the model
+    """
     
     correct = 0
     mistaken = 0
@@ -142,12 +129,21 @@ def plot_TestAccuracy(data, label_lett, model, letters):
 
     plt.show()
 
-    print(f"Total correct guesses {correct}  -> {round(correct/total,2)*100}%")
+    print(f"Total correct guesses  {correct}  -> {round(correct/total,2)*100}%")
     print(f"Total mistaken guesses {mistaken} -> {round(mistaken/total,2)*100}%")
 
 
 
 def plot_History(train_hist):
+    """ Saves in a plot the hostory of the training
+
+    Saves in a plot the history of the training regarding the values 'training loss' and 'validation loss'
+
+    Parameters
+    ----------
+    train_hist : class? 
+        A container in which the parameters are saved from keras when training the model
+    """
 
     hist_loss = train_hist.history['loss']
     hist_val_loss = train_hist.history['val_loss']
@@ -188,7 +184,19 @@ vowels_data, vowels_label = myParse.loadDataFromTxt('vowels_TF')
     
 # Separate in train and valid the TF dataset (data is also shuffled)
 print('\n**** TF data')
-TF_data_train, TF_label_train, TF_data_test, TF_label_test = myParse.parseTrainTest(vowels_data, vowels_label, 0.8)
+TF_data, TF_label, TF_data_test, TF_label_test = myParse.parseTrainTest(vowels_data, vowels_label, 0.8)
+
+# Shuffle the dataset
+random.seed(420)
+order_list = list(range(0,TF_data.shape[0]))    # create list of increasing numbers
+random.shuffle(order_list)                      # shuffle the list of ordered numbers
+
+TF_data_train  = np.zeros(TF_data.shape)
+TF_label_train = np.empty(TF_data.shape[0], dtype=str) 
+
+for i in range(0, TF_data.shape[0]):
+    TF_data_train[i,:]  = TF_data[order_list[i],:]    # fill the new container with the shuffeled data
+    TF_label_train[i]   = TF_label[order_list[i]]
 
 
 
@@ -203,7 +211,7 @@ batch_size = 32     # 16
 
 # Define the model structure
 model = Sequential()
-model.add(Dense(128, activation = 'relu', input_shape =(TF_data_train.shape[1],), name='input_layer'))
+model.add(Dense(128, activation = 'relu', input_shape = (TF_data_train.shape[1],), name='input_layer'))
 model.add(Dense(300, activation = 'relu', name='hidden1'))  
 model.add(Dense(5, activation='softmax' , name = 'output_layer'))
 
@@ -213,9 +221,9 @@ model.summary()
 
 
 ## TRAINING OF THE KERAS MODEL
-train_hist = model.fit(TF_data_train, lettToSoft(TF_label_train, vowels), epochs=epochs, batch_size=batch_size, validation_split=0.1 , verbose=2)
+train_hist = model.fit(TF_data_train, myTest.lettToSoft(TF_label_train, vowels), epochs=epochs, batch_size=batch_size, validation_split=0.1 , verbose=2)
 print('\nEvaluation:')
-results = model.evaluate(TF_data_test, lettToSoft(TF_label_test, vowels), verbose=2)
+results = model.evaluate(TF_data_test, myTest.lettToSoft(TF_label_test, vowels), verbose=2)
 
 
 
@@ -227,7 +235,9 @@ plot_TestAccuracy(TF_data_test, TF_label_test, model, vowels)
 
 # SAVE THE KERAS MODEL
 model.save(SAVE_MODEL_PATH + "model\\model.h5")
-saveParams(SAVE_MODEL_PATH + "model\\", model)
+myWrite.saveParams(SAVE_MODEL_PATH + "model\\", model, batch_size, epochs, metrics, optimizer, loss)
+
+
 
 
 
@@ -237,7 +247,7 @@ ML_model.summary()
 ML_model.compile()
 
 ML_model.save(SAVE_MODEL_PATH + "Frozen_model\\model.h5")
-saveParams(SAVE_MODEL_PATH + "Frozen_model\\", ML_model)
+myWrite.saveParams(SAVE_MODEL_PATH + "Frozen_model\\", ML_model, batch_size, epochs, metrics, optimizer, loss)
 
 # ALSO WRITE IN A file.h THE LAST LAYER W AND B AS A MATRIX AND AN ARRAY
 myWrite.save_lastLayer(model)

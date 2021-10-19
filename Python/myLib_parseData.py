@@ -11,6 +11,9 @@ ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
 
 
 
+
+
+
 def loadDataFromTxt(filename):
     """ Takes data from txt file and puts it in matrix/array
 
@@ -36,9 +39,10 @@ def loadDataFromTxt(filename):
     DATASET_PATH = ROOT_PATH + '\\Letter_dataset\\Clean_dataset\\' + filename + ".txt"
 
     columnNames = ['acquisition','letter','ax','ay','az']
-    dataset = pd.read_csv(DATASET_PATH,header = None, names=columnNames,na_values=',')
 
-    last_index = max(np.unique(dataset.acquisition)) # Find the number of tests
+    dataset = pd.read_csv(DATASET_PATH,header = None, names=columnNames,na_values=',') # use pandas to parse esaily in a dataframe
+
+    last_index = max(np.unique(dataset.acquisition)) # number of tests done
 
     second_axis = []
     for acq_index in range(1,last_index):
@@ -61,12 +65,11 @@ def loadDataFromTxt(filename):
     print(f'******* Dataset for letter {contains}\n')
     print(f'Raw shape        -> {dataset.shape}')
     print(f'Columns          -> {columnNames}' )
-    print()
     print(f'Tot samples      -> {last_index}')
-    print(f'1 Sample is long -> {az.shape[0]}')
     print()
 
     return dtensor, labels_lett
+
 
 
 
@@ -111,7 +114,7 @@ def parseTrainTest(dtensor, labels, percent):
         x is the shape of the riginal dataset and perc is the percent value of the dataset split. 
 """
     
-    sep = int(percent*dtensor.shape[0])
+    sep = int(percent*dtensor.shape[0])     # index where to separate train and test
     
     sample_index = list(range(0,dtensor.shape[0]))
     shuffled_indexes = np.random.shuffle(sample_index)
@@ -123,15 +126,12 @@ def parseTrainTest(dtensor, labels, percent):
     # random.shuffle
     #################################
 
-    train_data = dtensor[sample_index[:sep],:]
-    #train_labels = labels[sample_index[sep:],:]
-    train_labels_lett = labels[sample_index[:sep]]
+    train_data = dtensor[sample_index[:sep],:]      
+    train_labels_lett = labels[sample_index[:sep]]  # labels in an array of chars
 
     test_data = dtensor[sample_index[sep:],:]
-    #test_labels = labels[sample_index[:sep],:]
-    test_labels_lett = labels[sample_index[sep:]]
+    test_labels_lett = labels[sample_index[sep:]]    # labels in an array of chars
 
-    train_shape = train_data.shape[1]
     print('\n*** Separate train-valid\n')
     print(f"Train data shape  -> {train_data.shape}")
     print(f"Train label shape -> {train_labels_lett.shape}")
