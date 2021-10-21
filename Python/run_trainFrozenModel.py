@@ -83,54 +83,66 @@ def plot_TestAccuracy(data, label_lett, model, letters):
         Array that contains the label known by the model
     """
     
-    correct = 0
-    mistaken = 0
+    corr_ary   = np.zeros(5)
+    tot_ary    = np.zeros(5)
+    bar_values = np.zeros(6) 
         
-    label = np.zeros([len(label_lett), len(letters)])
-    
-    for i in range(0, len(label_lett)):
-        for j in range(0, len(letters)):
-            if(label_lett[i]==letters[j]):
-                label[i,j] = 1
+    label_soft = myTest.lettToSoft(label_lett, letters) 
 
     total = data.shape[0]
+    letter_labels = ['A','E','I','O','U','Model']
+    blue2 = 'cornflowerblue'
+    colors = [blue2, blue2, blue2, blue2, blue2, 'steelblue']
 
-    for i in range(0, data.shape[0]):
+    for i in range(0, total):
         pred = model.predict(data[i,:].reshape(1,data.shape[1]))
 
-        if (np.argmax(pred) == np.argmax(label[i])):
-            correct +=1
+        max_i_true = -1 # reset
+        max_i_pred = -1 # reset
+
+        # Find the max iter for both true label and prediction
+        if(np.amax(label_soft[i,:]) != 0):
+            max_i_true = np.argmax(label_soft[i,:])
+            
+        if(np.amax(pred[0,:]) != 0):
+            max_i_pred = np.argmax(pred[0,:])
+                            
+        if (max_i_pred == max_i_true):
+            corr_ary[max_i_true] += 1
+            tot_ary[max_i_true]  += 1  
         else:
-            mistaken +=1
+            tot_ary[max_i_true] += 1
 
-    bars = [int(round(correct/total,2)*100),int(round(mistaken/total,2)*100)]
 
-    fig = plt.subplots()
+    for i in range(0, len(corr_ary)):
+        if(tot_ary[i] != 0):
+            bar_values[i] = round(round(corr_ary[i]/tot_ary[i], 4)*100,2)
+    bar_values[-1] = round(round(sum(corr_ary)/sum(tot_ary), 4)*100,2)
+    
+    fig = plt.subplots(figsize =(10, 6))
 
-    bar_plot = plt.bar(['CORRECT', 'ERROR'], bars, color='cornflowerblue', edgecolor='grey')
+    bar_plot = plt.bar(letter_labels, bar_values, color=colors, edgecolor='grey')
 
     for p in bar_plot:
         height = p.get_height()
         xy_pos = (p.get_x() + p.get_width() / 2, height)
         xy_txt = (0, -20)
-        txt_coord = "offset points"
-        txt_val = str(height)
+
+        # Avoid the text to be outside the image if bar is too low
         if(height>10):
-            plt.annotate(txt_val, xy=xy_pos, xytext=xy_txt, textcoords=txt_coord, ha='center', va='bottom', fontsize=12)
+            plt.annotate(str(height) + '%', xy=xy_pos, xytext=xy_txt, textcoords="offset points", ha='center', va='bottom', fontsize=12)
         else:
-            plt.annotate(txt_val, xy=xy_pos, xytext=(0, 3), textcoords=txt_coord, ha='center', va='bottom', fontsize=12)
+            plt.annotate(str(height) + '%', xy=xy_pos, xytext=(0, 3), textcoords="offset points", ha='center', va='bottom', fontsize=12)
 
 
-    plt.ylabel('Accuracy %', fontsize = 15)
     plt.ylim([0, 100])
-
+    plt.ylabel('Accuracy %', fontsize = 15)
+    plt.xticks([r for r in range(len(letter_labels))], letter_labels, fontweight ='bold', fontsize = 12) # Write on x axis the letter name
     plt.title('Training KERAS - Test performance', fontweight ='bold', fontsize = 15)
     plt.savefig(PLOT_PATH + 'training_Test.jpg')
-
     plt.show()
 
-    print(f"Total correct guesses  {correct}  -> {round(correct/total,2)*100}%")
-    print(f"Total mistaken guesses {mistaken} -> {round(mistaken/total,2)*100}%")
+    print(f"Total correct guesses  {sum(corr_ary)}  -> {round(round(sum(corr_ary)/sum(tot_ary), 4)*100,2)}%")
 
 
 
@@ -173,7 +185,7 @@ def plot_History(train_hist):
 
 
 ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
-PLOT_PATH = ROOT_PATH + '\\Plots\\TrainingPlots\\'
+PLOT_PATH = ROOT_PATH + '\\Plots\\Training_Plots\\'
 SAVE_MODEL_PATH = ROOT_PATH + '\\Saved_models\\'
 
 
@@ -206,8 +218,8 @@ optimizer  = 'Adam'
 loss       = 'categorical_crossentropy'
 metrics    = ['accuracy']
 vowels     = ['A', 'E', 'I', 'O', 'U']
-epochs     = 40     # 20
-batch_size = 32     # 16
+epochs     = 20      # 20
+batch_size = 16      # 16
 
 # Define the model structure
 model = Sequential()
@@ -251,3 +263,4 @@ myWrite.saveParams(SAVE_MODEL_PATH + "Frozen_model\\", ML_model, batch_size, epo
 
 # ALSO WRITE IN A file.h THE LAST LAYER W AND B AS A MATRIX AND AN ARRAY
 myWrite.save_lastLayer(model)
+

@@ -6,7 +6,7 @@ import matplotlib.image as mpimg
 
 
 ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
-PLOT_PATH = ROOT_PATH + '\\Plots\\'
+PLOT_PATH = ROOT_PATH + '\\Plots\\TinyOL_Plots\\'
 ROOT_TXT_PATH = ROOT_PATH + '\\SimulationResult\\'     
 
 

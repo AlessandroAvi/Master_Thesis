@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
-PLOT_PATH = ROOT_PATH + '\\Plots\\'
+PLOT_PATH = ROOT_PATH + '\\Plots\\TinyOL_Plots\\'
 
 
 

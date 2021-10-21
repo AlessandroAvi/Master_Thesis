@@ -5,7 +5,7 @@ import os
 
 
 ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
-PLOT_PATH = ROOT_PATH + '\\Plots\\DatasetPlots\\'
+PLOT_PATH = ROOT_PATH + '\\Plots\\Dataset_Plots\\'
 
 
 

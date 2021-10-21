@@ -1,6 +1,6 @@
 PARAMETERS SAVED FROM THE TRAINING
- Batch size: 32
- Epochs: 40
+ Batch size: 16
+ Epochs: 20
  Validation split: 0.2
  Metrics: ['accuracy']
  Optimizer: Adam

@@ -4,7 +4,7 @@ import seaborn as sns
 
 
 ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
-PLOT_PATH = ROOT_PATH + '\\Plots\\'
+PLOT_PATH = ROOT_PATH + '\\Plots\\TinyOL_Plots\\'
 
 
 
@@ -28,7 +28,7 @@ def plot_confMatrix(model):
     filename    = model.filename
     conf_matrix = model.confusion_matrix    
 
-    letter_labels = ['A','E','I','O','U','B','R','M', 'Model']
+    letter_labels = ['A','E','I','O','U','B','R','M']
     
     plt.figure(figsize=(10,6))
 
