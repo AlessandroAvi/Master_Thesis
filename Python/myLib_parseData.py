@@ -198,7 +198,7 @@ def shuffleDataset(data_matrix, lable_ary):
         Same array gave in input but shuffled
     """
 
-    random.seed(420)
+    random.seed(69)
     order_list = list(range(0,data_matrix.shape[0]))    # create list of increasing numbers
     random.shuffle(order_list)                          # shuffle the list of ordered numbers
 

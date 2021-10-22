@@ -30,8 +30,7 @@ The data is sent throught the UART cable (USB)
 
 The order of actions in this code is:
 
-- read from a txt file the dataset that should be used for the training and save it inside a matrices and arrays. Do it for all the vowels and extra letters (B, R, M)
-- ????
+- read from a txt file the dataset that should be used for the training and save it inside matrices and arrays. Do it for all the vowels and extra letters (B, R, M)
 - stack together all the opened dataset in one single matrix and in one single array. Then shuffle everything
 
 - begin UART port communication
@@ -318,7 +317,6 @@ def confusionMatrix(vowel_guess, vowel_true, algorithm):
         conf_matr[itr_true, itr_pred] +=1
 
 
-    # ***** CONFUSION MATRIX PLOT
     figure = plt.figure()
     axes = figure.add_subplot()
 
@@ -330,6 +328,7 @@ def confusionMatrix(vowel_guess, vowel_true, algorithm):
             axes.text(x=j, y=i,s=int(conf_matr[i, j]), va='center', ha='center', size='large')
 
     axes.xaxis.set_ticks_position("bottom")
+    # The 2 following lines generate and error - I was not able to solve that but is not problematic
     axes.set_xticklabels([''] + label)
     axes.set_yticklabels([''] + label)
 
@@ -360,32 +359,29 @@ def table(conf_matrix, algorithm):
         Name of the method used in the STM for the training
 """
 
-    
-    # ***** TABLE
-    fig, ax = plt.subplots(figsize =(12, 2)) 
-    ax.set_axis_off() 
+    table_values = np.zeros([3,conf_matrix.shape[1]])
 
-    val = np.zeros([3,conf_matrix.shape[1]])
-
-
-    for i in range(0, val.shape[1]):
+    for i in range(0, table_values.shape[1]):
         if(sum(conf_matrix[i,:]) == 0):
-            val[0,i] = 0 
+            table_values[0,i] = 0 
         else:
-            val[0,i] = round(conf_matrix[i,i]/sum(conf_matrix[i,:]),2)  # RECALL    or SENSITIVITY
+            table_values[0,i] = round(conf_matrix[i,i]/sum(conf_matrix[i,:]),2)  # RECALL    or SENSITIVITY
 
         if(sum(conf_matrix[:,i]) == 0):
-            val[1,i] = 0
+            table_values[1,i] = 0
         else:
-            val[1,i] = round(conf_matrix[i,i]/sum(conf_matrix[:,i]),2)     # PRECISION 
+            table_values[1,i] = round(conf_matrix[i,i]/sum(conf_matrix[:,i]),2)     # PRECISION 
 
-        if((val[1,i]+val[2,i])==0):
-            val[2,i] = 0
+        if((table_values[1,i]+table_values[2,i])==0):
+            table_values[2,i] = 0
         else:
-            val[2,i] = round((2*val[0,i]*val[1,i])/(val[0,i]+val[1,i]),2)  # F1 SCORE
+            table_values[2,i] = round((2*table_values[0,i]*table_values[1,i])/(table_values[0,i]+table_values[1,i]),2)  # F1 SCORE
+
+    fig, ax = plt.subplots(figsize =(10, 3)) 
+    ax.set_axis_off() 
 
     table = ax.table( 
-        cellText = val,  
+        cellText = table_values,  
         rowLabels = ['Accuracy', 'Precision', 'F1 score'],  
         colLabels = ['A', 'E', 'I', 'O', 'U', 'B', 'R', 'M'], 
         rowColours =["cornflowerblue"] * 200,  
@@ -393,18 +389,20 @@ def table(conf_matrix, algorithm):
         cellLoc ='center',  
         loc ='upper left')         
 
-    table.scale(1,1) 
+    table.scale(2,1) 
     table.set_fontsize(10)
-
     ax.set_title('STM table - Method: ' + algorithm, fontweight ="bold") 
-
     plt.savefig(PLOT_PATH+'STM_table_'+algorithm+'.jpg',
                 bbox_inches='tight',
                 edgecolor=fig.get_edgecolor(),
                 facecolor=fig.get_facecolor(),
-                dpi=150
+                dpi=200
                 )
-    plt.show()  
+    plt.show()
+
+
+
+
 
 
 
@@ -424,7 +422,7 @@ PLOT_PATH = 'C:/Users/massi/UNI/Magistrale/Anno 5/Semestre 2/Tesi/Code/Python/Pl
 
 
 print('\n\n\n')
-print('---------------------------------------------------------')
+print('---------------------------------------------------------------------------------------')
 print('  ____  ____  _____ ____   _    ____  _____   ____    _  _____  _    ____  _____ _____ ')
 print(' |  _ \|  _ \| ____|  _ \ / \  |  _ \| ____| |  _ \  / \|_   _|/ \  / ___|| ____|_   _|')
 print(' | |_) | |_) |  _| | |_) / _ \ | |_) |  _|   | | | |/ _ \ | | / _ \ \___ \|  _|   | |  ')
@@ -434,48 +432,48 @@ print('\n')
 
 
 
-# DATASET - Vowels
+# EXTRACT DATASET - Vowels
 tmp_1, tmp_2 = myParse.loadDataFromTxt('vowels_OL')
-train_data, train_label, _ , _ = myParse.parseTrainTest(tmp_1, tmp_2, 1)
+OL_train_data, OL_train_label, OL_test_data, OL_test_label = myParse.parseTrainTest(tmp_1, tmp_2, 0.7)
 
-# DATASET - B
+# EXTRACT DATASET - B
 tmp_1, tmp_2 = myParse.loadDataFromTxt('B_dataset')
-B_train_data, B_train_label, _ , _= myParse.parseTrainTest(tmp_1, tmp_2, 1)
+B_train_data, B_train_label, B_test_data, B_test_label = myParse.parseTrainTest(tmp_1, tmp_2, 0.7)
 
-# DATASET - R
+# EXTRACT DATASET - R
 tmp_1, tmp_2 = myParse.loadDataFromTxt('R_dataset')
-R_train_data, R_train_label, _ , _ = myParse.parseTrainTest(tmp_1, tmp_2, 1)
+R_train_data, R_train_label, R_test_data, R_test_label = myParse.parseTrainTest(tmp_1, tmp_2, 0.7)
 
-# DATASET - M
+# EXTRACT DATASET - M
 tmp_1, tmp_2 = myParse.loadDataFromTxt('M_dataset')
-M_train_data, M_train_label, _ , _ = myParse.parseTrainTest(tmp_1, tmp_2, 1)
+M_train_data, M_train_label, M_test_data, M_test_label = myParse.parseTrainTest(tmp_1, tmp_2, 0.7)
 
-# DATASET - All
-order_data = train_data
-order_data = np.vstack(( order_data, B_train_data))
-order_data = np.vstack(( order_data, R_train_data))
-order_data = np.vstack(( order_data, M_train_data))
+# STACK DATASET - Train
+train_data = OL_train_data
+train_data = np.vstack(( train_data, B_train_data))
+train_data = np.vstack(( train_data, R_train_data))
+train_data = np.vstack(( train_data, M_train_data))
 
-order_label = train_label
-order_label = np.hstack(( order_label, B_train_label))
-order_label = np.hstack(( order_label, R_train_label))
-order_label = np.hstack(( order_label, M_train_label))
+train_label = OL_train_label
+train_label = np.hstack(( train_label, B_train_label))
+train_label = np.hstack(( train_label, R_train_label))
+train_label = np.hstack(( train_label, M_train_label))
 
-# DATASET - Mixed
-mixed_data = np.zeros(order_data.shape)
-mixed_label = np.empty(order_label.shape, dtype=str) 
+# STACK DATASET - Test
+test_data = OL_test_data
+test_data = np.vstack(( test_data, B_test_data))
+test_data = np.vstack(( test_data, R_test_data))
+test_data = np.vstack(( test_data, M_test_data))
 
-index_ary = list(range(0, order_data.shape[0]))
-index_ary = random.sample(index_ary, len(index_ary)) 
+test_label = OL_test_label
+test_label = np.hstack(( test_label, B_test_label))
+test_label = np.hstack(( test_label, R_test_label))
+test_label = np.hstack(( test_label, M_test_label))
 
-for i in range(0, order_data.shape[0]):
-    mixed_data[i,:] = order_data[index_ary[i],:]
-    mixed_label[i]  = order_label[index_ary[i]]
+# SHUFFLE DATASET
+train_data, train_label = myParse.shuffleDataset(train_data, train_label)
+test_data, test_label   = myParse.shuffleDataset(test_data, test_label)
 
-
-# DATASET - train and test
-print('******* MIXED DATASET - TRAIN & TEST')
-mixed_data_train, mixed_label_train, mixed_data_test, mixed_label_test = myParse.parseTrainTest(mixed_data, mixed_label, 0.8)
 
 
 
@@ -493,32 +491,31 @@ print('\n\nSerial port initialized')
 
 
 
+# Define amount of samples to sent to STM and how many for test/train
+test_max  = test_data.shape[0]
+train_max = train_data.shape[0]
+send_max  = test_max+train_max
 
 
-# STM COMMUNICATION - Init info containers
-method          = 0
-counter         = np.zeros(test_max)
-frozen_time     = np.zeros(test_max)
-OL_time         = np.zeros(test_max)
-new_class       = np.zeros(test_max)
-predic_error    = np.zeros(test_max)
-OL_width        = np.zeros(test_max)
-OL_height       = np.zeros(test_max)
-vowel_guess     = np.zeros(test_max)
-vowel_true      = []
+# STM COMMUNICATION - Declare information containers
+method          = 0                     # int
+counter         = np.zeros(test_max)    # int
+frozen_time     = np.zeros(test_max)    # float
+OL_time         = np.zeros(test_max)    # float
+new_class       = np.zeros(test_max)    # 0/1
+predic_error    = np.zeros(test_max)    # 1/2/3
+OL_width        = np.zeros(test_max)    # int
+vowel_guess     = np.zeros(test_max)    # int (later translated in char)
+vowel_true      = []                    # char
+
 
 # Containers of the algorithm names
 algorithm_ary = ['OL', 'OL_V2', 'CWR', 'LWF', 'OL_batch', 'OL_V2_batch', 'LWF_batch']
 
-test_max  = 100 #mixed_data_test.shape[0]
-train_max = 200 #mixed_data_train.shape[0]
-send_max = test_max+train_max
 
-data_prova  = mixed_data       # train_data      B_train_data      mixed_data
-label_prova = mixed_label      # train_label     B_train_label     mixed_label
 
 print('\n\n')
-print('----------------------------------------------------------------')
+print('--------------------------------------------------------------')
 print('  ____  _    _   _ _____   ____  _   _ _____ _____ ___  _   _ ')
 print(' | __ )| |  | | | | ____| | __ )| | | |_   _|_   _/ _ \| \ | |')
 print(' |  _ \| |  | | | |  _|   |  _ \| | | | | |   | || | | |  \| |')
@@ -529,33 +526,26 @@ print('\n')
 
 train_iter = 0
 test_iter  = 0
-
 while (train_iter + test_iter)<send_max-1:
 
     # Wait for 'OK' message from the STM
     rx = serialInst.read(2)    
 
+    # DATA: Preapare output data depending if is train or test
     if(train_iter < train_max):
-        n = int(random.uniform(0, mixed_data_train.shape[0]))     # Generate a random number
-
-        # DATA: Preapare output data
-        txAry = aryToLowHigh(mixed_data_train[train_iter,:])
-        txLett = mixed_label_train[train_iter]
+        txAry = aryToLowHigh(train_data[train_iter,:])
+        txLett = train_label[train_iter]
     else:
-        n = int(random.uniform(0, mixed_data_test.shape[0]))    # Generate a random number
-
-        # DATA: Preapare output data
-        txAry = aryToLowHigh(mixed_data_test[test_iter,:])
-        txLett = mixed_label_test[test_iter]
+        txAry = aryToLowHigh(test_data[test_iter,:])
+        txLett = test_label[test_iter]
         vowel_true.append(txLett)
 
-    # DATA: Send the data to uart
-    serialInst.write(txAry)                 # Send data array
-    serialInst.write(txLett.encode())       # Send lebel letter
+    # DATA: Send the data to UART
+    serialInst.write(txAry)                 # Send data array (array long 600)
+    serialInst.write(txLett.encode())       # Send label letter
 
-    #print('PC: Sent, wait to receive info...')
+    rx = serialInst.read(10)                # Read the encoded message sent from STM
 
-    rx = serialInst.read(10)     # Read the encoded message sent from STM
 
     if(train_iter < train_max):
 
@@ -575,8 +565,7 @@ while (train_iter + test_iter)<send_max-1:
 
         print('\nSTM INFERENCE RESULT')
         print(f'   The algorithm is:                 {algorithm_ary[method]}')
-        print(f'   Random index is:                  {n}')
-        print(f'   Inference number:                 {counter[test_iter]}')
+        print(f'   Inference sample number:          {counter[test_iter]}')
         print(f'   The letter sent is:               {txLett}')
 
         if(vowel_guess[test_iter] == 0):

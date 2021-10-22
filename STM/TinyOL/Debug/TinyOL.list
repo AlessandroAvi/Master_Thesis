@@ -4955,8 +4955,8 @@ int main(void)
  8002a54:	601a      	str	r2, [r3, #0]
 	  }
 
-	  HAL_Delay(5); // Helps the code to not get stuck
- 8002a56:	2005      	movs	r0, #5
+	  HAL_Delay(10); // Helps the code to not get stuck
+ 8002a56:	200a      	movs	r0, #10
  8002a58:	f000 fb5a 	bl	8003110 <HAL_Delay>
 
 	  // Interrupt for infinite cycle

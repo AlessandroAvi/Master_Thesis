@@ -3,34 +3,37 @@
 
 
 //#define DEBUG_ACTIVE
-
 //#define MSG_ACTIVE
 
 
 
+
+
+/* Resets the values that are stored in the struct as 'info parameters'  */
 void OL_resetInfo(OL_LAYER_STRUCT * layer){
 
 	layer->prediction_correct = 0;
 	layer->new_class = 0;
-	layer->vowel_guess = 'Q';
+	layer->vowel_guess = 'Q';		// Q is a letter that is not in the dataset, is considered the NULL option
 
 	for(int i =0; i<layer->WIDTH; i++){
 		layer->y_pred[i] = 0;
 	}
-
 }
 
 
 
 
 
+/* Transforms a letter in an array of 0 and 1. This is used for computing the error committed
+ * from the moel since the last layer is a softmax.  */
 void OL_lettToSoft(OL_LAYER_STRUCT * layer, char *lett, float * y_true){
 
 #ifdef DEBUG_ACTIVE
 	UART_debug("\n\n\r    -- OL_lettToSoft");
 #endif
 
-	// Check if letter is inside label of the layer
+	// Check in the label array letter by letter, if the letter is the same put a 1 in the correct position
 	for(int i=0; i<layer->WIDTH; i++){
 		if(lett[0] == layer->label[i]){
 			y_true[i] = 1;
@@ -43,6 +46,8 @@ void OL_lettToSoft(OL_LAYER_STRUCT * layer, char *lett, float * y_true){
 
 
 
+
+/* Performs the feed forward operation. It's just a product of matrices  and a sum with an array  */
 void OL_feedForward(OL_LAYER_STRUCT * layer, float * input, float * weights, float * bias, float * y_pred){
 
 #ifdef DEBUG_ACTIVE
@@ -60,44 +65,41 @@ void OL_feedForward(OL_LAYER_STRUCT * layer, float * input, float * weights, flo
 	// Perform the feed forward
 	for(int i=0; i<w; i++){
 		for(int j=0; j< h; j++){
-
 			y_pred[i] += weights[h*i+j]*input[j];
 		}
 		y_pred[i] += bias[i];
 	}
-
 };
 
 
 
 
 
+/*Takes a array in input and computes the softmax operation on that array  */
 void OL_softmax(OL_LAYER_STRUCT * layer, float * y_pred){
 
 #ifdef DEBUG_ACTIVE
 	UART_debug("\n\n\r    -- OL_softmax");
 #endif
 
-	int i;
-	float m;
+	float m = y_pred[0];
+	float sum = 0.0;
 	int size = layer->WIDTH;
 
-	m = y_pred[0];
 	// Find the highest value in array input
-	for (i = 0; i < size; ++i) {
+	for (int i = 0; i < size; ++i) {
 		if (y_pred[i] > m) {
 			m = y_pred[i];
 		}
 	}
 
 	// Compute the sum of the exponentials
-	float sum = 0.0;
-	for (i = 0; i < size; ++i) {
+	for (int i = 0; i < size; ++i) {
 		sum += exp(y_pred[i] - m);
 	}
 
 	// Compute the softmax value for each input entry
-	for (i = 0; i < size; ++i) {
+	for (int i = 0; i < size; ++i) {
 		y_pred[i] = exp(y_pred[i] - m - log(sum));
 	}
 };
@@ -105,6 +107,8 @@ void OL_softmax(OL_LAYER_STRUCT * layer, float * y_pred){
 
 
 
+
+/* Use realloc to increase the amount of memory dedicated to the weights  */
 void OL_increaseWeightDim(OL_LAYER_STRUCT * layer){
 
 #ifdef DEBUG_ACTIVE
@@ -114,10 +118,8 @@ void OL_increaseWeightDim(OL_LAYER_STRUCT * layer){
 	int h = layer->HEIGHT;
 	int w = layer->WIDTH;
 
-
 	layer->weights = realloc(layer->weights, h*w*sizeof(float));
 	if(layer->weights== NULL){
-		UART_debug("\n\r ERROR: Failed to allocate memory for increased weights");
 		layer->OL_ERROR = REALLOC_WEIGHTS;
 	}
 
@@ -126,13 +128,11 @@ void OL_increaseWeightDim(OL_LAYER_STRUCT * layer){
 		layer->weights[i] = 0;
 	}
 
-
 	if(layer->ALGORITHM == MODE_CWR || layer->ALGORITHM == MODE_LWF || layer->ALGORITHM == MODE_OL_batch ||
 	   layer->ALGORITHM == MODE_OL_V2_batch || layer->ALGORITHM == MODE_LWF_batch){
 
 		layer->weights_2 = realloc(layer->weights_2, h*w*sizeof(float));
 		if(layer->weights_2== NULL){
-			UART_debug("\n\r ERROR: Failed to allocate memory for increased weights 2");
 			layer->OL_ERROR = REALLOC_WEIGHTS_2;
 		}
 
@@ -147,6 +147,7 @@ void OL_increaseWeightDim(OL_LAYER_STRUCT * layer){
 
 
 
+/* Use realloc to increase the amount of memory dedicated to the biases  */
 void OL_increaseBiasDim(OL_LAYER_STRUCT * layer){
 
 #ifdef DEBUG_ACTIVE
@@ -157,11 +158,10 @@ void OL_increaseBiasDim(OL_LAYER_STRUCT * layer){
 
 	layer->biases = realloc(layer->biases, w*sizeof(float));
 	if(layer->biases==NULL){
-		UART_debug("\n\r ERROR: Failed to allocate memory for increased bias ");
 		layer->OL_ERROR = REALLOC_BIASES;
 	}
 
-	layer->biases[w-1] = 0;
+	layer->biases[w-1] = 0;				// set to 0 new biases
 
 
 	if(layer->ALGORITHM==MODE_CWR || layer->ALGORITHM==MODE_LWF || layer->ALGORITHM==MODE_OL_batch  ||
@@ -169,11 +169,9 @@ void OL_increaseBiasDim(OL_LAYER_STRUCT * layer){
 
 		layer->biases_2 = realloc(layer->biases_2, w*sizeof(float));
 		if(layer->biases_2==NULL){
-			UART_debug("\n\r ERROR: Failed to allocate memory for increased bias 2");
 			layer->OL_ERROR = REALLOC_BIASES_2;
 		}
-
-		layer->biases_2[w-1] = 0;
+		layer->biases_2[w-1] = 0;		// set to 0 new biases
 	}
 };
 
@@ -181,6 +179,7 @@ void OL_increaseBiasDim(OL_LAYER_STRUCT * layer){
 
 
 
+/* Use realloc to increase the amount of memory dedicated to the labels  */
 void OL_increaseLabel(OL_LAYER_STRUCT * layer, char new_letter){
 
 #ifdef DEBUG_ACTIVE
@@ -191,17 +190,16 @@ void OL_increaseLabel(OL_LAYER_STRUCT * layer, char new_letter){
 
 	layer->label = realloc(layer->label, w*sizeof(char));
 	if(layer->label==NULL){
-		UART_debug("\n\r ERROR: Failed to allocate memory for increased label");
 		layer->OL_ERROR = REALLOC_LABEL;
 	}
-
-	layer->label[w-1] = new_letter;
-
+	layer->label[w-1] = new_letter;		// save in labels the new letter
 };
 
 
 
 
+
+/* Use realloc to increase the amount of memory dedicated to the y prediction arrays  */
 void OL_increaseYpredDim(OL_LAYER_STRUCT * layer){
 
 #ifdef DEBUG_ACTIVE
@@ -210,26 +208,22 @@ void OL_increaseYpredDim(OL_LAYER_STRUCT * layer){
 
 	layer->y_pred = realloc(layer->y_pred, layer->WIDTH*sizeof(float));
 	if(layer->y_pred==NULL){
-		UART_debug("\n\r ERROR: Failed to allocate memory for increased y_pred");
 		layer->OL_ERROR = REALLOC_Y_PRED;
 	}
-
 
 	if(layer->ALGORITHM == MODE_LWF || layer->ALGORITHM == MODE_LWF_batch){
 		layer->y_pred_2 = realloc(layer->y_pred_2, layer->WIDTH*sizeof(float));
 		if(layer->y_pred_2==NULL){
-			UART_debug("\n\r ERROR: Failed to allocate memory for increased y_pred_2");
 			layer->OL_ERROR = REALLOC_Y_PRED_2;
 		}
-
 	}
-
 };
 
 
 
 
 
+/* Check if the letter just received is already known. If not increase dimensions of the layer.  */
 void OL_checkNewClass(OL_LAYER_STRUCT * layer, char *letter){
 
 #ifdef DEBUG_ACTIVE
@@ -244,35 +238,33 @@ void OL_checkNewClass(OL_LAYER_STRUCT * layer, char *letter){
 		}
 	}
 
-	// If the letter is new perform the following
+	// If the letter has not been found
 	if(found==0){
-		// Update dimensions
-#ifdef MSG_ACTIVE
-		UART_debug_c("\n\n\r    New letter found %c", letter[0]);
-#endif
-
+		// Update info
 		layer->new_class = 1;
 		layer->WIDTH = layer->WIDTH+1;
-
+		// Update dimensions
 		OL_increaseLabel(layer, letter[0]);
 		OL_increaseWeightDim(layer);
 		OL_increaseBiasDim(layer);
 		OL_increaseYpredDim(layer);
-
 	}
 };
 
 
 
 
+
+/* Compare the prediction and the true label. If the max values of both arrays are in the
+ * same positition in the array the prediction is correct.  */
 void OL_compareLabels(OL_LAYER_STRUCT * layer, float * y_true){
 
-	uint8_t max_pred = 0;
+	uint8_t max_pred = 0;	// USed ofr saving the maximum value
 	uint8_t max_true = 0;
-	uint8_t max_j_pred;
+	uint8_t max_j_pred;		// Used for saving the position where the max value is
 	uint8_t max_j_true;
 
-	// Find max - one hot encoded
+	// Find max of both prediction and true label
 	for(int j=0; j<layer->WIDTH; j++){
 		if(max_true < y_true[j]){
 			max_j_true = j;
@@ -285,66 +277,71 @@ void OL_compareLabels(OL_LAYER_STRUCT * layer, float * y_true){
 		}
 	}
 
+	// If the maximum values are in different position of the array -> prediction is WRONG
 	if(max_j_true != max_j_pred){
 		layer->prediction_correct = 1;
 	}else{
 		layer->prediction_correct = 2;
 	}
 
+	// Used from the LWF algorithm
 	if(layer->ALGORITHM == MODE_LWF || layer->ALGORITHM == MODE_LWF_batch){
 		layer->found_lett[max_j_true] += 1;		// Update the found_lett array
 	}
-
 };
 
 
 
 
+
+/* This function is the most important part of the TinyOL script. Inside here an IF decides which algorithm
+ * to apply, thus changing the update of the weights.  */
 void OL_train(OL_LAYER_STRUCT * layer, float *x, float *y_true, char *letter){
 
 #ifdef DEBUG_ACTIVE
 	UART_debug("\n\n\r  -- Begin on TRAIN routine --\n\n\r    OL_train");
 #endif
 
+	// Values in common between all algorithms
 	int w = layer->WIDTH;
 	int h = layer->HEIGHT;
 	layer->vowel_guess = 0;
 
 
 
-
+	// ***************************************************************
 	//     ***** OL ALGORITHM      |      ***** OL_V2 ALGORITHM
 	if(layer->ALGORITHM == MODE_OL || layer->ALGORITHM == MODE_OL_V2){
 
 		float cost[w];
 
-		// Inference
+		// Inference with current weights
 		OL_feedForward(layer, x, layer->weights, layer->biases, layer->y_pred);
 		OL_softmax(layer, layer->y_pred);
 
 		int j_start = 0;
 
+		// If algorithms is OL_V2, don't update the vowels
 		if(layer->ALGORITHM == MODE_OL_V2){
 			j_start = 5;
 		}
 
 		for(int j=j_start; j<w; j++){
-			cost[j] = layer->y_pred[j]-y_true[j];	// Compute the cost
+			cost[j] = layer->y_pred[j]-y_true[j];						// Compute the cost
 
-			// Update the weights
 			for(int i=0; i<h; i++){
-				layer->weights[j*h+i] -= cost[j]*x[i]*layer->l_rate;
+				layer->weights[j*h+i] -= cost[j]*x[i]*layer->l_rate;	// Update the weights
 			}
-			layer->biases[j] -= cost[j]*layer->l_rate;	// Update the biases
+			layer->biases[j] -= cost[j]*layer->l_rate;					// Update the biases
 		}
 
-		// Check if prediction is correct
-		OL_compareLabels(layer, y_true);
-
+		OL_compareLabels(layer, y_true);								// Check if prediction is correct
 
 		layer->counter +=1;
 
 
+
+	// *************************************
 	// ***** CWR ALGORITHM
 	}else if (layer->ALGORITHM == MODE_CWR){
 
@@ -406,6 +403,8 @@ void OL_train(OL_LAYER_STRUCT * layer, float *x, float *y_true, char *letter){
 		}
 
 
+
+	// *************************************
 	// ***** LWF ALGORITHM
 	}else if(layer->ALGORITHM == MODE_LWF){
 
@@ -413,71 +412,72 @@ void OL_train(OL_LAYER_STRUCT * layer, float *x, float *y_true, char *letter){
 		float cost_LWF[w];
 		float lambda;
 
+		// Inference with current weights
 		OL_feedForward(layer, x, layer->weights, layer->biases, layer->y_pred);
 		OL_softmax(layer, layer->y_pred);
-
+		// Inference with original weights
 		OL_feedForward(layer, x, layer->weights_2, layer->biases_2, layer->y_pred_2);
 		OL_softmax(layer, layer->y_pred_2);
 
-		lambda = 100/(100+layer->counter);
+		lambda = 100/(100+layer->counter);					// Update the value of lambda
 
 		for(int j=0; j<w; j++){
-			cost_norm[j] = layer->y_pred[j]  -y_true[j];	// compute normal cost
-			cost_LWF[j]  = layer->y_pred_2[j]-y_true[j];	// compute LWF cost
+			cost_norm[j] = layer->y_pred[j]  -y_true[j];	// Compute normal cost
+			cost_LWF[j]  = layer->y_pred_2[j]-y_true[j];	// Compute LWF cost
 
-			// Update weights
 			for(int i=0; i<h; i++){
-				layer->weights[j*h+i] -= (cost_norm[j]*(1-lambda)+cost_LWF[j]*lambda)*layer->l_rate*x[i];
+				layer->weights[j*h+i] -= (cost_norm[j]*(1-lambda)+cost_LWF[j]*lambda)*layer->l_rate*x[i];	// Update weights
 			}
-			// Update bias
-			layer->biases[j] -= (cost_norm[j]*(1-lambda)+cost_LWF[j]*lambda)*layer->l_rate;
+			layer->biases[j] -= (cost_norm[j]*(1-lambda)+cost_LWF[j]*lambda)*layer->l_rate;					// Update bias
 		}
 
-		OL_compareLabels(layer, y_true);	// Check if prediction is correct or not
-
+		OL_compareLabels(layer, y_true);					// Check if prediction is correct or not
 
 		layer->counter +=1;
 
-	// ***** OL mini batches ALGORITHM
+
+
+	// *************************************
+	// ***** OL MINI BATCHES ALGORITHM
 	}else if(layer->ALGORITHM == MODE_OL_batch || layer->ALGORITHM == MODE_OL_V2_batch){
 
 		float cost[w];
 
-		// Inference
+		// Inference with current weights
 		OL_feedForward(layer, x, layer->weights, layer->biases, layer->y_pred);
 		OL_softmax(layer, layer->y_pred);
 
-
 		for(int j=0; j<w; j++){
-			cost[j] = layer->y_pred[j]-y_true[j];
+			cost[j] = layer->y_pred[j]-y_true[j];			// Compute the cost
 
-			// Update weights
 			for(int i=0; i<h; i++){
-				layer->weights_2[j*h+i] += cost[j]*x[i];
+				layer->weights_2[j*h+i] += cost[j]*x[i];	// Update weights
 			}
-			layer->biases_2[j] += cost[j];	// Update biases
+			layer->biases_2[j] += cost[j];					// Update biases
 		}
 
-		OL_compareLabels(layer, y_true);	// Check if prediction is correct or not
+		OL_compareLabels(layer, y_true);					// Check if prediction is correct or not
 
 		layer->counter +=1;
 
-		// end of batch
-		if(layer->counter % layer->batch_size == 0){
+
+		// When reached the end of a batch
+		if( (layer->counter % layer->batch_size)==0 ){
 
 			int j_start = 0;
 
+			// If algorithms is OL_V2, don't update the vowels
 			if(layer->ALGORITHM == MODE_OL_V2_batch){
 				j_start=5;
 			}
 
 			for(int j=j_start; j<w; j++){
 				for(int i=0; i<h; i++){
-					layer->weights[j*h+i] = layer->weights_2[j*h+i]*layer->l_rate*(1/layer->batch_size);
-					layer->weights_2[j*h+i] = 0;	// reset
+					layer->weights[j*h+i] = layer->weights_2[j*h+i]*layer->l_rate*(1/layer->batch_size);	// Update weights
+					layer->weights_2[j*h+i] = 0;															// Reset
 				}
-				layer->biases[j] = layer->biases_2[j]*layer->l_rate*(1/layer->batch_size);
-				layer->biases_2[j] = 0;	// reset
+				layer->biases[j] = layer->biases_2[j]*layer->l_rate*(1/layer->batch_size);					// Update biases
+				layer->biases_2[j] = 0;																		// Reset
 			}
 		}
 
@@ -485,20 +485,22 @@ void OL_train(OL_LAYER_STRUCT * layer, float *x, float *y_true, char *letter){
 
 
 
-	// ***** LWF mini batches ALGORITHM
+	// *************************************
+	// ***** LWF MINI BATCHES ALGORITHM
 	}else if(layer->ALGORITHM == MODE_LWF_batch){
 
 		float cost_norm[w];
 		float cost_LWF[w];
 		float lambda;
 
-
+		// Inference with current weights
 		OL_feedForward(layer, x, layer->weights, layer->biases, layer->y_pred);
 		OL_softmax(layer, layer->y_pred);
-
+		// Inference with LWF weights
 		OL_feedForward(layer, x, layer->weights_2, layer->biases_2, layer->y_pred_2);
 		OL_softmax(layer, layer->y_pred_2);
 
+		// Update the value of lambda
         if(layer->counter<layer->batch_size){
         	lambda = 1;
         }else{
@@ -510,38 +512,28 @@ void OL_train(OL_LAYER_STRUCT * layer, float *x, float *y_true, char *letter){
 			cost_LWF[j]  = layer->y_pred_2[j]-y_true[j];	// compute LWF cost
 
 			for(int i=0; i<h; i++){
-				layer->weights[j*h+i] -= (cost_norm[j]*(1-lambda)+cost_LWF[j]*lambda)*layer->l_rate*x[i];
+				layer->weights[j*h+i] -= (cost_norm[j]*(1-lambda)+cost_LWF[j]*lambda)*layer->l_rate*x[i];	// Update weights
 			}
-			layer->biases[j] -= (cost_norm[j]*(1-lambda)+cost_LWF[j]*lambda)*layer->l_rate;
+			layer->biases[j] -= (cost_norm[j]*(1-lambda)+cost_LWF[j]*lambda)*layer->l_rate;					// Update biases
 		}
 
-		OL_compareLabels(layer, y_true);	// Check if prediction is correct or not
+		OL_compareLabels(layer, y_true);																	// Check if prediction is correct or not
 
 		layer->counter +=1;
 
+
+		// When reached the end of a batch
 		if((layer->counter % layer->batch_size) == 0){
 
 			for(int j=0; j<w; j++){
 				for(int i=0; i<h; i++){
-					layer->weights_2[j*h+i] = layer->weights[j*h+i];	// reset
+					layer->weights_2[j*h+i] = layer->weights[j*h+i];	// Reset
 				}
-				layer->biases_2[j] = layer->biases[j];	// reset
+				layer->biases_2[j] = layer->biases[j];					// Reset
 			}
-
-
 		}
-
-
 	}
-
-
 };
-
-
-
-
-
-
 
 
 
@@ -550,8 +542,6 @@ void OL_train(OL_LAYER_STRUCT * layer, float *x, float *y_true, char *letter){
 // *********************************************************
 //								             PRINT FUNCTIONS
 // *********************************************************
-
-
 
 
 void PRINT_checkLabels(OL_LAYER_STRUCT * layer, float * y_true){
@@ -591,10 +581,10 @@ void PRINT_checkLabels(OL_LAYER_STRUCT * layer, float * y_true){
 
 
 
+
 // *********************************************************
 //								             DEBUG FUNCTIONS
 // *********************************************************
-
 
 
 void UART_debug(char msg[BUFF_LEN]){
@@ -602,15 +592,21 @@ void UART_debug(char msg[BUFF_LEN]){
 	//HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
 }
 
+
+
 void UART_debug_u8(char msg[BUFF_LEN], uint8_t num){
 	//msgLen = sprintf(msgDebug, msg, num);
 	//HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
 }
 
+
+
 void UART_debug_c(char msg[BUFF_LEN], char lett){
 	//msgLen = sprintf(msgDebug, msg, lett);
 	//HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
 }
+
+
 
 void UART_debug_f(char msg[BUFF_LEN], float num){
 	//msgLen = sprintf(msgDebug, msg, num);
