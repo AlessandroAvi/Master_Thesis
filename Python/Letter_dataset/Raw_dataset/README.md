@@ -28,13 +28,7 @@ in the script `run_parseataset.py`
 
 In the image below is shown how I recorded the letter. The STM is always facing me and I tried to not tilt it too much during the dataset creation. I also tried to draw the letters with different accelerations, which means that some times I wrote them slowly, others faster, or smaller/bigger. 
 
-<img src="C:\Users\massi\UNI\Magistrale\Anno 5\Semestre 2\Tesi\Code\Python\Letter_dataset\Raw_dataset\letters.png" style="zoom:33%;" />
-
-
-
-
-
-## 
+<img src="C:\Users\massi\UNI\Magistrale\Anno 5\Semestre 2\Tesi\Code\Python\Plots\ReadmeImages\letters.png" style="zoom:40%;" />
 
 
 

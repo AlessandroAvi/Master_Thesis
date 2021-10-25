@@ -199,7 +199,7 @@ print('\n**** TF data')
 TF_data, TF_label, TF_data_test, TF_label_test = myParse.parseTrainTest(vowels_data, vowels_label, 0.8)
 
 # Shuffle the dataset
-random.seed(420)
+random.seed(888)
 order_list = list(range(0,TF_data.shape[0]))    # create list of increasing numbers
 random.shuffle(order_list)                      # shuffle the list of ordered numbers
 
@@ -224,7 +224,7 @@ batch_size = 16      # 16
 # Define the model structure
 model = Sequential()
 model.add(Dense(128, activation = 'relu', input_shape = (TF_data_train.shape[1],), name='input_layer'))
-model.add(Dense(300, activation = 'relu', name='hidden1'))  
+model.add(Dense(128, activation = 'relu', name='hidden1'))  
 model.add(Dense(5, activation='softmax' , name = 'output_layer'))
 
 model.compile(optimizer= optimizer, loss=loss, metrics=metrics) 
@@ -246,8 +246,8 @@ plot_TestAccuracy(TF_data_test, TF_label_test, model, vowels)
 
 
 # SAVE THE KERAS MODEL
-model.save(SAVE_MODEL_PATH + "model\\model.h5")
-myWrite.saveParams(SAVE_MODEL_PATH + "model\\", model, batch_size, epochs, metrics, optimizer, loss)
+model.save(SAVE_MODEL_PATH + "Original_model\\model.h5")
+myWrite.saveParams(SAVE_MODEL_PATH + "Original_model\\", model, batch_size, epochs, metrics, optimizer, loss)
 
 
 

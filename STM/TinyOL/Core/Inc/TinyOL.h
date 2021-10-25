@@ -82,18 +82,15 @@ typedef struct {
 }OL_LAYER_STRUCT;
 
 
-
-
-
 // ******************************
 //	                      DEFINES
 // ******************************
 
-#define LOW_BYTE (uint8_t)0x00FF
-#define BUFF_LEN             128
-#define LETTER_LEN             1
-#define DATA_LEN            1200
-#define INFO_LEN              10
+#define LOW_BYTE   		(uint8_t)0x00FF
+#define BUFF_LEN        			128
+#define LETTER_LEN         			  1
+#define DATA_LEN           		   1200
+#define INFO_LEN           		     10
 
 
 int msgLen;
@@ -101,9 +98,6 @@ char msgDebug[BUFF_LEN];		// General container for debug messages to send on UAR
 uint8_t msgRxData[DATA_LEN];	// Container for receiving the array of data
 char msgRxLett[LETTER_LEN];		// Container for receiving the label
 uint8_t msgInfo[INFO_LEN];		// Container for sending the results of inference to the pc
-
-
-
 
 
 // ******************************
@@ -130,7 +124,6 @@ void OL_softmax(OL_LAYER_STRUCT * layer,  float * y_pred);
 void OL_feedForward(OL_LAYER_STRUCT * layer, float * input, float * weights, float * bias, float * y_pred);
 
 
-
 /*   Function that finds if the new data received from the pc is a known letter, if not
  *   enlarge the weight and bias matrix and add the letter to the known labels  */
 void OL_checkNewClass(OL_LAYER_STRUCT * layer, char * letter);
@@ -150,29 +143,3 @@ void OL_increaseBiasDim(OL_LAYER_STRUCT * layer);
 
 /*   Function that increases the dimension of the y_pred and y_pred2 array  */
 void OL_increaseYpredDim(OL_LAYER_STRUCT * layer);
-
-
-/*   Function that checks if the prediction is correct and builds
- *   a message that makes it easier to understand the outcome  */
-void PRINT_checkLabels(OL_LAYER_STRUCT * layer, float * y_true);
-
-
-/*   Function that sends the debug message through the UART to the pc  */
-void UART_debug(char msg[BUFF_LEN]);
-
-
-/*   Function that sends the debug message through the UART to the pc  */
-void UART_debug_u8(char msg[BUFF_LEN], uint8_t num);
-
-
-/*   Function that sends the debug message through the UART to the pc  */
-void UART_debug_c(char msg[BUFF_LEN], char lett);
-
-
-/*   Function that sends the debug message through the UART to the pc  */
-void UART_debug_f(char msg[BUFF_LEN], float num);
-
-
-
-
-

@@ -136,7 +136,7 @@ int main(void)
   //	MODE_OL_batch
   //	MODE_OL_V2_batch
   //	MODE_LWF_batch
-  OL_layer.ALGORITHM = MODE_OL;
+  OL_layer.ALGORITHM = MODE_OL_V2;
 
   OL_layer.batch_size = 8;
 
@@ -335,23 +335,14 @@ int main(void)
 		  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_10, GPIO_PIN_SET);	// Set high the value for interrupt for infinity cycle
 	  }
 
-
-
-
-
-
 	  // ************************************************************************************
 	  // IMPORTANT
 	  // Remember to always comment or remove the line below "MX_X_CUBE_AI_Process();"
 	  // The line gets generated automatically from the CUBE IDE/CUBE MX
 	  // ************************************************************************************
-
-
-
-
-
     /* USER CODE END WHILE */
-	  //MX_X_CUBE_AI_Process();
+
+  //MX_X_CUBE_AI_Process();
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -462,11 +453,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 			enable_inference = 1;												// Raise the flag that enables the inference at the next cyle in the while
 		}
 	}
-
-
-
 }
-
 
 
 // Interrupt that is called when the TIM reaches the auto reload register value

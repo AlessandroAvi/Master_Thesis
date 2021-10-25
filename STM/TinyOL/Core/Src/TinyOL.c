@@ -2,13 +2,6 @@
 
 
 
-//#define DEBUG_ACTIVE
-//#define MSG_ACTIVE
-
-
-
-
-
 /* Resets the values that are stored in the struct as 'info parameters'  */
 void OL_resetInfo(OL_LAYER_STRUCT * layer){
 
@@ -29,10 +22,6 @@ void OL_resetInfo(OL_LAYER_STRUCT * layer){
  * from the moel since the last layer is a softmax.  */
 void OL_lettToSoft(OL_LAYER_STRUCT * layer, char *lett, float * y_true){
 
-#ifdef DEBUG_ACTIVE
-	UART_debug("\n\n\r    -- OL_lettToSoft");
-#endif
-
 	// Check in the label array letter by letter, if the letter is the same put a 1 in the correct position
 	for(int i=0; i<layer->WIDTH; i++){
 		if(lett[0] == layer->label[i]){
@@ -49,10 +38,6 @@ void OL_lettToSoft(OL_LAYER_STRUCT * layer, char *lett, float * y_true){
 
 /* Performs the feed forward operation. It's just a product of matrices  and a sum with an array  */
 void OL_feedForward(OL_LAYER_STRUCT * layer, float * input, float * weights, float * bias, float * y_pred){
-
-#ifdef DEBUG_ACTIVE
-	UART_debug("\n\n\r      -- OL_feedForward");
-#endif
 
 	int h = layer->HEIGHT;
 	int w = layer->WIDTH;
@@ -77,10 +62,6 @@ void OL_feedForward(OL_LAYER_STRUCT * layer, float * input, float * weights, flo
 
 /*Takes a array in input and computes the softmax operation on that array  */
 void OL_softmax(OL_LAYER_STRUCT * layer, float * y_pred){
-
-#ifdef DEBUG_ACTIVE
-	UART_debug("\n\n\r    -- OL_softmax");
-#endif
 
 	float m = y_pred[0];
 	float sum = 0.0;
@@ -110,10 +91,6 @@ void OL_softmax(OL_LAYER_STRUCT * layer, float * y_pred){
 
 /* Use realloc to increase the amount of memory dedicated to the weights  */
 void OL_increaseWeightDim(OL_LAYER_STRUCT * layer){
-
-#ifdef DEBUG_ACTIVE
-	UART_debug("\n\n\r        -- OL_increaseWeightDim");
-#endif
 
 	int h = layer->HEIGHT;
 	int w = layer->WIDTH;
@@ -150,10 +127,6 @@ void OL_increaseWeightDim(OL_LAYER_STRUCT * layer){
 /* Use realloc to increase the amount of memory dedicated to the biases  */
 void OL_increaseBiasDim(OL_LAYER_STRUCT * layer){
 
-#ifdef DEBUG_ACTIVE
-	UART_debug("\n\n\r        -- OL_increaseBiasDim");
-#endif
-
 	int w = layer->WIDTH;
 
 	layer->biases = realloc(layer->biases, w*sizeof(float));
@@ -182,10 +155,6 @@ void OL_increaseBiasDim(OL_LAYER_STRUCT * layer){
 /* Use realloc to increase the amount of memory dedicated to the labels  */
 void OL_increaseLabel(OL_LAYER_STRUCT * layer, char new_letter){
 
-#ifdef DEBUG_ACTIVE
-	UART_debug("\n\n\r        -- OL_increaseLabel");
-#endif
-
 	int w = layer->WIDTH;
 
 	layer->label = realloc(layer->label, w*sizeof(char));
@@ -201,10 +170,6 @@ void OL_increaseLabel(OL_LAYER_STRUCT * layer, char new_letter){
 
 /* Use realloc to increase the amount of memory dedicated to the y prediction arrays  */
 void OL_increaseYpredDim(OL_LAYER_STRUCT * layer){
-
-#ifdef DEBUG_ACTIVE
-	UART_debug("\n\n\r        -- OL_increaseYpredDim");
-#endif
 
 	layer->y_pred = realloc(layer->y_pred, layer->WIDTH*sizeof(float));
 	if(layer->y_pred==NULL){
@@ -225,10 +190,6 @@ void OL_increaseYpredDim(OL_LAYER_STRUCT * layer){
 
 /* Check if the letter just received is already known. If not increase dimensions of the layer.  */
 void OL_checkNewClass(OL_LAYER_STRUCT * layer, char *letter){
-
-#ifdef DEBUG_ACTIVE
-	UART_debug("\n\n\r    -- OL_checkNewClass");
-#endif
 
 	int found = 0;
 
@@ -297,10 +258,6 @@ void OL_compareLabels(OL_LAYER_STRUCT * layer, float * y_true){
 /* This function is the most important part of the TinyOL script. Inside here an IF decides which algorithm
  * to apply, thus changing the update of the weights.  */
 void OL_train(OL_LAYER_STRUCT * layer, float *x, float *y_true, char *letter){
-
-#ifdef DEBUG_ACTIVE
-	UART_debug("\n\n\r  -- Begin on TRAIN routine --\n\n\r    OL_train");
-#endif
 
 	// Values in common between all algorithms
 	int w = layer->WIDTH;
@@ -539,77 +496,5 @@ void OL_train(OL_LAYER_STRUCT * layer, float *x, float *y_true, char *letter){
 
 
 
-// *********************************************************
-//								             PRINT FUNCTIONS
-// *********************************************************
 
-
-void PRINT_checkLabels(OL_LAYER_STRUCT * layer, float * y_true){
-
-	UART_debug("\r    LABEL CHECK:");
-	for(int i=0; i<layer->WIDTH; i++){
-		UART_debug_c("  %c       ", layer->label[i]);
-	}
-	UART_debug("\n");
-
-	UART_debug("\r      Inference:");
-	for(int i=0; i<layer->WIDTH; i++){
-		UART_debug_f("  %f", layer->y_pred[i]);
-	}
-	UART_debug("\n");
-
-	UART_debug("\r      True:     ");
-	for(int i=0; i<layer->WIDTH; i++){
-		UART_debug_f("  %f", y_true[i]);
-	}
-	UART_debug("\n");
-
-	int correct = 0;
-	for(int i=0; i<layer->WIDTH; i++){
-		if(layer->y_pred[i] != y_true[i]){
-			correct = 1;
-		}
-	}
-
-	if(correct==0){
-		UART_debug("\r    Prediction -> 	OK\n");
-	}else{
-		UART_debug("\r    Prediction -> ERROR\n");
-	}
-}
-
-
-
-
-
-// *********************************************************
-//								             DEBUG FUNCTIONS
-// *********************************************************
-
-
-void UART_debug(char msg[BUFF_LEN]){
-	//msgLen = sprintf(msgDebug, msg);
-	//HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
-}
-
-
-
-void UART_debug_u8(char msg[BUFF_LEN], uint8_t num){
-	//msgLen = sprintf(msgDebug, msg, num);
-	//HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
-}
-
-
-
-void UART_debug_c(char msg[BUFF_LEN], char lett){
-	//msgLen = sprintf(msgDebug, msg, lett);
-	//HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
-}
-
-
-
-void UART_debug_f(char msg[BUFF_LEN], float num){
-	//msgLen = sprintf(msgDebug, msg, num);
-	//HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);
-}
 

@@ -389,7 +389,7 @@ def table(conf_matrix, algorithm):
         cellLoc ='center',  
         loc ='upper left')         
 
-    table.scale(2,1) 
+    table.scale(1,2) 
     table.set_fontsize(10)
     ax.set_title('STM table - Method: ' + algorithm, fontweight ="bold") 
     plt.savefig(PLOT_PATH+'STM_table_'+algorithm+'.jpg',
@@ -402,6 +402,28 @@ def table(conf_matrix, algorithm):
 
 
 
+def saveSummary(frozen_time, OL_time, algorithm):
+
+    # Compute average times
+    sum1 = 0
+    sum2 = 0
+    for i in range(0, len(frozen_time)):
+        sum1 += frozen_time[i]
+        sum2 += OL_time[i]
+
+    avrg_frozen = sum1/len(frozen_time)/100     # /100 is needed for transforming it into ms
+    avrg_OL     = sum2/(len(OL_time))/100       # /100 is needed for transforming it into ms
+
+    print(f'\nAverage inference time for the FROZEN model is: {round(avrg_frozen,2)}ms')
+    print(f'Average inference time for the OL model is:     {round(avrg_OL,2)}ms\n')
+
+    # Write times to a txt file
+    new_file = open(TXT_PATH + 'summary_'+ algorithm + '.txt', "w")
+
+    new_file.write("AVERAGE TIMES OF INFERENCE")
+    new_file.write("\n\n")
+    new_file.write("\n   Average Frozen inference time: " + str(round(avrg_frozen,2)))
+    new_file.write("\n   Average OL inference time: " + str(round(avrg_OL,2)))
 
 
 
@@ -418,7 +440,9 @@ def table(conf_matrix, algorithm):
 
 
 
-PLOT_PATH = 'C:/Users/massi/UNI/Magistrale/Anno 5/Semestre 2/Tesi/Code/Python/Plots/STM_results/'
+PLOT_PATH = 'C:\\Users\\massi\\UNI\\Magistrale\\Anno 5\\Semestre 2\\Tesi\\Code\\Python\\Plots\\STM_results\\'
+TXT_PATH  = 'C:\\Users\\massi\\UNI\\Magistrale\\Anno 5\\Semestre 2\\Tesi\\Code\\Python\\Plots\\Tables\\'
+
 
 
 print('\n\n\n')
@@ -492,8 +516,8 @@ print('\n\nSerial port initialized')
 
 
 # Define amount of samples to sent to STM and how many for test/train
-test_max  = test_data.shape[0]
-train_max = train_data.shape[0]
+test_max  = 20      #test_data.shape[0]
+train_max = 0      #train_data.shape[0]
 send_max  = test_max+train_max
 
 
@@ -602,20 +626,9 @@ print(' | |_) |  _| \___ \| | | | |   | | \___ \ ')
 print(' |  _ <| |___ ___) | |_| | |___| |  ___) |')
 print(' |_| \_\_____|____/ \___/|_____|_| |____/ ')
 
-# Compute average times
-sum1 = 0
-sum2 = 0
-for i in range(0, len(frozen_time)):
-    sum1 += frozen_time[i]
-    sum2 += OL_time[i]
-
-avrg_frozen = sum1/len(frozen_time)/100
-avrg_OL = sum2/(len(OL_time))/100
-
-print(f'\nAverage inference time for the FROZEN model is: {round(avrg_frozen,2)}ms')
-print(f'Average inference time for the OL model is:     {round(avrg_OL,2)}ms\n')
-
 histSTM(predic_error, algorithm_ary[method])
 histSTM_letters(vowel_true, predic_error, algorithm_ary[method])
 conf_matr = confusionMatrix(vowel_guess, vowel_true, algorithm_ary[method])
 table(conf_matr, algorithm_ary[method])
+
+saveSummary(frozen_time, OL_time, algorithm_ary[method])
