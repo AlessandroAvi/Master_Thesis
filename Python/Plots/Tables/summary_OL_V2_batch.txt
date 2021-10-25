@@ -1,0 +1,5 @@
+AVERAGE TIMES OF INFERENCE
+
+
+   Average Frozen inference time: 10.45
+   Average OL inference time: 1.95

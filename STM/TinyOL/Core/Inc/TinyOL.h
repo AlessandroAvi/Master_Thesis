@@ -82,6 +82,7 @@ typedef struct {
 }OL_LAYER_STRUCT;
 
 
+
 // ******************************
 //	                      DEFINES
 // ******************************
@@ -100,46 +101,41 @@ char msgRxLett[LETTER_LEN];		// Container for receiving the label
 uint8_t msgInfo[INFO_LEN];		// Container for sending the results of inference to the pc
 
 
+
 // ******************************
 //	       FUNCTIONS DECLARATIONS
 // ******************************
 
+/*  Function that allocates the matrices and arrays needed for the bare minimum functions  */
+void OL_malloc(OL_LAYER_STRUCT * layer);
+
 /*   Function that resets the fields denominated "info" inside the struct of the layer  */
 void OL_resetInfo(OL_LAYER_STRUCT * layer);
-
 
 /*   Function that transforms a letter into a hot one encoded numbered array  */
 void OL_lettToSoft(OL_LAYER_STRUCT * layer, char * lett, float * lable_ptr);
 
-
 /*   Function that finds the max in y_true and y_pred and checks if the prediction is correct  */
 void OL_compareLabels(OL_LAYER_STRUCT * layer, float * y_true);
-
 
 /*   Function that applies the Softmax activation function on the array given as input  */
 void OL_softmax(OL_LAYER_STRUCT * layer,  float * y_pred);
 
-
 /*   Function that performs the feed forward of the OL layer  */
 void OL_feedForward(OL_LAYER_STRUCT * layer, float * input, float * weights, float * bias, float * y_pred);
-
 
 /*   Function that finds if the new data received from the pc is a known letter, if not
  *   enlarge the weight and bias matrix and add the letter to the known labels  */
 void OL_checkNewClass(OL_LAYER_STRUCT * layer, char * letter);
 
-
 /*   Function that performs the entire training of the OL layer. The training depends on the algorithm  */
 void OL_train(OL_LAYER_STRUCT * layer, float * x, float * y_true, char * letter);
-
 
 /*   Function that increases the dimension of the weight and weight2 array  */
 void OL_increaseWeightDim(OL_LAYER_STRUCT * layer);
 
-
 /*   Function that increases the dimension of the bias and bias2 array  */
 void OL_increaseBiasDim(OL_LAYER_STRUCT * layer);
-
 
 /*   Function that increases the dimension of the y_pred and y_pred2 array  */
 void OL_increaseYpredDim(OL_LAYER_STRUCT * layer);

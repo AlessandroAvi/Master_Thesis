@@ -516,8 +516,8 @@ print('\n\nSerial port initialized')
 
 
 # Define amount of samples to sent to STM and how many for test/train
-test_max  = 20      #test_data.shape[0]
-train_max = 0      #train_data.shape[0]
+test_max  = 50      #test_data.shape[0]
+train_max = 50      #train_data.shape[0]
 send_max  = test_max+train_max
 
 
