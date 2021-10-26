@@ -25,9 +25,7 @@ void OL_malloc(OL_LAYER_STRUCT * layer){
 	}
 
 
-
-	if(layer->ALGORITHM == MODE_OL || layer->ALGORITHM == MODE_LWF || layer->ALGORITHM == MODE_OL_batch ||
-	 layer->ALGORITHM == MODE_OL_V2_batch || layer->ALGORITHM == MODE_LWF_batch){
+	if( layer->ALGORITHM!=MODE_OL && layer->ALGORITHM!=MODE_OL ){
 
 		layer->weights_2 = calloc(layer->WIDTH*layer->HEIGHT, sizeof(float));
 		if(layer->weights_2==NULL){
@@ -52,12 +50,6 @@ void OL_malloc(OL_LAYER_STRUCT * layer){
 				layer->OL_ERROR = CALLOC_Y_PRED_2;
 			}
 		}
-	}
-
-
-	float * y_true = calloc(layer->WIDTH, sizeof(float));
-	if(y_true== NULL){
-		layer->OL_ERROR = CALLOC_Y_TRUE;
 	}
 }
 
@@ -282,7 +274,7 @@ void OL_compareLabels(OL_LAYER_STRUCT * layer, float * y_true){
 	}
 
 	// Used from the LWF algorithm
-	if(layer->ALGORITHM == MODE_LWF || layer->ALGORITHM == MODE_LWF_batch){
+	if(layer->ALGORITHM == MODE_CWR){
 		layer->found_lett[max_j_true] += 1;		// Update the found_lett array
 	}
 };
@@ -438,6 +430,38 @@ void OL_train(OL_LAYER_STRUCT * layer, float *x, float *y_true, char *letter){
 
 		}
 
+
+
+	// *************************************
+	// ***** LWF ALGORITHM
+	}else if(layer->ALGORITHM == MODE_LWF){
+
+		float cost_norm[w];
+		float cost_LWF[w];
+		float lambda;
+
+		// Inference with current weights
+		OL_feedForward(layer, x, layer->weights, layer->biases, layer->y_pred);
+		OL_softmax(layer, layer->y_pred);
+		// Inference with LWF weights
+		OL_feedForward(layer, x, layer->weights_2, layer->biases_2, layer->y_pred_2);
+		OL_softmax(layer, layer->y_pred_2);
+
+		lambda = 100/(100+layer->counter);					// Update lambda
+
+		for(int j=0; j<w; j++){
+			cost_norm[j] = layer->y_pred[j]  -y_true[j];	// Compute normal cost
+			cost_LWF[j]  = layer->y_pred_2[j]-y_true[j];	// Compute LWF cost
+
+			for(int i=0; i<h; i++){
+				layer->weights[j*h+i] -= (cost_norm[j]*(1-lambda)+cost_LWF[j]*lambda)*layer->l_rate*x[i];	// Update weights
+			}
+			layer->biases[j] -= (cost_norm[j]*(1-lambda)+cost_LWF[j]*lambda)*layer->l_rate;					// Update biases
+		}
+
+		OL_compareLabels(layer, y_true);																	// Check if prediction is correct or not
+
+		layer->counter +=1;
 
 
 	// *************************************

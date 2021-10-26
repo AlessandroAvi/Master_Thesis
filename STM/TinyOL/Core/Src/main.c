@@ -58,13 +58,16 @@
 
 /* USER CODE BEGIN PV */
 
+// Values for the CUBE AI
 ai_float in_data[AI_NETWORK_IN_1_SIZE];
 ai_float out_data[AI_NETWORK_OUT_1_SIZE];
 
+// Flags for enabling/diabling the prediction
 int enable_inference = 0;
 uint8_t BlueButton = 0;
 char letter[1];
 
+// Values for keeping track of time passed
 uint32_t timer_counter = 0;
 uint32_t inferenceTime_frozen = 0;
 uint32_t inferenceTime_OL = 0;
@@ -124,7 +127,7 @@ int main(void)
 
   OL_LAYER_STRUCT OL_layer;
 
-  // Available algorithms are
+  // The available algorithms are:
   //	MODE_OL
   //	MODE_OL_V2
   //	MODE_CWR
@@ -132,37 +135,43 @@ int main(void)
   //	MODE_OL_batch
   //	MODE_OL_V2_batch
   //	MODE_LWF_batch
-  OL_layer.ALGORITHM = MODE_OL;
+  OL_layer.ALGORITHM = MODE_OL_V2_batch;
 
   OL_layer.batch_size = 8;
 
   // Define the learn rate depending on the algorithm
   if(OL_layer.ALGORITHM       == MODE_OL){
 	  OL_layer.l_rate = 0.000005;
+  }else if(OL_layer.ALGORITHM == MODE_OL_batch){
+	  OL_layer.l_rate = 0.0001;
   }else if(OL_layer.ALGORITHM == MODE_OL_V2){
 	  OL_layer.l_rate = 0.00005;
+  }else if(OL_layer.ALGORITHM == MODE_OL_V2_batch){
+	  OL_layer.l_rate = 0.001;
   }else if(OL_layer.ALGORITHM == MODE_CWR){
 	  OL_layer.l_rate = 0.00005;
   }else if(OL_layer.ALGORITHM == MODE_LWF){
 	  OL_layer.l_rate = 0.0001;
-  }else if(OL_layer.ALGORITHM == MODE_OL_batch){
-	  OL_layer.l_rate = 0.0001;
-  }else if(OL_layer.ALGORITHM == MODE_OL_V2_batch){
-	  OL_layer.l_rate = 0.001;
   }else if(OL_layer.ALGORITHM == MODE_LWF_batch){
 	  OL_layer.l_rate = 0.000001;
   }
 
 
-  // Initialize the rest
+  // Initialize all the other values in the struct
+  // The values below should always stay the same
   OL_layer.WIDTH    = 5;
   OL_layer.HEIGHT   = AI_NETWORK_OUT_1_SIZE;
   OL_layer.counter  = 0;
   OL_layer.OL_ERROR = 0;
 
 
-  // Allocate all the neccessary matrices/arrays
+  // Allocate all the necessary matrices/arrays
   OL_malloc(&OL_layer);
+
+  float * y_true = calloc(OL_layer.WIDTH, sizeof(float));
+  if(y_true== NULL){
+	  OL_layer.OL_ERROR = CALLOC_Y_TRUE;
+  }
 
 
   // FILL UP PREVIOUS DEFINED CONTAINERS WITH DATA
@@ -175,31 +184,26 @@ int main(void)
 
   // Fill up the weight matrix with the weights from the Keras model
   for(int i=0; i<OL_layer.WIDTH*OL_layer.HEIGHT; i++){
-  	  OL_layer.weights[i]=saved_weights[i];
+  	  OL_layer.weights[i] = saved_weights[i];
   }
   // Fill up the biases array with the weights from the Keras model
   for(int i=0; i<OL_layer.WIDTH; i++){
-	  OL_layer.biases[i]=saved_biases[i];
+	  OL_layer.biases[i] = saved_biases[i];
   }
 
   // Fill up weights2 and biases2 only in the case of LWF
   if(OL_layer.ALGORITHM == MODE_LWF || OL_layer.ALGORITHM == MODE_LWF_batch){
 	  for(int i=0; i<OL_layer.WIDTH*OL_layer.HEIGHT; i++){
-	  	  OL_layer.weights_2[i]=saved_weights[i];
+	  	  OL_layer.weights_2[i] = saved_weights[i];
 	  }
 	  for(int i=0; i<OL_layer.WIDTH; i++){
-		  OL_layer.biases_2[i]=saved_biases[i];
+		  OL_layer.biases_2[i] = saved_biases[i];
 	  }
   }
 
-  // ***********************************
 
 
-
-  // Start the timer for counting inference time (1 timer increment = 10ms)
-  HAL_TIM_Base_Start_IT(&htim10);
-
-
+  HAL_TIM_Base_Start_IT(&htim10);	// Start the timer for counting inference time (1 timer increment = 10 micro sec)
 
   /* USER CODE END 2 */
 
@@ -218,6 +222,10 @@ int main(void)
 		  // Reset the info carried from the OL struct
 		  OL_resetInfo(&OL_layer);
 
+
+		  // Decode the message received from the UART communication
+		  // The message sent from the PC is specifically encoded in a way that allows
+		  // to recognize negative values easily -> explained in the readme file
 		  uint8_t tmp;
 		  for(int k=0; k<600; k++){
 			  tmp = msgRxData[k*2];
@@ -264,13 +272,11 @@ int main(void)
 
 		  HAL_UART_Transmit(&huart2, (uint8_t*)msgInfo, INFO_LEN, 100);		// Send message
 
-
-
 		  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);	// LED toggle
 		  enable_inference = 0;						// Reset inference flag
 	  }
 
-	  HAL_Delay(10); 			// Helps the code to not get stuck
+	  HAL_Delay(5); 			// Helps the code to not get stuck
 
 	  // If the blue button has been pressed and the cycle inference cycle is finished enable again the interrupt for the infinite cycle
 	  if(BlueButton == 1 && enable_inference == 0){
@@ -342,7 +348,10 @@ void SystemClock_Config(void)
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 
 
-	if(BlueButton == 0){ // Avoid double clicks
+	if(BlueButton == 0){ 		// Avoid double clicks
+
+		// When the blue button is pressed the first time it enables the STM to receive the first input message. Then
+		// the STM automatically continues to recive messages from the PC.
 
 		if(GPIO_Pin == B1_Pin){													// If interrupt is blue button
 
@@ -362,6 +371,13 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 			enable_inference = 1;												// Raise the flag that enables the inference at the next cyle in the while
 		}
 	}
+
+
+	// In order to have a code that loops continuosly and keeps receiving data and inferencing it, it's necessary
+	// to have a signal that notices when the STM finishes an inference.This is done by short cuircuiting 2 GPIOs. In
+	// this case I use an output GPIO (B10) and an input interrupt GPIO (B5) for doing this. The output is raised high when
+	// the inference in the while loop is finished, the other is an interrupt that is triggered when it reads this signal high.
+	// Once the interrupt is triggered the code enters here and it syncs with the PC reading the message through he UART
 
 	if(BlueButton == 1){	// If the blue button has been pressed once
 

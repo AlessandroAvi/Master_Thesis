@@ -199,18 +199,7 @@ print('\n**** TF data')
 TF_data, TF_label, TF_data_test, TF_label_test = myParse.parseTrainTest(vowels_data, vowels_label, 0.8)
 
 # Shuffle the dataset
-random.seed(888)
-order_list = list(range(0,TF_data.shape[0]))    # create list of increasing numbers
-random.shuffle(order_list)                      # shuffle the list of ordered numbers
-
-TF_data_train  = np.zeros(TF_data.shape)
-TF_label_train = np.empty(TF_data.shape[0], dtype=str) 
-
-for i in range(0, TF_data.shape[0]):
-    TF_data_train[i,:]  = TF_data[order_list[i],:]    # fill the new container with the shuffeled data
-    TF_label_train[i]   = TF_label[order_list[i]]
-
-
+TF_data, TF_label = myParse.shuffleDataset(TF_data, TF_label)
 
 ## KERAS MODEL
 # Define basic params
