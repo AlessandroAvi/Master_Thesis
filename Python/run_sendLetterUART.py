@@ -11,6 +11,10 @@ import re
 import msvcrt
 import os
 import myLib_parseData as myParse
+import myLib_writeFile as myWrite
+import myLib_table as myTable
+import myLib_barChart as myBar
+
 
 
 #--------------------------------------------------------------------------
@@ -125,162 +129,7 @@ def aryToLowHigh(ary):
 
 
 
-
-
-
-def histSTM_letters(vowel_true, predic_error, algorithm):
-    """ Generates a bar plot that shows the accuracy for each letter and plots it.
-    
-    Function that generates a bar plot showing the accuracy for each letter of the 
-    current model applied on the STM in the prediction of each letter
-
-    Parameters
-    ----------
-    vowel_true : array_like
-        Array that contains the true labels sent from the PC
-
-    predic_error : array_like
-        Array that contains if the prediction from the STM is correct or not 
-
-    algorithm : string
-        Name of the method used in the STM for the training
-    """
-
-    correct = np.zeros(8)
-    errors  = np.zeros(8)
-    tot     = np.zeros(8)
-    correct_perc = np.zeros(9)
-    mistake_perc = np.zeros(8)
-    letter_label = ['A', 'E', 'I', 'O', 'U', 'R', 'B', 'M', 'Model']
-    bl = 'cornflowerblue'
-    colors = [bl,bl,bl,bl,bl,bl,bl,bl,'steelblue']
-
-    for i in range(0, len(vowel_true)):
-
-        if(vowel_true[i]=='A'):
-            k= 0
-        elif(vowel_true[i]=='E'):
-            k= 1
-        elif(vowel_true[i]=='I'):
-            k= 2
-        elif(vowel_true[i]=='O'):
-            k= 3
-        elif(vowel_true[i]=='U'):
-            k= 4
-        elif(vowel_true[i]=='R'):
-            k= 5
-        elif(vowel_true[i]=='B'):
-            k= 6
-        elif(vowel_true[i]=='M'):
-            k= 7
-
-        tot[k] +=1
-
-        if(predic_error[i] == 2):
-            correct[k] += 1
-        else:
-            errors[k] += 1
-
-
-    for i in range(0, len(correct)):
-        if(correct[i]!=0):
-            correct_perc[i] = round(round(correct[i]/tot[i],4)*100,2)
-        if(errors[i]!=0):
-            mistake_perc[i] = round(round(errors[i]/tot[i],4)*100,2)
-
-    correct_perc[-1] = round(round(sum(correct)/sum(tot), 4)*100,2)
-    
-    fig = plt.subplots(figsize =(11, 7))
-    
-    # Make the plot
-    bar_plot = plt.bar(letter_label, correct_perc, color=colors, edgecolor ='grey')
-
-    for p in bar_plot:
-            height = p.get_height()
-            xy_pos = (p.get_x() + p.get_width() / 2, height)
-            xy_txt = (0, -20)
-            txt_coord = "offset points"
-            txt_val = str(height)
-            if(height>10):
-                plt.annotate(txt_val, xy=xy_pos, xytext=xy_txt, textcoords=txt_coord, ha='center', va='bottom', fontsize=12)
-            else:
-                plt.annotate(txt_val, xy=xy_pos, xytext=(0, 3), textcoords=txt_coord, ha='center', va='bottom', fontsize=12)
-
-
-    # Adding Xticks
-    plt.ylabel('Accuracy %', fontsize = 15)
-    plt.xlabel('Classes', fontsize = 15)
-    plt.ylim([0, 100])
-    plt.xticks([r for r in range(len(correct_perc))], letter_label, fontsize = 12)
-    plt.title('STM accuracy test - Method used: ' + algorithm, fontweight ='bold', fontsize=15)
-
-    plt.savefig(PLOT_PATH +'STM_barPlot_'+algorithm+'.jpg')
-    plt.show()
-
-
-
-
-
-
-
-
-def histSTM(predic_error, algorithm):
-    """ Generates a bar plot that shows the overall accuracy and plots it.
-
-    Function that generate a bar plot that shows how many letters were predicted correctly.
-
-    Parameters
-    ----------
-    predic_error : array_like
-        Array that contains if the prediction from the STM is correct or not 
-
-    algorithm : string
-        Name of the method used in the STM for the training
-    """
-    
-    correct = 0
-    mistake = 0
-
-    for i in range(0, len(predic_error)):
-        if(predic_error[i] == 2):
-            correct +=1
-        elif(predic_error[i] == 1):
-            mistake += 1
-
-    correct_perc = round(round(correct/len(predic_error),4)*100,2)
-    mistake_perc = round(round(mistake/len(predic_error),4)*100,2)
-
-    print(f'Correct inferences -> {correct_perc} %')
-    print(f'Wrong inferences   -> {mistake_perc} %')
-
-    data = [correct_perc, mistake_perc]
-    bar_plot = plt.bar(['CORRECT', 'ERROR'], data)
-    plt.ylabel('Accuracy %', fontsize = 15)
-    plt.ylim([0, 100])
-    plt.title('STM accuracy - Method: ' + algorithm, fontsize=15, fontweight ='bold')
-
-    for p in bar_plot:
-        height = p.get_height()
-        xy_pos = (p.get_x() + p.get_width() / 2, height)
-        xy_txt = (0, -20)
-        txt_coord = "offset points"
-        txt_val = str(height)
-        if(height>10):
-            plt.annotate(txt_val, xy=xy_pos, xytext=xy_txt, textcoords=txt_coord, ha='center', va='bottom', fontsize=12)
-        else:
-            plt.annotate(txt_val, xy=xy_pos, xytext=(0, 3), textcoords=txt_coord, ha='center', va='bottom', fontsize=12)
-
-    
-    plt.savefig(PLOT_PATH+'STM_accuracy_'+algorithm+'.jpg')
-
-    plt.show()
-
-
-
-
-
-
-def confusionMatrix(vowel_guess, vowel_true, algorithm):
+def plot_STM_confMatrix(vowel_guess, vowel_true, algorithm):
     """ Generates a confusion matrix and plots it.
     
     Function that generates a cinfusion matrix from the prediction
@@ -336,100 +185,12 @@ def confusionMatrix(vowel_guess, vowel_true, algorithm):
     plt.ylabel('TRUE LABEL', fontsize=10)
     plt.title('Confusion Matrix - ' + algorithm, fontsize=15, fontweight ='bold')
     
-    plt.savefig(PLOT_PATH + 'STM_confMatrix_'+algorithm+'.jpg')
+    plt.savefig(ROOT_PATH +'\\Plots\\STM_results\\STM_confMatrix_'+algorithm+'.jpg')
     plt.show()
 
     return conf_matr
 
-
-    
-
-def table(conf_matrix, algorithm):
-    """ Generates a table that contains the important parameters for the confusion matrix.
-
-    This functions takes the informations stored inside a confusion matrix and computes some
-    parameters useful for the comparison between methods (accuracy, precision, F1 score).
-
-    Parameters
-    ----------
-    conf_matrix : array_like
-        Confusion matrix generated from another function
-
-    algorithm : string
-        Name of the method used in the STM for the training
-"""
-
-    table_values = np.zeros([3,conf_matrix.shape[1]])
-
-    for i in range(0, table_values.shape[1]):
-        if(sum(conf_matrix[i,:]) == 0):
-            table_values[0,i] = 0 
-        else:
-            table_values[0,i] = round(conf_matrix[i,i]/sum(conf_matrix[i,:]),2)  # RECALL    or SENSITIVITY
-
-        if(sum(conf_matrix[:,i]) == 0):
-            table_values[1,i] = 0
-        else:
-            table_values[1,i] = round(conf_matrix[i,i]/sum(conf_matrix[:,i]),2)     # PRECISION 
-
-        if((table_values[1,i]+table_values[2,i])==0):
-            table_values[2,i] = 0
-        else:
-            table_values[2,i] = round((2*table_values[0,i]*table_values[1,i])/(table_values[0,i]+table_values[1,i]),2)  # F1 SCORE
-
-    fig, ax = plt.subplots(figsize =(10, 3)) 
-    ax.set_axis_off() 
-
-    table = ax.table( 
-        cellText = table_values,  
-        rowLabels = ['Accuracy', 'Precision', 'F1 score'],  
-        colLabels = ['A', 'E', 'I', 'O', 'U', 'B', 'R', 'M'], 
-        rowColours =["cornflowerblue"] * 200,  
-        colColours =["cornflowerblue"] * 200, 
-        cellLoc ='center',  
-        loc ='upper left')         
-
-    table.scale(1,2) 
-    table.set_fontsize(10)
-    ax.set_title('STM table - Method: ' + algorithm, fontweight ="bold") 
-    plt.savefig(PLOT_PATH+'STM_table_'+algorithm+'.jpg',
-                bbox_inches='tight',
-                edgecolor=fig.get_edgecolor(),
-                facecolor=fig.get_facecolor(),
-                dpi=200
-                )
-    plt.show()
-
-
-
-def saveSummary(frozen_time, OL_time, algorithm):
-
-    # Compute average times
-    sum1 = 0
-    sum2 = 0
-    for i in range(0, len(frozen_time)):
-        sum1 += frozen_time[i]
-        sum2 += OL_time[i]
-
-    avrg_frozen = sum1/len(frozen_time)/100     # /100 is needed for transforming it into ms
-    avrg_OL     = sum2/(len(OL_time))/100       # /100 is needed for transforming it into ms
-
-    print(f'\nAverage inference time for the FROZEN model is: {round(avrg_frozen,2)}ms')
-    print(f'Average inference time for the OL model is:     {round(avrg_OL,2)}ms\n')
-
-    # Write times to a txt file
-    new_file = open(TXT_PATH + 'summary_'+ algorithm + '.txt', "w")
-
-    new_file.write("AVERAGE TIMES OF INFERENCE")
-    new_file.write("\n\n")
-    new_file.write("\n   Average Frozen inference time: " + str(round(avrg_frozen,2)))
-    new_file.write("\n   Average OL inference time: " + str(round(avrg_OL,2)))
-
-
-
-
-
-
+ 
 
 #---------------------------------------------------------------
 #   __  __    _    ___ _   _ 
@@ -439,11 +200,7 @@ def saveSummary(frozen_time, OL_time, algorithm):
 #  |_|  |_/_/   \_\___|_| \_|
 
 
-
-PLOT_PATH = 'C:\\Users\\massi\\UNI\\Magistrale\\Anno 5\\Semestre 2\\Tesi\\Code\\Python\\Plots\\STM_results\\'
-TXT_PATH  = 'C:\\Users\\massi\\UNI\\Magistrale\\Anno 5\\Semestre 2\\Tesi\\Code\\Python\\Plots\\Tables\\'
-
-
+ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
 
 print('\n\n\n')
 print('---------------------------------------------------------------------------------------')
@@ -626,9 +383,24 @@ print(' | |_) |  _| \___ \| | | | |   | | \___ \ ')
 print(' |  _ <| |___ ___) | |_| | |___| |  ___) |')
 print(' |_| \_\_____|____/ \___/|_____|_| |____/ ')
 
-histSTM(predic_error, algorithm_ary[method])
-histSTM_letters(vowel_true, predic_error, algorithm_ary[method])
-conf_matr = confusionMatrix(vowel_guess, vowel_true, algorithm_ary[method])
-table(conf_matr, algorithm_ary[method])
+myBar.plot_STM_barChart(predic_error, algorithm_ary[method])                        # plot accuracy histogram
+myBar.plot_STM_barChartLetter(vowel_true, predic_error, algorithm_ary[method])      # plot letters accuracy histogram
 
-saveSummary(frozen_time, OL_time, algorithm_ary[method])
+conf_matr = plot_STM_confMatrix(vowel_guess, vowel_true, algorithm_ary[method])     # plot the confusion matrix
+myTable.table_STM_results(conf_matr, algorithm_ary[method])                         # plot the summary table
+
+# Compute inference times and savd it
+sum1 = 0
+sum2 = 0
+for i in range(0, len(frozen_time)):
+    sum1 += frozen_time[i]
+    sum2 += OL_time[i]
+
+avrg_frozen = sum1/len(frozen_time)/100     # /100 is needed for transforming it into ms
+avrg_OL     = sum2/(len(OL_time))/100       # /100 is needed for transforming it into ms
+
+print(f'\nAverage inference time for the FROZEN model is: {round(avrg_frozen,2)}ms')
+print(f'Average inference time for the OL model is:     {round(avrg_OL,2)}ms\n')
+
+myWrite.save_STM_methodsPerformance(conf_matr, avrg_frozen, avrg_OL, method)     # save in a txt file the average inference time for the method just tested
+myTable.table_STM_methodsPerformance()                                           # plot and save the table that contains the average times

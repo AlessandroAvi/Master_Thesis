@@ -134,7 +134,7 @@ def loadDataFromRawTxt_v2(letter):
 
     Takes a raw txt file that contains data in an ordered way and saves the values inside 
     a matrix (for the data) and an array (for the labels). This is different from the previous
-    because it's used to extract in a matrix/array only one vowel from the volwe dataset. 
+    because it's used to extract in a matrix/array only one vowel from the vowels dataset. 
     Example: I want to extract only the letter 'A' from the file 'raw_vowels'
 
     Parameters

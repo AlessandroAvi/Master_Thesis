@@ -4,6 +4,7 @@
 #include <assert.h>
 #include "usart.h"
 #include <stdlib.h>
+#include "computeRAM.h"
 
 
 
@@ -32,7 +33,8 @@ typedef enum{
 	REALLOC_BIASES_2,
 	REALLOC_LABEL,
 	REALLOC_Y_PRED,
-	REALLOC_Y_PRED_2
+	REALLOC_Y_PRED_2,
+	REALLOC_Y_TRUE
 } ERROR_CODE;
 
 
@@ -64,6 +66,7 @@ typedef struct {
 	float *weights;
 	float *biases;
 	float *y_pred;
+	float *y_true;
 	// *** Used by mini batches|LWF|CWR
 	float *weights_2;
 	float *biases_2;
@@ -78,6 +81,7 @@ typedef struct {
 	uint8_t new_class;				// 0/1
 	char vowel_guess;				// char
 	uint16_t OL_ERROR;				// int
+	int freeRAMbytes;
 
 }OL_LAYER_STRUCT;
 
@@ -92,6 +96,7 @@ typedef struct {
 #define LETTER_LEN         			  1
 #define DATA_LEN           		   1200
 #define INFO_LEN           		     10
+#define READ_RAM_BYTES		   	      0
 
 
 int msgLen;
@@ -107,16 +112,16 @@ uint8_t msgInfo[INFO_LEN];		// Container for sending the results of inference to
 // ******************************
 
 /*  Function that allocates the matrices and arrays needed for the bare minimum functions  */
-void OL_malloc(OL_LAYER_STRUCT * layer);
+void OL_allocateMemory(OL_LAYER_STRUCT * layer);
 
 /*   Function that resets the fields denominated "info" inside the struct of the layer  */
 void OL_resetInfo(OL_LAYER_STRUCT * layer);
 
 /*   Function that transforms a letter into a hot one encoded numbered array  */
-void OL_lettToSoft(OL_LAYER_STRUCT * layer, char * lett, float * lable_ptr);
+void OL_lettToSoft(OL_LAYER_STRUCT * layer, char * lett);
 
 /*   Function that finds the max in y_true and y_pred and checks if the prediction is correct  */
-void OL_compareLabels(OL_LAYER_STRUCT * layer, float * y_true);
+void OL_compareLabels(OL_LAYER_STRUCT * layer);
 
 /*   Function that applies the Softmax activation function on the array given as input  */
 void OL_softmax(OL_LAYER_STRUCT * layer,  float * y_pred);
@@ -129,7 +134,7 @@ void OL_feedForward(OL_LAYER_STRUCT * layer, float * input, float * weights, flo
 void OL_checkNewClass(OL_LAYER_STRUCT * layer, char * letter);
 
 /*   Function that performs the entire training of the OL layer. The training depends on the algorithm  */
-void OL_train(OL_LAYER_STRUCT * layer, float * x, float * y_true, char * letter);
+void OL_train(OL_LAYER_STRUCT * layer, float * x, char * letter);
 
 /*   Function that increases the dimension of the weight and weight2 array  */
 void OL_increaseWeightDim(OL_LAYER_STRUCT * layer);
@@ -139,3 +144,6 @@ void OL_increaseBiasDim(OL_LAYER_STRUCT * layer);
 
 /*   Function that increases the dimension of the y_pred and y_pred2 array  */
 void OL_increaseYpredDim(OL_LAYER_STRUCT * layer);
+
+/*   Function that increases the dimension of the y_true  */
+void OL_increaseYtrueDim(OL_LAYER_STRUCT * layer);

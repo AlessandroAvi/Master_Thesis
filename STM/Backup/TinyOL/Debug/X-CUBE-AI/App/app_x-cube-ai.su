@@ -1,8 +1,0 @@
-app_x-cube-ai.c:107:13:ai_log_err	16	static
-app_x-cube-ai.c:120:12:ai_boostrap	72	static
-app_x-cube-ai.c:154:12:ai_run	32	static
-app_x-cube-ai.c:175:5:ai_run_v2	32	static
-app_x-cube-ai.c:202:5:acquire_and_process_data	16	static
-app_x-cube-ai.c:207:5:post_process	16	static
-app_x-cube-ai.c:216:6:MX_X_CUBE_AI_Init	8	static
-app_x-cube-ai.c:225:6:MX_X_CUBE_AI_Process	32	static

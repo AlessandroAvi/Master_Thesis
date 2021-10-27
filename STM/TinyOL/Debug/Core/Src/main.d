@@ -33,7 +33,7 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Middlewares/ST/AI/Inc/ai_platform.h ../X-CUBE-AI/App/network.h \
  ../X-CUBE-AI/App/network_config.h ../X-CUBE-AI/App/network_data.h \
  ../Middlewares/ST/AI/Inc/ai_datatypes_defines.h ../Core/Inc/TinyOL.h \
- ../Core/Inc/usart.h ../Core/Inc/layer_weights.h
+ ../Core/Inc/usart.h ../Core/Inc/computeRAM.h ../Core/Inc/layer_weights.h
 
 ../Core/Inc/main.h:
 
@@ -120,5 +120,7 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Core/Inc/TinyOL.h:
 
 ../Core/Inc/usart.h:
+
+../Core/Inc/computeRAM.h:
 
 ../Core/Inc/layer_weights.h:

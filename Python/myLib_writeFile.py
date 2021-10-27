@@ -1,10 +1,12 @@
 import numpy as np
 import os
+import pandas as pd
 
 
 ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
-FILE_PATH = ROOT_PATH + '\\SimulationResult\\'
+SIMU_RES_PATH = ROOT_PATH + '\\SimulationResult\\'
 LAST_LAYER_PATH = ROOT_PATH + '\\Saved_models\\Frozen_model\\'
+STM_PERFORMANCE_PATH = ROOT_PATH + '\\Plots\\STM_results\\methodsPerformance.txt'
 
 
 
@@ -32,7 +34,7 @@ def save_simulationResult(filename, model):
     res3 = model.totals_ary
 
     # NB: with the specification 'a' the content of the txt file is not deleted every time. It just appends new data.
-    with open(FILE_PATH + filename +'.txt',"a") as f:
+    with open(SIMU_RES_PATH + filename +'.txt',"a") as f:
 
         # Save on the first line an array that contains the correct predictions for each letter
         for i in range(0, len(res1)):
@@ -112,7 +114,7 @@ def save_lastLayer(model):
 
 
 
-def saveParams(SAVE_MODEL_PATH, model, batch_size, epochs, metrics, optimizer, loss):
+def save_KerasModelParams(SAVE_MODEL_PATH, model, batch_size, epochs, metrics, optimizer, loss):
     """ Saves in a txt file the structure of the TF model
 
     Saves ina  txt file the detailed structure of the TF model. It will contan the number of
@@ -138,3 +140,70 @@ def saveParams(SAVE_MODEL_PATH, model, batch_size, epochs, metrics, optimizer, l
     new_file.write("\n Loss: " + loss + "\n\n")
 
     model.summary(print_fn=lambda x: new_file.write(x + '\n'))
+
+
+
+
+
+##############################
+# FUNCTIONS FOR THE STM COE
+##############################
+
+def save_STM_methodsPerformance(conf_matrix, avrgF, avrgOL, n_line):
+    """ Saves the average inference times obtained from the STM in a txt file
+
+    This function takes the average inference times for the frozen and OL model and saves them in a
+    txt file. Each line of the tct file corresponds to a different algorithm
+
+    Parameters
+    ----------
+    conf_matrix : array_like
+        Confusion matrix of the current test
+
+    avrgF : float
+        Average inference time of the frozen model
+
+    avrgOL : float
+        Average inference time of the OL model
+
+    n_line : int
+        Number of the algorithm used that defines the line in which it saves the value
+    """
+
+    # The fiel that I am opening contains on each column a parameters regarding accuracy, average inference time of the frozen model,
+    # average inference time fo theOL layer, maximum occupied ram 
+    # The rowns on the othehand reppresent the methods used in order 'OL', 'OL_V2', 'CWR', 'LWF', 'OL_batch', 'OL_V2_batch', 'LWF_batch'
+    columnNames = ['accuracy', 'timeF', 'timeOL', 'ram']
+    dataset = pd.read_csv(STM_PERFORMANCE_PATH,header = None, names=columnNames,na_values=',')
+
+    # Extract each column from the dataframe
+    accuracy_val = dataset.accuracy
+    timeF_val    = dataset.timeF
+    timeOL_val   = dataset.timeOL
+    ram_val     = dataset.ram
+
+    dtensor = np.empty((7,4))
+
+    # Fill the dtensor
+    for i in range(0,7):
+        dtensor[i,0] = accuracy_val[i]
+        dtensor[i,1] = timeF_val[i]
+        dtensor[i,2] = timeOL_val[i]
+        dtensor[i,3] = ram_val[i]
+
+    current_accuracy = 0
+    current_totals   = 0
+    
+    # change value in line n_ljne
+    for i in range(0, conf_matrix.shape[0]):
+        current_accuracy += conf_matrix[i,i]
+        current_totals   += sum(conf_matrix[i,:])
+
+    dtensor[n_line, 0] = round(round(current_accuracy/current_totals,4)*100,2)   # Update the accracy value
+    dtensor[n_line, 1] = round(avrgF,2)                                          # Update frozen time
+    dtensor[n_line, 2] = round(avrgOL,2)                                         # Update OL time
+
+    # re write the txt file
+    with open(STM_PERFORMANCE_PATH,'w') as data_file:
+        for i in range(0, dtensor.shape[0]):
+            data_file.write(str(dtensor[i, 0])+','+str(dtensor[i, 1])+','+str(dtensor[i, 2])+','+str(dtensor[i, 3])+'\n')

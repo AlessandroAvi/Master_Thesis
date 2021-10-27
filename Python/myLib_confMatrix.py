@@ -39,3 +39,4 @@ def plot_confMatrix(model):
     plt.ylabel('TRUE LABELS') 
     plt.title('Confusion Matrix - ' + title, fontweight ='bold', fontsize = 15)
     plt.savefig(PLOT_PATH + 'confusionMat_' + filename + '.jpg')
+    

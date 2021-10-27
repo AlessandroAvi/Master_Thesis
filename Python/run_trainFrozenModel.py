@@ -212,7 +212,7 @@ batch_size = 16      # 16
 
 # Define the model structure
 model = Sequential()
-model.add(Dense(128, activation = 'relu', input_shape = (TF_data_train.shape[1],), name='input_layer'))
+model.add(Dense(128, activation = 'relu', input_shape = (TF_data.shape[1],), name='input_layer'))
 model.add(Dense(128, activation = 'relu', name='hidden1'))  
 model.add(Dense(5, activation='softmax' , name = 'output_layer'))
 
@@ -222,7 +222,7 @@ model.summary()
 
 
 ## TRAINING OF THE KERAS MODEL
-train_hist = model.fit(TF_data_train, myTest.lettToSoft(TF_label_train, vowels), epochs=epochs, batch_size=batch_size, validation_split=0.1 , verbose=2)
+train_hist = model.fit(TF_data, myTest.lettToSoft(TF_label, vowels), epochs=epochs, batch_size=batch_size, validation_split=0.1 , verbose=2)
 print('\nEvaluation:')
 results = model.evaluate(TF_data_test, myTest.lettToSoft(TF_label_test, vowels), verbose=2)
 
@@ -236,7 +236,7 @@ plot_TestAccuracy(TF_data_test, TF_label_test, model, vowels)
 
 # SAVE THE KERAS MODEL
 model.save(SAVE_MODEL_PATH + "Original_model\\model.h5")
-myWrite.saveParams(SAVE_MODEL_PATH + "Original_model\\", model, batch_size, epochs, metrics, optimizer, loss)
+myWrite.save_KerasModelParams(SAVE_MODEL_PATH + "Original_model\\", model, batch_size, epochs, metrics, optimizer, loss)
 
 
 
@@ -248,7 +248,7 @@ ML_model.summary()
 ML_model.compile()
 
 ML_model.save(SAVE_MODEL_PATH + "Frozen_model\\model.h5")
-myWrite.saveParams(SAVE_MODEL_PATH + "Frozen_model\\", ML_model, batch_size, epochs, metrics, optimizer, loss)
+myWrite.save_KerasModelParams(SAVE_MODEL_PATH + "Frozen_model\\", ML_model, batch_size, epochs, metrics, optimizer, loss)
 
 # ALSO WRITE IN A file.h THE LAST LAYER W AND B AS A MATRIX AND AN ARRAY
 myWrite.save_lastLayer(model)

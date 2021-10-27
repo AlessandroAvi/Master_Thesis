@@ -7,7 +7,7 @@ import matplotlib.image as mpimg
 
 ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
 PLOT_PATH = ROOT_PATH + '\\Plots\\TinyOL_Plots\\'
-ROOT_TXT_PATH = ROOT_PATH + '\\SimulationResult\\'     
+TXT_PATH  = ROOT_PATH + '\\SimulationResult\\'     
 
 
 
@@ -37,7 +37,7 @@ def plot_barChart_SimuRes(plotEnable):
     count = 0
     for filename in names_ary:
         
-        data = np.loadtxt(ROOT_TXT_PATH + filename +'.txt', delimiter=',')  # read from txt
+        data = np.loadtxt(TXT_PATH + filename +'.txt', delimiter=',')  # read from txt
         accuracy = np.zeros(int(data.shape[0]/3))   # reset container
 
         # the txt file is composed of sequences of lines -> number of orrect prediction - number of mistaken prediction - n of tot predictions
@@ -198,3 +198,164 @@ def plot_barChart_All():
 
     plt.savefig(PLOT_PATH +  'barPlot_ ALL.jpg', bbox_inches='tight', 
                 edgecolor=fig.get_edgecolor(), facecolor=fig.get_facecolor(), dpi=200 )
+
+
+
+
+
+
+
+
+
+
+
+##############################
+# FUNCTIONS FOR THE STM COE
+##############################
+
+
+def plot_STM_barChartLetter(vowel_true, predic_error, algorithm):
+    """ Generates a bar plot that shows the accuracy for each letter and plots it.
+    
+    Function that generates a bar plot showing the accuracy for each letter of the 
+    current model applied on the STM in the prediction of each letter
+
+    Parameters
+    ----------
+    vowel_true : array_like
+        Array that contains the true labels sent from the PC
+
+    predic_error : array_like
+        Array that contains if the prediction from the STM is correct or not 
+
+    algorithm : string
+        Name of the method used in the STM for the training
+    """
+
+    correct = np.zeros(8)
+    errors  = np.zeros(8)
+    tot     = np.zeros(8)
+    correct_perc = np.zeros(9)
+    mistake_perc = np.zeros(8)
+    letter_label = ['A', 'E', 'I', 'O', 'U', 'R', 'B', 'M', 'Model']
+    bl = 'cornflowerblue'
+    colors = [bl,bl,bl,bl,bl,bl,bl,bl,'steelblue']
+
+    for i in range(0, len(vowel_true)):
+
+        if(vowel_true[i]=='A'):
+            k= 0
+        elif(vowel_true[i]=='E'):
+            k= 1
+        elif(vowel_true[i]=='I'):
+            k= 2
+        elif(vowel_true[i]=='O'):
+            k= 3
+        elif(vowel_true[i]=='U'):
+            k= 4
+        elif(vowel_true[i]=='R'):
+            k= 5
+        elif(vowel_true[i]=='B'):
+            k= 6
+        elif(vowel_true[i]=='M'):
+            k= 7
+
+        tot[k] +=1
+
+        if(predic_error[i] == 2):
+            correct[k] += 1
+        else:
+            errors[k] += 1
+
+
+    for i in range(0, len(correct)):
+        if(correct[i]!=0):
+            correct_perc[i] = round(round(correct[i]/tot[i],4)*100,2)
+        if(errors[i]!=0):
+            mistake_perc[i] = round(round(errors[i]/tot[i],4)*100,2)
+
+    correct_perc[-1] = round(round(sum(correct)/sum(tot), 4)*100,2)
+    
+    fig = plt.subplots(figsize =(11, 7))
+    
+    # Make the plot
+    bar_plot = plt.bar(letter_label, correct_perc, color=colors, edgecolor ='grey')
+
+    for p in bar_plot:
+            height = p.get_height()
+            xy_pos = (p.get_x() + p.get_width() / 2, height)
+            xy_txt = (0, -20)
+            txt_coord = "offset points"
+            txt_val = str(height)
+            if(height>10):
+                plt.annotate(txt_val, xy=xy_pos, xytext=xy_txt, textcoords=txt_coord, ha='center', va='bottom', fontsize=12)
+            else:
+                plt.annotate(txt_val, xy=xy_pos, xytext=(0, 3), textcoords=txt_coord, ha='center', va='bottom', fontsize=12)
+
+
+    # Adding Xticks
+    plt.ylabel('Accuracy %', fontsize = 15)
+    plt.xlabel('Classes', fontsize = 15)
+    plt.ylim([0, 100])
+    plt.xticks([r for r in range(len(correct_perc))], letter_label, fontsize = 12)
+    plt.title('STM accuracy test - Method used: ' + algorithm, fontweight ='bold', fontsize=15)
+
+    plt.savefig(ROOT_PATH +'\\Plots\\STM_results\\STM_barPlot_'+algorithm+'.jpg')
+    plt.show()
+
+
+
+
+
+
+
+
+def plot_STM_barChart(predic_error, algorithm):
+    """ Generates a bar plot that shows the overall accuracy and plots it.
+
+    Function that generate a bar plot that shows how many letters were predicted correctly.
+
+    Parameters
+    ----------
+    predic_error : array_like
+        Array that contains if the prediction from the STM is correct or not 
+
+    algorithm : string
+        Name of the method used in the STM for the training
+    """
+    
+    correct = 0
+    mistake = 0
+
+    for i in range(0, len(predic_error)):
+        if(predic_error[i] == 2):
+            correct +=1
+        elif(predic_error[i] == 1):
+            mistake += 1
+
+    correct_perc = round(round(correct/len(predic_error),4)*100,2)
+    mistake_perc = round(round(mistake/len(predic_error),4)*100,2)
+
+    print(f'Correct inferences -> {correct_perc} %')
+    print(f'Wrong inferences   -> {mistake_perc} %')
+
+    data = [correct_perc, mistake_perc]
+    bar_plot = plt.bar(['CORRECT', 'ERROR'], data)
+    plt.ylabel('Accuracy %', fontsize = 15)
+    plt.ylim([0, 100])
+    plt.title('STM accuracy - Method: ' + algorithm, fontsize=15, fontweight ='bold')
+
+    for p in bar_plot:
+        height = p.get_height()
+        xy_pos = (p.get_x() + p.get_width() / 2, height)
+        xy_txt = (0, -20)
+        txt_coord = "offset points"
+        txt_val = str(height)
+        if(height>10):
+            plt.annotate(txt_val, xy=xy_pos, xytext=xy_txt, textcoords=txt_coord, ha='center', va='bottom', fontsize=12)
+        else:
+            plt.annotate(txt_val, xy=xy_pos, xytext=(0, 3), textcoords=txt_coord, ha='center', va='bottom', fontsize=12)
+
+    
+    plt.savefig(ROOT_PATH+'\\Plots\\STM_results\\STM_accuracy_'+algorithm+'.jpg')
+    plt.show()   

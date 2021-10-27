@@ -1,9 +1,13 @@
 import os
 import numpy as np
 import matplotlib.pyplot as plt
+import pandas as pd
 
 ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
 PLOT_PATH = ROOT_PATH + '\\Plots\\TinyOL_Plots\\'
+PERFORMANCE_TXT = ROOT_PATH + '\\Plots\\STM_results\\methodsPerformance.txt'
+
+
 
 
 
@@ -170,3 +174,124 @@ def table_simulationResult(model1, model2, model3, model4, model5, model6, model
                 )
     
     print('For each column the highlighted methods are the top 3 for that parameter')
+
+
+
+
+
+
+
+
+
+
+##############################
+# FUNCTIONS FOR THE STM COE
+##############################
+
+
+def table_STM_methodsPerformance():
+    """ Generates a table in which are displayed the average times for frozen and OL model for each algorithm
+
+    Creates, displays and saves a table in which are saved the average inference times for the OL model and the forzen model.
+    """
+    # Extract data about the inference times
+    columnNames = ['accuracy', 'timeF', 'timeOL', 'ram']
+    dataset = pd.read_csv(PERFORMANCE_TXT,header = None, names=columnNames,na_values=',')
+
+    accuracy_val = dataset.accuracy
+    timeF_val    = dataset.timeF
+    timeOL_val   = dataset.timeOL
+    ram_val      = dataset.ram
+
+    dtensor = np.empty((7,4))
+
+    for i in range(0,7):
+        dtensor[i,0] = accuracy_val[i]
+        dtensor[i,1] = timeF_val[i]
+        dtensor[i,2] = timeOL_val[i]
+        dtensor[i,3] = round((96000-ram_val[i])/1000,2)
+
+
+    # Generate the table
+    fig, ax = plt.subplots(figsize =(12, 4)) 
+    ax.set_axis_off() 
+
+    table = ax.table( 
+        cellText = dtensor,   
+        colLabels = ['Accuracy', 'Avrg time inference Frozen model (ms)', 'Avr time inference OL layer (ms)', 'Maximum allocated RAM (kB)'],  
+        rowLabels = ['OL', 'OL_V2', 'CWR', 'LWF', 'OL_batch', 'OL_V2_batch', 'LWF_batch'], 
+        rowColours =["cornflowerblue"] * 200,  
+        colColours =["cornflowerblue"] * 200, 
+        cellLoc ='center',  
+        loc ='upper left')         
+
+    table.scale(1,1.75) 
+    table.set_fontsize(10)
+    ax.set_title('Average inference times in ms', fontweight ="bold") 
+    plt.savefig(ROOT_PATH + '\\Plots\\STM_results\\table_methodsPerformance.jpg',
+                bbox_inches='tight',
+                edgecolor=fig.get_edgecolor(),
+                facecolor=fig.get_facecolor(),
+                dpi=200)
+    plt.show()
+
+
+
+
+
+
+def table_STM_results(conf_matrix, algorithm):
+    """ Generates a table that contains the important parameters for the confusion matrix.
+
+    This functions takes the informations stored inside a confusion matrix and computes some
+    parameters useful for the comparison between methods (accuracy, precision, F1 score).
+
+    Parameters
+    ----------
+    conf_matrix : array_like
+        Confusion matrix generated from another function
+
+    algorithm : string
+        Name of the method used in the STM for the training
+"""
+
+    table_values = np.zeros([3,conf_matrix.shape[1]])
+
+    for i in range(0, table_values.shape[1]):
+        if(sum(conf_matrix[i,:]) == 0):
+            table_values[0,i] = 0 
+        else:
+            table_values[0,i] = round(conf_matrix[i,i]/sum(conf_matrix[i,:]),2)  # RECALL    or SENSITIVITY
+
+        if(sum(conf_matrix[:,i]) == 0):
+            table_values[1,i] = 0
+        else:
+            table_values[1,i] = round(conf_matrix[i,i]/sum(conf_matrix[:,i]),2)     # PRECISION 
+
+        if((table_values[1,i]+table_values[2,i])==0):
+            table_values[2,i] = 0
+        else:
+            table_values[2,i] = round((2*table_values[0,i]*table_values[1,i])/(table_values[0,i]+table_values[1,i]),2)  # F1 SCORE
+
+    fig, ax = plt.subplots(figsize =(10, 3)) 
+    ax.set_axis_off() 
+
+    table = ax.table( 
+        cellText = table_values,  
+        rowLabels = ['Accuracy', 'Precision', 'F1 score'],  
+        colLabels = ['A', 'E', 'I', 'O', 'U', 'B', 'R', 'M'], 
+        rowColours =["cornflowerblue"] * 200,  
+        colColours =["cornflowerblue"] * 200, 
+        cellLoc ='center',  
+        loc ='upper left')         
+
+    table.scale(1,2) 
+    table.set_fontsize(10)
+    ax.set_title('STM table - Method: ' + algorithm, fontweight ="bold") 
+    plt.savefig(ROOT_PATH + '\\Plots\\STM_results\\STM_table_'+algorithm+'.jpg',
+                bbox_inches='tight',
+                edgecolor=fig.get_edgecolor(),
+                facecolor=fig.get_facecolor(),
+                dpi=200
+                )
+    plt.show()

@@ -67,6 +67,8 @@ int enable_inference = 0;
 uint8_t BlueButton = 0;
 char letter[1];
 
+uint8_t dummy = 0;
+
 // Values for keeping track of time passed
 uint32_t timer_counter = 0;
 uint32_t inferenceTime_frozen = 0;
@@ -135,46 +137,40 @@ int main(void)
   //	MODE_OL_batch
   //	MODE_OL_V2_batch
   //	MODE_LWF_batch
-  OL_layer.ALGORITHM = MODE_OL_V2_batch;
+  OL_layer.ALGORITHM = MODE_LWF_batch;
 
   OL_layer.batch_size = 8;
 
   // Define the learn rate depending on the algorithm
   if(OL_layer.ALGORITHM       == MODE_OL){
-	  OL_layer.l_rate = 0.000005;
+	  OL_layer.l_rate = 0.00005; // 0.00005
   }else if(OL_layer.ALGORITHM == MODE_OL_batch){
-	  OL_layer.l_rate = 0.0001;
+	  OL_layer.l_rate = 0.001;   //0.001
   }else if(OL_layer.ALGORITHM == MODE_OL_V2){
-	  OL_layer.l_rate = 0.00005;
+	  OL_layer.l_rate = 0.00001;
   }else if(OL_layer.ALGORITHM == MODE_OL_V2_batch){
 	  OL_layer.l_rate = 0.001;
   }else if(OL_layer.ALGORITHM == MODE_CWR){
-	  OL_layer.l_rate = 0.00005;
+	  OL_layer.l_rate = 0.0009;  //0.0009
   }else if(OL_layer.ALGORITHM == MODE_LWF){
-	  OL_layer.l_rate = 0.0001;
+	  OL_layer.l_rate = 0.0007; //0.0007
   }else if(OL_layer.ALGORITHM == MODE_LWF_batch){
-	  OL_layer.l_rate = 0.000001;
+	  OL_layer.l_rate = 0.0005; //0.0005
   }
 
 
   // Initialize all the other values in the struct
   // The values below should always stay the same
-  OL_layer.WIDTH    = 5;
-  OL_layer.HEIGHT   = AI_NETWORK_OUT_1_SIZE;
-  OL_layer.counter  = 0;
-  OL_layer.OL_ERROR = 0;
+  OL_layer.WIDTH    	= 5;
+  OL_layer.HEIGHT   	= AI_NETWORK_OUT_1_SIZE;
+  OL_layer.counter  	= 0;
+  OL_layer.OL_ERROR 	= 0;
+  OL_layer.freeRAMbytes = 100000000;
 
 
   // Allocate all the necessary matrices/arrays
-  OL_malloc(&OL_layer);
+  OL_allocateMemory(&OL_layer);
 
-  float * y_true = calloc(OL_layer.WIDTH, sizeof(float));
-  if(y_true== NULL){
-	  OL_layer.OL_ERROR = CALLOC_Y_TRUE;
-  }
-
-
-  // FILL UP PREVIOUS DEFINED CONTAINERS WITH DATA
   // Fill up labels
   OL_layer.label[0] = 'A';
   OL_layer.label[1] = 'E';
@@ -201,8 +197,6 @@ int main(void)
 	  }
   }
 
-
-
   HAL_TIM_Base_Start_IT(&htim10);	// Start the timer for counting inference time (1 timer increment = 10 micro sec)
 
   /* USER CODE END 2 */
@@ -212,7 +206,15 @@ int main(void)
   while (1)
   {
 
-	  // Enable_inference flag is raised at the end of the data communication between pc-STM (see interrupt callbacks at the aend of the main)
+	  // Use this if cycle just for debugging and see how much memory is used after 100 input samples
+	  if( (READ_RAM_BYTES == 1) && (OL_layer.counter%20 == 0) ){
+		  int tmp = FreeMem();
+		  if(OL_layer.freeRAMbytes > tmp){
+			  OL_layer.freeRAMbytes = tmp;
+		  }
+	  }
+
+	  // Enable_inference flag is raised at the end of the data communication between pc-STM (see interrupt callbacks at the end of the main)
 	  if(enable_inference == 1){
 
 
@@ -248,9 +250,9 @@ int main(void)
 		  inferenceTime_frozen = timer_counter;						// Measure frozen time
 
 		  OL_checkNewClass(&OL_layer, letter);						// Check if the letter is known, otherwise increase dimensions of weight and biases
-		  OL_lettToSoft(&OL_layer, letter, y_true);					// Transform the letter char into a hot one encoded softmax array
+		  OL_lettToSoft(&OL_layer, letter);							// Transform the letter char into a hot one encoded softmax array
 
-		  OL_train(&OL_layer, out_data, y_true, letter);			// Perform training on last captured sample
+		  OL_train(&OL_layer, out_data, letter);					// Perform training on last captured sample
 
 		  inferenceTime_OL = timer_counter-inferenceTime_frozen;	// Measure OL time
 
@@ -386,7 +388,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_10, GPIO_PIN_RESET);				// Set low the GPIO pin that signals the end of a cycle
 
 			msgLen = sprintf(msgDebug, "OK");
-			HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);		// Send to pc message in order to sync, the pc is waiting a msg long 2
+			HAL_UART_Transmit(&huart2, (uint8_t*)msgDebug, msgLen, 100);		// Send to pc sync msg, the pc is waiting a msg long 2, no need to be exactly 'OK'
 
 			HAL_UART_Receive(&huart2, (uint8_t*)msgRxData, DATA_LEN, 100);	    // Receive the array data from the pc - array is long 600
 
