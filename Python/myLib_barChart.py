@@ -297,7 +297,7 @@ def plot_STM_barChartLetter(vowel_true, predic_error, algorithm):
     plt.ylabel('Accuracy %', fontsize = 15)
     plt.xlabel('Classes', fontsize = 15)
     plt.ylim([0, 100])
-    plt.xticks([r for r in range(len(correct_perc))], letter_label, fontsize = 12)
+    plt.xticks([r for r in range(len(correct_perc))], letter_label, fontsize = 12, fontweight ='bold')
     plt.title('STM accuracy test - Method used: ' + algorithm, fontweight ='bold', fontsize=15)
 
     plt.savefig(ROOT_PATH +'\\Plots\\STM_results\\STM_barPlot_'+algorithm+'.jpg')

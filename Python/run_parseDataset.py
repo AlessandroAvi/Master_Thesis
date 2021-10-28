@@ -5,6 +5,7 @@ import re
 import random
 import matplotlib.pyplot as plt
 from myLib_parseData import shuffleDataset
+import myLib_writeFile as myWrite
 
 
 
@@ -27,32 +28,12 @@ Additionally it's possible to save data from the letters in different sessions a
 """
 
 
-
-
-
-
-
-
-
-
-
-
-
 #---------------------------------------------------------------
 #    _____ _   _ _   _  ____ _____ ___ ___  _   _ ____  
 #   |  ___| | | | \ | |/ ___|_   _|_ _/ _ \| \ | / ___| 
 #   | |_  | | | |  \| | |     | |  | | | | |  \| \___ \ 
 #   |  _| | |_| | |\  | |___  | |  | | |_| | |\  |___) |
 #   |_|    \___/|_| \_|\____| |_| |___\___/|_| \_|____/ 
-
-
-
-
-
-
-
-
-
 
 
 def loadDataFromRawTxt(filename):
@@ -226,35 +207,6 @@ def loadDataFromRawTxt_v2(letter):
     
     return ret_data_matrix, ret_label_array
 
-
-
-
-
-
-def saveDataset(dtensor, labels, filename):
-    """ Saves the matrix and array in a txt file.
-
-    This function saves in a txt file the entire matrix and array that is given as input.
-
-    Parameters
-    ----------
-    dtensor : array_like
-        Matrix that contains all the data to be saved. Has shape [x,600]
-
-    labels : array_like
-        Array that contains the labels related to each data array in the matrix.
-
-    filename : string
-        Name of the txt file in which I want to save the dataset.
-    """
-
-    ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
-    DATASET_SAVE_PATH = ROOT_PATH + '\\Letter_dataset\\Clean_dataset\\' + filename + '.txt'
-
-    with open(DATASET_SAVE_PATH,'w') as data_file:
-        for i in range(0, dtensor.shape[0]):
-            for j in range(0, int(dtensor.shape[1]/3)):
-                data_file.write( str(i+1)+','+str(labels[i])+','+str(int(dtensor[i,j]))+','+str(int(dtensor[i,j+200]))+','+str(int(dtensor[i,j+400]))+'\n')
 
 
 
@@ -513,16 +465,16 @@ vowels_label_OL = vowels_label[sep:]
 
 
 # Save the big matrix in a txt file where data is formatted clean
-saveDataset(B_data, B_label, 'B_dataset')
+myWrite.save_dataset(B_data, B_label, 'B_dataset')
 print('Dataset for letter B: saved')
 # Save the big matrix in a txt file where data is formatted clean
-saveDataset(R_data, R_label, 'R_dataset')
+myWrite.save_dataset(R_data, R_label, 'R_dataset')
 print('Dataset for letter R: saved')
 # Save the big matrix in a txt file where data is formatted clean
-saveDataset(M_data, M_label, 'M_dataset')
+myWrite.save_dataset(M_data, M_label, 'M_dataset')
 print('Dataset for letter M: saved')
 # Save the big matrix in a txt file where data is formatted clean
-saveDataset(vowels_data_TF, vowels_label_TF, 'vowels_TF')
+myWrite.save_dataset(vowels_data_TF, vowels_label_TF, 'vowels_TF')
 print('Dataset for letter VOWELS TF: saved')
-saveDataset(vowels_data_OL, vowels_label_OL, 'vowels_OL')
+myWrite.save_dataset(vowels_data_OL, vowels_label_OL, 'vowels_OL')
 print('Dataset for letter VOWELS OL: saved')

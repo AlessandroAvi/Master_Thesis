@@ -4,7 +4,7 @@ This repo contains the code that I developed for a small demo of application for
 
 
 
-### MAIN CODE
+### MAIN CODES
 
 The main code is divided in 4 runnable scripts. which are:
 
@@ -25,10 +25,30 @@ For the file `TinyOL.ipynb` I used in the Jupyter IDE. I used notebooks because 
 
 
 
-### OTHER
+### LIBRARIES
 
 All the other python files that begin with `myLib_` are libraries that contain functions definitions that are used used in the notebook and in the `run_` files. 
 The names of these libraries are self explainatory and the functions are well commented and described in the files.
+
+
+
+### OTHER FOLDERS
+
+In the other foldes that can be found in this directory there is contained:
+
+- `Letter_dataset`: contains two directory in which different versions of the dataset can be found. 
+  - `Raw_dataset` contains the raw txt files recorder from the MobaXterm 
+  - `Clean_dataset` contains the dataset elaorated from the script `run_parseData.py` . In here the dataset is parses into a clean and ordered txt file with only numbers.
+- `Plots`  contains all the plots and images created from the scripts. 
+  - `DatasetPlots` contains the pie charts about the contents of the dataset
+  - `ReadmeImages` contains some images that are used in the readme about the theory
+  - `STM_results` contains the bar charts, tales and confusion amtrices generated from the STM application
+  - `TinyOL_plots` contains the bar charts, tales and confusion amtrices generated from the laptop simulation
+  - `Training_plots` contains the history of the keras training and a bar chart about the testing
+- `Saved_models` contains the saved keras models that are loade in the stm and used in the simulation
+  - `Frozen_model `contains the cut model created in the `TinyOL.ipyp` file. 
+  - `Original_model` containe sthe roginal tensorflow model creaded by the training
+- `SimulationResults` contains some txt file in which the results from sever simulations are saved. This is used for computing the average accuracy of the method across multiple simulation
 
 
 

@@ -8,6 +8,8 @@ TinyOL.c:173:6:OL_resetInfo	16	static
 TinyOL.c:184:6:OL_lettToSoft	24	static
 TinyOL.c:198:6:OL_feedForward	48	static
 TinyOL.c:219:6:OL_softmax	64	static
-TinyOL.c:257:6:OL_checkNewClass	24	static
-TinyOL.c:294:6:OL_compareLabels	24	static
-TinyOL.c:349:6:OL_train	248	dynamic
+TinyOL.c:250:6:OL_checkNewClass	24	static
+TinyOL.c:280:6:OL_compareLabels	24	static
+TinyOL.c:318:6:OL_passPtr	16	static
+TinyOL.c:322:6:OL_updateFreeRAM	16	static
+TinyOL.c:342:6:OL_train	248	dynamic

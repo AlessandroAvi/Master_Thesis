@@ -45,103 +45,13 @@ The algorithm OL si simply the classic gradient descend that is also explained i
 
 
 
-## OL
-
-### MEMORY USAGE
-
-1 matrix 128x8 float
-
-### PRO
-
-The classic method for training a layer. USes gradient descend applied on a softmax layer. The entire layer changes the weights in order to reach the minimum. All weights work collectively for findin the letter.
-
-### CONTRO
-
-Subjected to catastrophic forgetting because the creation of new dimensions in the layer and the consecutive update of the new weights may change the optimum conditions previously found for the first part of the layer. The training tries to find the best situation in which all the weights work toward the minimum.
-
-
-
-## OL batches
-
-### MEMORY USAGE
-
-### PRO
-
-Again the same idea of the method OL. The difference is that the update is done on a bigger sample of inputs. The update applied on the weights is the average of the updates applied after x input samples (in my case almost always 8). 
-
-### CONTRO
-
-Again catastrophich forgettin in the same way of the method OL. Also 2 matrices are needed (one for the training weights, the other for keeping track of the sum of updates that is used later for the avarege computation).
-
-
-
-## OL V2
-
-### MEMORY USAGE
-
-### PRO
-
-Catastrophic forgetting ideally should be avoided because the first part of the last layer (the original vowels) are not touched and never updated after the tensorflow training. Practically this behaves stragely because the weights do not work together for the findin of the minimum. 
-
-### CONTRO
-
-The fact that the weights do not work together for the finding of the minimum si not the correct way of approaching the problem. Anyway the simulations on the PC showed that the results were good. Also is not possible to perform a fine tuning over the original letters, the knowledge of the model about those cannot be updated.
-
-
-
-## OL V2 batches
-
-### MEMORY USAGE
-
-### PRO
-
-Less computations, (in this case the matrix is 128x8 and the weights updates are only 128x3). THe update is performed on an average of updates, may be more robust, training is not focused on only one sample (may be good if sample is bad).
-
-### CONTRO
-
-Have to use 2 matrices. One for the weights, the other for keeping track of the sum of updates (that later is used for the average). Again no fine tuning of the original letters. 
-
-
-
-## LWF
-
-### MEMORY USAGE
-
-### PRO
-
-It's a method that is a sort of controlled average between original weights and new weights. The value of lambda should be selected correctly, in my case it was selected experimentally/following the paper. The magic formula of the method is inside the selection of lambda. 
-
-### CONTRO
-
-Lambda computation can be tricky. It also requires always 2 matrices of dimension 128x8. One is used for storing the original weights, the other for storing the training weights. 
-
-
-
-## LWF batches
-
-### MEMORY USAGE
-
-### PRO
-
-Same as before, the magic component is inside lambda. 
-
-### CONTRO
-
-Again lambda can be tricky. It also requires always 2 matrices of dimension 128x8. One is used for storing the old weights, the other for storing the training weights. 
-
-
-
-## CWR
-
-### MEMORY USAGE
-
-### PRO
-
-Method similar to the LWF, the update of th weights is a sort of average between the two matrices of weights. One is updates every k input samples, the other is upadted constantly. The average between the two is the most important part that defines the good behaviour.
-
-### CONTRO
-
-It requires 2 matrices of the same dimension 128x3. Requires more computations. 
-
-
+| METHOD        | PRO                                                          | CONS                                                         |
+| ------------- | :----------------------------------------------------------- | ------------------------------------------------------------ |
+| OL            | - SImple to implement, is the classic gradient desacend applied on softmax | Subject to catastrophic forgetting                           |
+| OL V2         | - Less computations (skips the update on original weights)   | Cannot perform fine tuning (no update on original weights)   |
+| OL batches    | - All weights are updated to find the optimum weight matrix<br />- Update of weights performed with an average over several input can be more robust to outliers | - Requires 2 times the size of the last layer<br />- Subject to catastrophic forgetting |
+| OL V2 batches | - Less computations (skips the update on original weights)<br />- Update of weights performed with an average over several input can be more robust to outliers | Requires 2 times the size of the last layer<br />Cannot perform fine tuning (no update on original weights) |
+| LWF           | Simple to implement, it's a weighted average                 | Update of lambda can be tricky<br />Requires 2 copies of the last layer |
+| LWF batches   | SImple to implement, it's a weighted average                 | Update of lambda can be tricky<br />Requires 2 copies of the last layer |
+| CWR           | Simple to implement, it's just a weighted average            | Requires 2 copies of the last layer<br />Requires more computations |
 

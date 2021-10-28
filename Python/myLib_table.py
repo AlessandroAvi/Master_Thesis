@@ -218,16 +218,16 @@ def table_STM_methodsPerformance():
 
     table = ax.table( 
         cellText = dtensor,   
-        colLabels = ['Accuracy', 'Avrg time inference Frozen model (ms)', 'Avr time inference OL layer (ms)', 'Maximum allocated RAM (kB)'],  
+        colLabels = ['Accuracy (%)', 'Avrg time inference \n Frozen model (ms)', 'Avr time inference \n OL layer (ms)', 'Maximum allocated \n RAM (kB)'],  
         rowLabels = ['OL', 'OL_V2', 'CWR', 'LWF', 'OL_batch', 'OL_V2_batch', 'LWF_batch'], 
         rowColours =["cornflowerblue"] * 200,  
         colColours =["cornflowerblue"] * 200, 
         cellLoc ='center',  
         loc ='upper left')         
 
-    table.scale(1,1.75) 
-    table.set_fontsize(10)
-    ax.set_title('Average inference times in ms', fontweight ="bold") 
+    table.scale(1,3) 
+    table.set_fontsize(20)
+    ax.set_title('Performance of all methods on the STM application', fontweight ="bold") 
     plt.savefig(ROOT_PATH + '\\Plots\\STM_results\\table_methodsPerformance.jpg',
                 bbox_inches='tight',
                 edgecolor=fig.get_edgecolor(),

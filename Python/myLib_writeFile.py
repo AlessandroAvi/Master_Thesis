@@ -207,3 +207,34 @@ def save_STM_methodsPerformance(conf_matrix, avrgF, avrgOL, n_line):
     with open(STM_PERFORMANCE_PATH,'w') as data_file:
         for i in range(0, dtensor.shape[0]):
             data_file.write(str(dtensor[i, 0])+','+str(dtensor[i, 1])+','+str(dtensor[i, 2])+','+str(dtensor[i, 3])+'\n')
+
+
+
+
+
+
+def save_dataset(dtensor, labels, filename):
+    """ Saves the matrix and array in a txt file.
+
+    This function saves in a txt file the entire matrix and array that is given as input.
+
+    Parameters
+    ----------
+    dtensor : array_like
+        Matrix that contains all the data to be saved. Has shape [x,600]
+
+    labels : array_like
+        Array that contains the labels related to each data array in the matrix.
+
+    filename : string
+        Name of the txt file in which I want to save the dataset.
+    """
+
+    ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
+    DATASET_SAVE_PATH = ROOT_PATH + '\\Letter_dataset\\Clean_dataset\\' + filename + '.txt'
+
+    with open(DATASET_SAVE_PATH,'w') as data_file:
+        for i in range(0, dtensor.shape[0]):
+            for j in range(0, int(dtensor.shape[1]/3)):
+                data_file.write( str(i+1)+','+str(labels[i])+','+str(int(dtensor[i,j]))+','+str(int(dtensor[i,j+200]))+','+str(int(dtensor[i,j+400]))+'\n')
+

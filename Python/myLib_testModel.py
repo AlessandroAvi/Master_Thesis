@@ -85,7 +85,7 @@ def test_OLlayer(model, OL_data):
         for i in range(0, data.shape[0]):          
 
             ML_out = model.ML_frozen.predict(data[i,:].reshape(1,data.shape[1]))    # frozen model prediction
-            y_pred = model.predict(ML_out)                                          # OL layer prediction
+            y_pred = model.predict(ML_out[0,:])                                          # OL layer prediction
 
             max_i_true = -1 # reset
             max_i_pred = -1 # reset
@@ -94,8 +94,8 @@ def test_OLlayer(model, OL_data):
             if(np.amax(label_soft[i,:]) != 0):
                 max_i_true = np.argmax(label_soft[i,:])
                 
-            if(np.amax(y_pred[0,:]) != 0):
-                max_i_pred = np.argmax(y_pred[0,:])
+            if(np.amax(y_pred) != 0):
+                max_i_pred = np.argmax(y_pred)
                               
             if (max_i_pred == max_i_true):
                 correct +=1

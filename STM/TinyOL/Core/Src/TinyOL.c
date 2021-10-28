@@ -195,7 +195,7 @@ void OL_lettToSoft(OL_LAYER_STRUCT * layer, char *lett){
 
 
 /* Performs the feed forward operation. It's just a product of matrices  and a sum with an array  */
-void OL_feedForward(OL_LAYER_STRUCT * layer, float * input, float * weights, float * bias, float * y_pred){
+void OL_feedForward(OL_LAYER_STRUCT * layer, float * weights, float * input, float * bias, float * y_pred){
 
 	int h = layer->HEIGHT;
 	int w = layer->WIDTH;
@@ -241,13 +241,6 @@ void OL_softmax(OL_LAYER_STRUCT * layer, float * y_pred){
     }
 
 
-	// Use this if cycle just for debugging and see how much memory is used after 100 input samples
-	if( (READ_RAM_BYTES == 1) && (layer->counter%20 == 0) ){
-	  int tmp = FreeMem();
-	  if(layer->freeRAMbytes > tmp){
-		  layer->freeRAMbytes = tmp;
-	  }
-	}
 };
 
 
@@ -278,13 +271,6 @@ void OL_checkNewClass(OL_LAYER_STRUCT * layer, char *letter){
 	}
 
 
-	// Use this if cycle just for debugging and see how much memory is used after 100 input samples
-	if( (READ_RAM_BYTES == 1) && (layer->counter%20 == 0) ){
-	  int tmp = FreeMem();
-	  if(layer->freeRAMbytes > tmp){
-		  layer->freeRAMbytes = tmp;
-	  }
-	}
 };
 
 
@@ -313,7 +299,7 @@ void OL_compareLabels(OL_LAYER_STRUCT * layer){
 
 	// If the maximum values are in different position of the array -> prediction is WRONG
 	if(max_j_true != max_j_pred){
-		layer->prediction_correct = 1;
+		layer->prediction_correct = 1;				// wrong
 	}else{
 		layer->prediction_correct = 2;
 	}
@@ -322,20 +308,27 @@ void OL_compareLabels(OL_LAYER_STRUCT * layer){
 	if(layer->ALGORITHM == MODE_CWR){
 		layer->found_lett[max_j_true] += 1;		// Update the found_lett array
 	}
-
-
-	// Use this if cycle just for debugging and see how much memory is used after 100 input samples
-	if( (READ_RAM_BYTES == 1) && (layer->counter%20 == 0) ){
-	  int tmp = FreeMem();
-	  if(layer->freeRAMbytes > tmp){
-		  layer->freeRAMbytes = tmp;
-	  }
-	}
 };
 
 
 
 
+OL_LAYER_STRUCT * struct_ptr;
+
+void OL_passPtr(OL_LAYER_STRUCT * layer){
+	struct_ptr= layer;
+}
+
+void OL_updateFreeRAM(){
+
+	if(READ_RAM_BYTES == 1){
+	  int tmp = FreeMem();
+	  if(struct_ptr->freeRAMbytes > tmp){
+		  struct_ptr->freeRAMbytes = tmp;
+	  }
+	}
+
+}
 
 
 
@@ -346,7 +339,7 @@ void OL_compareLabels(OL_LAYER_STRUCT * layer){
 
 /* This function is the most important part of the TinyOL script. Inside here an IF decides which algorithm
  * to apply, thus changing the update of the weights.  */
-void OL_train(OL_LAYER_STRUCT * layer, float *x, char *letter){
+void OL_train(OL_LAYER_STRUCT * layer, float * input, char *letter){
 
 	// Values in common between all algorithms
 	int w = layer->WIDTH;
@@ -361,7 +354,7 @@ void OL_train(OL_LAYER_STRUCT * layer, float *x, char *letter){
 		float cost[w];
 
 		// Inference with current weights
-		OL_feedForward(layer, x, layer->weights, layer->biases, layer->y_pred);
+		OL_feedForward(layer, layer->weights, input, layer->biases, layer->y_pred);
 		OL_softmax(layer, layer->y_pred);
 
 		int j_start = 0;
@@ -372,26 +365,18 @@ void OL_train(OL_LAYER_STRUCT * layer, float *x, char *letter){
 		}
 
 		for(int j=j_start; j<w; j++){
-			cost[j] = layer->y_pred[j]-layer->y_true[j];						// Compute the cost
+			cost[j] = layer->y_pred[j]-layer->y_true[j];			    // Compute the cost
 
 			for(int i=0; i<h; i++){
-				layer->weights[j*h+i] -= cost[j]*x[i]*layer->l_rate;	// Update the weights
+				layer->weights[j*h+i] -= cost[j]*input[i]*layer->l_rate;	// Update the weights
 			}
 			layer->biases[j] -= cost[j]*layer->l_rate;					// Update the biases
 		}
 
-		OL_compareLabels(layer);								// Check if prediction is correct
+		OL_compareLabels(layer);										// Check if prediction is correct
 
 		layer->counter +=1;
 
-
-		// Use this if cycle just for debugging and see how much memory is used after 100 input samples
-		if( (READ_RAM_BYTES == 1) && (layer->counter%20 == 0) ){
-		  int tmp = FreeMem();
-		  if(layer->freeRAMbytes > tmp){
-			  layer->freeRAMbytes = tmp;
-		  }
-		}
 
 	// ***************************************************************
 	//     ***** OL ALGORITHM BATCH            |      ***** OL_V2 ALGORITHM BATCH
@@ -400,14 +385,14 @@ void OL_train(OL_LAYER_STRUCT * layer, float *x, char *letter){
 		float cost[w];
 
 		// Inference with current weights
-		OL_feedForward(layer, x, layer->weights, layer->biases, layer->y_pred);
+		OL_feedForward(layer, layer->weights, input, layer->biases, layer->y_pred);
 		OL_softmax(layer, layer->y_pred);
 
 		for(int j=0; j<w; j++){
 			cost[j] = layer->y_pred[j]-layer->y_true[j];			// Compute the cost
 
 			for(int i=0; i<h; i++){
-				layer->weights_2[j*h+i] += cost[j]*x[i];	// Update weights
+				layer->weights_2[j*h+i] += cost[j]*input[i];	// Update weights
 			}
 			layer->biases_2[j] += cost[j];					// Update biases
 		}
@@ -436,13 +421,6 @@ void OL_train(OL_LAYER_STRUCT * layer, float *x, char *letter){
 
 		layer->counter +=1;
 
-		// Use this if cycle just for debugging and see how much memory is used after 100 input samples
-		if( (READ_RAM_BYTES == 1) && (layer->counter%20 == 0) ){
-		  int tmp = FreeMem();
-		  if(layer->freeRAMbytes > tmp){
-			  layer->freeRAMbytes = tmp;
-		  }
-		}
 
 	// *************************************
 	// ***** CWR ALGORITHM
@@ -451,7 +429,7 @@ void OL_train(OL_LAYER_STRUCT * layer, float *x, char *letter){
 		float cost[w];
 
 		// Prediction
-		OL_feedForward(layer, x, layer->weights_2, layer->biases_2, layer->y_pred);
+		OL_feedForward(layer, layer->weights_2, input, layer->biases_2, layer->y_pred);
 		OL_softmax(layer, layer->y_pred);
 
 		for(int j=0; j<w; j++){
@@ -459,7 +437,7 @@ void OL_train(OL_LAYER_STRUCT * layer, float *x, char *letter){
 
 			// Back propagation on TW
 			for(int i=0; i<h; i++){
-				layer->weights_2[j*h+i] -= cost[j]*x[i]*layer->l_rate;
+				layer->weights_2[j*h+i] -= cost[j]*input[i]*layer->l_rate;
 			}
 			layer->biases_2[j] -= cost[j]*layer->l_rate;  // Back propagation on TB
 		}
@@ -492,14 +470,6 @@ void OL_train(OL_LAYER_STRUCT * layer, float *x, char *letter){
 
 		layer->counter +=1;
 
-		// Use this if cycle just for debugging and see how much memory is used after 100 input samples
-		if( (READ_RAM_BYTES == 1) && (layer->counter%20 == 0) ){
-		  int tmp = FreeMem();
-		  if(layer->freeRAMbytes > tmp){
-			  layer->freeRAMbytes = tmp;
-		  }
-		}
-
 
 	// *************************************
 	// ***** LWF ALGORITHM
@@ -510,10 +480,10 @@ void OL_train(OL_LAYER_STRUCT * layer, float *x, char *letter){
 		float lambda;
 
 		// Inference with current weights
-		OL_feedForward(layer, x, layer->weights, layer->biases, layer->y_pred);
+		OL_feedForward(layer, layer->weights, input, layer->biases, layer->y_pred);
 		OL_softmax(layer, layer->y_pred);
 		// Inference with LWF weights
-		OL_feedForward(layer, x, layer->weights_2, layer->biases_2, layer->y_pred_2);
+		OL_feedForward(layer, layer->weights_2, input, layer->biases_2, layer->y_pred_2);
 		OL_softmax(layer, layer->y_pred_2);
 
 		lambda = 100/(100+layer->counter);					// Update lambda
@@ -523,7 +493,7 @@ void OL_train(OL_LAYER_STRUCT * layer, float *x, char *letter){
 			cost_LWF[j]  = layer->y_pred_2[j]-layer->y_true[j];	// Compute LWF cost
 
 			for(int i=0; i<h; i++){
-				layer->weights[j*h+i] -= (cost_norm[j]*(1-lambda)+cost_LWF[j]*lambda)*layer->l_rate*x[i];	// Update weights
+				layer->weights[j*h+i] -= (cost_norm[j]*(1-lambda)+cost_LWF[j]*lambda)*layer->l_rate*input[i];	// Update weights
 			}
 			layer->biases[j] -= (cost_norm[j]*(1-lambda)+cost_LWF[j]*lambda)*layer->l_rate;					// Update biases
 		}
@@ -531,14 +501,6 @@ void OL_train(OL_LAYER_STRUCT * layer, float *x, char *letter){
 		OL_compareLabels(layer);																	// Check if prediction is correct or not
 
 		layer->counter +=1;
-
-		// Use this if cycle just for debugging and see how much memory is used after 100 input samples
-		if( (READ_RAM_BYTES == 1) && (layer->counter%20 == 0) ){
-		  int tmp = FreeMem();
-		  if(layer->freeRAMbytes > tmp){
-			  layer->freeRAMbytes = tmp;
-		  }
-		}
 
 
 	// *************************************
@@ -550,10 +512,10 @@ void OL_train(OL_LAYER_STRUCT * layer, float *x, char *letter){
 		float lambda;
 
 		// Inference with current weights
-		OL_feedForward(layer, x, layer->weights, layer->biases, layer->y_pred);
+		OL_feedForward(layer, layer->weights, input, layer->biases, layer->y_pred);
 		OL_softmax(layer, layer->y_pred);
 		// Inference with LWF weights
-		OL_feedForward(layer, x, layer->weights_2, layer->biases_2, layer->y_pred_2);
+		OL_feedForward(layer, layer->weights_2, input, layer->biases_2, layer->y_pred_2);
 		OL_softmax(layer, layer->y_pred_2);
 
 		// Update the value of lambda
@@ -568,7 +530,7 @@ void OL_train(OL_LAYER_STRUCT * layer, float *x, char *letter){
 			cost_LWF[j]  = layer->y_pred_2[j]-layer->y_true[j];	// compute LWF cost
 
 			for(int i=0; i<h; i++){
-				layer->weights[j*h+i] -= (cost_norm[j]*(1-lambda)+cost_LWF[j]*lambda)*layer->l_rate*x[i];	// Update weights
+				layer->weights[j*h+i] -= (cost_norm[j]*(1-lambda)+cost_LWF[j]*lambda)*layer->l_rate*input[i];	// Update weights
 			}
 			layer->biases[j] -= (cost_norm[j]*(1-lambda)+cost_LWF[j]*lambda)*layer->l_rate;					// Update biases
 		}
@@ -588,13 +550,7 @@ void OL_train(OL_LAYER_STRUCT * layer, float *x, char *letter){
 		}
 		layer->counter +=1;
 
-		// Use this if cycle just for debugging and see how much memory is used after 100 input samples
-		if( (READ_RAM_BYTES == 1) && (layer->counter%20 == 0) ){
-		  int tmp = FreeMem();
-		  if(layer->freeRAMbytes > tmp){
-			  layer->freeRAMbytes = tmp;
-		  }
-		}
+
 	}
 };
 

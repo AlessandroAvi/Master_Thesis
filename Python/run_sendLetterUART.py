@@ -64,11 +64,6 @@ The order of actions in this code is:
 """
 
 
-
-
-
-
-
 #---------------------------------------------------------------
 #   _____ _   _ _   _  ____ _____ ___ ___  _   _ ____  
 #  |  ___| | | | \ | |/ ___|_   _|_ _/ _ \| \ | / ___| 
@@ -275,7 +270,7 @@ print('\n\nSerial port initialized')
 # Define amount of samples to sent to STM and how many for test/train
 test_max  = test_data.shape[0]
 train_max = train_data.shape[0]
-send_max  = test_max+train_max
+send_max  = test_max + train_max
 
 
 # STM COMMUNICATION - Declare information containers
@@ -402,5 +397,5 @@ avrg_OL     = sum2/(len(OL_time))/100       # /100 is needed for transforming it
 print(f'\nAverage inference time for the FROZEN model is: {round(avrg_frozen,2)}ms')
 print(f'Average inference time for the OL model is:     {round(avrg_OL,2)}ms\n')
 
-myWrite.save_STM_methodsPerformance(conf_matr, avrg_frozen, avrg_OL, method)     # save in a txt file the average inference time for the method just tested
-myTable.table_STM_methodsPerformance()                                           # plot and save the table that contains the average times
+myWrite.save_STM_methodsPerformance(conf_matr, avrg_frozen, avrg_OL, method)     # save in a txt file all the performance of the method just tested
+myTable.table_STM_methodsPerformance()                                           # plot and save the table that contains the performances

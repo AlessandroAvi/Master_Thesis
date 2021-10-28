@@ -128,6 +128,8 @@ int main(void)
   // *************************************
 
   OL_LAYER_STRUCT OL_layer;
+  //OL_passPtr(&OL_layer);
+  //  READ_RAM_BYTES=0;
 
   // The available algorithms are:
   //	MODE_OL
@@ -137,7 +139,7 @@ int main(void)
   //	MODE_OL_batch
   //	MODE_OL_V2_batch
   //	MODE_LWF_batch
-  OL_layer.ALGORITHM = MODE_LWF_batch;
+  OL_layer.ALGORITHM = MODE_OL_V2_batch;
 
   OL_layer.batch_size = 8;
 
@@ -147,9 +149,9 @@ int main(void)
   }else if(OL_layer.ALGORITHM == MODE_OL_batch){
 	  OL_layer.l_rate = 0.001;   //0.001
   }else if(OL_layer.ALGORITHM == MODE_OL_V2){
-	  OL_layer.l_rate = 0.00001;
+	  OL_layer.l_rate = 0.0001; // 0.0001;
   }else if(OL_layer.ALGORITHM == MODE_OL_V2_batch){
-	  OL_layer.l_rate = 0.001;
+	  OL_layer.l_rate = 0.001; //0.001;
   }else if(OL_layer.ALGORITHM == MODE_CWR){
 	  OL_layer.l_rate = 0.0009;  //0.0009
   }else if(OL_layer.ALGORITHM == MODE_LWF){
@@ -206,14 +208,9 @@ int main(void)
   while (1)
   {
 
-	  // Use this if cycle just for debugging and see how much memory is used after 100 input samples
-	  if( (READ_RAM_BYTES == 1) && (OL_layer.counter%20 == 0) ){
-		  int tmp = FreeMem();
-		  if(OL_layer.freeRAMbytes > tmp){
-			  OL_layer.freeRAMbytes = tmp;
-		  }
+	  if(OL_layer.counter == 700){
+		  READ_RAM_BYTES = 0;
 	  }
-
 	  // Enable_inference flag is raised at the end of the data communication between pc-STM (see interrupt callbacks at the end of the main)
 	  if(enable_inference == 1){
 
@@ -403,6 +400,11 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 
 void HAL_TIM_PeriodElapsedCallback( TIM_HandleTypeDef *htim){
 	timer_counter += 1;	// 10 micro sec has passed
+
+
+
+	// Use this if cycle just for debugging and see how much memory is used after 100 input samples
+	//OL_updateFreeRAM();
 }
 
 /* USER CODE END 4 */
