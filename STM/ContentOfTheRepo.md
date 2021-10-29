@@ -3,5 +3,4 @@
 
 - `Letter_dataset` : this folder contains all the accelerometer data that has been logged wwith the STM 
 - `Log_data` : this folder contains the project that is used for recosrding the accelerometer data
-- `TinyOL` : this folder contains the main project, where the entire OL system is developed and works for eprforming the ON LINE learning
-- `TinyOL_acc` : this folder contains the same project as the one above, but in this case the data obtained for the inference doesn't coke from the UART port, but from the accelerometer
+- `TinyOL` : this folder contains the main project, where the entire OL system is developed and works for performin the ON LINE learning with all the method seen in the simulation in python. This project works together with a python script that sends trhough the UART all the data for the inference.
