@@ -128,8 +128,7 @@ int main(void)
   // *************************************
 
   OL_LAYER_STRUCT OL_layer;
-  //OL_passPtr(&OL_layer);
-  //  READ_RAM_BYTES=0;
+
 
   // The available algorithms are:
   //	MODE_OL
@@ -139,7 +138,7 @@ int main(void)
   //	MODE_OL_batch
   //	MODE_OL_V2_batch
   //	MODE_LWF_batch
-  OL_layer.ALGORITHM = MODE_OL_V2_batch;
+  OL_layer.ALGORITHM = MODE_LWF_batch;
 
   OL_layer.batch_size = 8;
 
@@ -172,6 +171,7 @@ int main(void)
 
   // Allocate all the necessary matrices/arrays
   OL_allocateMemory(&OL_layer);
+
 
   // Fill up labels
   OL_layer.label[0] = 'A';
@@ -208,9 +208,10 @@ int main(void)
   while (1)
   {
 
-	  if(OL_layer.counter == 700){
-		  READ_RAM_BYTES = 0;
+	  if(OL_layer.counter == 200){
+		  OL_layer.batch_size = 8;
 	  }
+
 	  // Enable_inference flag is raised at the end of the data communication between pc-STM (see interrupt callbacks at the end of the main)
 	  if(enable_inference == 1){
 

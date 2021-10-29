@@ -99,9 +99,9 @@ typedef struct {
 #define LETTER_LEN         			  1
 #define DATA_LEN           		   1200
 #define INFO_LEN           		     10
+#define READ_FREE_RAM                 0
 
 
-int READ_RAM_BYTES;
 int msgLen;
 char msgDebug[BUFF_LEN];		// General container for debug messages to send on UART
 uint8_t msgRxData[DATA_LEN];	// Container for receiving the array of data
@@ -153,6 +153,4 @@ void OL_increaseYtrueDim(OL_LAYER_STRUCT * layer);
 
 
 
-
-void OL_passPtr(OL_LAYER_STRUCT * layer);
-void OL_updateFreeRAM();
+void OL_updateRAMcounter(OL_LAYER_STRUCT * layer);

@@ -94,6 +94,9 @@ void OL_increaseWeightDim(OL_LAYER_STRUCT * layer){
 		}
 	}
 
+#if READ_FREE_RAM==1
+	OL_updateRAMcounter(layer);
+#endif
 };
 
 
@@ -118,6 +121,10 @@ void OL_increaseBiasDim(OL_LAYER_STRUCT * layer){
 		}
 		layer->biases_2[w-1] = 0;		// set to 0 new biases
 	}
+
+#if READ_FREE_RAM==1
+	OL_updateRAMcounter(layer);
+#endif
 };
 
 
@@ -128,6 +135,9 @@ void OL_increaseYtrueDim(OL_LAYER_STRUCT * layer){
 	if(layer->y_true==NULL){
 		layer->OL_ERROR = REALLOC_Y_TRUE;
 	}
+#if READ_FREE_RAM==1
+	OL_updateRAMcounter(layer);
+#endif
 }
 
 /* Use realloc to increase the amount of memory dedicated to the labels  */
@@ -140,6 +150,8 @@ void OL_increaseLabel(OL_LAYER_STRUCT * layer, char new_letter){
 		layer->OL_ERROR = REALLOC_LABEL;
 	}
 	layer->label[w-1] = new_letter;		// save in labels the new letter
+	OL_updateRAMcounter(layer);
+
 };
 
 
@@ -157,6 +169,9 @@ void OL_increaseYpredDim(OL_LAYER_STRUCT * layer){
 			layer->OL_ERROR = REALLOC_Y_PRED_2;
 		}
 	}
+#if READ_FREE_RAM==1
+	OL_updateRAMcounter(layer);
+#endif
 };
 
 
@@ -166,7 +181,16 @@ void OL_increaseYpredDim(OL_LAYER_STRUCT * layer){
 
 
 
+void OL_updateRAMcounter(OL_LAYER_STRUCT * layer){
 
+	if( (layer->counter>100) && (layer->counter%5==0) ){
+		int tmp = FreeMem();
+		if(tmp < layer->freeRAMbytes){
+			layer->freeRAMbytes = tmp;
+		}
+	}
+
+}
 
 
 /* Resets the values that are stored in the struct as 'info parameters'  */
@@ -191,6 +215,9 @@ void OL_lettToSoft(OL_LAYER_STRUCT * layer, char *lett){
 			layer->y_true[i] = 0;
 		}
 	}
+#if READ_FREE_RAM==1
+	OL_updateRAMcounter(layer);
+#endif
 };
 
 
@@ -212,6 +239,9 @@ void OL_feedForward(OL_LAYER_STRUCT * layer, float * weights, float * input, flo
 		}
 		y_pred[i] += bias[i];
 	}
+#if READ_FREE_RAM==1
+	OL_updateRAMcounter(layer);
+#endif
 };
 
 
@@ -239,8 +269,9 @@ void OL_softmax(OL_LAYER_STRUCT * layer, float * y_pred){
     for(int i=0; i<size; i++){
     	y_pred[i] = exp(y_pred[i] - constant);
     }
-
-
+#if READ_FREE_RAM==1
+	OL_updateRAMcounter(layer);
+#endif
 };
 
 
@@ -269,8 +300,9 @@ void OL_checkNewClass(OL_LAYER_STRUCT * layer, char *letter){
 		OL_increaseYtrueDim(layer);
 		OL_increaseWeightDim(layer);
 	}
-
-
+#if READ_FREE_RAM==1
+	OL_updateRAMcounter(layer);
+#endif
 };
 
 
@@ -308,28 +340,10 @@ void OL_compareLabels(OL_LAYER_STRUCT * layer){
 	if(layer->ALGORITHM == MODE_CWR){
 		layer->found_lett[max_j_true] += 1;		// Update the found_lett array
 	}
+#if READ_FREE_RAM==1
+	OL_updateRAMcounter(layer);
+#endif
 };
-
-
-
-
-OL_LAYER_STRUCT * struct_ptr;
-
-void OL_passPtr(OL_LAYER_STRUCT * layer){
-	struct_ptr= layer;
-}
-
-void OL_updateFreeRAM(){
-
-	if(READ_RAM_BYTES == 1){
-	  int tmp = FreeMem();
-	  if(struct_ptr->freeRAMbytes > tmp){
-		  struct_ptr->freeRAMbytes = tmp;
-	  }
-	}
-
-}
-
 
 
 // #############################################
@@ -376,7 +390,9 @@ void OL_train(OL_LAYER_STRUCT * layer, float * input, char *letter){
 		OL_compareLabels(layer);										// Check if prediction is correct
 
 		layer->counter +=1;
-
+#if READ_FREE_RAM==1
+		OL_updateRAMcounter(layer);
+#endif
 
 	// ***************************************************************
 	//     ***** OL ALGORITHM BATCH            |      ***** OL_V2 ALGORITHM BATCH
@@ -420,7 +436,9 @@ void OL_train(OL_LAYER_STRUCT * layer, float * input, char *letter){
 		}
 
 		layer->counter +=1;
-
+#if READ_FREE_RAM==1
+		OL_updateRAMcounter(layer);
+#endif
 
 	// *************************************
 	// ***** CWR ALGORITHM
@@ -469,7 +487,9 @@ void OL_train(OL_LAYER_STRUCT * layer, float * input, char *letter){
 		}
 
 		layer->counter +=1;
-
+#if READ_FREE_RAM==1
+		OL_updateRAMcounter(layer);
+#endif
 
 	// *************************************
 	// ***** LWF ALGORITHM
@@ -501,7 +521,9 @@ void OL_train(OL_LAYER_STRUCT * layer, float * input, char *letter){
 		OL_compareLabels(layer);																	// Check if prediction is correct or not
 
 		layer->counter +=1;
-
+#if READ_FREE_RAM==1
+		OL_updateRAMcounter(layer);
+#endif
 
 	// *************************************
 	// ***** LWF ALGORITHM MINI BATCHES
@@ -549,7 +571,9 @@ void OL_train(OL_LAYER_STRUCT * layer, float * input, char *letter){
 			}
 		}
 		layer->counter +=1;
-
+#if READ_FREE_RAM==1
+		OL_updateRAMcounter(layer);
+#endif
 
 	}
 };
