@@ -1,7 +1,0 @@
-# DIRECTORY CONTENTS
- This repo contains the projects developed for the STM mcu. Each folder contains a different project:
-
-- `Log_data` : this folder contains the project that is used for recosrding the accelerometer data
-- `TinyOL` : this folder contains the main project, where the entire OL system is developed and works for performin the ON LINE learning with all the method seen in the simulation in python. This project works together with a python script that sends trhough the UART all the data for the inference.
-
-Notice that there is a file `STM_GPIO.png` in which is shown the jumper cable that should be connected to the board in order to have the code work correctly. 

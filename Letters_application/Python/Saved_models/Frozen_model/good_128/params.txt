@@ -1,0 +1,20 @@
+PARAMETERS SAVED FROM THE TRAINING
+ Batch size: 16
+ Epochs: 20
+ Validation split: 0.2
+ Metrics: ['accuracy']
+ Optimizer: Adam
+ Loss: categorical_crossentropy
+
+Model: "sequential_1"
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+input_layer (Dense)          (None, 128)               76928     
+_________________________________________________________________
+hidden1 (Dense)              (None, 128)               16512     
+=================================================================
+Total params: 93,440
+Trainable params: 93,440
+Non-trainable params: 0
+_________________________________________________________________

@@ -62,7 +62,7 @@ The algorithms implemented in this project are:
 - CWR: method proposed in the paper above
 - OL_mini_batches: same as OL but the weights update is based on the average of updates coming from a group of inputs
 - OL_V2_mini_batches: same as OL_V2 but the weights update is based on the average of updates coming from a group of inputs 
-- LWF_mini_batches: very similar to the method LWF, but the "old matrix" is updated once in a while
+- LWF_mini_batches: very similar to the method LWF, but the "old matrix" is updated once every gropu of inputs
 
 # PRO AND CONS OF EACH ALGORITHM
 
@@ -70,11 +70,11 @@ The algorithms implemented in this project are:
 
 | METHOD        | PRO                                                          | CONS                                                         |
 | ------------- | :----------------------------------------------------------- | ------------------------------------------------------------ |
-| OL            | - SImple to implement, is the classic gradient desacend applied on softmax | Subject to catastrophic forgetting                           |
-| OL V2         | - Less computations (skips the update on original weights)   | Cannot perform fine tuning (no update on original weights)   |
+| OL            | - Simple to implement, is the classic gradient desacend applied on softmax<br />- Is the usual method for training | Subject to catastrophic forgetting                           |
+| OL V2         | - Less computations (skips 5 columnns ofmthe matrix and computes only 3) | - Cannot perform fine tuning on the original letters (it updates only the new learned)<br />- The original weights are not modified together with the new one, the last layer is a bit unbalanced |
 | OL batches    | - All weights are updated to find the optimum weight matrix<br />- Update of weights performed with an average over several input can be more robust to outliers | - Requires 2 times the size of the last layer<br />- Subject to catastrophic forgetting |
-| OL V2 batches | - Less computations (skips the update on original weights)<br />- Update of weights performed with an average over several input can be more robust to outliers | Requires 2 times the size of the last layer<br />Cannot perform fine tuning (no update on original weights) |
-| LWF           | Simple to implement, it's a weighted average                 | Update of lambda can be tricky<br />Requires 2 copies of the last layer |
-| LWF batches   | SImple to implement, it's a weighted average                 | Update of lambda can be tricky<br />Requires 2 copies of the last layer |
+| OL V2 batches | - Less computations (skips the update on original weights)<br />- Update of weights performed with an average over several input can be more robust to outliers | - Requires 2 times the size of the last layer<br />- Cannot perform fine tuning (no update on original weights)<br />- The original weights are not modified together with the new one, the last layer is a bit unbalanced |
+| LWF           | - Simple to implement, it's a weighted average<br />- Depending on how I select lambda I can change the learning of the weights | - Update of lambda can be tricky<br />- Requires 2 copies of the last layer |
+| LWF batches   | - Simple to implement, it's a weighted average<br />- Depending on how I select lambda I can change the learning of the weights<br />- I can update the original weight matrix once in a while, it avoids the system to be too dependant on old weights | - Update of lambda can be tricky<br />- Requires 2 copies of the last layer |
 | CWR           | Simple to implement, it's just a weighted average            | Requires 2 copies of the last layer<br />Requires more computations |
 
