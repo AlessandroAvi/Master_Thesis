@@ -6,6 +6,6 @@
 
 Notice that there is a file `STM_GPIO.png` in which is shown the jumper cable that should be connected to the board in order to have the code work correctly. As showhn in the picture below
 
-![image_for_github_repo](https://github.com/AlessandroAvi/Master_Thesis/blob/main/Python/Plots/ReadmeImages/STM_GPIO.png) 
+![image_for_github_repo](https://github.com/AlessandroAvi/Master_Thesis/blob/main/Letters_application/Python/Plots/ReadmeImages/STM_GPIO.png) 
 
-![](C:\Users\massi\UNI\Magistrale\Anno 5\Semestre 2\Tesi\Code\Python\Plots\ReadmeImages\STM_GPIO.png)
+<img src="C:\Users\massi\UNI\Magistrale\Anno 5\Semestre 2\Tesi\Code\Letters_application\Python\Plots\ReadmeImages\STM_GPIO.png" style="zoom:60%;" />
