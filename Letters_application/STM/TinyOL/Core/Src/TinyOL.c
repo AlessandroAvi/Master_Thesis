@@ -181,6 +181,42 @@ void OL_increaseYpredDim(OL_LAYER_STRUCT * layer){
 
 
 
+
+void sendBiasUART(OL_LAYER_STRUCT * layer, int j, int i, uint8_t * msgBias){
+
+#define byte_1   		0x000000FF
+#define byte_2   		0x0000FF00
+#define byte_3   		0x00FF0000
+#define byte_4   		0xFF000000
+#define byte_4   		0xFF000000
+
+	msgBias[i]   = 0;
+	msgBias[i+1] = 0;
+	msgBias[i+2] = 0;
+	msgBias[i+3] = 0;
+
+	if(j<=layer->WIDTH){
+		int bias_val = layer->biases[j]*1000000000;
+
+		if(bias_val<0){
+			bias_val = -bias_val;
+
+			msgBias[i]   = bias_val & byte_1;
+			msgBias[i+1] = (bias_val & byte_2)>>8;
+			msgBias[i+2] = (bias_val & byte_3)>>16;
+			msgBias[i+3] = ((bias_val & byte_4) | (0x80000000))>>24;
+			msgBias[i+4] = ((bias_val & byte_4) | (0x80000000))>>24;
+		}else{
+			msgBias[i]   = bias_val & byte_1;
+			msgBias[i+1] = (bias_val & byte_2)>>8;
+			msgBias[i+2] = (bias_val & byte_3)>>16;
+			msgBias[i+3] = (bias_val & byte_4)>>24;
+		}
+	}
+}
+
+
+
 void OL_updateRAMcounter(OL_LAYER_STRUCT * layer){
 
 	if( (layer->counter>100) && (layer->counter%5==0) ){

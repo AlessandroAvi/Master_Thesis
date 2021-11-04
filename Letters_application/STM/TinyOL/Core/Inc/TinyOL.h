@@ -107,6 +107,7 @@ char msgDebug[BUFF_LEN];		// General container for debug messages to send on UAR
 uint8_t msgRxData[DATA_LEN];	// Container for receiving the array of data
 char msgRxLett[LETTER_LEN];		// Container for receiving the label
 uint8_t msgInfo[INFO_LEN];		// Container for sending the results of inference to the pc
+uint8_t msgBias[32];
 
 
 
@@ -154,3 +155,5 @@ void OL_increaseYtrueDim(OL_LAYER_STRUCT * layer);
 
 
 void OL_updateRAMcounter(OL_LAYER_STRUCT * layer);
+
+void sendBiasUART(OL_LAYER_STRUCT * layer, int j, int i, uint8_t * msgBias);

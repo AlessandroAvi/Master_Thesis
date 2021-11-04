@@ -478,3 +478,30 @@ myWrite.save_dataset(vowels_data_TF, vowels_label_TF, 'vowels_TF')
 print('Dataset for letter VOWELS TF: saved')
 myWrite.save_dataset(vowels_data_OL, vowels_label_OL, 'vowels_OL')
 print('Dataset for letter VOWELS OL: saved')
+
+
+
+
+## ADDITIONAL PART OF THE CODE
+# this portion fo teh code is used to create a txt file in which I store
+# a dataset in a  specific order. I then use the txt file to train the laptop
+# simulation and the STM in the same exact order. This is done for removing 
+# possible differences in the trainings (and see also the differences)
+
+
+# Create a matrix that contains all the train data
+training_dataset = vowels_data_OL
+training_dataset = np.vstack(( training_dataset, B_data))
+training_dataset = np.vstack(( training_dataset, R_data))
+training_dataset = np.vstack(( training_dataset, M_data))
+# Create an array that contains all the train labels
+training_labels = vowels_label_OL
+training_labels = np.hstack(( training_labels, B_label))
+training_labels = np.hstack(( training_labels, R_label))
+training_labels = np.hstack(( training_labels, M_label))
+# Shuffle the matrix and the label
+training_dataset, training_labels = shuffleDataset(training_dataset, training_labels)
+# Save the dataset in a txt file
+myWrite.save_dataset(training_dataset, training_labels, 'training_file')
+print()
+print('Dataset for controlled training: saved')

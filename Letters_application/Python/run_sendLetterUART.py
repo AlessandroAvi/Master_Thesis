@@ -250,6 +250,11 @@ test_label = np.hstack(( test_label, M_test_label))
 train_data, train_label = myParse.shuffleDataset(train_data, train_label)
 test_data, test_label   = myParse.shuffleDataset(test_data, test_label)
 
+
+# OR LOAD AN ALREADY SHUFFLED DATASET
+data, label = myParse.loadDataFromTxt('training_file')
+train_data, train_label, test_data, test_label = myParse.parseTrainTest(data, label, 0.7)
+
 print(f'The entire training dastaset has shape {train_data.shape}')
 print(f'The entire testing dataset has shape {test_data.shape}')
 
@@ -270,8 +275,8 @@ print('\n\nSerial port initialized')
 
 
 # Define amount of samples to sent to STM and how many for test/train
-test_max  = 100#test_data.shape[0]
-train_max = 100#train_data.shape[0]
+test_max  = test_data.shape[0]
+train_max = train_data.shape[0]
 send_max  = test_max + train_max
 
 
@@ -285,6 +290,8 @@ predic_error    = np.zeros(test_max)    # 1/2/3
 OL_width        = np.zeros(test_max)    # int
 vowel_guess     = np.zeros(test_max)    # int (later translated in char)
 vowel_true      = []                    # char
+
+biases_stm = np.zeros([train_max,9])
 
 
 # Containers of the algorithm names
@@ -328,7 +335,48 @@ while (train_iter + test_iter)<send_max-1:
     if(train_iter < train_max):
 
         print(f'Training, sample number:   {train_iter}/{train_max}')
+        
+
+
+        ###########################################
+        # save bias in the array
+        rx2 = serialInst.read(32) 
+
+        i= train_iter
+        # save each value inside the correct place
+        biases_stm[i,0] = i
+
+        
+        mask_128 = 0b10000000
+        mask_64  = 0b01111111
+        n = 0
+        l = 1
+        while n < 30:
+            if((rx2[n+3] & mask_128) == 128):
+                tmp = np.int(rx2[n+3]) & mask_64
+                biases_stm[i,l] = (-((tmp<<24)  | (rx2[n+2]<<16)  | (rx2[n+1]<<8)  | rx2[n]))/1000000000
+            else:
+                biases_stm[i,l] = ((rx2[n+3]<<24)  | (rx2[n+2]<<16)  | (rx2[n+1]<<8)  | rx2[n])/1000000000
+
+            n += 4
+            l += 1
+
+        # write everything down at step 700
+        if(train_iter==train_max-1):
+            BIAS_SAVE_PATH = ROOT_PATH + '\\bias_stm.txt'
+            with open(BIAS_SAVE_PATH,'w') as data_file:
+                for q in range(0, biases_stm.shape[0]):
+                    data_file.write( str(biases_stm[q,0])+','+
+                                     str(biases_stm[q,1])+','+str(biases_stm[q,2])+','+
+                                     str(biases_stm[q,3])+','+str(biases_stm[q,4])+','+
+                                     str(biases_stm[q,5])+','+str(biases_stm[q,6])+','+
+                                     str(biases_stm[q,7])+','+str(biases_stm[q,8])+'\n')
+
+            print('STM BIASES WRITTEN ON TXT FILE ')
         train_iter += 1
+
+        ###########################################
+
 
     else:
         # Save the data in the containers 

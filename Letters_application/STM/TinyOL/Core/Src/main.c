@@ -208,9 +208,6 @@ int main(void)
   while (1)
   {
 
-	  if(OL_layer.counter == 200){
-		  OL_layer.batch_size = 8;
-	  }
 
 	  // Enable_inference flag is raised at the end of the data communication between pc-STM (see interrupt callbacks at the end of the main)
 	  if(enable_inference == 1){
@@ -272,8 +269,30 @@ int main(void)
 
 		  HAL_UART_Transmit(&huart2, (uint8_t*)msgInfo, INFO_LEN, 100);		// Send message
 
+		  // Transmit to UART the value of the biases
+		  sendBiasUART(&OL_layer, 0, 0, msgBias);   // send weight 1
+		  sendBiasUART(&OL_layer, 1, 4, msgBias);   // send weight 2
+		  sendBiasUART(&OL_layer, 2, 8, msgBias);   // send weight 3
+		  sendBiasUART(&OL_layer, 3, 12, msgBias);  // send weight 4
+		  sendBiasUART(&OL_layer, 4, 16, msgBias);  // send weight 5
+		  sendBiasUART(&OL_layer, 5, 20, msgBias);  // send weight 6
+		  sendBiasUART(&OL_layer, 6, 24, msgBias);  // send weight 7
+		  sendBiasUART(&OL_layer, 7, 28, msgBias);  // send weight 8
+
+
+		  if(OL_layer.counter <= 772){
+			  HAL_Delay(15); 			// Helps the code to not get stuck
+			  HAL_UART_Transmit(&huart2, (uint8_t*)msgBias, 32, 100);		// Send message
+		  }
+
+
+
 		  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);	// LED toggle
 		  enable_inference = 0;						// Reset inference flag
+
+		  if(((OL_layer.counter-1) % 1 == 0) && (OL_layer.counter >= 0)){
+			  OL_layer.batch_size = 8;
+		  }
 	  }
 
 	  HAL_Delay(5); 			// Helps the code to not get stuck
