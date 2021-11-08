@@ -70,9 +70,9 @@ The algorithms implemented in this project are:
 - OL_V2_mini_batches: same as OL_V2 but the weights update is based on the average of updates coming from a group of inputs 
 - LWF_mini_batches: very similar to the method LWF, but the "old matrix" is updated once every gropu of inputs
 
-# PRO AND CONS OF EACH ALGORITHM
 
 
+### PRO AND CONS OF EACH ALGORITHM
 
 | METHOD        | PRO                                                          | CONS                                                         |
 | ------------- | :----------------------------------------------------------- | ------------------------------------------------------------ |
