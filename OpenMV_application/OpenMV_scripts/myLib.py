@@ -9,8 +9,8 @@ def feed_forward(frozen_out, weight_mat, bias_mat):
 
     ret_ary = np.zeros(len(bias_mat))
 
-    for i in range(0, len(bias_mat)):                   # from 0 to 6
-        for j in range(0, len(frozen_out)):             # from 0 to 2028
+    for i in range(0, 6):                   # from 0 to 6
+        for j in range(0, 2028):             # from 0 to 2028
             ret_ary[i] += weight_mat[j,i]*frozen_out[j]
 
         ret_ary[i] += bias_mat[i]

@@ -8,7 +8,7 @@ PARAMETERS SAVED FROM THE TRAINING
  Optimizer:        adam
  Loss:             SparseCategoricalCrossentropy 
 
-Model: "sequential_1"
+Model: "sequential_4"
 _________________________________________________________________
 Layer (type)                 Output Shape              Param #   
 =================================================================

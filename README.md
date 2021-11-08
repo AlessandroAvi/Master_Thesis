@@ -1,5 +1,7 @@
 # IDEA OF THE PROJECT
 
+## PART 1 : implementation of a simulation + application on nucelo F401RE
+
 The project in this repository is the code that I developed for my master thesis. The project is an application of continual/on line learning on NN/ CNN applied on microcontrollers (in my case initally a NUCELO STM32 F401RE and in future a OpenMV camera).
 The main objective of the project is to deploy a NN model on a microcontroller and be able to train the last layer while the microcontroller perform inferences, from this the name continual learning. Not only the models should be able to fine tune its last layer and improve the predictions on the original classes, but it should also be able to exand its dimensions in order to predict new possible classes (if it's a classification model).
 
@@ -82,3 +84,14 @@ The algorithms implemented in this project are:
 | LWF batches   | - Simple to implement, it's a weighted average<br />- Depending on how I select lambda I can change the learning of the weights<br />- I can update the original weight matrix once in a while, it avoids the system to be too dependant on old weights | - Update of lambda can be tricky<br />- Requires 2 copies of the last layer |
 | CWR           | Simple to implement, it's just a weighted average            | Requires 2 copies of the last layer<br />Requires more computations |
 
+
+
+## PART 2: application ofthe idea on the OpenMV camera
+
+In this part of the project the main goal is to apply the same code and idea developed for the nucelo f401RE on the OpenMV camera. This is a very small device based on a STM32 H7 microcontroller that is specifically developed for the application of machine learning with images taken from camera built on the chip. The device is the following:
+
+![image_for_github_repo](https://github.com/AlessandroAvi/Master_Thesis/blob/main/OpenMV_application/Images/openmv.jpg) 
+
+<img src="C:\Users\massi\UNI\Magistrale\Anno 5\Semestre 2\Tesi\Code\OpenMV_application\Images\openmv.jpg" style="zoom:33%;" />
+
+In the first part of this section the idea is to apply a CNN model that is trained for the recognition of the famous MNIST dataset of written digits. The idea here is to train the model to recognize only the digits from 0 to 5 and later try to apply the OL method with the aim of obtaining a model that has learned all the digits. 

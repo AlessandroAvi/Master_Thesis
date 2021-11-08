@@ -65,7 +65,7 @@ while(True):
               img.height()//2-nn_input_sz//2,
               nn_input_sz,
               nn_input_sz))
-    # Draw a rectagne that shows the inference region
+    # Draw a rectagnle that shows the inference region
     img.draw_rectangle(img.width()//2-nn_input_sz//2,
                        img.height()//2-nn_input_sz//2,
                        nn_input_sz, nn_input_sz, 0, thickness=1, fill=False)
@@ -75,14 +75,14 @@ while(True):
     # [CUBE.AI] RUN THE INFERENCE
     out_frozen = net.predict(img)
 
-
-    ## DA AGGIUNGERE QUA - FEED FORWARD USANDO I PESI CARICATI DAL OL LAYER
+    # FEED FORWARD USANDO I PESI CARICATI DAL OL LAYER
     out_OL = myLib.feed_forward(out_frozen, ll_weights, ll_biases)
-    out = myLib.softmax(out_OL)
+    out    = myLib.softmax(out_OL)
 
 
     # TERMINAL DEBUG
     #print('Network argmax output: {}'.format( max(out) ))
     print('FPS {}'.format(clock.fps())) # Note: OpenMV Cam runs about half as fast when connected
-    img.draw_string(0, 0, str( np.argmax(out )))
+    img.draw_string(0, 0,  str( np.argmax(out) ))
+
 
