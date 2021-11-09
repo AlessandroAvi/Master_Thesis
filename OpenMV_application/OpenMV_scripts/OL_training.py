@@ -2,6 +2,7 @@
 
 import sensor, image, time, nn_st
 from ulab import numpy as np
+import ulab
 import myLib
 
 sensor.reset()                      # Reset and initialize the sensor.
@@ -22,32 +23,11 @@ nn_input_sz = 28 # The NN input is 28x28
 
 
 # LOAD BIASES AND WEIGHTS OF THE OL LAYER
-ll_biases  = []
-ll_weights = np.zeros((2028,6))
+ll_biases  = np.zeros((6,1))
+ll_weights = np.zeros((6,2028))
 
-with open('ll_biases.txt') as bias_file:
-    for line in bias_file:
-        data = line.split(',')
-        i=0
-        for numbers in data:
-            ll_biases.append(float(data[i]))
-            i+=1
-bias_file.close()
-
-with open('ll_weights.txt') as weight_file:
-    j,i = 0,0
-    for line in weight_file:
-        data = line.split(',')
-        for numbers in data:
-            ll_weights[i,j] = float(numbers)
-            i += 1
-
-            if (i == 2028):
-                i=0
-                j+=1
-
-weight_file.close()
-
+myLib.load_biases(ll_biases)
+myLib.load_weights(ll_weights)
 
 
 
@@ -56,32 +36,38 @@ weight_file.close()
 while(True):
     clock.tick()             # Update the FPS clock.
 
-    # TAKE THE PHOTO
-    img = sensor.snapshot()  # Take a picture and return the image.
 
-    # PRE PROCESS THE PHOTO FOR THE CNN
-    # Crop in the middle (avoids vignetting)
-    img.crop((img.width()//2-nn_input_sz//2,
+    img = sensor.snapshot()                         # Take the photo and return image
+
+
+    img.crop((img.width()//2-nn_input_sz//2,        # Crop in the middle (avoids vignetting)
               img.height()//2-nn_input_sz//2,
               nn_input_sz,
               nn_input_sz))
-    # Draw a rectagnle that shows the inference region
-    img.draw_rectangle(img.width()//2-nn_input_sz//2,
+
+    img.draw_rectangle(img.width()//2-nn_input_sz//2,   # Draw the inference region
                        img.height()//2-nn_input_sz//2,
                        nn_input_sz, nn_input_sz, 0, thickness=1, fill=False)
-    # Binarize the image, size is 3x3,
-    img.midpoint(2, bias=0.5, threshold=True, offset=5, invert=True)
 
-    # [CUBE.AI] RUN THE INFERENCE
-    out_frozen = net.predict(img)
+    img.midpoint(2, bias=0.5, threshold=True,       # Binarize the image, size is 3x3,
+                    offset=5, invert=True)
 
-    # FEED FORWARD USANDO I PESI CARICATI DAL OL LAYER
+    out_frozen = net.predict(img)                   # [CUBE.AI] run the inference on frozen model
+
+    # OL CODE
     out_OL = myLib.feed_forward(out_frozen, ll_weights, ll_biases)
     out    = myLib.softmax(out_OL)
 
 
+    true_label = np.zeros(6)
+    # PERFORM TRAINING ON THE CURRENT SAMPLE
+    #myLib.back_propagation(true_label, out, ll_weights, ll_biases, out_frozen)
+
+
+
+
+
     # TERMINAL DEBUG
-    #print('Network argmax output: {}'.format( max(out) ))
     print('FPS {}'.format(clock.fps())) # Note: OpenMV Cam runs about half as fast when connected
     img.draw_string(0, 0,  str( np.argmax(out) ))
 
