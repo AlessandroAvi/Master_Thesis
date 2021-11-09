@@ -3,22 +3,35 @@ import math
 
 
 
+""" Python class that contains all the important data """
+class LastLayer(object):
 
-""" Loads the weights values from the txt in the SD card
+    def __init__(self):
 
-    Params
-    ------
-    ll_weights : array_like
-        Matrix that contains the values of weights from the keras training
-"""
-def load_weights(ll_weights):
+        self.method = 0
+        self.W = 6
+        self.H = 2028
+        self.label = ['0','1','2','3','4','5']
+        self.l_rate = 0.005
 
-    with open('ll_weights.txt') as weight_file:
+        self.weights  = np.zeros((6,2028))
+        self.biases   = np.zeros((6,1))
+        self.t_labels = np.zeros(100)
+
+        self.confusion_matrix = np.zeros((self.W,self.W))
+
+
+
+
+""" Loads the weights values from the txt in the SD card """
+def load_weights(OL_layer):
+
+    with open('ll_weights.txt') as f:
         j,i = 0,0
-        for line in weight_file:
+        for line in f:
             data = line.split(',')
             for number in data:
-                ll_weights[j,i] = float(number)
+                OL_layer.weights[j,i] = float(number)
                 i += 1
 
                 if (i == 2028):
@@ -29,32 +42,74 @@ def load_weights(ll_weights):
 
 
 
-""" Loads the bias values from the txt in the SD card
+""" Loads the bias values from the txt in the SD card """
+def load_biases(OL_layer):
 
-    Params
-    ------
-    ll_biases : array_like
-        Array that contains the values of bias from the keras training
-"""
-def load_biases(ll_biases):
-
-    with open('ll_biases.txt') as bias_file:
-        for line in bias_file:
+    with open('ll_biases.txt') as f:
+        for line in f:
             data = line.split(',')
             i=0
             for number in data:
-                ll_biases[i,0] = float(number)
+                OL_layer.biases[i,0] = float(number)
                 i+=1
 
 
 
 
 
-def feed_forward(out_frozen, weight_mat, bias_mat):
+""" Loads the bias values from the txt in the SD card """
+def load_labels(OL_layer):
 
-    out_frozen = np.array(out_frozen).reshape((2028,1))
+    with open('label_order.txt') as f:
+        for line in f:
+            data = line.split(',')
+            i=0
+            for number in data:
+                OL_layer.t_labels[i] = str(int(number))
+                i+=1
 
-    ret_ary = np.linalg.dot(weight_mat, out_frozen) + bias_mat
+
+
+
+
+""" Checks if the label is known, if not increase the dimension of the layer """
+def check_label(OL_layer, itr):
+
+    found = False
+
+    for i in range(0, OL_layer.W):
+        if(OL_layer.t_label[itr] == OL_layer.label[i]):
+            found = 1
+
+    # Label is not known
+    if(found == 0):
+        OL_layer.W += 1
+
+        tmp = np.zeros((1,OL_layer.H))
+        OL_layer.weights = np.concatenate((OL_layer.weights, tmp), axis=0)
+
+        tmp = np.zeros((1,1))
+        OL_layer.biases  = np.concatenate((OL_layer.biases, tmp), axis=0)
+
+        OL_labels.append(OL_layer.t_label[itr])
+
+        tmp = np.zeros((1,OL_layer.W-1))
+        OL_labels.confusion_matrix = np.concatenate((OL_layer.confusion_matrix, tmp), axis=0)
+        tmp = np.zeros((OL_layer.W,1))
+        OL_labels.confusion_matrix = np.concatenate((OL_layer.confusion_matrix, tmp), axis=1)
+
+
+
+
+
+""" Transforms a label in an hot one encoded array """
+def label_to_softmax(OL_layer, itr):
+
+    ret_ary = np.zeros((OL_layer.W, 1))
+
+    for i in range(0, OL_layer.W):
+        if(OL_layer.t_label[itr] == Ol_layer.label[i]):
+            ret_ary[i] = 1
 
     return ret_ary
 
@@ -62,10 +117,24 @@ def feed_forward(out_frozen, weight_mat, bias_mat):
 
 
 
+""" Computes the feed forward operation -> out = W*out_frozen+bias """
+def feed_forward(out_frozen, OL_layer):
+
+    out_frozen = np.array(out_frozen).reshape((OL_layer.H,1))
+
+    ret_ary = np.linalg.dot(OL_layer.weights, out_frozen) + OL_layer.biases
+
+    return ret_ary
+
+
+
+
+
+""" Computes the softmax operation on the array in input """
 def softmax(OL_out):
 
-    size    = len(OL_out)
-    ret_ary = np.zeros(size)
+    size = len(OL_out[:,0])
+    ret_ary = np.zeros((size,1))
 
     m = OL_out[0,0]
     for i in range(0, size):
@@ -78,41 +147,127 @@ def softmax(OL_out):
 
     constant = m + math.log(sum_val)
     for i in range(0, size):
-        ret_ary[i] = math.exp(OL_out[i,0] - constant)
+        ret_ary[i,0] = math.exp(OL_out[i,0] - constant)
 
     return ret_ary
 
 
 
-def back_propagation(true_label, prediction, weight_mat, bias_mat, frozen_out):
 
+
+""" Performs the back propagation with the OL algorithm """
+def back_propagation_OL(true_label, prediction, OL_layer, out_frozen):
+
+    cost = np.zeros((OL_layer.W,1))
+    out_frozen = np.array(out_frozen).reshape((1,OL_layer.H))
+
+    for i in range(0, OL_layer.W):
+        cost[i,0] = (prediction[i,0]-true_label[i,0])*OL_layer.l_rate
+
+    # Update weights
+    dW = np.linalg.dot(cost, out_frozen)
+    OL_layer.weights = OL_layer.weights - dW
+    # Update biases
+    OL_layer.biases  = OL_layer.biases - cost
+
+
+
+
+
+""" Performs the back propagation with the OL V2 algorithm """
+def back_propagation_OLV2():
+
+    cost = np.zeros((OL_layer.W,1))
+    out_frozen = np.array(out_frozen).reshape((1,OL_layer.H))
+
+    for i in range(5, OL_layer.W):
+        cost[i,0] = (prediction[i,0]-true_label[i])*OL_layer.l_rate
+
+    # Update weights
+    dW = np.linalg.dot(cost, out_frozen)
+    OL_layer.weights = OL_layer.weights - dW
+    # Update biases
+    OL_layer.biases  = OL_layer.biases - cost
+
+
+
+
+""" Performs the back propagation with the LWF algorithm """
+def back_propagation_LWF():
     l_rate = 0.005
-    cost = np.zeros(len(true_label))
-    for i in range(0, len(true_label)):
-        cost[i] = (prediction[i]-true_label[i])*l_rate
 
 
-    for i in range(0, len(true_label)):
 
-        dW = np.zeros((1,len(frozen_out)))
 
-        # Update weights
-        dW = np.linear.dot(cost[i], frozen_out)
-        weight_mat[i,:] = weight_mat[i,:]-dW
-        # Update biases
-        bias_mat[i] = bias_mat[i]-cost[i]
+
+
+""" Performs the back propagation with the CWR algorithm """
+def back_propagation_CWR():
+    l_rate = 0.005
+
+
+
+
+
+""" Performs the back propagation with the OL mini batches algorithm """
+def back_propagation_OL_mini_batch():
+    l_rate = 0.005
+
+
+
+
+
+""" Performs the back propagation with the OL V2 mini batches algorithm """
+def back_propagation_OLV2_mini_batch():
+    l_rate = 0.005
+
+
+
+
+
+""" Performs the back propagation with the LWF mini batches algorithm """
+def back_propagation_LWF_mini_batch():
+    l_rate = 0.005
+
+
+
+
+
+""" Calls the correct function for hte back propagation """
+def back_propagation(true_label, prediction, OL_layer, out_frozen):
+
+    if(OL_layer.method==1):
+        back_propagation_OL(true_label, prediction, OL_layer, out_frozen)
+    elif(OL_layer.method==2):
+        back_propagation_OLV2()
+    elif(OL_layer.method==3):
+        back_propagation_LWF()
+    elif(OL_layer.method==4):
+        back_propagation_CWR()
+    elif(OL_layer.method==5):
+        back_propagation_OL_mini_batch()
+    elif(OL_layer.method==6):
+        back_propagation_OLV2_mini_batch()
+    elif(OL_layer.method==7):
+        back_propagation_LWF_mini_batch()
+
 
 
 
 
 # To read the txt file from windows explorer is required to unplug and plug again the camera
 #       https://forums.openmv.io/t/saving-a-txt-file/700
-def write_results():
+def write_results(OL_layer):
 
     with open('training_results.txt', 'w') as f:
-        f.write('ciao come va')
 
+        # write the confusion matrix
+        for i in range(0, OL_layer.W):
+            for j in range(0, OL_layer.W):
 
-
+                f.write(str(OL_layer.confusion_matrix[i,j]))
+                if(j!=OL_layer.W-1):
+                    f.write(',')
+            f.write('\n')
 
 
