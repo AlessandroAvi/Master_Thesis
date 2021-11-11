@@ -6,15 +6,52 @@ import matplotlib.pyplot as plt
 
 
 ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
-STM_WEIGHT_PATH = ROOT_PATH + '\\Debug_files\\weight_stm.txt'
-STM_BIAS_PATH   = ROOT_PATH + '\\Debug_files\\bias_stm.txt'
-STM_OUT_FROZEN  = ROOT_PATH + '\\Debug_files\\frozenOut_STM.txt'
+STM_WEIGHT_PATH  = ROOT_PATH + '\\Debug_files\\weight_stm.txt'
+STM_BIAS_PATH    = ROOT_PATH + '\\Debug_files\\bias_stm.txt'
+STM_OUT_FROZEN   = ROOT_PATH + '\\Debug_files\\frozenOut_STM.txt'
+STM_SOFTMAX_PATH = ROOT_PATH + '\\Debug_files\\softmax_STM.txt'
 
 
 col_OK    = '\033[92m' #GREEN
 col_WARN  = '\033[93m' #YELLOW
 col_FAIL  = '\033[91m' #RED
 col_RESET = '\033[0m'  #RESET COLOR
+
+
+
+
+
+
+
+
+
+def debug_plotHistorySoftmax(itr, softmax_pc, softmax_stm):
+    
+    x = list(range(0,softmax_stm.shape[0]))
+    y1 = softmax_stm[:770,itr]
+    y2 = softmax_pc[:770,itr]
+
+    plt.plot(x, y1, color='r', label='stm')
+    plt.plot(x, y2, color='g', label='pc')
+    plt.xlabel("Iteration")
+    plt.ylabel("Softmax value")
+    plt.title(f"Comparison of softmax number: {itr}")
+    plt.legend()
+    
+    print('The final values are:')
+    print(f'          PC:{softmax_pc[769,itr]:.11f}')
+    print(f'         STM:{softmax_stm[769,itr]:.11f}')
+
+    diff = np.abs(softmax_pc[769,itr]-softmax_stm[769,itr])
+    max_val = np.abs(max(softmax_pc[769,itr],softmax_stm[769,itr]))
+    if(diff/max_val > 0.05):
+        print(f'  difference:{col_FAIL}{(softmax_pc[769,itr]-softmax_stm[769,itr]):.11f}{col_RESET}')
+    else:
+        print(f'  difference:{col_OK}{(softmax_pc[769,itr]-softmax_stm[769,itr]):.11f}{col_RESET}')
+
+    plt.show()
+
+
 
 
 
@@ -54,8 +91,8 @@ def debug_plotHistoryWeight(weight_num, weight_stm, weight_pc):
     plt.legend()
     
     print('The final values are:')
-    print(f'   PC:{weight_pc[769,weight_num]:.11f}')
-    print(f'  STM:{weight_stm[769,weight_num]:.11f}')
+    print(f'             PC:{weight_pc[769,weight_num]:.11f}')
+    print(f'            STM:{weight_stm[769,weight_num]:.11f}')
 
     diff = np.abs(weight_pc[769,weight_num]-weight_stm[769,weight_num])
     max_val = np.abs(max(weight_pc[769,weight_num],weight_stm[769,weight_num]))
@@ -213,3 +250,17 @@ def debug_loadWeightsSTM():
             weight_stm[j,i] = dataset.iloc[j,i+1]
     
     return weight_stm
+
+
+
+def debug_loadSoftmaxSMT():    
+    
+    dataset = pd.read_csv(STM_SOFTMAX_PATH,header = None,na_values=',') 
+
+    softmax_stm = np.empty([dataset.shape[0],8])
+
+    for j in range(0,dataset.shape[0]):
+        for i in range(0,dataset.shape[1]-1):
+            softmax_stm[j,i] = dataset.iloc[j,i+1]
+    
+    return softmax_stm

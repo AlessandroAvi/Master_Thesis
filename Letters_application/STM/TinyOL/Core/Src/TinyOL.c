@@ -674,6 +674,36 @@ void sendFrozenOutUART(OL_LAYER_STRUCT * layer, int j, int i, float * out_data, 
 
 
 
+void sendSoftmaxUART(OL_LAYER_STRUCT * layer, int j, int i, uint8_t * msgSoftmax){
+
+	msgSoftmax[i]   = 0;
+	msgSoftmax[i+1] = 0;
+	msgSoftmax[i+2] = 0;
+	msgSoftmax[i+3] = 0;
+
+	int softmax_val = layer->y_pred[j]*1000000;
+
+	if(j<=layer->WIDTH){
+		if(softmax_val<0){
+			softmax_val = -softmax_val;
+
+			msgSoftmax[i]   = softmax_val   & byte_1;
+			msgSoftmax[i+1] = (softmax_val  & byte_2)>>8;
+			msgSoftmax[i+2] = (softmax_val  & byte_3)>>16;
+			msgSoftmax[i+3] = ((softmax_val & byte_4) | (0x80000000))>>24;
+		}else{
+			msgSoftmax[i]   = softmax_val  & byte_1;
+			msgSoftmax[i+1] = (softmax_val & byte_2)>>8;
+			msgSoftmax[i+2] = (softmax_val & byte_3)>>16;
+			msgSoftmax[i+3] = (softmax_val & byte_4)>>24;
+		}
+	}
+}
+
+
+
+
+
 void OL_updateRAMcounter(OL_LAYER_STRUCT * layer){
 
 	if( (layer->counter>100) && (layer->counter%5==0) ){

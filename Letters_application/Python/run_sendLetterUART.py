@@ -311,6 +311,40 @@ def UART_receiveFrozenOut():
 
 
 
+def UART_receiveSoftmax():
+
+    rx5 = serialInst.read(8*4)   # save received message
+
+    i = train_iter
+
+    softmax_stm[i,0] = i     # save number of iteration in the container 
+
+    mask_128 = 0b10000000   # mask for the sign
+    mask_64  = 0b01111111   # mask for the value
+    n = 0
+    l = 1
+    while n < 30:
+        if((rx5[n+3] & mask_128) == 128):
+            tmp = np.int(rx5[n+3]) & mask_64
+            softmax_stm[i,l] = -((tmp<<24)    | (rx5[n+2]<<16) | (rx5[n+1]<<8)  | rx5[n])/1000000
+        else:
+            softmax_stm[i,l] = ((rx5[n+3]<<24) | (rx5[n+2]<<16) | (rx5[n+1]<<8) | rx5[n])/1000000
+
+        n += 4
+        l += 1
+
+    # write everything down at step 700
+    if(train_iter==train_max-1):
+        with open(SOFTMAX_SAVE_PATH,'w') as data_file:
+            for q in range(0, softmax_stm.shape[0]):
+                data_file.write(str(softmax_stm[q,0])+','+
+                                str(softmax_stm[q,1])+','+str(softmax_stm[q,2])+','+
+                                str(softmax_stm[q,3])+','+str(softmax_stm[q,4])+','+
+                                str(softmax_stm[q,5])+','+str(softmax_stm[q,6])+','+
+                                str(softmax_stm[q,7])+','+str(softmax_stm[q,8])+'\n')
+
+        print(' ** STM BIASES WRITTEN ON TXT FILE ')
+
 
 
 #---------------------------------------------------------------
@@ -325,6 +359,7 @@ ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
 BIAS_SAVE_PATH      = ROOT_PATH + '\\Debug_files\\bias_stm.txt'
 WEIGHTS_SAVE_PATH   = ROOT_PATH + '\\Debug_files\\weight_stm.txt'
 FROZENOUT_SAVE_PATH = ROOT_PATH + '\\Debug_files\\frozenOut_stm.txt'
+SOFTMAX_SAVE_PATH   = ROOT_PATH + '\\Debug_files\\softmax_stm.txt'
 
 
 print('\n\n\n')
@@ -424,6 +459,8 @@ vowel_true      = []                    # char
 biases_stm = np.zeros((train_max,9))
 weights_stm = np.zeros((train_max, 81))
 frozenOut_stm = np.zeros((train_max, 129))
+softmax_stm = np.zeros((train_max,9))
+
 
 
 # Containers of the algorithm names
@@ -469,9 +506,10 @@ while (train_iter + test_iter)<send_max-1:
         print(f'Training, sample number:   {train_iter}/{train_max}')
         
         ###########################################
-        UART_receiveBiases()
-        UART_receiveWeights()
-        UART_receiveFrozenOut()
+        #UART_receiveBiases()
+        #UART_receiveWeights()
+        #UART_receiveFrozenOut()
+        UART_receiveSoftmax()
         ###########################################
                         
 

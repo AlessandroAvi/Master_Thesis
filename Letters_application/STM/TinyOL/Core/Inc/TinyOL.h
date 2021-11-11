@@ -116,6 +116,7 @@ uint8_t msgInfo[INFO_LEN];		// Container for sending the results of inference to
 uint8_t msgBias[8*4];
 uint8_t msgWeights[10*8*4];
 uint8_t msgFrozenOut[128*4];
+uint8_t msgSoftmax[8*4];
 int numeri[10*8];
 
 
@@ -169,4 +170,6 @@ void sendBiasUART(OL_LAYER_STRUCT * layer, int j, int i, uint8_t * msgBias);
 void sendWeightsUART(OL_LAYER_STRUCT * layer, int j, int i, uint8_t * msgWeights);
 
 void sendFrozenOutUART(OL_LAYER_STRUCT * layer, int j, int i, float * out_data, uint8_t * msgFrozenOut);
+
+void sendSoftmaxUART(OL_LAYER_STRUCT * layer, int j, int i, uint8_t * msgSoftmax);
 
