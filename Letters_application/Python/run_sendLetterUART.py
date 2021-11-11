@@ -468,13 +468,11 @@ while (train_iter + test_iter)<send_max-1:
 
         print(f'Training, sample number:   {train_iter}/{train_max}')
         
-
-        if(train_iter<train_max):
-            ###########################################
-            UART_receiveBiases()
-            UART_receiveWeights()
-            UART_receiveFrozenOut()
-            ###########################################
+        ###########################################
+        UART_receiveBiases()
+        UART_receiveWeights()
+        UART_receiveFrozenOut()
+        ###########################################
                         
 
         train_iter+=1
