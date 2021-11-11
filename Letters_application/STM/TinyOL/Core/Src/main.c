@@ -122,6 +122,15 @@ int main(void)
   /* USER CODE BEGIN 2 */
 
 
+  int numeri[10*8] = {46,13,107,3,57,65,127,81,89,70,
+  						143,239,142,158,207,189,172,230,156,208,
+  						374,359,375,371,303,298,350,257,349,333,
+  						402,502,485,461,489,479,454,508,485,480,
+  						527,565,614,517,528,613,625,623,587,521,
+  						712,742,685,746,759,747,754,702,653,640,
+  						775,809,798,853,804,840,828,788,890,819,
+  						906,1019,911,1005,1016,953,1016,987,961,1023};
+
 
   // *************************************
   //                  INITIALIZE OL-STRUCT
@@ -280,6 +289,7 @@ int main(void)
 		  sendBiasUART(&OL_layer, 7, 28, msgBias);  // send bias 8
 
 
+		  // Transmit to UART the value of random weights
 		  for(int k=0; k<10*8; k++){
 			  sendWeightsUART(&OL_layer, numeri[k], k*4, msgWeights);   // send weight
 		  }
@@ -287,8 +297,9 @@ int main(void)
 		  if(OL_layer.counter <= 770){
 			  HAL_Delay(15); 			// Helps the code to not get stuck
 			  HAL_UART_Transmit(&huart2, (uint8_t*)msgBias, 32, 100);		// Send message
-		  }
 
+			  HAL_UART_Transmit(&huart2, (uint8_t*)msgWeights, 10*8*4, 100);		// Send message
+		  }
 
 
 		  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);	// LED toggle

@@ -231,22 +231,20 @@ void sendWeightsUART(OL_LAYER_STRUCT * layer, int j, int i, uint8_t * msgWeights
 	msgWeights[i+2] = 0;
 	msgWeights[i+3] = 0;
 
-	if(j<=layer->WIDTH){
-		int weight_val = layer->weights[j]*1;
+	int weight_val = layer->weights[j]*1000000000;
 
-		if(pred_val<0){
-			weight_val = -weight_val;
+	if(weight_val<0){
+		weight_val = -weight_val;
 
-			msgWeights[i]   = weight_val   & byte_1;
-			msgWeights[i+1] = (weight_val  & byte_2)>>8;
-			msgWeights[i+2] = (weight_val  & byte_3)>>16;
-			msgWeights[i+3] = ((weight_val & byte_4) | (0x80000000))>>24;
-		}else{
-			msgWeights[i]   = weight_val  & byte_1;
-			msgWeights[i+1] = (weight_val & byte_2)>>8;
-			msgWeights[i+2] = (weight_val & byte_3)>>16;
-			msgWeights[i+3] = (weight_val & byte_4)>>24;
-		}
+		msgWeights[i]   = weight_val   & byte_1;
+		msgWeights[i+1] = (weight_val  & byte_2)>>8;
+		msgWeights[i+2] = (weight_val  & byte_3)>>16;
+		msgWeights[i+3] = ((weight_val & byte_4) | (0x80000000))>>24;
+	}else{
+		msgWeights[i]   = weight_val  & byte_1;
+		msgWeights[i+1] = (weight_val & byte_2)>>8;
+		msgWeights[i+2] = (weight_val & byte_3)>>16;
+		msgWeights[i+3] = (weight_val & byte_4)>>24;
 	}
 }
 
@@ -262,7 +260,6 @@ void OL_updateRAMcounter(OL_LAYER_STRUCT * layer){
 			layer->freeRAMbytes = tmp;
 		}
 	}
-
 }
 
 

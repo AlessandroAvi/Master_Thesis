@@ -185,7 +185,90 @@ def plot_STM_confMatrix(vowel_guess, vowel_true, algorithm):
 
     return conf_matr
 
+
+
+
+
+def UART_receiveBiases():
+
+    rx2 = serialInst.read(8*4)   # save received message
+
+    i = train_iter
+
+    biases_stm[i,0] = i     # save number of iteration in the container 
+
+    mask_128 = 0b10000000   # mask for the sign
+    mask_64  = 0b01111111   # mask for the value
+    n = 0
+    l = 1
+    while n < 30:
+        if((rx2[n+3] & mask_128) == 128):
+            tmp = np.int(rx2[n+3]) & mask_64
+            biases_stm[i,l] = -((tmp<<24)    | (rx2[n+2]<<16) | (rx2[n+1]<<8)  | rx2[n])/1000000000
+        else:
+            biases_stm[i,l] = ((rx2[n+3]<<24) | (rx2[n+2]<<16) | (rx2[n+1]<<8) | rx2[n])/1000000000
+
+        n += 4
+        l += 1
+
+    # write everything down at step 700
+    if(train_iter==train_max-1):
+        with open(BIAS_SAVE_PATH,'w') as data_file:
+            for q in range(0, biases_stm.shape[0]):
+                data_file.write( str(biases_stm[q,0])+','+
+                                str(biases_stm[q,1])+','+str(biases_stm[q,2])+','+
+                                str(biases_stm[q,3])+','+str(biases_stm[q,4])+','+
+                                str(biases_stm[q,5])+','+str(biases_stm[q,6])+','+
+                                str(biases_stm[q,7])+','+str(biases_stm[q,8])+'\n')
+
+        print(' ** STM BIASES WRITTEN ON TXT FILE ')
+
+
+
+def UART_receiveWeights():
  
+    rx3 = serialInst.read(10*8*4)   # save received message
+
+    i = train_iter
+
+    weights_stm[i,0] = i     # save number of iteration in the container 
+
+    mask_128 = 0b10000000   # mask for the sign
+    mask_64  = 0b01111111   # mask for the value
+    n = 0
+    l = 1
+
+    # cycle over the 4 bytes
+    while n < 30:
+
+        # if the higest byte of interest has the MSB 1 -> is a negative number 
+        if((rx3[n+3] & mask_128) == 128):
+            tmp = np.int(rx3[n+3]) & mask_64
+            weights_stm[i,l] = -((tmp<<24)    | (rx3[n+2]<<16) | (rx3[n+1]<<8)  | rx3[n])/1000000000
+        else:
+            weights_stm[i,l] = ((rx3[n+3]<<24) | (rx3[n+2]<<16) | (rx3[n+1]<<8) | rx3[n])/1000000000
+        n += 4
+        l += 1
+
+    # write everything down at step 700
+    if(train_iter==train_max-1):
+
+        with open(WEIGHTS_SAVE_PATH,'w') as data_file: # open file
+
+            for q in range(0, weights_stm.shape[0]):        # loop over height
+                for p in range(0,  weights_stm.shape[1]):   # loop over width
+                    data_file.write(str(weights_stm[q,p]))
+                    if(p!= weights_stm.shape[1]-1):
+                        data_file.write(',')
+                    else:
+                        data_file.write('\n')
+
+        print(' ** STM WEIGHTS WRITTEN ON TXT FILE ')
+
+
+
+
+
 
 #---------------------------------------------------------------
 #   __  __    _    ___ _   _ 
@@ -196,6 +279,9 @@ def plot_STM_confMatrix(vowel_guess, vowel_true, algorithm):
 
 
 ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
+BIAS_SAVE_PATH = ROOT_PATH + '\\Debug_files\\bias_stm.txt'
+WEIGHTS_SAVE_PATH = ROOT_PATH + '\\Debug_files\\weight_stm.txt'
+
 
 print('\n\n\n')
 print('---------------------------------------------------------------------------------------')
@@ -292,7 +378,7 @@ vowel_guess     = np.zeros(test_max)    # int (later translated in char)
 vowel_true      = []                    # char
 
 biases_stm = np.zeros([train_max,9])
-y_frozen_stm = np.zeros([train_max, 129])
+weights_stm = np.zeros([train_max, 81])
 
 
 # Containers of the algorithm names
@@ -340,43 +426,10 @@ while (train_iter + test_iter)<send_max-1:
 
         if(train_iter<=769):
             ###########################################
-            # RECEIVE THE BIAS FROM STM
-            # save bias in the array
-            rx2 = serialInst.read(32) 
-
-            i= train_iter
-            # save each value inside the correct place
-            biases_stm[i,0] = i
-
-            
-            mask_128 = 0b10000000
-            mask_64  = 0b01111111
-            n = 0
-            l = 1
-            while n < 30:
-                if((rx2[n+3] & mask_128) == 128):
-                    tmp = np.int(rx2[n+3]) & mask_64
-                    biases_stm[i,l] = -((tmp<<24)    | (rx2[n+2]<<16) | (rx2[n+1]<<8)  | rx2[n])/1000000000
-                else:
-                    biases_stm[i,l] = ((rx2[n+3]<<24) | (rx2[n+2]<<16) | (rx2[n+1]<<8) | rx2[n])/1000000000
-
-                n += 4
-                l += 1
-
-            # write everything down at step 700
-            if(train_iter==train_max-1):
-                BIAS_SAVE_PATH = ROOT_PATH + '\\bias_stm.txt'
-                with open(BIAS_SAVE_PATH,'w') as data_file:
-                    for q in range(0, biases_stm.shape[0]):
-                        data_file.write( str(biases_stm[q,0])+','+
-                                        str(biases_stm[q,1])+','+str(biases_stm[q,2])+','+
-                                        str(biases_stm[q,3])+','+str(biases_stm[q,4])+','+
-                                        str(biases_stm[q,5])+','+str(biases_stm[q,6])+','+
-                                        str(biases_stm[q,7])+','+str(biases_stm[q,8])+'\n')
-
-                print('STM BIASES WRITTEN ON TXT FILE ')
-
+            UART_receiveBiases()
+            UART_receiveWeights()
             ###########################################
+                        
 
         train_iter+=1
     else:
