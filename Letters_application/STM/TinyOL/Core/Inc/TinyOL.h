@@ -94,6 +94,12 @@ typedef struct {
 //	                      DEFINES
 // ******************************
 
+#define byte_1   		0x000000FF
+#define byte_2   		0x0000FF00
+#define byte_3   		0x00FF0000
+#define byte_4   		0xFF000000
+#define byte_4   		0xFF000000
+
 #define LOW_BYTE   		(uint8_t)0x00FF
 #define BUFF_LEN        			128
 #define LETTER_LEN         			  1
@@ -109,6 +115,7 @@ char msgRxLett[LETTER_LEN];		// Container for receiving the label
 uint8_t msgInfo[INFO_LEN];		// Container for sending the results of inference to the pc
 uint8_t msgBias[8*4];
 uint8_t msgWeights[10*8*4];
+uint8_t msgFrozenOut[128*4];
 int numeri[10*8];
 
 
@@ -161,4 +168,5 @@ void sendBiasUART(OL_LAYER_STRUCT * layer, int j, int i, uint8_t * msgBias);
 
 void sendWeightsUART(OL_LAYER_STRUCT * layer, int j, int i, uint8_t * msgWeights);
 
+void sendFrozenOutUART(OL_LAYER_STRUCT * layer, int j, int i, float * out_data, uint8_t * msgFrozenOut);
 

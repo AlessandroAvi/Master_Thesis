@@ -504,6 +504,6 @@ training_labels = np.hstack(( training_labels, M_label))
 # Shuffle the matrix and the label
 training_dataset, training_labels = shuffleDataset(training_dataset, training_labels)
 # Save the dataset in a txt file
-myWrite.save_dataset(training_dataset, training_labels, 'training_file')
+myWrite.save_dataset(training_dataset, training_labels, 'training_file_original')
 print()
 print('Dataset for controlled training: saved')

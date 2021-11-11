@@ -268,6 +268,49 @@ def UART_receiveWeights():
 
 
 
+def UART_receiveFrozenOut():
+ 
+    rx4 = serialInst.read(128*4)   # save received message
+
+    i = train_iter
+
+    frozenOut_stm[i,0] = i     # save number of iteration in the container 
+
+    mask_128 = 0b10000000   # mask for the sign
+    mask_64  = 0b01111111   # mask for the value
+    n = 0
+    l = 1
+
+    # cycle over the 4 bytes
+    while n < (128*4)-2:
+
+        # if the higest byte of interest has the MSB 1 -> is a negative number 
+        if((rx4[n+3] & mask_128) == 128):
+            tmp = np.int(rx4[n+3]) & mask_64
+            frozenOut_stm[i,l] = -((tmp<<24)    | (rx4[n+2]<<16) | (rx4[n+1]<<8)  | rx4[n])/1000000
+        else:
+            frozenOut_stm[i,l] = ((rx4[n+3]<<24) | (rx4[n+2]<<16) | (rx4[n+1]<<8) | rx4[n])/1000000
+        n += 4
+        l += 1
+
+    # write everything down at step 700
+    if(train_iter==train_max-1):
+
+        with open(FROZENOUT_SAVE_PATH,'w') as data_file: # open file
+
+            for q in range(0, frozenOut_stm.shape[0]):        # loop over height
+                for p in range(0,  frozenOut_stm.shape[1]):   # loop over width
+                    data_file.write(str(frozenOut_stm[q,p]))
+                    if(p!= frozenOut_stm.shape[1]-1):
+                        data_file.write(',')
+                    else:
+                        data_file.write('\n')
+
+        print(' ** STM FROZEN OUT WRITTEN ON TXT FILE ')
+
+
+
+
 
 
 #---------------------------------------------------------------
@@ -279,8 +322,9 @@ def UART_receiveWeights():
 
 
 ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
-BIAS_SAVE_PATH = ROOT_PATH + '\\Debug_files\\bias_stm.txt'
-WEIGHTS_SAVE_PATH = ROOT_PATH + '\\Debug_files\\weight_stm.txt'
+BIAS_SAVE_PATH      = ROOT_PATH + '\\Debug_files\\bias_stm.txt'
+WEIGHTS_SAVE_PATH   = ROOT_PATH + '\\Debug_files\\weight_stm.txt'
+FROZENOUT_SAVE_PATH = ROOT_PATH + '\\Debug_files\\frozenOut_stm.txt'
 
 
 print('\n\n\n')
@@ -377,8 +421,9 @@ OL_width        = np.zeros(test_max)    # int
 vowel_guess     = np.zeros(test_max)    # int (later translated in char)
 vowel_true      = []                    # char
 
-biases_stm = np.zeros([train_max,9])
-weights_stm = np.zeros([train_max, 81])
+biases_stm = np.zeros((train_max,9))
+weights_stm = np.zeros((train_max, 81))
+frozenOut_stm = np.zeros((train_max, 129))
 
 
 # Containers of the algorithm names
@@ -424,10 +469,11 @@ while (train_iter + test_iter)<send_max-1:
         print(f'Training, sample number:   {train_iter}/{train_max}')
         
 
-        if(train_iter<=769):
+        if(train_iter<train_max):
             ###########################################
             UART_receiveBiases()
             UART_receiveWeights()
+            UART_receiveFrozenOut()
             ###########################################
                         
 

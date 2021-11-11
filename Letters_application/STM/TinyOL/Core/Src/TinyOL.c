@@ -182,85 +182,6 @@ void OL_increaseYpredDim(OL_LAYER_STRUCT * layer){
 
 
 
-void sendBiasUART(OL_LAYER_STRUCT * layer, int j, int i, uint8_t * msgBias){
-
-#define byte_1   		0x000000FF
-#define byte_2   		0x0000FF00
-#define byte_3   		0x00FF0000
-#define byte_4   		0xFF000000
-#define byte_4   		0xFF000000
-
-	msgBias[i]   = 0;
-	msgBias[i+1] = 0;
-	msgBias[i+2] = 0;
-	msgBias[i+3] = 0;
-
-	if(j<=layer->WIDTH){
-		int bias_val = layer->biases[j]*1000000000;
-
-		if(bias_val<0){
-			bias_val = -bias_val;
-
-			msgBias[i]   = bias_val   & byte_1;
-			msgBias[i+1] = (bias_val  & byte_2)>>8;
-			msgBias[i+2] = (bias_val  & byte_3)>>16;
-			msgBias[i+3] = ((bias_val & byte_4) | (0x80000000))>>24;
-		}else{
-			msgBias[i]   = bias_val  & byte_1;
-			msgBias[i+1] = (bias_val & byte_2)>>8;
-			msgBias[i+2] = (bias_val & byte_3)>>16;
-			msgBias[i+3] = (bias_val & byte_4)>>24;
-		}
-	}
-}
-
-
-
-
-
-void sendWeightsUART(OL_LAYER_STRUCT * layer, int j, int i, uint8_t * msgWeights){
-
-#define byte_1   		0x000000FF
-#define byte_2   		0x0000FF00
-#define byte_3   		0x00FF0000
-#define byte_4   		0xFF000000
-#define byte_4   		0xFF000000
-
-	msgWeights[i]   = 0;
-	msgWeights[i+1] = 0;
-	msgWeights[i+2] = 0;
-	msgWeights[i+3] = 0;
-
-	int weight_val = layer->weights[j]*1000000000;
-
-	if(weight_val<0){
-		weight_val = -weight_val;
-
-		msgWeights[i]   = weight_val   & byte_1;
-		msgWeights[i+1] = (weight_val  & byte_2)>>8;
-		msgWeights[i+2] = (weight_val  & byte_3)>>16;
-		msgWeights[i+3] = ((weight_val & byte_4) | (0x80000000))>>24;
-	}else{
-		msgWeights[i]   = weight_val  & byte_1;
-		msgWeights[i+1] = (weight_val & byte_2)>>8;
-		msgWeights[i+2] = (weight_val & byte_3)>>16;
-		msgWeights[i+3] = (weight_val & byte_4)>>24;
-	}
-}
-
-
-
-
-
-void OL_updateRAMcounter(OL_LAYER_STRUCT * layer){
-
-	if( (layer->counter>100) && (layer->counter%5==0) ){
-		int tmp = FreeMem();
-		if(tmp < layer->freeRAMbytes){
-			layer->freeRAMbytes = tmp;
-		}
-	}
-}
 
 
 /* Resets the values that are stored in the struct as 'info parameters'  */
@@ -658,6 +579,110 @@ void OL_train(OL_LAYER_STRUCT * layer, float * input, char *letter){
 
 
 
+
+// #################################################################################
+// #################################################################################
+// #################################################################################
+
+
+
+
+
+
+
+
+
+void sendBiasUART(OL_LAYER_STRUCT * layer, int j, int i, uint8_t * msgBias){
+
+	msgBias[i]   = 0;
+	msgBias[i+1] = 0;
+	msgBias[i+2] = 0;
+	msgBias[i+3] = 0;
+
+	if(j<=layer->WIDTH){
+		int bias_val = layer->biases[j]*1000000000;
+
+		if(bias_val<0){
+			bias_val = -bias_val;
+
+			msgBias[i]   = bias_val   & byte_1;
+			msgBias[i+1] = (bias_val  & byte_2)>>8;
+			msgBias[i+2] = (bias_val  & byte_3)>>16;
+			msgBias[i+3] = ((bias_val & byte_4) | (0x80000000))>>24;
+		}else{
+			msgBias[i]   = bias_val  & byte_1;
+			msgBias[i+1] = (bias_val & byte_2)>>8;
+			msgBias[i+2] = (bias_val & byte_3)>>16;
+			msgBias[i+3] = (bias_val & byte_4)>>24;
+		}
+	}
+}
+
+
+
+
+void sendWeightsUART(OL_LAYER_STRUCT * layer, int j, int i, uint8_t * msgWeights){
+
+	msgWeights[i]   = 0;
+	msgWeights[i+1] = 0;
+	msgWeights[i+2] = 0;
+	msgWeights[i+3] = 0;
+
+	int weight_val = layer->weights[j]*1000000000;
+
+	if(weight_val<0){
+		weight_val = -weight_val;
+
+		msgWeights[i]   = weight_val   & byte_1;
+		msgWeights[i+1] = (weight_val  & byte_2)>>8;
+		msgWeights[i+2] = (weight_val  & byte_3)>>16;
+		msgWeights[i+3] = ((weight_val & byte_4) | (0x80000000))>>24;
+	}else{
+		msgWeights[i]   = weight_val  & byte_1;
+		msgWeights[i+1] = (weight_val & byte_2)>>8;
+		msgWeights[i+2] = (weight_val & byte_3)>>16;
+		msgWeights[i+3] = (weight_val & byte_4)>>24;
+	}
+}
+
+
+
+void sendFrozenOutUART(OL_LAYER_STRUCT * layer, int j, int i, float * out_data, uint8_t * msgFrozenOut){
+
+	msgFrozenOut[i]   = 0;
+	msgFrozenOut[i+1] = 0;
+	msgFrozenOut[i+2] = 0;
+	msgFrozenOut[i+3] = 0;
+
+	int frozen_val = out_data[j]*1000000;
+
+	if(frozen_val<0){
+		frozen_val = -frozen_val;
+
+		msgFrozenOut[i]   = frozen_val   & byte_1;
+		msgFrozenOut[i+1] = (frozen_val  & byte_2)>>8;
+		msgFrozenOut[i+2] = (frozen_val  & byte_3)>>16;
+		msgFrozenOut[i+3] = ((frozen_val & byte_4) | (0x80000000))>>24;
+	}else{
+		msgFrozenOut[i]   = frozen_val  & byte_1;
+		msgFrozenOut[i+1] = (frozen_val & byte_2)>>8;
+		msgFrozenOut[i+2] = (frozen_val & byte_3)>>16;
+		msgFrozenOut[i+3] = (frozen_val & byte_4)>>24;
+	}
+}
+
+
+
+
+void OL_updateRAMcounter(OL_LAYER_STRUCT * layer){
+
+	if( (layer->counter>100) && (layer->counter%5==0) ){
+		int tmp = FreeMem();
+		if(tmp < layer->freeRAMbytes){
+			layer->freeRAMbytes = tmp;
+		}
+	}
+}
 
 
 

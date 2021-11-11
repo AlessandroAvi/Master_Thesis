@@ -278,27 +278,29 @@ int main(void)
 
 		  HAL_UART_Transmit(&huart2, (uint8_t*)msgInfo, INFO_LEN, 100);		// Send message
 
-		  // Transmit to UART the value of the biases
-		  sendBiasUART(&OL_layer, 0, 0, msgBias);   // send bias 1
-		  sendBiasUART(&OL_layer, 1, 4, msgBias);   // send bias 2
-		  sendBiasUART(&OL_layer, 2, 8, msgBias);   // send bias 3
-		  sendBiasUART(&OL_layer, 3, 12, msgBias);  // send bias 4
-		  sendBiasUART(&OL_layer, 4, 16, msgBias);  // send bias 5
-		  sendBiasUART(&OL_layer, 5, 20, msgBias);  // send bias 6
-		  sendBiasUART(&OL_layer, 6, 24, msgBias);  // send bias 7
-		  sendBiasUART(&OL_layer, 7, 28, msgBias);  // send bias 8
 
+
+
+		  // Transmit to UART the value of the biases
+		  for(int k=0; k<8; k++){
+			  sendBiasUART(&OL_layer, k, k*4, msgBias);   // send bias 1
+		  }
 
 		  // Transmit to UART the value of random weights
 		  for(int k=0; k<10*8; k++){
 			  sendWeightsUART(&OL_layer, numeri[k], k*4, msgWeights);   // send weight
 		  }
 
+		  // Transmit to UART the value of frozen output
+		  for(int k=0; k<128; k++){
+			  sendFrozenOutUART(&OL_layer, k, k*4, out_data, msgFrozenOut);
+		  }
+
 		  if(OL_layer.counter <= 770){
 			  HAL_Delay(15); 			// Helps the code to not get stuck
 			  HAL_UART_Transmit(&huart2, (uint8_t*)msgBias, 32, 100);		// Send message
-
 			  HAL_UART_Transmit(&huart2, (uint8_t*)msgWeights, 10*8*4, 100);		// Send message
+			  HAL_UART_Transmit(&huart2, (uint8_t*)msgFrozenOut, 128*4, 100);		// Send message
 		  }
 
 

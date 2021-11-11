@@ -3,10 +3,22 @@ import os
 import pandas as pd
 import numpy as np
 
+
+
+
+# PUT HERE THE VALUE YOU WANT TO BE REMOVED FROM THE DATASET
+to_remove = 551
+
+
+
+
+
 ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
 
 
-DATASET_PATH = ROOT_PATH + '\\Letter_dataset\\Clean_dataset\\training_file.txt'
+DATASET_PATH   = ROOT_PATH + '\\Letter_dataset\\Clean_dataset\\training_file_original.txt'
+DATASET_PATH_2 = ROOT_PATH + '\\Letter_dataset\\Clean_dataset\\training_file.txt'
+
 
 columnNames = ['acquisition','letter','ax','ay','az']
 
@@ -41,16 +53,12 @@ print()
 subtractor=0
 
 
-with open(DATASET_PATH,'w') as data_file:
+with open(DATASET_PATH_2,'w') as data_file:
     for i in range(0, dtensor.shape[0]):
-        if(i==582):
+        if(i==to_remove ):
             subtractor += 1
             continue
         for j in range(0, int(dtensor.shape[1]/3)):
-
-
-
-
             data_file.write( str(i+1-subtractor)+','+str(labels[i])+','+str(int(dtensor[i,j]))+','+str(int(dtensor[i,j+200]))+','+str(int(dtensor[i,j+400]))+'\n')
 
 
