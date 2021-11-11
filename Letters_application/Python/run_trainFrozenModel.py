@@ -87,7 +87,7 @@ def plot_TestAccuracy(data, label_lett, model, letters):
     tot_ary    = np.zeros(5)
     bar_values = np.zeros(6) 
         
-    label_soft = myTest.lettToSoft(label_lett, letters) 
+
 
     total = data.shape[0]
     letter_labels = ['A','E','I','O','U','Model']
@@ -95,14 +95,17 @@ def plot_TestAccuracy(data, label_lett, model, letters):
     colors = [blue2, blue2, blue2, blue2, blue2, 'steelblue']
 
     for i in range(0, total):
+        current_label = label_lett[i]
+        label_soft = myTest.letterToSoftmax(current_label, letter_labels[:-1]) 
+
         pred = model.predict(data[i,:].reshape(1,data.shape[1]))
 
         max_i_true = -1 # reset
         max_i_pred = -1 # reset
 
         # Find the max iter for both true label and prediction
-        if(np.amax(label_soft[i,:]) != 0):
-            max_i_true = np.argmax(label_soft[i,:])
+        if(np.amax(label_soft) != 0):
+            max_i_true = np.argmax(label_soft)
             
         if(np.amax(pred[0,:]) != 0):
             max_i_pred = np.argmax(pred[0,:])
@@ -222,9 +225,9 @@ model.summary()
 
 
 ## TRAINING OF THE KERAS MODEL
-train_hist = model.fit(TF_data, myTest.lettToSoft(TF_label, vowels), epochs=epochs, batch_size=batch_size, validation_split=0.1 , verbose=2)
+train_hist = model.fit(TF_data, myTest.letterToSoft_all(TF_label, vowels), epochs=epochs, batch_size=batch_size, validation_split=0.1 , verbose=2)
 print('\nEvaluation:')
-results = model.evaluate(TF_data_test, myTest.lettToSoft(TF_label_test, vowels), verbose=2)
+results = model.evaluate(TF_data_test, myTest.letterToSoft_all(TF_label_test, vowels), verbose=2)
 
 
 

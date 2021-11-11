@@ -387,6 +387,8 @@ B_label = B_label_0
 B_label = np.hstack(( B_label, B_label_1))
 B_label = np.hstack(( B_label, B_label_2))
 B_label = np.hstack(( B_label, B_label_3))
+B_data[183,:] = B_data[182,:]
+B_label[183] = B_label[182]
 
 
 # Stick together in a single matrix all the data related to letter R

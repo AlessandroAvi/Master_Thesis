@@ -4,7 +4,7 @@ import numpy as np
 
 
 
-def lettToSoft(ary, labels):
+def letterToSoftmax(current_label, known_labels):
     """ Transforms a letter char in a one hot encoded array
 
     This functions transforms a character of a letter (that is part of the labels in the model)
@@ -26,14 +26,26 @@ def lettToSoft(ary, labels):
         X is the number of samples in the dataset, y is the number of labels known up to that moment.
     """
 
-    ret_ary = np.zeros([len(ary), len(labels)])
-    
-    for i in range(0, len(ary)):
-        for j in range(0, len(labels)):
-            if(ary[i]==labels[j]):
-                ret_ary[i,j] = 1
+    ret_ary = np.zeros(len(known_labels))
+                       
+    for i in range(0, len(known_labels)):
+        if(current_label == known_labels[i]):
+            ret_ary[i] = 1
 
-    return ret_ary   
+    return ret_ary  
+
+
+
+def letterToSoft_all(labels_matr, known_labels):
+
+    ret_matr = np.zeros((len(labels_matr), len(known_labels)))
+
+    for i in range(0, len(labels_matr)):
+        for j in range(0, len(known_labels)):
+            if(labels_matr[i] == known_labels[j]):
+                ret_matr[i,j] = 1
+
+    return ret_matr
 
 
 
@@ -66,7 +78,8 @@ def test_OLlayer(model, test_data, test_label):
 
     for i in range(0, n_samples):
        
-        label_soft = lettToSoft(test_label,model.label) 
+        current_label = test_label[i]
+        label_soft = letterToSoftmax(current_label, model.label)
 
         ML_out = model.ML_frozen.predict(test_data[i,:].reshape(1,test_data.shape[1]))    # frozen model prediction
         y_pred = model.predict(ML_out[0,:])                                               # OL layer prediction
@@ -75,8 +88,8 @@ def test_OLlayer(model, test_data, test_label):
         max_i_pred = -1 # reset
         
         # Find the max iter for both true label and prediction
-        if(np.amax(label_soft[i,:]) != 0):
-            max_i_true = np.argmax(label_soft[i,:])
+        if(np.amax(label_soft) != 0):
+            max_i_true = np.argmax(label_soft)
             
         if(np.amax(y_pred) != 0):
             max_i_pred = np.argmax(y_pred)

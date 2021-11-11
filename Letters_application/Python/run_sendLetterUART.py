@@ -292,6 +292,7 @@ vowel_guess     = np.zeros(test_max)    # int (later translated in char)
 vowel_true      = []                    # char
 
 biases_stm = np.zeros([train_max,9])
+y_frozen_stm = np.zeros([train_max, 129])
 
 
 # Containers of the algorithm names
@@ -337,47 +338,47 @@ while (train_iter + test_iter)<send_max-1:
         print(f'Training, sample number:   {train_iter}/{train_max}')
         
 
+        if(train_iter<=769):
+            ###########################################
+            # RECEIVE THE BIAS FROM STM
+            # save bias in the array
+            rx2 = serialInst.read(32) 
 
-        ###########################################
-        # save bias in the array
-        rx2 = serialInst.read(32) 
+            i= train_iter
+            # save each value inside the correct place
+            biases_stm[i,0] = i
 
-        i= train_iter
-        # save each value inside the correct place
-        biases_stm[i,0] = i
+            
+            mask_128 = 0b10000000
+            mask_64  = 0b01111111
+            n = 0
+            l = 1
+            while n < 30:
+                if((rx2[n+3] & mask_128) == 128):
+                    tmp = np.int(rx2[n+3]) & mask_64
+                    biases_stm[i,l] = -((tmp<<24)    | (rx2[n+2]<<16) | (rx2[n+1]<<8)  | rx2[n])/1000000000
+                else:
+                    biases_stm[i,l] = ((rx2[n+3]<<24) | (rx2[n+2]<<16) | (rx2[n+1]<<8) | rx2[n])/1000000000
 
-        
-        mask_128 = 0b10000000
-        mask_64  = 0b01111111
-        n = 0
-        l = 1
-        while n < 30:
-            if((rx2[n+3] & mask_128) == 128):
-                tmp = np.int(rx2[n+3]) & mask_64
-                biases_stm[i,l] = (-((tmp<<24)  | (rx2[n+2]<<16)  | (rx2[n+1]<<8)  | rx2[n]))/1000000000
-            else:
-                biases_stm[i,l] = ((rx2[n+3]<<24)  | (rx2[n+2]<<16)  | (rx2[n+1]<<8)  | rx2[n])/1000000000
+                n += 4
+                l += 1
 
-            n += 4
-            l += 1
+            # write everything down at step 700
+            if(train_iter==train_max-1):
+                BIAS_SAVE_PATH = ROOT_PATH + '\\bias_stm.txt'
+                with open(BIAS_SAVE_PATH,'w') as data_file:
+                    for q in range(0, biases_stm.shape[0]):
+                        data_file.write( str(biases_stm[q,0])+','+
+                                        str(biases_stm[q,1])+','+str(biases_stm[q,2])+','+
+                                        str(biases_stm[q,3])+','+str(biases_stm[q,4])+','+
+                                        str(biases_stm[q,5])+','+str(biases_stm[q,6])+','+
+                                        str(biases_stm[q,7])+','+str(biases_stm[q,8])+'\n')
 
-        # write everything down at step 700
-        if(train_iter==train_max-1):
-            BIAS_SAVE_PATH = ROOT_PATH + '\\bias_stm.txt'
-            with open(BIAS_SAVE_PATH,'w') as data_file:
-                for q in range(0, biases_stm.shape[0]):
-                    data_file.write( str(biases_stm[q,0])+','+
-                                     str(biases_stm[q,1])+','+str(biases_stm[q,2])+','+
-                                     str(biases_stm[q,3])+','+str(biases_stm[q,4])+','+
-                                     str(biases_stm[q,5])+','+str(biases_stm[q,6])+','+
-                                     str(biases_stm[q,7])+','+str(biases_stm[q,8])+'\n')
+                print('STM BIASES WRITTEN ON TXT FILE ')
 
-            print('STM BIASES WRITTEN ON TXT FILE ')
-        train_iter += 1
+            ###########################################
 
-        ###########################################
-
-
+        train_iter+=1
     else:
         # Save the data in the containers 
         method                     = rx[0]

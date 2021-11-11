@@ -201,19 +201,56 @@ void sendBiasUART(OL_LAYER_STRUCT * layer, int j, int i, uint8_t * msgBias){
 		if(bias_val<0){
 			bias_val = -bias_val;
 
-			msgBias[i]   = bias_val & byte_1;
-			msgBias[i+1] = (bias_val & byte_2)>>8;
-			msgBias[i+2] = (bias_val & byte_3)>>16;
+			msgBias[i]   = bias_val   & byte_1;
+			msgBias[i+1] = (bias_val  & byte_2)>>8;
+			msgBias[i+2] = (bias_val  & byte_3)>>16;
 			msgBias[i+3] = ((bias_val & byte_4) | (0x80000000))>>24;
-			msgBias[i+4] = ((bias_val & byte_4) | (0x80000000))>>24;
 		}else{
-			msgBias[i]   = bias_val & byte_1;
+			msgBias[i]   = bias_val  & byte_1;
 			msgBias[i+1] = (bias_val & byte_2)>>8;
 			msgBias[i+2] = (bias_val & byte_3)>>16;
 			msgBias[i+3] = (bias_val & byte_4)>>24;
 		}
 	}
 }
+
+
+
+
+
+void sendWeightsUART(OL_LAYER_STRUCT * layer, int j, int i, uint8_t * msgWeights){
+
+#define byte_1   		0x000000FF
+#define byte_2   		0x0000FF00
+#define byte_3   		0x00FF0000
+#define byte_4   		0xFF000000
+#define byte_4   		0xFF000000
+
+	msgWeights[i]   = 0;
+	msgWeights[i+1] = 0;
+	msgWeights[i+2] = 0;
+	msgWeights[i+3] = 0;
+
+	if(j<=layer->WIDTH){
+		int weight_val = layer->weights[j]*1;
+
+		if(pred_val<0){
+			weight_val = -weight_val;
+
+			msgWeights[i]   = weight_val   & byte_1;
+			msgWeights[i+1] = (weight_val  & byte_2)>>8;
+			msgWeights[i+2] = (weight_val  & byte_3)>>16;
+			msgWeights[i+3] = ((weight_val & byte_4) | (0x80000000))>>24;
+		}else{
+			msgWeights[i]   = weight_val  & byte_1;
+			msgWeights[i+1] = (weight_val & byte_2)>>8;
+			msgWeights[i+2] = (weight_val & byte_3)>>16;
+			msgWeights[i+3] = (weight_val & byte_4)>>24;
+		}
+	}
+}
+
+
 
 
 
@@ -288,6 +325,10 @@ void OL_softmax(OL_LAYER_STRUCT * layer, float * y_pred){
 
 	int size = layer->WIDTH;
     float m, sum, constant;
+
+	  if(((layer->counter-1) % 10 == 0) && (layer->counter >= 100)){
+		  layer->batch_size = 8;
+	  }
 
     m = y_pred[0];
     for(int i =0; i<size; i++){
@@ -416,6 +457,7 @@ void OL_train(OL_LAYER_STRUCT * layer, float * input, char *letter){
 
 		for(int j=j_start; j<w; j++){
 			cost[j] = layer->y_pred[j]-layer->y_true[j];			    // Compute the cost
+			if (cost[j]==0) continue;									// If nothing to update skip loop
 
 			for(int i=0; i<h; i++){
 				layer->weights[j*h+i] -= cost[j]*input[i]*layer->l_rate;	// Update the weights
@@ -442,6 +484,7 @@ void OL_train(OL_LAYER_STRUCT * layer, float * input, char *letter){
 
 		for(int j=0; j<w; j++){
 			cost[j] = layer->y_pred[j]-layer->y_true[j];			// Compute the cost
+			if (cost[j]==0) continue;								// If nothing to update skip loop
 
 			for(int i=0; i<h; i++){
 				layer->weights_2[j*h+i] += cost[j]*input[i];	// Update weights
@@ -487,7 +530,8 @@ void OL_train(OL_LAYER_STRUCT * layer, float * input, char *letter){
 		OL_softmax(layer, layer->y_pred);
 
 		for(int j=0; j<w; j++){
-			cost[j] = layer->y_pred[j]-layer->y_true[j];		  // Cost computation
+			cost[j] = layer->y_pred[j]-layer->y_true[j];		  	// Cost computation
+			if (cost[j]==0) continue;								// If nothing to update skip loop
 
 			// Back propagation on TW
 			for(int i=0; i<h; i++){

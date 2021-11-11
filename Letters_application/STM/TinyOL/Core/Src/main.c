@@ -62,7 +62,7 @@
 ai_float in_data[AI_NETWORK_IN_1_SIZE];
 ai_float out_data[AI_NETWORK_OUT_1_SIZE];
 
-// Flags for enabling/diabling the prediction
+// Flags for enabling/disabling the prediction
 int enable_inference = 0;
 uint8_t BlueButton = 0;
 char letter[1];
@@ -270,17 +270,21 @@ int main(void)
 		  HAL_UART_Transmit(&huart2, (uint8_t*)msgInfo, INFO_LEN, 100);		// Send message
 
 		  // Transmit to UART the value of the biases
-		  sendBiasUART(&OL_layer, 0, 0, msgBias);   // send weight 1
-		  sendBiasUART(&OL_layer, 1, 4, msgBias);   // send weight 2
-		  sendBiasUART(&OL_layer, 2, 8, msgBias);   // send weight 3
-		  sendBiasUART(&OL_layer, 3, 12, msgBias);  // send weight 4
-		  sendBiasUART(&OL_layer, 4, 16, msgBias);  // send weight 5
-		  sendBiasUART(&OL_layer, 5, 20, msgBias);  // send weight 6
-		  sendBiasUART(&OL_layer, 6, 24, msgBias);  // send weight 7
-		  sendBiasUART(&OL_layer, 7, 28, msgBias);  // send weight 8
+		  sendBiasUART(&OL_layer, 0, 0, msgBias);   // send bias 1
+		  sendBiasUART(&OL_layer, 1, 4, msgBias);   // send bias 2
+		  sendBiasUART(&OL_layer, 2, 8, msgBias);   // send bias 3
+		  sendBiasUART(&OL_layer, 3, 12, msgBias);  // send bias 4
+		  sendBiasUART(&OL_layer, 4, 16, msgBias);  // send bias 5
+		  sendBiasUART(&OL_layer, 5, 20, msgBias);  // send bias 6
+		  sendBiasUART(&OL_layer, 6, 24, msgBias);  // send bias 7
+		  sendBiasUART(&OL_layer, 7, 28, msgBias);  // send bias 8
 
 
-		  if(OL_layer.counter <= 772){
+		  for(int k=0; k<10*8; k++){
+			  sendWeightsUART(&OL_layer, numeri[k], k*4, msgWeights);   // send weight
+		  }
+
+		  if(OL_layer.counter <= 770){
 			  HAL_Delay(15); 			// Helps the code to not get stuck
 			  HAL_UART_Transmit(&huart2, (uint8_t*)msgBias, 32, 100);		// Send message
 		  }
@@ -290,7 +294,7 @@ int main(void)
 		  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);	// LED toggle
 		  enable_inference = 0;						// Reset inference flag
 
-		  if(((OL_layer.counter-1) % 1 == 0) && (OL_layer.counter >= 0)){
+		  if(((OL_layer.counter-1) % 10 == 0) && (OL_layer.counter >= 100)){
 			  OL_layer.batch_size = 8;
 		  }
 	  }

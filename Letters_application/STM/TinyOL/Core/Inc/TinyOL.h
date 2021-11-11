@@ -108,6 +108,13 @@ uint8_t msgRxData[DATA_LEN];	// Container for receiving the array of data
 char msgRxLett[LETTER_LEN];		// Container for receiving the label
 uint8_t msgInfo[INFO_LEN];		// Container for sending the results of inference to the pc
 uint8_t msgBias[32];
+uint8_t msgWeights[10*8*4];
+uint8_t numeri[10*8] = {46,13,107,3,57,65,127,81,89,70,143,239,142,158,207,189,172,230,156,208,374,359,375,371,
+		  303,  298,  350,  257,  349,  333,  402,  502,  485,  461,  489,  479,
+		  454,  508,  485,  480,  527,  565,  614,  517,  528,  613,  625,  623,
+		  587,  521,  712,  742,  685,  746,  759,  747,  754,  702,  653,  640,
+		  775,  809,  798,  853,  804,  840,  828,  788,  890,  819,  906, 1019,
+		  911, 1005, 1016,  953, 1016,  987,  961, 1023};
 
 
 
