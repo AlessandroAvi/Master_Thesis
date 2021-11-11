@@ -121,8 +121,8 @@ def debug_confrontBias(numero, bias_stm, bias_pc, label):
         
 def debug_confrontWeights(numero, weight_stm, weight_pc, vec, selected_w):
 
-    vec_weig_stm = weight_stm[numero,vec]
-    vec_weig_pc  = weight_pc[numero,vec]
+    vec_weig_stm = weight_stm[numero,:]
+    vec_weig_pc  = weight_pc[numero,:]
     
     col_OK    = '\033[92m' #GREEN
     col_WARN  = '\033[93m' #YELLOW
@@ -132,11 +132,12 @@ def debug_confrontWeights(numero, weight_stm, weight_pc, vec, selected_w):
     print(f'Iteration number {numero}')
     print('n weight')
 
-    for i in range(0, len(vec)):
+    for q in range(0, len(vec)):
+        i = vec[q]
         if(vec_weig_pc[i]>0):
-            print(f'  {selected_w[i]}               {vec_weig_pc[i]:.11f}       PC')
-        else:
             print(f'  {selected_w[i]}              {vec_weig_pc[i]:.11f}       PC')
+        else:
+            print(f'  {selected_w[i]}             {vec_weig_pc[i]:.11f}       PC')
 
         if(vec_weig_stm[i]>0):
             print(f'                  {vec_weig_stm[i]:.11f}       STM')
@@ -152,7 +153,7 @@ def debug_confrontWeights(numero, weight_stm, weight_pc, vec, selected_w):
             else:
                 print(f'\033[1m{col_OK}                 {(vec_weig_stm[i]-vec_weig_pc[i]):.11f}       difference{col_RESET}\033[0m ')
         else:
-            if(vec_weig_stm[i]-vec_weig_pc[vec[i]]>0):
+            if((vec_weig_stm[i]-vec_weig_pc[i])>0):
                 print(f'\033[1m{col_FAIL}                  {(vec_weig_stm[i]-vec_weig_pc[i]):.11f}       difference{col_RESET}\033[0m ')
             else:
                 print(f'\033[1m{col_FAIL}                 {(vec_weig_stm[i]-vec_weig_pc[i]):.11f}       difference{col_RESET}\033[0m ')
@@ -194,7 +195,7 @@ def debug_loadBiasSMT():
 def debug_loadWeightsSTM():
     columnNames = ['acquisition','w0','w1','w2','w3','w4','w5','w6','w7','w8','w9','w10','w11','w12','w13','w14','w15','w16','w17','w18','w19','w20','w21','w22','w23','w24','w25','w26','w27','w28','w29','w30','w31','w32','w33','w34','w35','w36','w37','w38','w39','w40','w41','w42','w43','w44','w45','w46','w47','w48','w49','w50','w51','w52','w53','w54','w55','w56','w57','w58','w59','w60','w61','w62','w63','w64','w65','w66','w67','w68','w69','w70','w71','w72','w73','w74','w75','w76','w77','w78','w79']
 
-    dataset = pd.read_csv(STM_BIAS_PATH,header = None, names=columnNames,na_values=',') 
+    dataset = pd.read_csv(STM_WEIGHT_PATH,header = None, names=columnNames,na_values=',') 
 
     weight_stm = np.empty([770,80])
 

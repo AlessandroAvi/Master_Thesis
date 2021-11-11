@@ -239,7 +239,7 @@ def UART_receiveWeights():
     l = 1
 
     # cycle over the 4 bytes
-    while n < 30:
+    while n < 10*8*4-2:
 
         # if the higest byte of interest has the MSB 1 -> is a negative number 
         if((rx3[n+3] & mask_128) == 128):
