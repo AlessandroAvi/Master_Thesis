@@ -10,6 +10,8 @@ STM_WEIGHT_PATH  = ROOT_PATH + '\\Debug_files\\weight_stm.txt'
 STM_BIAS_PATH    = ROOT_PATH + '\\Debug_files\\bias_stm.txt'
 STM_OUT_FROZEN   = ROOT_PATH + '\\Debug_files\\frozenOut_STM.txt'
 STM_SOFTMAX_PATH = ROOT_PATH + '\\Debug_files\\softmax_STM.txt'
+STM_PRE_SOFTMAX  = ROOT_PATH + '\\Debug_files\\preSoftmax_STM.txt'
+SAVE_PLOT_PATH   = ROOT_PATH + '\\Plots\\Debug_images\\'
 
 
 col_OK    = '\033[92m' #GREEN
@@ -23,32 +25,34 @@ col_RESET = '\033[0m'  #RESET COLOR
 
 
 
-
-
-def debug_plotHistorySoftmax(itr, softmax_pc, softmax_stm):
+def debug_plotHistoryPreSoftmax(itr, softmax_pc, softmax_stm, label):
     
     x = list(range(0,softmax_stm.shape[0]))
-    y1 = softmax_stm[:770,itr]
-    y2 = softmax_pc[:770,itr]
+    y1 = softmax_stm[:770,itr]-softmax_pc[:770,itr]
 
     plt.plot(x, y1, color='r', label='stm')
-    plt.plot(x, y2, color='g', label='pc')
     plt.xlabel("Iteration")
     plt.ylabel("Softmax value")
-    plt.title(f"Comparison of softmax number: {itr}")
+    plt.title(f"Comparison of softmax number: {itr+1} - letter {label[itr]}")
     plt.legend()
+    plt.savefig(SAVE_PLOT_PATH + 'PreSoftmaxHistory_' + label[itr] + '.png', bbox_inches='tight', dpi=200 )
+    plt.show()
+
+
+
+
+
+def debug_plotHistorySoftmax(itr, softmax_pc, softmax_stm, label):
     
-    print('The final values are:')
-    print(f'          PC:{softmax_pc[769,itr]:.11f}')
-    print(f'         STM:{softmax_stm[769,itr]:.11f}')
+    x = list(range(0,softmax_stm.shape[0]))
+    y1 = softmax_stm[:770,itr]-softmax_pc[:770,itr]
 
-    diff = np.abs(softmax_pc[769,itr]-softmax_stm[769,itr])
-    max_val = np.abs(max(softmax_pc[769,itr],softmax_stm[769,itr]))
-    if(diff/max_val > 0.05):
-        print(f'  difference:{col_FAIL}{(softmax_pc[769,itr]-softmax_stm[769,itr]):.11f}{col_RESET}')
-    else:
-        print(f'  difference:{col_OK}{(softmax_pc[769,itr]-softmax_stm[769,itr]):.11f}{col_RESET}')
-
+    plt.plot(x, y1, color='r', label='stm')
+    plt.xlabel("Iteration")
+    plt.ylabel("Softmax value")
+    plt.title(f"Comparison of softmax number: {itr+1} - letter {label[itr]}")
+    plt.legend()
+    plt.savefig(SAVE_PLOT_PATH + 'SoftmaxHistory_' + label[itr] + '.png', bbox_inches='tight', dpi=200 )
     plt.show()
 
 
@@ -71,6 +75,7 @@ def plot_frozenDifference(itr, frozenOut_pc, frozenOut_stm):
     
     print(f'The max difference is {max(y)}')
 
+    plt.savefig(SAVE_PLOT_PATH + 'FrozenDifference_' + str(itr) + '.png', bbox_inches='tight', dpi=200 )
     plt.show()
 
 
@@ -101,12 +106,13 @@ def debug_plotHistoryWeight(weight_num, weight_stm, weight_pc):
     else:
         print(f'  difference:{col_OK}{(weight_pc[769,weight_num]-weight_stm[769,weight_num]):.11f}{col_RESET}')
 
+    plt.savefig(SAVE_PLOT_PATH + 'WeightHistory_' + str(weight_num) + '.png', bbox_inches='tight', dpi=200 )
     plt.show()
 
 
 
 
-def debug_plotHistoryBias(bias_num, bias_stm, bias_pc):
+def debug_plotHistoryBias(bias_num, bias_stm, bias_pc, label):
 
     x = list(range(0,770))
     y1 = bias_stm[:770,bias_num]
@@ -116,7 +122,7 @@ def debug_plotHistoryBias(bias_num, bias_stm, bias_pc):
     plt.plot(x, y2, color='g', label='pc')
     plt.xlabel("Iteration")
     plt.ylabel("Bias value")
-    plt.title(f"Comparison of bias number {bias_num}")
+    plt.title(f"Comparison of bias number {bias_num+1} - letter {label[bias_num]}")
     plt.legend()
     
     print('The final values are:')
@@ -130,6 +136,7 @@ def debug_plotHistoryBias(bias_num, bias_stm, bias_pc):
     else:
         print(f'  difference:{col_OK}{(bias_pc[769,bias_num]-bias_stm[769,bias_num]):.11f}{col_RESET}')
 
+    plt.savefig(SAVE_PLOT_PATH + 'BiasHistory_' + label[bias_num] + '.png', bbox_inches='tight', dpi=200 )
     plt.show()
 
 
@@ -191,19 +198,22 @@ def debug_confrontWeights(numero, weight_stm, weight_pc, vec, selected_w):
         else:
             print(f'                 {vec_weig_stm[i]:.11f}       STM')
 
-            
+
         max_val = max( np.abs(vec_weig_pc[i]), np.abs(vec_weig_stm[i]) )
-        if( (np.abs(vec_weig_stm[i]-vec_weig_pc[i])/max_val) < 0.05):
-           
-            if(vec_weig_stm[i]-vec_weig_pc[i]>0):
-                print(f'\033[1m{col_OK}                  {(vec_weig_stm[i]-vec_weig_pc[i]):.11f}       difference{col_RESET}\033[0m ')
+        if(max_val != 0):
+            if( (np.abs(vec_weig_stm[i]-vec_weig_pc[i])/max_val) < 0.05):
+            
+                if(vec_weig_stm[i]-vec_weig_pc[i]>0):
+                    print(f'\033[1m{col_OK}                  {(vec_weig_stm[i]-vec_weig_pc[i]):.11f}       difference{col_RESET}\033[0m ')
+                else:
+                    print(f'\033[1m{col_OK}                 {(vec_weig_stm[i]-vec_weig_pc[i]):.11f}       difference{col_RESET}\033[0m ')
             else:
-                print(f'\033[1m{col_OK}                 {(vec_weig_stm[i]-vec_weig_pc[i]):.11f}       difference{col_RESET}\033[0m ')
-        else:
-            if((vec_weig_stm[i]-vec_weig_pc[i])>0):
-                print(f'\033[1m{col_FAIL}                  {(vec_weig_stm[i]-vec_weig_pc[i]):.11f}       difference{col_RESET}\033[0m ')
-            else:
-                print(f'\033[1m{col_FAIL}                 {(vec_weig_stm[i]-vec_weig_pc[i]):.11f}       difference{col_RESET}\033[0m ')
+                if((vec_weig_stm[i]-vec_weig_pc[i])>0):
+                    print(f'\033[1m{col_FAIL}                  {(vec_weig_stm[i]-vec_weig_pc[i]):.11f}       difference{col_RESET}\033[0m ')
+                else:
+                    print(f'\033[1m{col_FAIL}                 {(vec_weig_stm[i]-vec_weig_pc[i]):.11f}       difference{col_RESET}\033[0m ')
+        else :
+            print(f'\033[1m{col_FAIL}                 ------------       difference{col_RESET}\033[0m ')
       
         print()
 
@@ -264,3 +274,19 @@ def debug_loadSoftmaxSMT():
             softmax_stm[j,i] = dataset.iloc[j,i+1]
     
     return softmax_stm
+
+
+
+
+
+def debug_loadPreSoftmaxSMT():    
+    
+    dataset = pd.read_csv(STM_PRE_SOFTMAX,header = None,na_values=',') 
+
+    preSoftmax_stm = np.empty([dataset.shape[0],8])
+
+    for j in range(0,dataset.shape[0]):
+        for i in range(0,dataset.shape[1]-1):
+            preSoftmax_stm[j,i] = dataset.iloc[j,i+1]
+    
+    return preSoftmax_stm

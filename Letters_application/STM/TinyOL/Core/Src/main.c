@@ -303,10 +303,11 @@ int main(void)
 
 		  if(OL_layer.counter <= 770){
 			  HAL_Delay(15); 			// Helps the code to not get stuck
-			  //HAL_UART_Transmit(&huart2, (uint8_t*)msgBias, 8*4, 100);		    // Send message
-			  //HAL_UART_Transmit(&huart2, (uint8_t*)msgWeights, 10*8*4, 100);		// Send message
-			  //HAL_UART_Transmit(&huart2, (uint8_t*)msgFrozenOut, 128*4, 100);		// Send message
-			  HAL_UART_Transmit(&huart2, (uint8_t*)msgSoftmax, 8*4, 100);		// Send message
+			  //HAL_UART_Transmit(&huart2, (uint8_t*)msgBias, 8*4, 100);
+			  //HAL_UART_Transmit(&huart2, (uint8_t*)msgWeights, 10*8*4, 100);
+			  //HAL_UART_Transmit(&huart2, (uint8_t*)msgFrozenOut, 128*4, 100);
+			  //HAL_UART_Transmit(&huart2, (uint8_t*)msgSoftmax, 8*4, 100);
+			  HAL_UART_Transmit(&huart2, (uint8_t*)msgPreSoftmax, 8*4, 100);
 		  }
 
 

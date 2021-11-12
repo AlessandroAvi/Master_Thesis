@@ -364,6 +364,12 @@ void OL_train(OL_LAYER_STRUCT * layer, float * input, char *letter){
 
 		// Inference with current weights
 		OL_feedForward(layer, layer->weights, input, layer->biases, layer->y_pred);
+
+		// Transmit to UART the value of the PreSoftmax output
+		for(int k=0; k<8; k++){
+			sendPreSoftmaxUART(layer, k, k*4, msgPreSoftmax);
+		}
+
 		OL_softmax(layer, layer->y_pred);
 
 		int j_start = 0;
@@ -699,6 +705,36 @@ void sendSoftmaxUART(OL_LAYER_STRUCT * layer, int j, int i, uint8_t * msgSoftmax
 		}
 	}
 }
+
+
+
+
+void sendPreSoftmaxUART(OL_LAYER_STRUCT * layer, int j, int i, uint8_t * msgPreSoftmax){
+
+	msgPreSoftmax[i]   = 0;
+	msgPreSoftmax[i+1] = 0;
+	msgPreSoftmax[i+2] = 0;
+	msgPreSoftmax[i+3] = 0;
+
+	int softmax_val = layer->y_pred[j]*1000000;
+
+	if(j<=layer->WIDTH){
+		if(softmax_val<0){
+			softmax_val = -softmax_val;
+
+			msgPreSoftmax[i]   = softmax_val   & byte_1;
+			msgPreSoftmax[i+1] = (softmax_val  & byte_2)>>8;
+			msgPreSoftmax[i+2] = (softmax_val  & byte_3)>>16;
+			msgPreSoftmax[i+3] = ((softmax_val & byte_4) | (0x80000000))>>24;
+		}else{
+			msgPreSoftmax[i]   = softmax_val  & byte_1;
+			msgPreSoftmax[i+1] = (softmax_val & byte_2)>>8;
+			msgPreSoftmax[i+2] = (softmax_val & byte_3)>>16;
+			msgPreSoftmax[i+3] = (softmax_val & byte_4)>>24;
+		}
+	}
+}
+
 
 
 

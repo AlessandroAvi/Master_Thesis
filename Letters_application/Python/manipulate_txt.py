@@ -7,7 +7,7 @@ import numpy as np
 
 
 # PUT HERE THE VALUE YOU WANT TO BE REMOVED FROM THE DATASET
-to_remove = 552
+to_remove = 10   # inserire numero che si individua dal controllo dei frozen output
 
 
 
@@ -56,7 +56,7 @@ subtractor=0
 with open(DATASET_PATH_2,'w') as data_file:
     for i in range(0, dtensor.shape[0]):
         if(to_remove != -1):
-            if(i==to_remove ):
+            if(i==to_remove+2 ):
                 subtractor += 1
                 continue
         for j in range(0, int(dtensor.shape[1]/3)):

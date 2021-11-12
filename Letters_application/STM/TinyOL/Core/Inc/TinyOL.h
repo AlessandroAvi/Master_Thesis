@@ -113,10 +113,14 @@ char msgDebug[BUFF_LEN];		// General container for debug messages to send on UAR
 uint8_t msgRxData[DATA_LEN];	// Container for receiving the array of data
 char msgRxLett[LETTER_LEN];		// Container for receiving the label
 uint8_t msgInfo[INFO_LEN];		// Container for sending the results of inference to the pc
+
+
+// Buffers that I use for debugging the training - used for sending to the laptop the history of different outputs
 uint8_t msgBias[8*4];
 uint8_t msgWeights[10*8*4];
 uint8_t msgFrozenOut[128*4];
 uint8_t msgSoftmax[8*4];
+uint8_t msgPreSoftmax[8*4];
 int numeri[10*8];
 
 
@@ -172,4 +176,6 @@ void sendWeightsUART(OL_LAYER_STRUCT * layer, int j, int i, uint8_t * msgWeights
 void sendFrozenOutUART(OL_LAYER_STRUCT * layer, int j, int i, float * out_data, uint8_t * msgFrozenOut);
 
 void sendSoftmaxUART(OL_LAYER_STRUCT * layer, int j, int i, uint8_t * msgSoftmax);
+
+void sendPreSoftmaxUART(OL_LAYER_STRUCT * layer, int j, int i, uint8_t * msgPreSoftmax);
 
