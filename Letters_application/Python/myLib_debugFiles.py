@@ -33,7 +33,7 @@ def debug_plotHistoryPreSoftmax(itr, softmax_pc, softmax_stm, label):
     plt.plot(x, y1, color='r', label='stm')
     plt.xlabel("Iteration")
     plt.ylabel("Softmax value")
-    plt.title(f"Comparison of softmax number: {itr+1} - letter {label[itr]}")
+    plt.title(f"Comparison of pre softmax number: {itr+1} - letter {label[itr]}")
     plt.legend()
     plt.savefig(SAVE_PLOT_PATH + 'PreSoftmaxHistory_' + label[itr] + '.png', bbox_inches='tight', dpi=200 )
     plt.show()

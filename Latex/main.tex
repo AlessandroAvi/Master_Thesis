@@ -1,47 +1,29 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Masters/Doctoral Thesis 
-% LaTeX Template
-% Version 2.5 (27/8/17)
-%
-% This template was downloaded from:
-% http://www.LaTeXTemplates.com
-%
-% Version 2.x major modifications by:
-% Vel (vel@latextemplates.com)
-%
-% This template is based on a template by:
-% Steve Gunn (http://users.ecs.soton.ac.uk/srg/softwaretools/document/templates/)
-% Sunil Patel (http://www.sunilpatel.co.uk/thesis-template/)
-%
-% Template license:
-% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 %----------------------------------------------------------------------------------------
 %	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
 %----------------------------------------------------------------------------------------
 
 \documentclass[
-	11pt, % The default document font size, options: 10pt, 11pt, 12pt
-	%oneside, % Two side (alternating margins) for binding by default, uncomment to switch to one side
-	english,
-	singlespacing, % alternatives: onehalfspacing or doublespacing
-	%draft, % Uncomment to enable draft mode (no pictures, no links, overfull hboxes indicated)
-	%nolistspacing, % If the document is onehalfspacing or doublespacing, uncomment this to set spacing in lists to single
-	%liststotoc, % Uncomment to add the list of figures/tables/etc to the table of contents
-	%toctotoc, % Uncomment to add the main table of contents to the table of contents
-	%parskip, % Uncomment to add space between paragraphs
-	%nohyperref, % Uncomment to not load the hyperref package
-	headsepline, % Uncomment to get a line under the header
-	%chapterinoneline, % Uncomment to place the chapter title next to the number on one line
-	%consistentlayout, % Uncomment to change the layout of the declaration, abstract and acknowledgements pages to match the default layout
-]{MastersDoctoralThesis}
+11pt, % The default document font size, options: 10pt, 11pt, 12pt
+%oneside, % Two side (alternating margins) for binding by default, uncomment to switch to one side
+english, 
+singlespacing, % Single line spacing, alternatives: onehalfspacing or doublespacing
+%draft, % Uncomment to enable draft mode (no pictures, no links, overfull hboxes indicated)
+%nolistspacing, % If the document is onehalfspacing or doublespacing, uncomment this to set spacing in lists to single
+%liststotoc, % Uncomment to add the list of figures/tables/etc to the table of contents
+%toctotoc, % Uncomment to add the main table of contents to the table of contents
+%parskip, % Uncomment to add space between paragraphs
+%nohyperref, % Uncomment to not load the hyperref package
+headsepline, % Uncomment to get a line under the header
+%chapterinoneline, % Uncomment to place the chapter title next to the number on one line
+%consistentlayout, % Uncomment to change the layout of the declaration, abstract and acknowledgements pages to match the default layout
+]{MastersDoctoralThesis} % The class file specifying the document structure
 
-\usepackage[utf8]{inputenc} % For international characters
+\usepackage[utf8]{inputenc} % Required for inputting international characters
 \usepackage[T1]{fontenc} % Output font encoding for international characters
 
-\usepackage[backend=bibtex,style=authoryear,natbib=true]{biblatex}
+%\usepackage{mathpazo} % Use the Palatino font by default
+
+\usepackage[backend=bibtex,style=authoryear,natbib=true]{biblatex} % Use the bibtex backend with the authoryear citation style (which resembles APA)
 
 \addbibresource{example.bib} % The filename of the bibliography
 
@@ -65,24 +47,24 @@
 %	THESIS INFORMATION
 %----------------------------------------------------------------------------------------
 
-\thesistitle{OPENMV CAMERA} % Your thesis title, this is used in the title and abstract, print it elsewhere with \ttitle
-\supervisor{prof. Davide \textsc{Brunelli}} % Your supervisor's name, this is used in the title page, print it elsewhere with \supname
-\examiner{} % Your examiner's name, this is not currently used anywhere in the template, print it elsewhere with \examname
-\degree{Master Thesis} % Your degree name, this is used in the title page and abstract, print it elsewhere with \degreename
-\author{Alessandro \textsc{Avi}} % Your name, this is used in the title page and abstract, print it elsewhere with \authorname
-\addresses{} % Your address, this is not currently used anywhere in the template, print it elsewhere with \addressname
+\thesistitle{OnLine Learning applied on image classification} % print it elsewhere with \ttitle
+\supervisor{Prof. Davide \textsc{Brunelli}} % Your supervisor's name, this is used in the title page, print it elsewhere with \supname
+\examiner{} % print it elsewhere with \examname
+\degree{Master Degree} % print it elsewhere with \degreename
+\author{Alessandro \textsc{Avi}} % print it elsewhere with \authorname
+\addresses{} % print it elsewhere with \addressname
 
-\subject{Industrial Engineering} % print it elsewhere with \subjectname
+\subject{Mechatronics} % print it elsewhere with \subjectname
 \keywords{} % print it elsewhere with \keywordnames
-\university{\href{https://www.unitn.it/}{Università degli Studi di Trento}} 
-\department{\href{https://international.unitn.it/it/industrial-engineering}{Department of Industrial Engineering}}
+\university{\href{https://www.unitn.it/}{University of Trento}} % print it elsewhere with \univname
+\department{\href{https://www.dii.unitn.it/}{Department of Idustrial Engineering}} % print it elsewhere with \deptname
 \group{\href{http://researchgroup.university.com}{Research Group Name}} % print it elsewhere with \groupname
-\faculty{\href{http://faculty.university.com}{Faculty Name}} % print it elsewhere with \facname
+\faculty{\href{http://faculty.university.com}{Faculty Name}}% print it elsewhere with \facname
 
 \AtBeginDocument{
-\hypersetup{pdftitle=\ttitle} % Set the PDF's title to your title
-\hypersetup{pdfauthor=\authorname} % Set the PDF's author to your name
-\hypersetup{pdfkeywords=\keywordnames} % Set the PDF's keywords to your keywords
+	\hypersetup{pdftitle=\ttitle} % Set the PDF's title to your title
+	\hypersetup{pdfauthor=\authorname} % Set the PDF's author to your name
+	\hypersetup{pdfkeywords=\keywordnames} % Set the PDF's keywords to your keywords
 }
 
 \begin{document}
@@ -100,7 +82,7 @@
 
 \vspace*{.06\textheight}
 {\scshape\LARGE \univname\par}\vspace{1.5cm} % University name
-\textsc{\Large Master Thesis}\\[0.5cm] % Thesis type
+\textsc{\Large Doctoral Thesis}\\[0.5cm] % Thesis type
 
 \HRule \\[0.4cm] % Horizontal line
 {\huge \bfseries \ttitle\par}\vspace{0.4cm} % Thesis title
@@ -166,9 +148,9 @@
 
 \vspace*{0.2\textheight}
 
-\noindent\enquote{\itshape Thanks to my solid academic training, today I can write hundreds of words on virtually any topic without possessing a shred of information, which is how I got a good job in journalism.}\bigbreak
+\noindent\enquote{\itshape Burgir}\bigbreak
 
-\hfill Dave Barry
+\hfill ciao
 
 %----------------------------------------------------------------------------------------
 %	ABSTRACT PAGE
@@ -176,7 +158,7 @@
 
 \begin{abstract}
 \addchaptertocentry{\abstractname} % Add the abstract to the table of contents
-The Thesis Abstract is written here (and usually kept to just this page). The page is kept centered vertically so can expand into the blank space above the title too\ldots
+Inserire qui abstract
 \end{abstract}
 
 %----------------------------------------------------------------------------------------
@@ -185,7 +167,7 @@ The Thesis Abstract is written here (and usually kept to just this page). The pa
 
 \begin{acknowledgements}
 \addchaptertocentry{\acknowledgementname} % Add the acknowledgements to the table of contents
-The acknowledgments and the people to thank go here, don't forget to include your project advisor\ldots
+Ciao grazie
 \end{acknowledgements}
 
 %----------------------------------------------------------------------------------------
@@ -197,37 +179,6 @@ The acknowledgments and the people to thank go here, don't forget to include you
 \listoffigures % Prints the list of figures
 
 \listoftables % Prints the list of tables
-
-%----------------------------------------------------------------------------------------
-%	ABBREVIATIONS
-%----------------------------------------------------------------------------------------
-
-\begin{abbreviations}{ll} % Include a list of abbreviations (a table of two columns)
-
-\textbf{LAH} & \textbf{L}ist \textbf{A}bbreviations \textbf{H}ere\\
-\textbf{WSF} & \textbf{W}hat (it) \textbf{S}tands \textbf{F}or\\
-
-\end{abbreviations}
-
-%----------------------------------------------------------------------------------------
-%	PHYSICAL CONSTANTS/OTHER DEFINITIONS
-%----------------------------------------------------------------------------------------
-
-\begin{constants}{lr@{${}={}$}l} % The list of physical constants is a three column table
-
-
-
-\end{constants}
-
-%----------------------------------------------------------------------------------------
-%	SYMBOLS
-%----------------------------------------------------------------------------------------
-
-\begin{symbols}{lll} % Include a list of Symbols (a three column table)
-
-
-
-\end{symbols}
 
 %----------------------------------------------------------------------------------------
 %	DEDICATION
@@ -243,27 +194,15 @@ The acknowledgments and the people to thank go here, don't forget to include you
 
 \pagestyle{thesis} % Return the page headers back to the "thesis" style
 
-% Include the chapters of the thesis as separate files from the Chapters folder
-% Uncomment the lines as you write the chapters
-
-\include{Chapters/Chapter1}
-%\include{Chapters/Chapter2} 
-%\include{Chapters/Chapter3}
-%\include{Chapters/Chapter4} 
-%\include{Chapters/Chapter5} 
+\include{Chapters/Chapter_test} 
 
 %----------------------------------------------------------------------------------------
 %	THESIS CONTENT - APPENDICES
 %----------------------------------------------------------------------------------------
 
-\appendix % Cue to tell LaTeX that the following "chapters" are Appendices
+\appendix 
 
-% Include the appendices of the thesis as separate files from the Appendices folder
-% Uncomment the lines as you write the Appendices
-
-\include{Appendices/AppendixA}
-%\include{Appendices/AppendixB}
-%\include{Appendices/AppendixC}
+%\include{Appendices/AppendixA}
 
 %----------------------------------------------------------------------------------------
 %	BIBLIOGRAPHY
