@@ -93,26 +93,29 @@ def plot_barChart(model):
         Container for the model weights, biases, parameters.
     """
     
-    corr_ary    = model.correct_ary
-    err_ary     = model.mistake_ary
-    tot_ary     = model.totals_ary
+    conf_matr   = model.conf_matr
     title       = model.title 
     filename    = model.filename
 
-    letter_labels = ['A','E','I','O','U','B','R','M', 'Model']
+    bar_plot_label = ['A','E','I','O','U','B','R','M', 'Model']
     blue2 = 'cornflowerblue'
     colors = [blue2, blue2, blue2, blue2, blue2, blue2, blue2, blue2, 'steelblue']  # different color for the 'Model' bar
 
-    bar_values = np.zeros([len(corr_ary)+1])
+    bar_values = np.zeros(conf_matr.shape[0]+1)
     
-    for i in range(0, len(corr_ary)):
-        bar_values[i] = int(round(corr_ary[i]/tot_ary[i], 2)*100)    # Accuracy for each letter
+    tot_pred     = 0
+    correct_pred = 0
 
-    bar_values[-1] = int(round(sum(corr_ary)/sum(tot_ary), 2)*100)   # Overall accuracy of the model
+    for i in range(0, conf_matr.shape[0]):
+        bar_values[i] = int(round(conf_matr[i,i]/sum(conf_matr[i,:]),2)*100)      # Accuracy for each letter
+        tot_pred += sum(conf_matr[i,:])
+        correct_pred += conf_matr[i,i]
+
+    bar_values[-1] = int(round(correct_pred/tot_pred, 2)*100)   # Overall accuracy of the model
     
     fig = plt.subplots(figsize =(12, 8))
 
-    bar_plot = plt.bar(letter_labels, bar_values, color=colors, edgecolor='grey')
+    bar_plot = plt.bar(bar_plot_label, bar_values, color=colors, edgecolor='grey')
 
     # Add text to each bar showing the percent
     for p in bar_plot:
@@ -131,7 +134,7 @@ def plot_barChart(model):
     plt.ylim([0, 100])
     plt.ylabel('Accuracy %', fontsize = 15)
     plt.xlabel('Classes', fontsize = 15)
-    plt.xticks([r for r in range(len(letter_labels))], letter_labels, fontweight ='bold', fontsize = 12) # Write on x axis the letter name
+    plt.xticks([r for r in range(len(bar_plot_label))], bar_plot_label, fontweight ='bold', fontsize = 12) # Write on x axis the letter name
     plt.title('Accuracy test - Method used: '+title, fontweight ='bold', fontsize = 15)
     plt.savefig(PLOT_PATH + 'barPlot_' + filename + '.jpg')
 

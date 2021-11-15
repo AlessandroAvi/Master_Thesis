@@ -296,6 +296,7 @@ R_data_1, R_label_1 = loadDataFromRawTxt('letter_R_1')    # 40 samples
 R_data_2, R_label_2 = loadDataFromRawTxt('letter_R_2')    # 80 samples
 R_data_3, R_label_3 = loadDataFromRawTxt('letter_R_3')    # 50 samples
 R_data_4, R_label_4 = loadDataFromRawTxt('letter_R_4')    # 100 samples
+R_data_5, R_label_5 = loadDataFromRawTxt('letter_R_5')    # 63 samples
 printInfo(R_label_0, R_label_1, R_label_2, R_label_3)
 
 
@@ -304,6 +305,7 @@ B_data_1, B_label_1 = loadDataFromRawTxt('letter_B_1')    # 40 samples
 B_data_2, B_label_2 = loadDataFromRawTxt('letter_B_2')    # 80 samples
 B_data_3, B_label_3 = loadDataFromRawTxt('letter_B_3')    # 50 samples
 B_data_4, B_label_4 = loadDataFromRawTxt('letter_B_4')    # 100 samples
+B_data_5, B_label_5 = loadDataFromRawTxt('letter_B_5')    # 63 samples
 printInfo(B_label_0, B_label_1, B_label_2, B_label_3)
 
 
@@ -312,6 +314,7 @@ M_data_1, M_label_1 = loadDataFromRawTxt('letter_M_1')    # 40 samples
 M_data_2, M_label_2 = loadDataFromRawTxt('letter_M_2')    # 80 samples
 M_data_3, M_label_3 = loadDataFromRawTxt('letter_M_3')    # 50 samples
 M_data_4, M_label_4 = loadDataFromRawTxt('letter_M_4')    # 100 samples
+M_data_5, M_label_5 = loadDataFromRawTxt('letter_M_5')    # 63 samples
 printInfo(M_label_0, M_label_1, M_label_2, M_label_3)
 
 
@@ -497,13 +500,19 @@ print('Dataset for letter VOWELS OL: saved')
 # Create a matrix that contains all the train data
 training_dataset = vowels_data_OL
 training_dataset = np.vstack(( training_dataset, B_data_4))
+training_dataset = np.vstack(( training_dataset, B_data_5))
 training_dataset = np.vstack(( training_dataset, R_data_4))
+training_dataset = np.vstack(( training_dataset, R_data_5))
 training_dataset = np.vstack(( training_dataset, M_data_4))
+training_dataset = np.vstack(( training_dataset, M_data_5))
 # Create an array that contains all the train labels
 training_labels = vowels_label_OL
 training_labels = np.hstack(( training_labels, B_label_4))
+training_labels = np.hstack(( training_labels, B_label_5))
 training_labels = np.hstack(( training_labels, R_label_4))
+training_labels = np.hstack(( training_labels, R_label_5))
 training_labels = np.hstack(( training_labels, M_label_4))
+training_labels = np.hstack(( training_labels, M_label_5))
 # Shuffle the matrix and the label
 training_dataset, training_labels = shuffleDataset(training_dataset, training_labels)
 # Save the dataset in a txt file
