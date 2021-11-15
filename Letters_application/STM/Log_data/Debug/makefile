@@ -59,8 +59,8 @@ all: main-build
 main-build: Log_data.elf secondary-outputs
 
 # Tool invocations
-Log_data.elf: $(OBJS) $(USER_OBJS) C:\Users\massi\UNI\Magistrale\Anno\ 5\Semestre\ 2\Tesi\Code\STM\Log_data\STM32F401RETX_FLASH.ld
-	arm-none-eabi-gcc -o "Log_data.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\massi\UNI\Magistrale\Anno 5\Semestre 2\Tesi\Code\STM\Log_data\STM32F401RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Log_data.map" -Wl,--gc-sections -static -u_printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Log_data.elf: $(OBJS) $(USER_OBJS) C:\Users\massi\UNI\Magistrale\Anno\ 5\Semestre\ 2\Tesi\Code\Letters_application\STM\Log_data\STM32F401RETX_FLASH.ld
+	arm-none-eabi-gcc -o "Log_data.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\massi\UNI\Magistrale\Anno 5\Semestre 2\Tesi\Code\Letters_application\STM\Log_data\STM32F401RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Log_data.map" -Wl,--gc-sections -static -u_printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

@@ -45,31 +45,31 @@ OL_layer.method = 1
 # START THE INFINITE LOOP
 
 while(True):
-    clock.tick()                                        # Update the FPS clock.
+    clock.tick()                                            # Update the FPS clock.
 
 
-    img = sensor.snapshot()                             # Take the photo and return image
+    img = sensor.snapshot()                                 # Take the photo and return image
 
-    img.midpoint(2, bias=0.5, threshold=True,           # Binarize the image, size is 3x3,
+    img.midpoint(2, bias=0.5, threshold=True,               # Binarize the image, size is 3x3,
                     offset=5, invert=True)
 
-    out_frozen = net.predict(img)                       # [CUBE.AI] run the inference on frozen model
+    out_frozen = net.predict(img)                           # [CUBE.AI] run the inference on frozen model
 
 
     out_OL     = myLib.feed_forward(out_frozen, OL_layer)   # Feed forward
     prediction = myLib.softmax(out_OL)
 
 
-    # PERFORM TRAINING ON THE CURRENT SAMPLE
-    if(counter%50==0)
+    # PERFORM OL TRAINING ON THE CURRENT SAMPLE
+    if(counter%50==0 and train_counter<len(OL_layer.true_label))
+
         myLib.check_label(OL_layer, train_counter)
         true_label = myLib.label_to_softmax(OL_layer, train_counter)
         myLib.back_propagation(true_label, prediction, OL_layer, out_frozen)
-        train_counter+=1
 
-
-    if(counter%50 == 0):
+        myLib.update_conf_matr(true_label, prediction, OL_layer)
         myLib.write_results(OL_layer)
+        train_counter+=1
 
 
     # TERMINAL DEBUG

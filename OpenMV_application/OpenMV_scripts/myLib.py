@@ -11,16 +11,26 @@ class LastLayer(object):
         self.method = 0
         self.W = 6
         self.H = 2028
-        self.label = ['0','1','2','3','4','5']
+        self.label     = ['0','1','2','3','4','5']
+        self.std_label = ['0','1','2','3','4','5','6','7','8','9']
         self.l_rate = 0.005
 
         self.weights  = np.zeros((6,2028))
         self.biases   = np.zeros((6,1))
-        self.t_labels = np.zeros(100)
+        self.true_label = np.zeros(100)
 
-        self.confusion_matrix = np.zeros((self.W,self.W))
+        self.confusion_matrix = np.zeros((10,10))
 
 
+
+
+
+
+#    ____  _____    _    ____    _______  _______
+#   |  _ \| ____|  / \  |  _ \  |_   _\ \/ /_   _|
+#   | |_) |  _|   / _ \ | | | |   | |  \  /  | |
+#   |  _ <| |___ / ___ \| |_| |   | |  /  \  | |
+#   |_| \_\_____/_/   \_\____/    |_| /_/\_\ |_|
 
 
 """ Loads the weights values from the txt in the SD card """
@@ -65,11 +75,45 @@ def load_labels(OL_layer):
             data = line.split(',')
             i=0
             for number in data:
-                OL_layer.t_labels[i] = str(int(number))
+                OL_layer.true_label[i] = str(int(number))
                 i+=1
 
 
 
+
+
+
+#   __        ______  ___ _____ _____   _______  _______
+#   \ \      / /  _ \|_ _|_   _| ____| |_   _\ \/ /_   _|
+#    \ \ /\ / /| |_) || |  | | |  _|     | |  \  /  | |
+#     \ V  V / |  _ < | |  | | | |___    | |  /  \  | |
+#      \_/\_/  |_| \_\___| |_| |_____|   |_| /_/\_\ |_|
+
+
+# To read the txt file from windows explorer is required to unplug and plug again the camera
+#       https://forums.openmv.io/t/saving-a-txt-file/700
+def write_results(OL_layer):
+
+    with open('training_results.txt', 'w') as f:
+
+        # write the confusion matrix
+        for i in range(0, OL_layer.W):
+            for j in range(0, OL_layer.W):
+
+                f.write(str(OL_layer.confusion_matrix[i,j]))
+                if(j!=OL_layer.W-1):
+                    f.write(',')
+            f.write('\n')
+
+
+
+
+
+#    _____ ___ _   ___   __   ___  _
+#   |_   _|_ _| \ | \ \ / /  / _ \| |
+#     | |  | ||  \| |\ V /  | | | | |
+#     | |  | || |\  | | |   | |_| | |___
+#     |_| |___|_| \_| |_|    \___/|_____|
 
 
 """ Checks if the label is known, if not increase the dimension of the layer """
@@ -78,11 +122,12 @@ def check_label(OL_layer, itr):
     found = False
 
     for i in range(0, OL_layer.W):
-        if(OL_layer.t_label[itr] == OL_layer.label[i]):
-            found = 1
+        if(OL_layer.true_label[itr] == OL_layer.label[i]):
+            found = True
 
     # Label is not known
-    if(found == 0):
+    if(found == False):
+
         OL_layer.W += 1
 
         tmp = np.zeros((1,OL_layer.H))
@@ -91,7 +136,7 @@ def check_label(OL_layer, itr):
         tmp = np.zeros((1,1))
         OL_layer.biases  = np.concatenate((OL_layer.biases, tmp), axis=0)
 
-        OL_labels.append(OL_layer.t_label[itr])
+        OL_labels.append(OL_layer.true_label[itr])
 
         tmp = np.zeros((1,OL_layer.W-1))
         OL_labels.confusion_matrix = np.concatenate((OL_layer.confusion_matrix, tmp), axis=0)
@@ -108,7 +153,7 @@ def label_to_softmax(OL_layer, itr):
     ret_ary = np.zeros((OL_layer.W, 1))
 
     for i in range(0, OL_layer.W):
-        if(OL_layer.t_label[itr] == Ol_layer.label[i]):
+        if(OL_layer.true_label[itr] == Ol_layer.label[i]):
             ret_ary[i] = 1
 
     return ret_ary
@@ -152,6 +197,35 @@ def softmax(OL_out):
     return ret_ary
 
 
+
+
+""" Updates the values inside the confusion matrix """
+def update_conf_matr(true_label, prediction, OL_layer):
+
+    predicted_digit = OL_layer.label[np.argmax(prediction)]  # find which is the predicted digit with higest proability
+    true_digit      = OL_layer.label[np.argmax(true_label)]  # find which is the true digit with higest proability
+
+    p,t = 100,100     # values for moving in the confusion matrix
+
+    # assign the correct value corresponding to the standard label
+    for i in range(0, 10):
+        if(predicted_digit == OL_layer.std_label[i]):
+            p = i
+        if(true_digit == OL_layer.std_label[i]):
+            t = i
+
+    OL_layer.confusion_matrix[t,p] +=1          # increase of 1 the correct space inside the confusion matrix
+
+
+
+
+
+
+#    _____ ____      _    ___ _   _ ___ _   _  ____ ____
+#   |_   _|  _ \    / \  |_ _| \ | |_ _| \ | |/ ___/ ___|
+#     | | | |_) |  / _ \  | ||  \| || ||  \| | |  _\___ \
+#     | | |  _ <  / ___ \ | || |\  || || |\  | |_| |___) |
+#     |_| |_| \_\/_/   \_\___|_| \_|___|_| \_|\____|____/
 
 
 
@@ -255,19 +329,9 @@ def back_propagation(true_label, prediction, OL_layer, out_frozen):
 
 
 
-# To read the txt file from windows explorer is required to unplug and plug again the camera
-#       https://forums.openmv.io/t/saving-a-txt-file/700
-def write_results(OL_layer):
 
-    with open('training_results.txt', 'w') as f:
 
-        # write the confusion matrix
-        for i in range(0, OL_layer.W):
-            for j in range(0, OL_layer.W):
 
-                f.write(str(OL_layer.confusion_matrix[i,j]))
-                if(j!=OL_layer.W-1):
-                    f.write(',')
-            f.write('\n')
+
 
 
