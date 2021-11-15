@@ -237,7 +237,7 @@ def plot_STM_barChartLetter(vowel_true, predic_error, algorithm):
     tot     = np.zeros(8)
     correct_perc = np.zeros(9)
     mistake_perc = np.zeros(8)
-    letter_label = ['A', 'E', 'I', 'O', 'U', 'R', 'B', 'M', 'Model']
+    letter_label = ['A', 'E', 'I', 'O', 'U', 'B', 'R', 'M', 'Model']
     bl = 'cornflowerblue'
     colors = [bl,bl,bl,bl,bl,bl,bl,bl,'steelblue']
 
@@ -253,9 +253,9 @@ def plot_STM_barChartLetter(vowel_true, predic_error, algorithm):
             k= 3
         elif(vowel_true[i]=='U'):
             k= 4
-        elif(vowel_true[i]=='R'):
-            k= 5
         elif(vowel_true[i]=='B'):
+            k= 5
+        elif(vowel_true[i]=='R'):
             k= 6
         elif(vowel_true[i]=='M'):
             k= 7

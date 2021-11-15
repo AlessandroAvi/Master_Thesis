@@ -494,22 +494,16 @@ print('Dataset for letter VOWELS OL: saved')
 # Create a matrix that contains all the train data
 training_dataset = vowels_data_OL
 training_dataset = np.vstack(( training_dataset, B_data_0))
-training_dataset = np.vstack(( training_dataset, B_data_1))
 training_dataset = np.vstack(( training_dataset, R_data_0))
-training_dataset = np.vstack(( training_dataset, R_data_1))
 training_dataset = np.vstack(( training_dataset, M_data_0))
-training_dataset = np.vstack(( training_dataset, M_data_1))
 # Create an array that contains all the train labels
 training_labels = vowels_label_OL
 training_labels = np.hstack(( training_labels, B_label_0))
-training_labels = np.hstack(( training_labels, B_label_1))
 training_labels = np.hstack(( training_labels, R_label_0))
-training_labels = np.hstack(( training_labels, R_label_1))
 training_labels = np.hstack(( training_labels, M_label_0))
-training_labels = np.hstack(( training_labels, M_label_1))
 # Shuffle the matrix and the label
 training_dataset, training_labels = shuffleDataset(training_dataset, training_labels)
 # Save the dataset in a txt file
 myWrite.save_dataset(training_dataset, training_labels, 'training_file_original')
 print()
-print('Dataset for controlled training: saved')
+print('Dataset for controlled training: saved \n')

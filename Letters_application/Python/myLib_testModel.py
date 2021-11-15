@@ -77,9 +77,29 @@ def test_OLlayer(model, test_data, test_label):
     standard_label = ['A','E','I','O','U','B','R','M'] # order of labels that is used in all plots
 
     for i in range(0, n_samples):
+
+        current_label_num = 100
        
         current_label = test_label[i]
         label_soft = letterToSoftmax(current_label, model.label)
+
+        if(current_label == 'A'):
+            current_label_num = 0
+        elif(current_label == 'E'):
+            current_label_num = 1
+        elif(current_label == 'I'):
+            current_label_num = 2
+        elif(current_label == 'O'):
+            current_label_num = 3
+        elif(current_label == 'U'):
+            current_label_num = 4
+        elif(current_label == 'B'):
+            current_label_num = 5
+        elif(current_label == 'R'):
+            current_label_num = 6
+        elif(current_label == 'M'):
+            current_label_num = 7
+
 
         ML_out = model.ML_frozen.predict(test_data[i,:].reshape(1,test_data.shape[1]))    # frozen model prediction
         y_pred = model.predict(ML_out[0,:])                                               # OL layer prediction
@@ -95,11 +115,11 @@ def test_OLlayer(model, test_data, test_label):
             max_i_pred = np.argmax(y_pred)
                             
         if (max_i_pred == max_i_true):
-            corr_ary[max_i_true] += 1
-            tot_ary[max_i_true]  += 1 
+            corr_ary[current_label_num] += 1
+            tot_ary[current_label_num]  += 1 
         else:
-            err_ary[max_i_true] += 1  
-            tot_ary[max_i_true] += 1  
+            err_ary[current_label_num] += 1  
+            tot_ary[current_label_num] += 1  
 
 
         # Fill up the confusion matrix
