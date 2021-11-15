@@ -394,12 +394,15 @@ def UART_receivePreSoftmax():
 #  |_|  |_/_/   \_\___|_| \_|
 
 
+# PATHS FOR SAVING THE IMAGES OR OPENING THE TXT FILES
 ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
 BIAS_SAVE_PATH      = ROOT_PATH + '\\Debug_files\\bias_stm.txt'
 WEIGHTS_SAVE_PATH   = ROOT_PATH + '\\Debug_files\\weight_stm.txt'
 FROZENOUT_SAVE_PATH = ROOT_PATH + '\\Debug_files\\frozenOut_stm.txt'
 SOFTMAX_SAVE_PATH   = ROOT_PATH + '\\Debug_files\\softmax_stm.txt'
 PRESOFTMAX_SAVE_PATH  = ROOT_PATH + '\\Debug_files\\preSoftmax_stm.txt'
+
+
 
 print('\n\n\n')
 print('---------------------------------------------------------------------------------------')
@@ -428,23 +431,23 @@ R_train_data, R_train_label, R_test_data, R_test_label = myParse.parseTrainTest(
 tmp_1, tmp_2 = myParse.loadDataFromTxt('M_dataset')
 M_train_data, M_train_label, M_test_data, M_test_label = myParse.parseTrainTest(tmp_1, tmp_2, 0.7)
 
-# STACK DATASET - Train
+# STACK DATASET - Train - Data
 train_data = OL_train_data
 train_data = np.vstack(( train_data, B_train_data))
 train_data = np.vstack(( train_data, R_train_data))
 train_data = np.vstack(( train_data, M_train_data))
-
+# Labels
 train_label = OL_train_label
 train_label = np.hstack(( train_label, B_train_label))
 train_label = np.hstack(( train_label, R_train_label))
 train_label = np.hstack(( train_label, M_train_label))
 
-# STACK DATASET - Test
+# STACK DATASET - Test - Data
 test_data = OL_test_data
 test_data = np.vstack(( test_data, B_test_data))
 test_data = np.vstack(( test_data, R_test_data))
 test_data = np.vstack(( test_data, M_test_data))
-
+# Labels
 test_label = OL_test_label
 test_label = np.hstack(( test_label, B_test_label))
 test_label = np.hstack(( test_label, R_test_label))
@@ -455,12 +458,15 @@ train_data, train_label = myParse.shuffleDataset(train_data, train_label)
 test_data, test_label   = myParse.shuffleDataset(test_data, test_label)
 
 
-# OR LOAD AN ALREADY SHUFFLED DATASET
+# IF YOU WANT TO TEST LAPTOP AND STM WITH THE SAME EXACT DATASET IN TH SAME ORDER UNCOMMENT THESE LINES
+# *****************************************************
 data, label = myParse.loadDataFromTxt('training_file')
 train_data, train_label, test_data, test_label = myParse.parseTrainTest(data, label, 0.7)
+# *****************************************************
 
 print(f'The entire training dastaset has shape {train_data.shape}')
-print(f'The entire testing dataset has shape {test_data.shape}')
+print(f'The entire testing dataset has shape   {test_data.shape}')
+
 
 
 
@@ -484,7 +490,7 @@ train_max = train_data.shape[0]
 send_max  = test_max + train_max
 
 
-# STM COMMUNICATION - Declare information containers
+# STM COMMUNICATION - Declare containers in which to save the performance
 method          = 0                     # int
 counter         = np.zeros(test_max)    # int
 frozen_time     = np.zeros(test_max)    # float
@@ -494,17 +500,18 @@ predic_error    = np.zeros(test_max)    # 1/2/3
 OL_width        = np.zeros(test_max)    # int
 vowel_guess     = np.zeros(test_max)    # int (later translated in char)
 vowel_true      = []                    # char
+algorithm_ary = ['OL', 'OL_V2', 'CWR', 'LWF', 'OL_batch', 'OL_V2_batch', 'LWF_batch']   # Containers of the algorithm names
 
-biases_stm = np.zeros((train_max,9))
-weights_stm = np.zeros((train_max, 81))
-frozenOut_stm = np.zeros((train_max, 129))
-softmax_stm = np.zeros((train_max,9))
+# Containers for the debugging section - in here save the history of different matrices used by the training
+biases_stm     = np.zeros((train_max,9))
+weights_stm    = np.zeros((train_max, 81))
+frozenOut_stm  = np.zeros((train_max, 129))
+softmax_stm    = np.zeros((train_max,9))
 preSoftmax_stm = np.zeros((train_max,9))
 
 
 
-# Containers of the algorithm names
-algorithm_ary = ['OL', 'OL_V2', 'CWR', 'LWF', 'OL_batch', 'OL_V2_batch', 'LWF_batch']
+
 
 
 
@@ -517,13 +524,14 @@ print(' | |_) | |__| |_| | |___  | |_) | |_| | | |   | || |_| | |\  |')
 print(' |____/|_____\___/|_____| |____/ \___/  |_|   |_| \___/|_| \_|')
 print('\n')
 
-
+# Iteratos used for differentiating training and testing
 train_iter = 0
 test_iter  = 0
+
 while (train_iter + test_iter)<send_max-1:
 
-    # Wait for 'OK' message from the STM
-    rx = serialInst.read(2)    
+    
+    rx = serialInst.read(2)             # Sync - wait for 'OK' message from the STM (actually message only needs to be 2 chars, not exactly OK)
 
     # DATA: Preapare output data depending if is train or test
     if(train_iter < train_max):
@@ -535,21 +543,23 @@ while (train_iter + test_iter)<send_max-1:
         vowel_true.append(txLett)
 
     # DATA: Send the data to UART
-    serialInst.write(txAry)                 # Send data array (array long 600)
+    serialInst.write(txAry)                 # Send data array (array long 1200 uint8_t, original message is 600 values separated in high byte and low byte)
     serialInst.write(txLett.encode())       # Send label letter
 
-    rx = serialInst.read(10)                # Read the encoded message sent from STM
+    rx = serialInst.read(10)                # Read the encoded message sent from STM that contains info about the prediction
 
 
     if(train_iter < train_max):
 
         print(f'Training, sample number:   {train_iter}/{train_max}')
         
+        
+        # DEBUGGING SECTION - save the history of some matrices used in the training
         ###########################################
-        #UART_receiveBiases()
-        #UART_receiveWeights()
-        #UART_receiveFrozenOut()
-        #UART_receiveSoftmax()
+        UART_receiveBiases()
+        UART_receiveWeights()
+        UART_receiveFrozenOut()
+        UART_receiveSoftmax()
         UART_receivePreSoftmax()
         ###########################################
                         

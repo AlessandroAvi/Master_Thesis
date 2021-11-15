@@ -605,7 +605,7 @@ void sendBiasUART(OL_LAYER_STRUCT * layer, int j, int i, uint8_t * msgBias){
 	msgBias[i+2] = 0;
 	msgBias[i+3] = 0;
 
-	if(j<=layer->WIDTH){
+	if(j<layer->WIDTH){
 		int bias_val = layer->biases[j]*1000000000;
 
 		if(bias_val<0){
@@ -689,7 +689,7 @@ void sendSoftmaxUART(OL_LAYER_STRUCT * layer, int j, int i, uint8_t * msgSoftmax
 
 	int softmax_val = layer->y_pred[j]*1000000;
 
-	if(j<=layer->WIDTH){
+	if(j<layer->WIDTH){
 		if(softmax_val<0){
 			softmax_val = -softmax_val;
 
@@ -718,7 +718,7 @@ void sendPreSoftmaxUART(OL_LAYER_STRUCT * layer, int j, int i, uint8_t * msgPreS
 
 	int softmax_val = layer->y_pred[j]*1000000;
 
-	if(j<=layer->WIDTH){
+	if(j<layer->WIDTH){
 		if(softmax_val<0){
 			softmax_val = -softmax_val;
 

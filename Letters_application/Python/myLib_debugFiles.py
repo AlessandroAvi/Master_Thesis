@@ -25,16 +25,15 @@ col_RESET = '\033[0m'  #RESET COLOR
 
 
 
-def debug_plotHistoryPreSoftmax(itr, softmax_pc, softmax_stm, label):
+def debug_plotHistoryPreSoftmax(itr, pre_softmax_pc, pre_softmax_stm, label, max_dim):
     
-    x = list(range(0,softmax_stm.shape[0]))
-    y1 = softmax_stm[:770,itr]-softmax_pc[:770,itr]
+    x = list(range(0,pre_softmax_stm.shape[0]))
+    y1 = pre_softmax_stm[:max_dim,itr]-pre_softmax_pc[:max_dim,itr]
 
-    plt.plot(x, y1, color='r', label='stm')
+    plt.plot(x, y1, color='r')
     plt.xlabel("Iteration")
-    plt.ylabel("Softmax value")
+    plt.ylabel("Pre softmax value")
     plt.title(f"Comparison of pre softmax number: {itr+1} - letter {label[itr]}")
-    plt.legend()
     plt.savefig(SAVE_PLOT_PATH + 'PreSoftmaxHistory_' + label[itr] + '.png', bbox_inches='tight', dpi=200 )
     plt.show()
 
@@ -42,16 +41,15 @@ def debug_plotHistoryPreSoftmax(itr, softmax_pc, softmax_stm, label):
 
 
 
-def debug_plotHistorySoftmax(itr, softmax_pc, softmax_stm, label):
+def debug_plotHistorySoftmax(itr, softmax_pc, softmax_stm, label, max_dim):
     
     x = list(range(0,softmax_stm.shape[0]))
-    y1 = softmax_stm[:770,itr]-softmax_pc[:770,itr]
+    y1 = softmax_stm[:max_dim,itr]-softmax_pc[:max_dim,itr]
 
-    plt.plot(x, y1, color='r', label='stm')
+    plt.plot(x, y1, color='r')
     plt.xlabel("Iteration")
     plt.ylabel("Softmax value")
     plt.title(f"Comparison of softmax number: {itr+1} - letter {label[itr]}")
-    plt.legend()
     plt.savefig(SAVE_PLOT_PATH + 'SoftmaxHistory_' + label[itr] + '.png', bbox_inches='tight', dpi=200 )
     plt.show()
 
@@ -65,13 +63,11 @@ def plot_frozenDifference(itr, frozenOut_pc, frozenOut_stm):
     x = list(range(0,128))
     y = frozenOut_pc[itr,:] - frozenOut_stm[itr,:]
 
-    plt.plot(x, y, color='r', label='difference')
+    plt.plot(x, y, color='r')
     
     plt.xlabel("N of frozen output")
     plt.ylabel("Difference")
     plt.title(f"Difference between frozen outputs, number: {itr}")
-
-    plt.legend()
     
     print(f'The max difference is {max(y)}')
 
@@ -81,11 +77,11 @@ def plot_frozenDifference(itr, frozenOut_pc, frozenOut_stm):
 
 
 
-def debug_plotHistoryWeight(weight_num, weight_stm, weight_pc):
+def debug_plotHistoryWeight(weight_num, weight_stm, weight_pc, max_dim):
 
-    x = list(range(0,770))
-    y1 = weight_stm[:770,weight_num]
-    y2 = weight_pc[:770,weight_num]
+    x = list(range(0,max_dim))
+    y1 = weight_stm[:max_dim,weight_num]
+    y2 = weight_pc[:max_dim,weight_num]
 
     plt.plot(x, y1, color='r', label='stm')
     plt.plot(x, y2, color='g', label='pc')
@@ -96,15 +92,15 @@ def debug_plotHistoryWeight(weight_num, weight_stm, weight_pc):
     plt.legend()
     
     print('The final values are:')
-    print(f'             PC:{weight_pc[769,weight_num]:.11f}')
-    print(f'            STM:{weight_stm[769,weight_num]:.11f}')
+    print(f'             PC:{weight_pc[max_dim-1,weight_num]:.11f}')
+    print(f'            STM:{weight_stm[max_dim-1,weight_num]:.11f}')
 
-    diff = np.abs(weight_pc[769,weight_num]-weight_stm[769,weight_num])
-    max_val = np.abs(max(weight_pc[769,weight_num],weight_stm[769,weight_num]))
+    diff = np.abs(weight_pc[max_dim-1,weight_num]-weight_stm[max_dim-1,weight_num])
+    max_val = np.abs(max(weight_pc[max_dim-1,weight_num],weight_stm[max_dim-1,weight_num]))
     if(diff/max_val > 0.05):
-        print(f'  difference:{col_FAIL}{(weight_pc[769,weight_num]-weight_stm[769,weight_num]):.11f}{col_RESET}')
+        print(f'  difference:{col_FAIL}{(weight_pc[max_dim-1,weight_num]-weight_stm[max_dim-1,weight_num]):.11f}{col_RESET}  - which is {diff/max_val}%')
     else:
-        print(f'  difference:{col_OK}{(weight_pc[769,weight_num]-weight_stm[769,weight_num]):.11f}{col_RESET}')
+        print(f'  difference:{col_OK}{(weight_pc[max_dim-1,weight_num]-weight_stm[max_dim-1,weight_num]):.11f}{col_RESET}  - which is {diff/max_val}%')
 
     plt.savefig(SAVE_PLOT_PATH + 'WeightHistory_' + str(weight_num) + '.png', bbox_inches='tight', dpi=200 )
     plt.show()
@@ -112,11 +108,11 @@ def debug_plotHistoryWeight(weight_num, weight_stm, weight_pc):
 
 
 
-def debug_plotHistoryBias(bias_num, bias_stm, bias_pc, label):
+def debug_plotHistoryBias(bias_num, bias_stm, bias_pc, label,max_dim):
 
-    x = list(range(0,770))
-    y1 = bias_stm[:770,bias_num]
-    y2 = bias_pc[:770,bias_num]
+    x = list(range(0,max_dim))
+    y1 = bias_stm[:max_dim,bias_num]
+    y2 = bias_pc[:max_dim,bias_num]
 
     plt.plot(x, y1, color='r', label='stm')
     plt.plot(x, y2, color='g', label='pc')
@@ -126,15 +122,15 @@ def debug_plotHistoryBias(bias_num, bias_stm, bias_pc, label):
     plt.legend()
     
     print('The final values are:')
-    print(f'          PC:{bias_pc[769,bias_num]:.11f}')
-    print(f'         STM:{bias_stm[769,bias_num]:.11f}')
+    print(f'          PC:{bias_pc[max_dim-1,bias_num]:.11f}')
+    print(f'         STM:{bias_stm[max_dim-1,bias_num]:.11f}')
 
-    diff = np.abs(bias_pc[769,bias_num]-bias_stm[769,bias_num])
-    max_val = np.abs(max(bias_pc[769,bias_num],bias_stm[769,bias_num]))
+    diff = np.abs(bias_pc[max_dim-1,bias_num]-bias_stm[max_dim-1,bias_num])
+    max_val = np.abs(max(bias_pc[max_dim-1,bias_num],bias_stm[max_dim-1,bias_num]))
     if(diff/max_val > 0.05):
-        print(f'  difference:{col_FAIL}{(bias_pc[769,bias_num]-bias_stm[769,bias_num]):.11f}{col_RESET}')
+        print(f'  difference:{col_FAIL}{(bias_pc[max_dim-1,bias_num]-bias_stm[max_dim-1,bias_num]):.11f}{col_RESET}  - which is {diff/max_val}%')
     else:
-        print(f'  difference:{col_OK}{(bias_pc[769,bias_num]-bias_stm[769,bias_num]):.11f}{col_RESET}')
+        print(f'  difference:{col_OK}{(bias_pc[max_dim-1,bias_num]-bias_stm[max_dim-1,bias_num]):.11f}{col_RESET}  - which is {diff/max_val}%')
 
     plt.savefig(SAVE_PLOT_PATH + 'BiasHistory_' + label[bias_num] + '.png', bbox_inches='tight', dpi=200 )
     plt.show()

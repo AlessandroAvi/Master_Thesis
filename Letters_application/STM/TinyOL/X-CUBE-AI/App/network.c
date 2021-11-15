@@ -2,7 +2,7 @@
   ******************************************************************************
   * @file    network.c
   * @author  AST Embedded Analytics Research Platform
-  * @date    Fri Nov 12 09:42:15 2021
+  * @date    Mon Nov 15 11:57:33 2021
   * @brief   AI Tool Automatic Code Generator for Embedded NN computing
   ******************************************************************************
   * @attention
@@ -49,14 +49,14 @@
 #define AI_NET_OBJ_INSTANCE g_network
  
 #undef AI_NETWORK_MODEL_SIGNATURE
-#define AI_NETWORK_MODEL_SIGNATURE     "a8de9f7a8007ecf97f01cf2cd4255c98"
+#define AI_NETWORK_MODEL_SIGNATURE     "02e5926e7212903400a6bcc9cb1eceff"
 
 #ifndef AI_TOOLS_REVISION_ID
 #define AI_TOOLS_REVISION_ID     ""
 #endif
 
 #undef AI_TOOLS_DATE_TIME
-#define AI_TOOLS_DATE_TIME   "Fri Nov 12 09:42:15 2021"
+#define AI_TOOLS_DATE_TIME   "Mon Nov 15 11:57:33 2021"
 
 #undef AI_TOOLS_COMPILE_TIME
 #define AI_TOOLS_COMPILE_TIME    __DATE__ " " __TIME__
