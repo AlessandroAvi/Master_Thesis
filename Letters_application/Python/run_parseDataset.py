@@ -499,23 +499,39 @@ print('Dataset for letter VOWELS OL: saved')
 
 # Create a matrix that contains all the train data
 training_dataset = vowels_data_OL
+training_dataset = np.vstack(( training_dataset, B_data_2))
+training_dataset = np.vstack(( training_dataset, B_data_3))
+training_dataset = np.vstack(( training_dataset, R_data_2))
+training_dataset = np.vstack(( training_dataset, R_data_3))
+training_dataset = np.vstack(( training_dataset, M_data_2))
+training_dataset = np.vstack(( training_dataset, M_data_3))
+"""
 training_dataset = np.vstack(( training_dataset, B_data_4))
 training_dataset = np.vstack(( training_dataset, B_data_5))
 training_dataset = np.vstack(( training_dataset, R_data_4))
 training_dataset = np.vstack(( training_dataset, R_data_5))
 training_dataset = np.vstack(( training_dataset, M_data_4))
 training_dataset = np.vstack(( training_dataset, M_data_5))
+"""
 # Create an array that contains all the train labels
 training_labels = vowels_label_OL
+training_labels = np.hstack(( training_labels, B_label_2))
+training_labels = np.hstack(( training_labels, B_label_3))
+training_labels = np.hstack(( training_labels, R_label_2))
+training_labels = np.hstack(( training_labels, R_label_3))
+training_labels = np.hstack(( training_labels, M_label_2))
+training_labels = np.hstack(( training_labels, M_label_3))
+"""
 training_labels = np.hstack(( training_labels, B_label_4))
 training_labels = np.hstack(( training_labels, B_label_5))
 training_labels = np.hstack(( training_labels, R_label_4))
 training_labels = np.hstack(( training_labels, R_label_5))
 training_labels = np.hstack(( training_labels, M_label_4))
 training_labels = np.hstack(( training_labels, M_label_5))
+"""
 # Shuffle the matrix and the label
 training_dataset, training_labels = shuffleDataset(training_dataset, training_labels)
 # Save the dataset in a txt file
-myWrite.save_dataset(training_dataset, training_labels, 'training_file_original')
+myWrite.save_dataset(training_dataset, training_labels, 'BAD_training_file_original')
 print()
 print('Dataset for controlled training: saved \n')

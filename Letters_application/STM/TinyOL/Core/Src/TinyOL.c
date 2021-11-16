@@ -501,7 +501,7 @@ void OL_train(OL_LAYER_STRUCT * layer, float * input, char *letter){
 
 		float cost_norm[w];
 		float cost_LWF[w];
-		float lambda;
+		float lambda=0;
 
 		// Inference with current weights
 		OL_feedForward(layer, layer->weights, input, layer->biases, layer->y_pred);

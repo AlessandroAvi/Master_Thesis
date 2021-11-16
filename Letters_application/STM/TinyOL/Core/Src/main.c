@@ -152,25 +152,25 @@ int main(void)
   //	MODE_OL_batch
   //	MODE_OL_V2_batch
   //	MODE_LWF_batch
-  OL_layer.ALGORITHM = MODE_LWF_batch;
+  OL_layer.ALGORITHM = MODE_OL;
 
   OL_layer.batch_size = 8;
 
   // Define the learn rate depending on the algorithm
   if(OL_layer.ALGORITHM       == MODE_OL){
-	  OL_layer.l_rate = 0.00005; // 0.00005
+	  OL_layer.l_rate = 0.00005;
   }else if(OL_layer.ALGORITHM == MODE_OL_batch){
-	  OL_layer.l_rate = 0.001;   //0.001
+	  OL_layer.l_rate = 0.001;
   }else if(OL_layer.ALGORITHM == MODE_OL_V2){
-	  OL_layer.l_rate = 0.0001; // 0.0001;
+	  OL_layer.l_rate = 0.0001;
   }else if(OL_layer.ALGORITHM == MODE_OL_V2_batch){
-	  OL_layer.l_rate = 0.001; //0.001;
+	  OL_layer.l_rate = 0.001;
   }else if(OL_layer.ALGORITHM == MODE_CWR){
-	  OL_layer.l_rate = 0.08;  //0.0009
+	  OL_layer.l_rate = 0.08;
   }else if(OL_layer.ALGORITHM == MODE_LWF){
-	  OL_layer.l_rate = 0.0007; //0.0007
+	  OL_layer.l_rate = 0.0001;
   }else if(OL_layer.ALGORITHM == MODE_LWF_batch){
-	  OL_layer.l_rate = 0.0005; //0.0005
+	  OL_layer.l_rate = 0.0005;
   }
 
 
@@ -289,7 +289,6 @@ int main(void)
 		  for(int k=0; k<8; k++){
 			  sendBiasUART(&OL_layer, k, k*4, msgBias);
 			  sendSoftmaxUART(&OL_layer, k, k*4, msgSoftmax);
-			  sendPreSoftmaxUART(&OL_layer, k, k*4, msgPreSoftmax);
 		  }
 
 		  // Fill the array with the history of WEIGHTS
