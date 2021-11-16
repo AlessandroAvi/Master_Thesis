@@ -556,11 +556,11 @@ while (train_iter + test_iter)<send_max-1:
         
         # DEBUGGING SECTION - save the history of some matrices used in the training
         ###########################################
-        UART_receiveBiases()
-        UART_receiveWeights()
-        UART_receiveFrozenOut()
-        UART_receiveSoftmax()
-        UART_receivePreSoftmax()
+        #UART_receiveBiases()
+        #UART_receiveWeights()
+        #UART_receiveFrozenOut()
+        #UART_receiveSoftmax()
+        #UART_receivePreSoftmax()
         ###########################################
                         
 

@@ -47,6 +47,11 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+
+// ++++++++++++++++++++++++++++++++
+// UNCOMMENT THIS TO SEND TO PC THE HOSTORY OF THE TRAINING
+//#define DEBUG_SEND_HISTORY
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -147,7 +152,7 @@ int main(void)
   //	MODE_OL_batch
   //	MODE_OL_V2_batch
   //	MODE_LWF_batch
-  OL_layer.ALGORITHM = MODE_OL;
+  OL_layer.ALGORITHM = MODE_LWF_batch;
 
   OL_layer.batch_size = 8;
 
@@ -161,7 +166,7 @@ int main(void)
   }else if(OL_layer.ALGORITHM == MODE_OL_V2_batch){
 	  OL_layer.l_rate = 0.001; //0.001;
   }else if(OL_layer.ALGORITHM == MODE_CWR){
-	  OL_layer.l_rate = 0.0009;  //0.0009
+	  OL_layer.l_rate = 0.08;  //0.0009
   }else if(OL_layer.ALGORITHM == MODE_LWF){
 	  OL_layer.l_rate = 0.0007; //0.0007
   }else if(OL_layer.ALGORITHM == MODE_LWF_batch){
@@ -279,37 +284,33 @@ int main(void)
 		  HAL_UART_Transmit(&huart2, (uint8_t*)msgInfo, INFO_LEN, 100);		// Send message
 
 
-
-
-		  // Transmit to UART the value of the biases
+#ifdef DEBUG_SEND_HISTORY
+		  // Fill the array with the history of BIAS - SOFTMAX - PRE SOFTMAX
 		  for(int k=0; k<8; k++){
-			  sendBiasUART(&OL_layer, k, k*4, msgBias);   // send bias 1
+			  sendBiasUART(&OL_layer, k, k*4, msgBias);
+			  sendSoftmaxUART(&OL_layer, k, k*4, msgSoftmax);
+			  sendPreSoftmaxUART(&OL_layer, k, k*4, msgPreSoftmax);
 		  }
 
-		  // Transmit to UART the value of random weights
+		  // Fill the array with the history of WEIGHTS
 		  for(int k=0; k<10*8; k++){
 			  sendWeightsUART(&OL_layer, numeri[k], k*4, msgWeights);   // send weight
 		  }
 
-		  // Transmit to UART the value of frozen output
+		  // Fill the array with the history of FROZEN MODEL OUTPUT
 		  for(int k=0; k<128; k++){
 			  sendFrozenOutUART(&OL_layer, k, k*4, out_data, msgFrozenOut);
 		  }
 
-		  // Transmit to UART the value of the softmax output
-		  for(int k=0; k<8; k++){
-			  sendSoftmaxUART(&OL_layer, k, k*4, msgSoftmax);
-		  }
-
 		  if(OL_layer.counter <= 702){
-			  HAL_Delay(15); 			// Helps the code to not get stuck
+			  HAL_Delay(15); 			// Helps the code to not get stuck, no idea why
 			  HAL_UART_Transmit(&huart2, (uint8_t*)msgBias, 8*4, 100);
 			  HAL_UART_Transmit(&huart2, (uint8_t*)msgWeights, 10*8*4, 100);
 			  HAL_UART_Transmit(&huart2, (uint8_t*)msgFrozenOut, 128*4, 100);
 			  HAL_UART_Transmit(&huart2, (uint8_t*)msgSoftmax, 8*4, 100);
 			  HAL_UART_Transmit(&huart2, (uint8_t*)msgPreSoftmax, 8*4, 100);
 		  }
-
+#endif
 
 		  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);	// LED toggle
 		  enable_inference = 0;						// Reset inference flag

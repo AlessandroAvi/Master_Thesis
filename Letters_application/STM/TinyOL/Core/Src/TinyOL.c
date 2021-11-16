@@ -513,8 +513,8 @@ void OL_train(OL_LAYER_STRUCT * layer, float * input, char *letter){
 		lambda = 100/(100+layer->counter);					// Update lambda
 
 		for(int j=0; j<w; j++){
-			cost_norm[j] = layer->y_pred[j]  -layer->y_true[j];	// Compute normal cost
-			cost_LWF[j]  = layer->y_pred_2[j]-layer->y_true[j];	// Compute LWF cost
+			cost_norm[j] = layer->y_pred[j]-layer->y_true[j];	// Compute normal cost
+			cost_LWF[j]  = layer->y_pred[j]-layer->y_pred_2[j];	// Compute LWF cost
 
 			for(int i=0; i<h; i++){
 				layer->weights[j*h+i] -= (cost_norm[j]*(1-lambda)+cost_LWF[j]*lambda)*layer->l_rate*input[i];	// Update weights
@@ -552,8 +552,8 @@ void OL_train(OL_LAYER_STRUCT * layer, float * input, char *letter){
         }
 
 		for(int j=0; j<w; j++){
-			cost_norm[j] = layer->y_pred[j]  -layer->y_true[j];	// compute normal cost
-			cost_LWF[j]  = layer->y_pred_2[j]-layer->y_true[j];	// compute LWF cost
+			cost_norm[j] = layer->y_pred[j]-layer->y_true[j];	// compute normal cost
+			cost_LWF[j]  = layer->y_pred[j]-layer->y_pred_2[j];	// compute LWF cost
 
 			for(int i=0; i<h; i++){
 				layer->weights[j*h+i] -= (cost_norm[j]*(1-lambda)+cost_LWF[j]*lambda)*layer->l_rate*input[i];	// Update weights

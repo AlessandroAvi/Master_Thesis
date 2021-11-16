@@ -1,7 +1,7 @@
 {
     "_allocate_inputs": 0,
     "_allocate_outputs": 0,
-    "cli_parameters": "generate --name network -m C:/Users/massi/UNI/Magistrale/Anno 5/Semestre 2/Tesi/Code/Letters_application/Python/Saved_models/Frozen_model/model.h5 --type keras --compression 1 --verbosity 1 --workspace C:\\Users\\massi\\AppData\\Local\\Temp\\mxAI_workspace47846501049002123817412405445049 --output C:\\Users\\massi\\.stm32cubemx",
+    "cli_parameters": "generate --name network -m C:/Users/massi/UNI/Magistrale/Anno 5/Semestre 2/Tesi/Code/Letters_application/Python/Saved_models/Frozen_model/model.h5 --type keras --compression 1 --verbosity 1 --workspace C:\\Users\\massi\\AppData\\Local\\Temp\\mxAI_workspace82678210512003477847958877697697 --output C:\\Users\\massi\\.stm32cubemx",
     "cli_version": {
         "major": 1,
         "micro": 1,
@@ -12,12 +12,12 @@
         "factor": null,
         "layers": {}
     },
-    "date_time": "Mon Nov 15 17:11:03 2021",
+    "date_time": "Tue Nov 16 10:49:00 2021",
     "error": 0,
     "error_str": [],
     "exec_cmd": "generate",
     "exec_duration": 0.0,
-    "hash": "5ac5bbc8b0058b5bfd079e3ed077e6c0",
+    "hash": "8879ad555908435f7a5c5f383ca90452",
     "inputs": [
         "input_0"
     ],

@@ -29,7 +29,7 @@ def table_params(model):
 
     title       = model.title 
     filename    = model.filename
-    conf_matrix = model.confusion_matrix  
+    conf_matrix = model.conf_matr  
 
     table_values = np.zeros([3,conf_matrix.shape[0]])
 

@@ -26,9 +26,9 @@ def plot_confMatrix(model):
 
     title       = model.title 
     filename    = model.filename
-    conf_matrix = model.confusion_matrix    
+    letter_labels = model.std_label 
 
-    letter_labels = ['A','E','I','O','U','B','R','M']
+    conf_matrix = model.conf_matr    
     
     plt.figure(figsize=(10,6))
 
