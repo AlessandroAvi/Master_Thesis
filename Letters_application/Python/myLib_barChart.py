@@ -6,8 +6,10 @@ import matplotlib.image as mpimg
 
 
 ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
-PLOT_PATH = ROOT_PATH + '\\Plots\\TinyOL_Plots\\'
-TXT_PATH  = ROOT_PATH + '\\SimulationResult\\'     
+SAVE_PLOT__PATH          = ROOT_PATH + '\\Plots\\TinyOL_Plots\\'
+READ_TXT_SIMU_HIST__PATH = ROOT_PATH + '\\SimulationResult\\History_simulations\\'   
+READ_TXT_CONF_MATR__PATH = ROOT_PATH + '\\SimulationResult\\Last_simulation\\'
+  
 
 
 
@@ -37,7 +39,7 @@ def plot_barChart_SimuRes(plotEnable):
     count = 0
     for filename in names_ary:
         
-        data = np.loadtxt(TXT_PATH + filename +'.txt', delimiter=',')  # read from txt
+        data = np.loadtxt(READ_TXT_SIMU_HIST__PATH + filename +'.txt', delimiter=',')  # read from txt
         accuracy = np.zeros(int(data.shape[0]/3))   # reset container
 
         # the txt file is composed of sequences of lines -> number of orrect prediction - number of mistaken prediction - n of tot predictions
@@ -73,7 +75,7 @@ def plot_barChart_SimuRes(plotEnable):
         plt.ylabel('Accuracy %', fontweight ='bold', fontsize = 15)
         plt.xticks([r for r in range(len(avrg_accuracy))], names_ary, fontweight ='bold', fontsize = 12, rotation='vertical') # Write on x axis the model name
         plt.title('Accuracy test - Average over '+str(len(accuracy))+' simulations',fontweight ='bold', fontsize = 15)
-        plt.savefig(PLOT_PATH + 'barPlot_AVERAGE.jpg', bbox_inches='tight', dpi=200 )
+        plt.savefig(SAVE_PLOT__PATH + 'barPlot_AVERAGE.jpg', bbox_inches='tight', dpi=200 )
 
 
 
@@ -93,9 +95,10 @@ def plot_barChart(model):
         Container for the model weights, biases, parameters.
     """
     
-    conf_matr   = model.conf_matr
     title       = model.title 
     filename    = model.filename
+
+    conf_matr = np.loadtxt(READ_TXT_CONF_MATR__PATH + filename +'.txt', delimiter=',')  # read from txt
 
     bar_plot_label = ['A','E','I','O','U','B','R','M', 'Model']
     blue2 = 'cornflowerblue'
@@ -136,7 +139,7 @@ def plot_barChart(model):
     plt.xlabel('Classes', fontsize = 15)
     plt.xticks([r for r in range(len(bar_plot_label))], bar_plot_label, fontweight ='bold', fontsize = 12) # Write on x axis the letter name
     plt.title('Accuracy test - Method used: '+title, fontweight ='bold', fontsize = 15)
-    plt.savefig(PLOT_PATH + 'barPlot_' + filename + '.jpg')
+    plt.savefig(SAVE_PLOT__PATH + 'barPlot_' + filename + '.jpg')
 
 
 
@@ -150,14 +153,14 @@ def plot_barChart_All():
     
     fig = plt.figure(figsize=(17,27))
 
-    Image1 = mpimg.imread(PLOT_PATH + 'barPlot_KERAS.jpg')
-    Image2 = mpimg.imread(PLOT_PATH + 'barPlot_CWR.jpg')
-    Image3 = mpimg.imread(PLOT_PATH + 'barPlot_OL.jpg')
-    Image4 = mpimg.imread(PLOT_PATH + 'barPlot_OL_batches.jpg')
-    Image5 = mpimg.imread(PLOT_PATH + 'barPlot_LWF.jpg')
-    Image6 = mpimg.imread(PLOT_PATH + 'barPlot_LWF_batches.jpg')
-    Image7 = mpimg.imread(PLOT_PATH + 'barPlot_OL_v2.jpg')
-    Image8 = mpimg.imread(PLOT_PATH + 'barPlot_OL_v2_batches.jpg')
+    Image1 = mpimg.imread(SAVE_PLOT__PATH + 'barPlot_KERAS.jpg')
+    Image2 = mpimg.imread(SAVE_PLOT__PATH + 'barPlot_CWR.jpg')
+    Image3 = mpimg.imread(SAVE_PLOT__PATH + 'barPlot_OL.jpg')
+    Image4 = mpimg.imread(SAVE_PLOT__PATH + 'barPlot_OL_batches.jpg')
+    Image5 = mpimg.imread(SAVE_PLOT__PATH + 'barPlot_LWF.jpg')
+    Image6 = mpimg.imread(SAVE_PLOT__PATH + 'barPlot_LWF_batches.jpg')
+    Image7 = mpimg.imread(SAVE_PLOT__PATH + 'barPlot_OL_v2.jpg')
+    Image8 = mpimg.imread(SAVE_PLOT__PATH + 'barPlot_OL_v2_batches.jpg')
 
     # Adds a subplot at the 1st position
     fig.add_subplot(4, 2, 1)
@@ -199,7 +202,7 @@ def plot_barChart_All():
     plt.imshow(Image8)
     plt.axis('off')
 
-    plt.savefig(PLOT_PATH +  'barPlot_ ALL.jpg', bbox_inches='tight', 
+    plt.savefig(SAVE_PLOT__PATH +  'barPlot_ ALL.jpg', bbox_inches='tight', 
                 edgecolor=fig.get_edgecolor(), facecolor=fig.get_facecolor(), dpi=200 )
 
 

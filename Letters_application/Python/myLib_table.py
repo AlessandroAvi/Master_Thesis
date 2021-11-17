@@ -4,8 +4,9 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
-PLOT_PATH = ROOT_PATH + '\\Plots\\TinyOL_Plots\\'
-PERFORMANCE_TXT = ROOT_PATH + '\\Plots\\STM_results\\methodsPerformance.txt'
+SAVE_PLOT__PATH                = ROOT_PATH + '\\Plots\\TinyOL_Plots\\'
+READ_TXT_PERFORMANCE_STM__PATH = ROOT_PATH + '\\Plots\\STM_results\\methodsPerformance.txt'
+READ_TXT_CONF_MATR__PATH       = ROOT_PATH + '\\SimulationResult\\Last_simulation\\'
 
 
 
@@ -29,21 +30,22 @@ def table_params(model):
 
     title       = model.title 
     filename    = model.filename
-    conf_matrix = model.conf_matr  
 
-    table_values = np.zeros([3,conf_matrix.shape[0]])
+    conf_matr = np.loadtxt(READ_TXT_CONF_MATR__PATH + filename +'.txt', delimiter=',')  # read from txt
+
+    table_values = np.zeros([3,conf_matr.shape[0]])
 
     for i in range(0, table_values.shape[1]):
 
-        if(sum(conf_matrix[i,:])==0):   # if for avoiding division by 0 that generates NAN                                
+        if(sum(conf_matr[i,:])==0):   # if for avoiding division by 0 that generates NAN                                
             table_values[0,i] = 0
         else:
-            table_values[0,i] = round(conf_matrix[i,i]/sum(conf_matrix[i,:]),2)      # ACCURACY
+            table_values[0,i] = round(conf_matr[i,i]/sum(conf_matr[i,:]),2)      # ACCURACY
 
-        if(sum(conf_matrix[:,i])==0):   # if for avoiding division by 0 that generates NAN
+        if(sum(conf_matr[:,i])==0):   # if for avoiding division by 0 that generates NAN
             table_values[1,i] = 0
         else:
-            table_values[1,i] = round(conf_matrix[i,i]/sum(conf_matrix[:,i]),2)      # PRECISION 
+            table_values[1,i] = round(conf_matr[i,i]/sum(conf_matr[:,i]),2)      # PRECISION 
 
         if((table_values[1,i]+table_values[0,i])==0):     # if for avoiding division by 0 that generates NAN
             table_values[2,i] = 0
@@ -72,7 +74,7 @@ def table_params(model):
     table.scale(2,2) 
     table.set_fontsize(10)
     ax.set_title('Parameters table - Method: ' + title, fontweight ="bold") 
-    plt.savefig(PLOT_PATH + 'table_' + filename + '.jpg',
+    plt.savefig(SAVE_PLOT__PATH + 'table_' + filename + '.jpg',
                 bbox_inches='tight',
                 edgecolor=fig.get_edgecolor(),
                 facecolor=fig.get_facecolor(),
@@ -166,7 +168,7 @@ def table_simulationResult(model1, model2, model3, model4, model5, model6, model
 
     ax.set_title('Performance parameters', fontweight ="bold") 
         
-    plt.savefig(PLOT_PATH + 'table_simulationResult.jpg',
+    plt.savefig(SAVE_PLOT__PATH + 'table_simulationResult.jpg',
                 bbox_inches='tight',
                 edgecolor=fig.get_edgecolor(),
                 facecolor=fig.get_facecolor(),
@@ -196,7 +198,7 @@ def table_STM_methodsPerformance():
     """
     # Extract data about the inference times
     columnNames = ['accuracy', 'timeF', 'timeOL', 'ram']
-    dataset = pd.read_csv(PERFORMANCE_TXT,header = None, names=columnNames,na_values=',')
+    dataset = pd.read_csv(READ_TXT_PERFORMANCE_STM__PATH,header = None, names=columnNames,na_values=',')
 
     accuracy_val = dataset.accuracy
     timeF_val    = dataset.timeF

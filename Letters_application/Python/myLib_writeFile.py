@@ -4,9 +4,25 @@ import pandas as pd
 
 
 ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
-SIMU_RES_PATH = ROOT_PATH + '\\SimulationResult\\'
+HISTORY_SIMU_RES_PATH = ROOT_PATH + '\\SimulationResult\\History_simulations\\'
+LAST_SIMU_RES_PATH = ROOT_PATH + '\\SimulationResult\\Last_simulation\\'
 LAST_LAYER_PATH = ROOT_PATH + '\\Saved_models\\Frozen_model\\'
 STM_PERFORMANCE_PATH = ROOT_PATH + '\\Plots\\STM_results\\methodsPerformance.txt'
+
+
+
+
+
+def save_confMatrix(model):
+
+    filename = model.filename
+    CONF_MATR_PATH = LAST_SIMU_RES_PATH + filename + '.txt'
+
+    with open(CONF_MATR_PATH,'w') as data_file:
+
+        for i in range(0, model.conf_matr.shape[0]):
+            data_file.write( str(model.conf_matr[i,0])+','+str(model.conf_matr[i,1])+','+str(model.conf_matr[i,2])+','+str(model.conf_matr[i,3])+','+
+                             str(model.conf_matr[i,4])+','+str(model.conf_matr[i,5])+','+str(model.conf_matr[i,6])+','+str(model.conf_matr[i,7])+'\n')
 
 
 
@@ -34,7 +50,7 @@ def save_simulationResult(filename, model):
     res3 = model.totals_ary
 
     # NB: with the specification 'a' the content of the txt file is not deleted every time. It just appends new data.
-    with open(SIMU_RES_PATH + filename +'.txt',"a") as f:
+    with open(HISTORY_SIMU_RES_PATH + filename +'.txt',"a") as f:
 
         # Save on the first line an array that contains the correct predictions for each letter
         for i in range(0, len(res1)):
@@ -237,4 +253,8 @@ def save_dataset(dtensor, labels, filename):
         for i in range(0, dtensor.shape[0]):
             for j in range(0, int(dtensor.shape[1]/3)):
                 data_file.write( str(i+1)+','+str(labels[i])+','+str(int(dtensor[i,j]))+','+str(int(dtensor[i,j+200]))+','+str(int(dtensor[i,j+400]))+'\n')
+
+
+
+
 
