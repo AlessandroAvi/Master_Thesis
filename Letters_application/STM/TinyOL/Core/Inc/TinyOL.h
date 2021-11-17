@@ -107,6 +107,9 @@ typedef struct {
 #define INFO_LEN           		     10
 #define READ_FREE_RAM                 0
 
+// UNCOMMENT THIS TO SEND TO PC THE HOSTORY OF THE TRAINING
+//#define DEBUG_SEND_HISTORY
+
 
 int msgLen;
 char msgDebug[BUFF_LEN];		// General container for debug messages to send on UART

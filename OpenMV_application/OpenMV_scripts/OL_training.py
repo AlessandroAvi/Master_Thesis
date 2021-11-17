@@ -56,15 +56,19 @@ while(True):
     out_frozen = net.predict(img)                           # [CUBE.AI] run the inference on frozen model
 
 
+    # CHECK LABEL
+    if(counter%50==0 and train_counter<len(OL_layer.true_label)):
+        myLib.check_label(OL_layer, train_counter)
+        true_label = myLib.label_to_softmax(OL_layer, train_counter)
+
+    # PREDICTION
     out_OL     = myLib.feed_forward(out_frozen, OL_layer)   # Feed forward
     prediction = myLib.softmax(out_OL)
 
+    # PERFORM BACK PROPAGATION AND UPDATE PERFORMANCE
+    if(counter%50==0 and train_counter<len(OL_layer.true_label)):
 
-    # PERFORM OL TRAINING ON THE CURRENT SAMPLE
-    if(counter%50==0 and train_counter<len(OL_layer.true_label))
 
-        myLib.check_label(OL_layer, train_counter)
-        true_label = myLib.label_to_softmax(OL_layer, train_counter)
         myLib.back_propagation(true_label, prediction, OL_layer, out_frozen)
 
         myLib.update_conf_matr(true_label, prediction, OL_layer)
@@ -73,9 +77,10 @@ while(True):
 
 
     # TERMINAL DEBUG
+
     print('FPS {}'.format(clock.fps())) # Note: OpenMV Cam runs about half as fast when connected
     img.draw_string(0, 0, 'P:'+str( np.argmax(prediction) ))
-    img.draw_string(50, 0,'N:'+str( OL_layer.t_labels[train_counter] ))
+    img.draw_string(50, 0,'T:'+str( OL_layer.true_label[train_counter] ))
 
     counter += 1
 

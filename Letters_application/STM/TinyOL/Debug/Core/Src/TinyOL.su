@@ -11,9 +11,9 @@ TinyOL.c:240:6:OL_softmax	64	static
 TinyOL.c:276:6:OL_checkNewClass	24	static
 TinyOL.c:307:6:OL_compareLabels	24	static
 TinyOL.c:351:6:OL_train	256	dynamic
-TinyOL.c:601:6:sendBiasUART	32	static
-TinyOL.c:630:6:sendWeightsUART	32	static
-TinyOL.c:656:6:sendFrozenOutUART	32	static
-TinyOL.c:683:6:sendSoftmaxUART	32	static
-TinyOL.c:712:6:sendPreSoftmaxUART	32	static
-TinyOL.c:743:6:OL_updateRAMcounter	24	static
+TinyOL.c:606:6:sendBiasUART	32	static
+TinyOL.c:635:6:sendWeightsUART	32	static
+TinyOL.c:661:6:sendFrozenOutUART	32	static
+TinyOL.c:688:6:sendSoftmaxUART	32	static
+TinyOL.c:717:6:sendPreSoftmaxUART	32	static
+TinyOL.c:748:6:OL_updateRAMcounter	24	static

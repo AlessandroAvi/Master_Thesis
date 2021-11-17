@@ -365,15 +365,16 @@ void OL_train(OL_LAYER_STRUCT * layer, float * input, char *letter){
 		// Inference with current weights
 		OL_feedForward(layer, layer->weights, input, layer->biases, layer->y_pred);
 
-		// Transmit to UART the value of the PreSoftmax output
+#ifdef DEBUG_SEND_HISTORY
+		// Fill the array with the history of PRE SOFTMAX
 		for(int k=0; k<8; k++){
 			sendPreSoftmaxUART(layer, k, k*4, msgPreSoftmax);
 		}
+#endif
 
 		OL_softmax(layer, layer->y_pred);
 
 		int j_start = 0;
-
 		// If algorithms is OL_V2, don't update the vowels
 		if(layer->ALGORITHM == MODE_OL_V2){
 			j_start = 5;
@@ -406,7 +407,13 @@ void OL_train(OL_LAYER_STRUCT * layer, float * input, char *letter){
 		OL_feedForward(layer, layer->weights, input, layer->biases, layer->y_pred);
 		OL_softmax(layer, layer->y_pred);
 
-		for(int j=0; j<w; j++){
+		int j_start = 0;
+		// If algorithms is OL_V2, don't update the vowels
+		if(layer->ALGORITHM == MODE_OL_V2_batch){
+			j_start = 5;
+		}
+
+		for(int j=j_start; j<w; j++){
 			cost[j] = layer->y_pred[j]-layer->y_true[j];			// Compute the cost
 			if (cost[j]==0) continue;								// If nothing to update skip loop
 

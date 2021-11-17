@@ -48,10 +48,6 @@
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 
-// ++++++++++++++++++++++++++++++++
-// UNCOMMENT THIS TO SEND TO PC THE HOSTORY OF THE TRAINING
-//#define DEBUG_SEND_HISTORY
-
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -126,7 +122,7 @@ int main(void)
   MX_X_CUBE_AI_Init();
   /* USER CODE BEGIN 2 */
 
-
+#ifdef DEBUG_SEND_HISTORY
   int numeri[10*8] = {46,13,107,3,57,65,127,81,89,70,
   						143,239,142,158,207,189,172,230,156,208,
   						374,359,375,371,303,298,350,257,349,333,
@@ -135,7 +131,7 @@ int main(void)
   						712,742,685,746,759,747,754,702,653,640,
   						775,809,798,853,804,840,828,788,890,819,
   						906,1019,911,1005,1016,953,1016,987,961,1023};
-
+# endif
 
   // *************************************
   //                  INITIALIZE OL-STRUCT
@@ -152,7 +148,7 @@ int main(void)
   //	MODE_OL_batch
   //	MODE_OL_V2_batch
   //	MODE_LWF_batch
-  OL_layer.ALGORITHM = MODE_OL;
+  OL_layer.ALGORITHM = MODE_OL_V2_batch;
 
   OL_layer.batch_size = 8;
 
@@ -160,15 +156,15 @@ int main(void)
   if(OL_layer.ALGORITHM       == MODE_OL){
 	  OL_layer.l_rate = 0.00005;
   }else if(OL_layer.ALGORITHM == MODE_OL_batch){
-	  OL_layer.l_rate = 0.001;
+	  OL_layer.l_rate = 0.0005;
   }else if(OL_layer.ALGORITHM == MODE_OL_V2){
-	  OL_layer.l_rate = 0.0001;
-  }else if(OL_layer.ALGORITHM == MODE_OL_V2_batch){
 	  OL_layer.l_rate = 0.001;
+  }else if(OL_layer.ALGORITHM == MODE_OL_V2_batch){
+	  OL_layer.l_rate = 0.0005;
   }else if(OL_layer.ALGORITHM == MODE_CWR){
-	  OL_layer.l_rate = 0.08;
+	  OL_layer.l_rate = 0.01;
   }else if(OL_layer.ALGORITHM == MODE_LWF){
-	  OL_layer.l_rate = 0.0001;
+	  OL_layer.l_rate = 0.00015;
   }else if(OL_layer.ALGORITHM == MODE_LWF_batch){
 	  OL_layer.l_rate = 0.0005;
   }

@@ -15,9 +15,9 @@ class LastLayer(object):
         self.std_label = ['0','1','2','3','4','5','6','7','8','9']
         self.l_rate = 0.005
 
-        self.weights  = np.zeros((6,2028))
-        self.biases   = np.zeros((6,1))
-        self.true_label = np.zeros(100)
+        self.weights    = np.zeros((6,2028))
+        self.biases     = np.zeros((6,1))
+        self.true_label = []
 
         self.confusion_matrix = np.zeros((10,10))
 
@@ -26,6 +26,7 @@ class LastLayer(object):
 
 
 
+###############################################################
 #    ____  _____    _    ____    _______  _______
 #   |  _ \| ____|  / \  |  _ \  |_   _\ \/ /_   _|
 #   | |_) |  _|   / _ \ | | | |   | |  \  /  | |
@@ -75,7 +76,7 @@ def load_labels(OL_layer):
             data = line.split(',')
             i=0
             for number in data:
-                OL_layer.true_label[i] = str(int(number))
+                OL_layer.true_label.append(str(number))
                 i+=1
 
 
@@ -83,6 +84,7 @@ def load_labels(OL_layer):
 
 
 
+###############################################################
 #   __        ______  ___ _____ _____   _______  _______
 #   \ \      / /  _ \|_ _|_   _| ____| |_   _\ \/ /_   _|
 #    \ \ /\ / /| |_) || |  | | |  _|     | |  \  /  | |
@@ -109,6 +111,7 @@ def write_results(OL_layer):
 
 
 
+###############################################################
 #    _____ ___ _   ___   __   ___  _
 #   |_   _|_ _| \ | \ \ / /  / _ \| |
 #     | |  | ||  \| |\ V /  | | | | |
@@ -130,18 +133,17 @@ def check_label(OL_layer, itr):
 
         OL_layer.W += 1
 
-        tmp = np.zeros((1,OL_layer.H))
-        OL_layer.weights = np.concatenate((OL_layer.weights, tmp), axis=0)
+        # NEED TO FIND A SOLUTION TO MEMORY ALLOCATION DURING RUNTIME, CANNOT CREATE
+        # MATRIXWITH THESE MUCH ZEROS
+        tmp = np.zeros((OL_layer.W,OL_layer.H))
+        for i in range(0, OL_layer.W-1):
+            tmp[i,:] = OL_layer.weights[i,:]
+        OL_layer.weights = tmp
 
         tmp = np.zeros((1,1))
         OL_layer.biases  = np.concatenate((OL_layer.biases, tmp), axis=0)
 
-        OL_labels.append(OL_layer.true_label[itr])
-
-        tmp = np.zeros((1,OL_layer.W-1))
-        OL_labels.confusion_matrix = np.concatenate((OL_layer.confusion_matrix, tmp), axis=0)
-        tmp = np.zeros((OL_layer.W,1))
-        OL_labels.confusion_matrix = np.concatenate((OL_layer.confusion_matrix, tmp), axis=1)
+        OL_layer.label.append(OL_layer.true_label[itr])
 
 
 
@@ -153,7 +155,7 @@ def label_to_softmax(OL_layer, itr):
     ret_ary = np.zeros((OL_layer.W, 1))
 
     for i in range(0, OL_layer.W):
-        if(OL_layer.true_label[itr] == Ol_layer.label[i]):
+        if(OL_layer.true_label[itr] == OL_layer.label[i]):
             ret_ary[i] = 1
 
     return ret_ary
@@ -221,6 +223,7 @@ def update_conf_matr(true_label, prediction, OL_layer):
 
 
 
+###############################################################
 #    _____ ____      _    ___ _   _ ___ _   _  ____ ____
 #   |_   _|  _ \    / \  |_ _| \ | |_ _| \ | |/ ___/ ___|
 #     | | | |_) |  / _ \  | ||  \| || ||  \| | |  _\___ \
@@ -236,13 +239,18 @@ def back_propagation_OL(true_label, prediction, OL_layer, out_frozen):
     out_frozen = np.array(out_frozen).reshape((1,OL_layer.H))
 
     for i in range(0, OL_layer.W):
+        print(i)
         cost[i,0] = (prediction[i,0]-true_label[i,0])*OL_layer.l_rate
 
+    tmp = np.zeros((2,1))
     # Update weights
-    dW = np.linalg.dot(cost, out_frozen)
-    OL_layer.weights = OL_layer.weights - dW
-    # Update biases
-    OL_layer.biases  = OL_layer.biases - cost
+    for i in range(0, OL_layer.W):
+        # toppa per farlo funzionare, non riesce ad aprire tutta la matrice in un colpo
+        tmp[0,0] = cost[i,0]
+        dW = np.linalg.dot(tmp, out_frozen)
+        OL_layer.weights[i,:] = OL_layer.weights[i,:] - dW[0,:]
+        # Update biases
+        OL_layer.biases[i,0]  = OL_layer.biases[i,0] - cost[i,0]
 
 
 

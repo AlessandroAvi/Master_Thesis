@@ -107,11 +107,11 @@ def plot_barChart(model):
     correct_pred = 0
 
     for i in range(0, conf_matr.shape[0]):
-        bar_values[i] = int(round(conf_matr[i,i]/sum(conf_matr[i,:]),2)*100)      # Accuracy for each letter
+        bar_values[i] = round(round(conf_matr[i,i]/sum(conf_matr[i,:]),4)*100, 2)      # Accuracy for each letter
         tot_pred += sum(conf_matr[i,:])
         correct_pred += conf_matr[i,i]
 
-    bar_values[-1] = int(round(correct_pred/tot_pred, 2)*100)   # Overall accuracy of the model
+    bar_values[-1] = round(round(correct_pred/tot_pred, 4)*100,2)   # Overall accuracy of the model
     
     fig = plt.subplots(figsize =(12, 8))
 
