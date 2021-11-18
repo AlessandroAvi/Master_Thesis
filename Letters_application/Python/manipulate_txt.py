@@ -17,7 +17,7 @@ ro_remove_3 = 0
 ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
 
 
-DATASET_PATH   = ROOT_PATH + '\\Letter_dataset\\Clean_dataset\\training_file_original.txt'
+DATASET_PATH   = ROOT_PATH + '\\Letter_dataset\\Clean_dataset\\NEW_training_file_original.txt'
 DATASET_PATH_2 = ROOT_PATH + '\\Letter_dataset\\Clean_dataset\\training_file.txt'
 
 

@@ -108,7 +108,7 @@ typedef struct {
 #define READ_FREE_RAM                 0
 
 // UNCOMMENT THIS TO SEND TO PC THE HOSTORY OF THE TRAINING
-//#define DEBUG_SEND_HISTORY
+#define DEBUG_SEND_HISTORY
 
 
 int msgLen;

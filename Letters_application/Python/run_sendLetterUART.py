@@ -414,55 +414,57 @@ print(' |_|   |_| \_\_____|_| /_/   \_\_| \_\_____| |____/_/   \_\_/_/   \_\____
 print('\n')
 
 
+DATASET = 2
+DEBUG_HISTORY = 1
 
-# EXTRACT DATASET - Vowels
-tmp_1, tmp_2 = myParse.loadDataFromTxt('vowels_OL')
-OL_train_data, OL_train_label, OL_test_data, OL_test_label = myParse.parseTrainTest(tmp_1, tmp_2, 0.7)
+print('Loading dataset ....')
+if(DATASET == 1):
+    # EXTRACT DATASET - Vowels
+    tmp_1, tmp_2 = myParse.loadDataFromTxt('vowels_OL')
+    OL_train_data, OL_train_label, OL_test_data, OL_test_label = myParse.parseTrainTest(tmp_1, tmp_2, 0.7)
 
-# EXTRACT DATASET - B
-tmp_1, tmp_2 = myParse.loadDataFromTxt('B_dataset')
-B_train_data, B_train_label, B_test_data, B_test_label = myParse.parseTrainTest(tmp_1, tmp_2, 0.7)
+    # EXTRACT DATASET - B
+    tmp_1, tmp_2 = myParse.loadDataFromTxt('B_dataset')
+    B_train_data, B_train_label, B_test_data, B_test_label = myParse.parseTrainTest(tmp_1, tmp_2, 0.7)
 
-# EXTRACT DATASET - R
-tmp_1, tmp_2 = myParse.loadDataFromTxt('R_dataset')
-R_train_data, R_train_label, R_test_data, R_test_label = myParse.parseTrainTest(tmp_1, tmp_2, 0.7)
+    # EXTRACT DATASET - R
+    tmp_1, tmp_2 = myParse.loadDataFromTxt('R_dataset')
+    R_train_data, R_train_label, R_test_data, R_test_label = myParse.parseTrainTest(tmp_1, tmp_2, 0.7)
 
-# EXTRACT DATASET - M
-tmp_1, tmp_2 = myParse.loadDataFromTxt('M_dataset')
-M_train_data, M_train_label, M_test_data, M_test_label = myParse.parseTrainTest(tmp_1, tmp_2, 0.7)
+    # EXTRACT DATASET - M
+    tmp_1, tmp_2 = myParse.loadDataFromTxt('M_dataset')
+    M_train_data, M_train_label, M_test_data, M_test_label = myParse.parseTrainTest(tmp_1, tmp_2, 0.7)
 
-# STACK DATASET - Train - Data
-train_data = OL_train_data
-train_data = np.vstack(( train_data, B_train_data))
-train_data = np.vstack(( train_data, R_train_data))
-train_data = np.vstack(( train_data, M_train_data))
-# Labels
-train_label = OL_train_label
-train_label = np.hstack(( train_label, B_train_label))
-train_label = np.hstack(( train_label, R_train_label))
-train_label = np.hstack(( train_label, M_train_label))
+    # STACK DATASET - Train - Data
+    train_data = OL_train_data
+    train_data = np.vstack(( train_data, B_train_data))
+    train_data = np.vstack(( train_data, R_train_data))
+    train_data = np.vstack(( train_data, M_train_data))
+    # Labels
+    train_label = OL_train_label
+    train_label = np.hstack(( train_label, B_train_label))
+    train_label = np.hstack(( train_label, R_train_label))
+    train_label = np.hstack(( train_label, M_train_label))
 
-# STACK DATASET - Test - Data
-test_data = OL_test_data
-test_data = np.vstack(( test_data, B_test_data))
-test_data = np.vstack(( test_data, R_test_data))
-test_data = np.vstack(( test_data, M_test_data))
-# Labels
-test_label = OL_test_label
-test_label = np.hstack(( test_label, B_test_label))
-test_label = np.hstack(( test_label, R_test_label))
-test_label = np.hstack(( test_label, M_test_label))
+    # STACK DATASET - Test - Data
+    test_data = OL_test_data
+    test_data = np.vstack(( test_data, B_test_data))
+    test_data = np.vstack(( test_data, R_test_data))
+    test_data = np.vstack(( test_data, M_test_data))
+    # Labels
+    test_label = OL_test_label
+    test_label = np.hstack(( test_label, B_test_label))
+    test_label = np.hstack(( test_label, R_test_label))
+    test_label = np.hstack(( test_label, M_test_label))
 
-# SHUFFLE DATASET
-train_data, train_label = myParse.shuffleDataset(train_data, train_label)
-test_data, test_label   = myParse.shuffleDataset(test_data, test_label)
+    # SHUFFLE DATASET
+    train_data, train_label = myParse.shuffleDataset(train_data, train_label)
+    test_data, test_label   = myParse.shuffleDataset(test_data, test_label)
 
-
-# IF YOU WANT TO TEST LAPTOP AND STM WITH THE SAME EXACT DATASET IN TH SAME ORDER UNCOMMENT THESE LINES
-# *****************************************************
-data, label = myParse.loadDataFromTxt('training_file')
-train_data, train_label, test_data, test_label = myParse.parseTrainTest(data, label, 0.7)
-# *****************************************************
+else:
+    # IF YOU WANT TO TEST LAPTOP AND STM WITH THE SAME EXACT DATASET IN THE SAME ORDER USE THIS
+    data, label = myParse.loadDataFromTxt('training_file')
+    train_data, train_label, test_data, test_label = myParse.parseTrainTest(data, label, 0.55)
 
 print(f'The entire training dastaset has shape {train_data.shape}')
 print(f'The entire testing dataset has shape   {test_data.shape}')
@@ -556,11 +558,12 @@ while (train_iter + test_iter)<send_max-1:
         
         # DEBUGGING SECTION - save the history of some matrices used in the training
         ###########################################
-        #UART_receiveBiases()
-        #UART_receiveWeights()
-        #UART_receiveFrozenOut()
-        #UART_receiveSoftmax()
-        #UART_receivePreSoftmax()
+        if(DEBUG_HISTORY == 1):
+            UART_receiveBiases()
+            UART_receiveWeights()
+            UART_receiveFrozenOut()
+            UART_receiveSoftmax()
+            UART_receivePreSoftmax()
         ###########################################
                         
 
