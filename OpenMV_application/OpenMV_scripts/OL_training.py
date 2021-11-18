@@ -64,7 +64,7 @@ while(True):
     out_OL     = myLib.feed_forward(out_frozen, OL_layer)   # Feed forward
     prediction = myLib.softmax(out_OL)
 
-    # PERFORM BACK PROPAGATION AND UPDATE PERFORMANCE
+    # PERFORM BACK PROPAGATION AND UPDATE PERFORMANCE COUNTER
     if(counter%47==0 and train_counter<100):
         # Apply changes on weights and biases
         myLib.back_propagation(true_label, prediction, OL_layer, out_frozen)
