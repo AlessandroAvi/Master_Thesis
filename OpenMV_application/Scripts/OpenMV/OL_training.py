@@ -39,6 +39,7 @@ myLib.load_labels(OL_layer)
 OL_layer.method = 1
 
 
+
 # START THE INFINITE LOOP
 
 while(True):
@@ -49,6 +50,8 @@ while(True):
 
     img.midpoint(2, bias=0.5, threshold=True,               # Binarize the image, size is 3x3,
                     offset=5, invert=True)
+
+
 
     out_frozen = net.predict(img)                           # [CUBE.AI] run the inference on frozen model
 
@@ -81,5 +84,6 @@ while(True):
 
 
     counter += 1
+
 
 

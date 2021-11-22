@@ -22,17 +22,13 @@ These two datasets are also separated in train and test portions. For the Tensor
 
 Each single letter is composed of 3 arrays of data (x,y,z), each one long 200 (recorded for 2 seconds, 100Hz).
 
-
-
-https://github.com/AlessandroAvi/Master_Thesis/blob/main/Letters_application/Python/Plots/ReadmeImages/PieCharts.jpg
-
- ![image_for_github_repo](https://github.com/AlessandroAvi/Master_Thesis/blob/main/Letters_application/Python/Plots/ReadmeImages/PieCharts.jpg) 
+<img src="https://github.com/AlessandroAvi/Master_Thesis/blob/main/Letters_application/Python/Plots/ReadmeImages/STM_GPIO.png" width=50% height=50%>
 
 <img src="C:\Users\massi\UNI\Magistrale\Anno 5\Semestre 2\Tesi\Code\Letters_application\Python\Plots\ReadmeImages\PieCharts.jpg" style="zoom:80%;" />
 
 The letters recorder were written eith this patters. I also tried to change the speed, dimensions and proportions of the letters in order to make the dataset a bit more variate (also change between left and right hand).
 
-![image_for_github_repo](https://github.com/AlessandroAvi/Master_Thesis/blob/main/Letters_application/Python/Plots/ReadmeImages/letters.png) 
+<img src="https://github.com/AlessandroAvi/Master_Thesis/blob/main/Letters_application/Python/Plots/ReadmeImages/letters.png" width=50% height=50%>
 
 <img src="C:\Users\massi\UNI\Magistrale\Anno 5\Semestre 2\Tesi\Code\Letters_application\Python\Plots\ReadmeImages\letters.png" style="zoom: 30%;" />
 
@@ -41,14 +37,14 @@ The letters recorder were written eith this patters. I also tried to change the 
 Next is the training of the frozen model. This is done on the PC with python and keras. The code is quite simple, it just takes the dataset that has been defined and feeds it to the model. 
 The parameters, shape and structure of the model were chosen from an existing example of the application of this exercise (seen in class during the course). The NN is quite simple, it's composed of just 2 layers of fully connected nodes, the input layer is 600 (because the signal from accelerometer is long 600), then the first and sendo layer both have shape 128-1, while the output layer is a softmax that bring everything to 5 classes (because 5 vowels). 
 
-![image_for_github_repo](https://github.com/AlessandroAvi/Master_Thesis/blob/main/Letters_application/Python/Plots/ReadmeImages/ModelTraining.jpg) 
+<img src="https://github.com/AlessandroAvi/Master_Thesis/blob/main/Letters_application/Python/Plots/ReadmeImages/ModelTraining.jpg" width=50% height=50%>
 
 ![](C:\Users\massi\UNI\Magistrale\Anno 5\Semestre 2\Tesi\Code\Letters_application\Python\Plots\ReadmeImages\ModelTraining.jpg)
 
 Once the model is trained it is also saved as a file.h5. The next step is to modify the model and be able to cut away the last layer (the softmax). This because I want to have total control over the last layer weights and biases in order to increase its dimension and update its weights. After this is done the result should be a cut model and a layer saved as a matrix and array. These two components will be called **Frozen model** and **OL layer**. Thanks to this type of model I can deploy the Frozen model on the NUCELO STM using STM-X-CUBE-AI and save the OL layer on a weights.h file. In this way I am able to exploit the X-CUBE-AI code for performing the inference with the first part of the model, and later pass the output of the model to the OL layer, from which I will perform the inference and the following training with some custom functions.
 Once the frozen model and the OL layer are put together, the new model should look like this:
 
-![image_for_github_repo](https://github.com/AlessandroAvi/Master_Thesis/blob/main/Letters_application/Python/Plots/ReadmeImages/model_structure.jpg) 
+<img src="https://github.com/AlessandroAvi/Master_Thesis/blob/main/Letters_application/Python/Plots/ReadmeImages/model_structure.jpg" width=50% height=50%>
 
 <img src="C:\Users\massi\UNI\Magistrale\Anno 5\Semestre 2\Tesi\Code\Letters_application\Python\Plots\ReadmeImages\model_structure.jpg" style="zoom:70%;" />
 
@@ -102,10 +98,10 @@ In order to reproduce correctly the entire project some steps need to be applied
 
 ## PART 2: application ofthe idea on the OpenMV camera
 
-In this part of the project the main goal is to apply the same code and idea developed for the nucelo f401RE on the OpenMV camera. This is a very small device based on a STM32 H7 microcontroller that is specifically developed for the application of machine learning with images taken from camera built on the chip. The device is the following:
+In this part of the project the main goal is to apply the same code and idea developed for the nucelo F401RE on the OpenMV camera. This is a very small device based on a STM32 H7 microcontroller that is specifically developed for the application of machine learning with images taken from camera built on the chip. The device is the following:
 
 ![image_for_github_repo](https://github.com/AlessandroAvi/Master_Thesis/blob/main/OpenMV_application/Images/openmv.jpg) 
 
 <img src="C:\Users\massi\UNI\Magistrale\Anno 5\Semestre 2\Tesi\Code\OpenMV_application\Images\openmv.jpg" style="zoom:33%;" />
 
-In the first part of this section the idea is to apply a CNN model that is trained for the recognition of the famous MNIST dataset of written digits. The idea here is to train the model to recognize only the digits from 0 to 5 and later try to apply the OL method with the aim of obtaining a model that has learned all the digits. 
+In the first part of this section the idea is to apply a CNN model that is trained for the recognition of the famous MNIST dataset of written digits. The idea here is to train the model to recognize only the digits from 0 to 5 and later try to apply the OL method with the aim of obtaining a model that has learned all the digits. The training is done directly on the OpenMV camera which is paired with a python script that is run on the laptop. The idea is to use the python script to show a digit on the screen, notify the camera that a new digit has been shown and communicate to it the new digit through a UART connection. At this point the camera can take the frame and use it to train the model on the new class (if detected). 
