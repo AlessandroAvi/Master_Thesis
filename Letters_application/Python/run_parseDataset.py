@@ -212,38 +212,6 @@ def loadDataFromRawTxt_v2(letter):
 
 
 
-def printInfo(arr1, arr2, arr3, arr4):
-    """ Prints fome informations about the amount of letters inside a dataset
-
-    Parameters
-    ----------
-    arr1 : array_like
-        Array label of the vowel of which I want to know the inforamtions, dataset 1
-
-    arr2 : array_like
-        Array label of the vowel of which I want to know the inforamtions, dataset 2
-
-    arr3 : array_like
-        Array label of the vowel of which I want to know the inforamtions, dataset 3
-
-    arr4 : array_like
-        Array label of the vowel of which I want to know the inforamtions, dataset 4
-    """
-
-    letter = arr1[0]
-    shape1 = len(arr1)
-    shape2 = len(arr2)
-    shape3 = len(arr3)
-    shape4 = len(arr4)
-
-    print(f'The dataset for the letter {letter} has {shape1+shape2+shape3+shape4} samples')
-    print(f'The dataset is separated in groups: {shape1}, {shape2}, {shape3}, {shape4}')
-    print()
-
-
-
-
-
 
 
 #---------------------------------------------------------------
@@ -261,7 +229,6 @@ A_data_1, A_label_1 = loadDataFromRawTxt('letter_A_1')    # 40 samples
 A_data_2, A_label_2 = loadDataFromRawTxt('letter_A_2')    # 80 samples
 A_data_3, A_label_3 = loadDataFromRawTxt('letter_A_3')    # 50 samples
 A_data_4, A_label_4 = loadDataFromRawTxt('letter_A_4')    # 100 samples
-printInfo(A_label_0, A_label_1, A_label_2, A_label_3)
 
 
 E_data_0, E_label_0 = loadDataFromRawTxt_v2('E')
@@ -269,7 +236,6 @@ E_data_1, E_label_1 = loadDataFromRawTxt('letter_E_1')    # 40 samples
 E_data_2, E_label_2 = loadDataFromRawTxt('letter_E_2')    # 80 samples
 E_data_3, E_label_3 = loadDataFromRawTxt('letter_E_3')    # 50 samples
 E_data_4, E_label_4 = loadDataFromRawTxt('letter_E_4')    # 100 samples
-printInfo(E_label_0, E_label_1, E_label_2, E_label_3)
 
 
 I_data_0, I_label_0 = loadDataFromRawTxt_v2('I')
@@ -277,7 +243,6 @@ I_data_1, I_label_1 = loadDataFromRawTxt('letter_I_1')    # 40 samples
 I_data_2, I_label_2 = loadDataFromRawTxt('letter_I_2')    # 80 samples
 I_data_3, I_label_3 = loadDataFromRawTxt('letter_I_3')    # 50 samples
 I_data_4, I_label_4 = loadDataFromRawTxt('letter_I_4')    # 100 samples
-printInfo(I_label_0, I_label_1, I_label_2, I_label_3)
 
 
 O_data_0, O_label_0 = loadDataFromRawTxt_v2('O')
@@ -285,7 +250,6 @@ O_data_1, O_label_1 = loadDataFromRawTxt('letter_O_1')    # 40 samples
 O_data_2, O_label_2 = loadDataFromRawTxt('letter_O_2')    # 80 samples
 O_data_3, O_label_3 = loadDataFromRawTxt('letter_O_3')    # 50 samples
 O_data_4, O_label_4 = loadDataFromRawTxt('letter_O_4')    # 100 samples
-printInfo(O_label_0, O_label_1, O_label_2, O_label_3)
 
 
 U_data_0, U_label_0 = loadDataFromRawTxt_v2('U')          
@@ -293,37 +257,25 @@ U_data_1, U_label_1 = loadDataFromRawTxt('letter_U_1')    # 40 samples
 U_data_2, U_label_2 = loadDataFromRawTxt('letter_U_2')    # 80 samples
 U_data_3, U_label_3 = loadDataFromRawTxt('letter_U_3')    # 50 samples
 U_data_4, U_label_4 = loadDataFromRawTxt('letter_U_4')    # 100 samples
-printInfo(U_label_0, U_label_1, U_label_2, U_label_3)
 
 
-R_data_0, R_label_0 = loadDataFromRawTxt('letter_R_0')
-R_data_1, R_label_1 = loadDataFromRawTxt('letter_R_1')    # 40 samples
-R_data_2, R_label_2 = loadDataFromRawTxt('letter_R_2')    # 80 samples
-R_data_3, R_label_3 = loadDataFromRawTxt('letter_R_3')    # 50 samples
+
 R_data_4, R_label_4 = loadDataFromRawTxt('letter_R_4')    # 100 samples
 R_data_5, R_label_5 = loadDataFromRawTxt('letter_R_5')    # 63 samples
-R_data_6, R_label_6 = loadDataFromRawTxt('letter_R_6')    # 100 samples
-printInfo(R_label_0, R_label_1, R_label_2, R_label_3)
+R_data_7, R_label_7 = loadDataFromRawTxt('letter_R_7')    # 100 samples
 
 
-B_data_0, B_label_0 = loadDataFromRawTxt('letter_B_0')
-B_data_1, B_label_1 = loadDataFromRawTxt('letter_B_1')    # 40 samples
-B_data_2, B_label_2 = loadDataFromRawTxt('letter_B_2')    # 80 samples
-B_data_3, B_label_3 = loadDataFromRawTxt('letter_B_3')    # 50 samples
+
 B_data_4, B_label_4 = loadDataFromRawTxt('letter_B_4')    # 100 samples
 B_data_5, B_label_5 = loadDataFromRawTxt('letter_B_5')    # 63 samples
-B_data_6, B_label_6 = loadDataFromRawTxt('letter_B_6')    # 100 samples
-printInfo(B_label_0, B_label_1, B_label_2, B_label_3)
+B_data_7, B_label_7 = loadDataFromRawTxt('letter_B_7')    # 100 samples
 
 
-M_data_0, M_label_0 = loadDataFromRawTxt('letter_M_0')
-M_data_1, M_label_1 = loadDataFromRawTxt('letter_M_1')    # 40 samples
-M_data_2, M_label_2 = loadDataFromRawTxt('letter_M_2')    # 80 samples
-M_data_3, M_label_3 = loadDataFromRawTxt('letter_M_3')    # 50 samples
+
 M_data_4, M_label_4 = loadDataFromRawTxt('letter_M_4')    # 100 samples
 M_data_5, M_label_5 = loadDataFromRawTxt('letter_M_5')    # 63 samples
-M_data_6, M_label_6 = loadDataFromRawTxt('letter_M_6')    # 100 samples
-printInfo(M_label_0, M_label_1, M_label_2, M_label_3)
+M_data_7, M_label_7 = loadDataFromRawTxt('letter_M_7')    # 100 samples
+M_data_8, M_label_8 = loadDataFromRawTxt('letter_M_8')    # 100 samples
 
 
 
@@ -341,6 +293,8 @@ A_label = A_label_0
 A_label = np.hstack(( A_label, A_label_1))
 A_label = np.hstack(( A_label, A_label_2))
 A_label = np.hstack(( A_label, A_label_3))
+print(f'The dataset for the letter {A_label[0]} has {len(A_label)} samples \n')
+
 
 
 # Stick together in a single matrix all the data related to letter B
@@ -353,6 +307,8 @@ E_label = E_label_0
 E_label = np.hstack(( E_label, E_label_1))
 E_label = np.hstack(( E_label, E_label_2))
 E_label = np.hstack(( E_label, E_label_3))
+print(f'The dataset for the letter {E_label[0]} has {len(E_label)} samples \n')
+
 
 
 # Stick together in a single matrix all the data related to letter B
@@ -365,6 +321,8 @@ I_label = I_label_0
 I_label = np.hstack(( I_label, I_label_1))
 I_label = np.hstack(( I_label, I_label_2))
 I_label = np.hstack(( I_label, I_label_3))
+print(f'The dataset for the letter {I_label[0]} has {len(I_label)} samples \n')
+
 
 
 # Stick together in a single matrix all the data related to letter B
@@ -377,6 +335,8 @@ O_label = O_label_0
 O_label = np.hstack(( O_label, O_label_1))
 O_label = np.hstack(( O_label, O_label_2))
 O_label = np.hstack(( O_label, O_label_3))
+print(f'The dataset for the letter {O_label[0]} has {len(O_label)} samples \n')
+
 
 
 # Stick together in a single matrix all the data related to letter B
@@ -389,45 +349,45 @@ U_label = U_label_0
 U_label = np.hstack(( U_label, U_label_1))
 U_label = np.hstack(( U_label, U_label_2))
 U_label = np.hstack(( U_label, U_label_3))
+print(f'The dataset for the letter {U_label[0]} has {len(U_label)} samples \n')
+
 
 
 # Stick together in a single matrix all the data related to letter B
-B_data = B_data_0
-B_data = np.vstack(( B_data, B_data_1))
-B_data = np.vstack(( B_data, B_data_2))
-B_data = np.vstack(( B_data, B_data_3))
+B_data = B_data_4
+B_data = np.vstack(( B_data, B_data_5))
+B_data = np.vstack(( B_data, B_data_7))
 # Stick together in a single matrix all the label related to letter B
-B_label = B_label_0
-B_label = np.hstack(( B_label, B_label_1))
-B_label = np.hstack(( B_label, B_label_2))
-B_label = np.hstack(( B_label, B_label_3))
-B_data[183,:] = B_data[182,:]
-B_label[183] = B_label[182]
+B_label = B_label_4
+B_label = np.hstack(( B_label, B_label_5))
+B_label = np.hstack(( B_label, B_label_7))
+print(f'The dataset for the letter {B_label[0]} has {len(B_label)} samples \n')
+
 
 
 # Stick together in a single matrix all the data related to letter R
-R_data = R_data_0
-R_data = np.vstack(( R_data, R_data_1))
-R_data = np.vstack(( R_data, R_data_2))
-R_data = np.vstack(( R_data, R_data_3))
+R_data = R_data_4
+R_data = np.vstack(( R_data, R_data_5))
+R_data = np.vstack(( R_data, R_data_7))
 # Stick together in a single matrix all the label related to letter R
-R_label = R_label_0
-R_label = np.hstack(( R_label, R_label_1))
-R_label = np.hstack(( R_label, R_label_2))
-R_label = np.hstack(( R_label, R_label_3))
+R_label = R_label_4
+R_label = np.hstack(( R_label, R_label_5))
+R_label = np.hstack(( R_label, R_label_7))
+print(f'The dataset for the letter {R_label[0]} has {len(R_label)} samples \n')
+
 
 
 # Stick together in a single matrix all the data related to letter M
-M_data = M_data_0
-M_data = np.vstack(( M_data, M_data_1))
-M_data = np.vstack(( M_data, M_data_2))
-M_data = np.vstack(( M_data, M_data_3))
+M_data = M_data_4
+M_data = np.vstack(( M_data, M_data_5))
+#M_data = np.vstack(( M_data, M_data_7))
+M_data = np.vstack(( M_data, M_data_8))
 # Stick together in a single matrix all the label related to letter M
-M_label = M_label_0
-M_label = np.hstack(( M_label, M_label_1))
-M_label = np.hstack(( M_label, M_label_2))
-M_label = np.hstack(( M_label, M_label_3))
-
+M_label = M_label_4
+M_label = np.hstack(( M_label, M_label_5))
+#M_label = np.hstack(( M_label, M_label_7))
+M_label = np.hstack(( M_label, M_label_8))
+print(f'The dataset for the letter {M_label[0]} has {len(M_label)} samples \n')
 
 
 
@@ -439,10 +399,6 @@ E_data, E_label = shuffleDataset(E_data, E_label)
 I_data, I_label = shuffleDataset(I_data, I_label)
 O_data, O_label = shuffleDataset(O_data, O_label)
 U_data, U_label = shuffleDataset(U_data, U_label)
-
-B_data, B_label = shuffleDataset(B_data, B_label)
-R_data, R_label = shuffleDataset(R_data, R_label)
-M_data, M_label = shuffleDataset(M_data, M_label)
 
 
 # STICK together the datasets of the vowels
@@ -479,21 +435,29 @@ vowels_data_OL  = vowels_data[sep:,:]
 vowels_label_OL = vowels_label[sep:]
 
 
+print('Saving datasets ...')
+
 
 # Save the big matrix in a txt file where data is formatted clean
+print(f'The dataset B_data has shape:         {B_data.shape}')
 myWrite.save_dataset(B_data, B_label, 'B_dataset')
-print('Dataset for letter B: saved')
+print('Dataset for letter B:                   saved \n')
 # Save the big matrix in a txt file where data is formatted clean
+print(f'The dataset R_data has shape:         {R_data.shape}')
 myWrite.save_dataset(R_data, R_label, 'R_dataset')
-print('Dataset for letter R: saved')
+print('Dataset for letter R:                   saved \n')
 # Save the big matrix in a txt file where data is formatted clean
+print(f'The dataset M_data has shape:         {M_data.shape}')
 myWrite.save_dataset(M_data, M_label, 'M_dataset')
-print('Dataset for letter M: saved')
+print('Dataset for letter M:                   saved \n')
 # Save the big matrix in a txt file where data is formatted clean
+print(f'The dataset vowels_TF has shape:      {vowels_data_TF.shape}')
 myWrite.save_dataset(vowels_data_TF, vowels_label_TF, 'vowels_TF')
-print('Dataset for letter VOWELS TF: saved')
+print('Dataset for letter VOWELS TF:           saved \n')
+
+print(f'The dataset vowels_OL has shape:      {vowels_data_OL.shape}')
 myWrite.save_dataset(vowels_data_OL, vowels_label_OL, 'vowels_OL')
-print('Dataset for letter VOWELS OL: saved')
+print('Dataset for letter VOWELS OL:           saved \n')
 
 
 
@@ -512,37 +476,29 @@ training_dataset = np.vstack(( training_dataset, E_data_4))
 training_dataset = np.vstack(( training_dataset, I_data_4))
 training_dataset = np.vstack(( training_dataset, O_data_4))
 training_dataset = np.vstack(( training_dataset, U_data_4))
-training_dataset = np.vstack(( training_dataset, B_data_4))
-training_dataset = np.vstack(( training_dataset, B_data_5))
-#training_dataset = np.vstack(( training_dataset, B_data_6))
-training_dataset = np.vstack(( training_dataset, R_data_4))
-training_dataset = np.vstack(( training_dataset, R_data_5))
-#training_dataset = np.vstack(( training_dataset, R_data_6))
-training_dataset = np.vstack(( training_dataset, M_data_4))
-training_dataset = np.vstack(( training_dataset, M_data_5))
-#training_dataset = np.vstack(( training_dataset, M_data_6))
+training_dataset = np.vstack(( training_dataset, B_data))
+training_dataset = np.vstack(( training_dataset, R_data))
+training_dataset = np.vstack(( training_dataset, M_data))
+
+
 
 # Create an array that contains all the train labels
 training_labels = vowels_label_OL
-
 training_labels = np.hstack(( training_labels, A_label_4))
 training_labels = np.hstack(( training_labels, E_label_4))
 training_labels = np.hstack(( training_labels, I_label_4))
 training_labels = np.hstack(( training_labels, O_label_4))
 training_labels = np.hstack(( training_labels, U_label_4))
-training_labels = np.hstack(( training_labels, B_label_4))
-training_labels = np.hstack(( training_labels, B_label_5))
-#training_labels = np.hstack(( training_labels, B_label_6))
-training_labels = np.hstack(( training_labels, R_label_4))
-training_labels = np.hstack(( training_labels, R_label_5))
-#training_labels = np.hstack(( training_labels, R_label_6))
-training_labels = np.hstack(( training_labels, M_label_4))
-training_labels = np.hstack(( training_labels, M_label_5))
-#training_labels = np.hstack(( training_labels, M_label_6))
+training_labels = np.hstack(( training_labels, B_label))
+training_labels = np.hstack(( training_labels, R_label))
+training_labels = np.hstack(( training_labels, M_label))
+
+
 
 # Shuffle the matrix and the label
 training_dataset, training_labels = shuffleDataset(training_dataset, training_labels)
+
 # Save the dataset in a txt file
-myWrite.save_dataset(training_dataset, training_labels, 'NEW_training_file_original')
-print()
-print('Dataset for controlled training: saved \n')
+myWrite.save_dataset(training_dataset, training_labels, 'training_file')
+print(f'The dataset for OL training has shape: {training_dataset.shape}')
+print('Dataset for controlled training:         saved \n')

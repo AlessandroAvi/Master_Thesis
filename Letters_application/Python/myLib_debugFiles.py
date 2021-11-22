@@ -286,3 +286,8 @@ def debug_loadPreSoftmaxSMT():
             preSoftmax_stm[j,i] = dataset.iloc[j,i+1]
     
     return preSoftmax_stm
+
+
+
+
+

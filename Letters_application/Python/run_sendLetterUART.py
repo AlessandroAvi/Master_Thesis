@@ -14,6 +14,7 @@ import myLib_parseData as myParse
 import myLib_writeFile as myWrite
 import myLib_table as myTable
 import myLib_barChart as myBar
+import myLib_confMatrix as myMatrix
 
 
 
@@ -124,27 +125,7 @@ def aryToLowHigh(ary):
 
 
 
-def plot_STM_confMatrix(vowel_guess, vowel_true, algorithm):
-    """ Generates a confusion matrix and plots it.
-    
-    Function that generates a cinfusion matrix from the prediction
-
-    Parameters
-    ----------
-    vowel_guess : array_like
-        Array that contains the predicted labes
-
-    vowel_true : array_like
-        Array that contains the true labels sent from the PC
-
-    algorithm : string
-        Name of the method used in the STM for the training
-
-    Returns
-    -------
-    conf_matr : array_like
-        Actual confusion matrix
-    """
+def createConfMatrix(vowel_guess, vowel_true):
 
     conf_matr = np.zeros([8,8])
     label = ['A','E','I','O','U','B','R','M']
@@ -160,32 +141,7 @@ def plot_STM_confMatrix(vowel_guess, vowel_true, algorithm):
 
         conf_matr[itr_true, itr_pred] +=1
 
-
-    figure = plt.figure()
-    axes = figure.add_subplot()
-
-    caxes = axes.matshow(conf_matr, cmap=plt.cm.Blues)
-    figure.colorbar(caxes)
-
-    for i in range(conf_matr.shape[0]):
-        for j in range(conf_matr.shape[1]):
-            axes.text(x=j, y=i,s=int(conf_matr[i, j]), va='center', ha='center', size='large')
-
-    axes.xaxis.set_ticks_position("bottom")
-    # The 2 following lines generate and error - I was not able to solve that but is not problematic
-    axes.set_xticklabels([''] + label)
-    axes.set_yticklabels([''] + label)
-
-    plt.xlabel('PREDICTED LABEL', fontsize=10)
-    plt.ylabel('TRUE LABEL', fontsize=10)
-    plt.title('Confusion Matrix - ' + algorithm, fontsize=15, fontweight ='bold')
-    
-    plt.savefig(ROOT_PATH +'\\Plots\\STM_results\\STM_confMatrix_'+algorithm+'.jpg')
-    plt.show()
-
     return conf_matr
-
-
 
 
 
@@ -396,11 +352,11 @@ def UART_receivePreSoftmax():
 
 # PATHS FOR SAVING THE IMAGES OR OPENING THE TXT FILES
 ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
-BIAS_SAVE_PATH      = ROOT_PATH + '\\Debug_files\\bias_stm.txt'
-WEIGHTS_SAVE_PATH   = ROOT_PATH + '\\Debug_files\\weight_stm.txt'
-FROZENOUT_SAVE_PATH = ROOT_PATH + '\\Debug_files\\frozenOut_stm.txt'
-SOFTMAX_SAVE_PATH   = ROOT_PATH + '\\Debug_files\\softmax_stm.txt'
-PRESOFTMAX_SAVE_PATH  = ROOT_PATH + '\\Debug_files\\preSoftmax_stm.txt'
+BIAS_SAVE_PATH       = ROOT_PATH + '\\Debug_files\\bias_stm.txt'
+WEIGHTS_SAVE_PATH    = ROOT_PATH + '\\Debug_files\\weight_stm.txt'
+FROZENOUT_SAVE_PATH  = ROOT_PATH + '\\Debug_files\\frozenOut_stm.txt'
+SOFTMAX_SAVE_PATH    = ROOT_PATH + '\\Debug_files\\softmax_stm.txt'
+PRESOFTMAX_SAVE_PATH = ROOT_PATH + '\\Debug_files\\preSoftmax_stm.txt'
 
 
 
@@ -414,8 +370,8 @@ print(' |_|   |_| \_\_____|_| /_/   \_\_| \_\_____| |____/_/   \_\_/_/   \_\____
 print('\n')
 
 
-DATASET = 2
-DEBUG_HISTORY = 1
+DATASET = 2             # 1 for the randomization | 2 for the same dataset as the laptop simulation
+DEBUG_HISTORY = 1       # 0 for no debug          | 1 for yes debug
 
 print('Loading dataset ....')
 if(DATASET == 1):
@@ -466,7 +422,7 @@ else:
     data, label = myParse.loadDataFromTxt('training_file')
     train_data, train_label, test_data, test_label = myParse.parseTrainTest(data, label, 0.55)
 
-print(f'The entire training dastaset has shape {train_data.shape}')
+print(f'The entire training dataset has shape {train_data.shape}')
 print(f'The entire testing dataset has shape   {test_data.shape}')
 
 
@@ -502,7 +458,7 @@ predic_error    = np.zeros(test_max)    # 1/2/3
 OL_width        = np.zeros(test_max)    # int
 vowel_guess     = np.zeros(test_max)    # int (later translated in char)
 vowel_true      = []                    # char
-algorithm_ary = ['OL', 'OL_V2', 'CWR', 'LWF', 'OL_batch', 'OL_V2_batch', 'LWF_batch']   # Containers of the algorithm names
+algorithm_ary   = ['OL', 'OL_V2', 'CWR', 'LWF', 'OL_batch', 'OL_V2_batch', 'LWF_batch']   # Containers of the algorithm names
 
 # Containers for the debugging section - in here save the history of different matrices used by the training
 biases_stm     = np.zeros((train_max,9))
@@ -510,9 +466,6 @@ weights_stm    = np.zeros((train_max, 81))
 frozenOut_stm  = np.zeros((train_max, 129))
 softmax_stm    = np.zeros((train_max,9))
 preSoftmax_stm = np.zeros((train_max,9))
-
-
-
 
 
 
@@ -618,13 +571,16 @@ print(' | |_) |  _| \___ \| | | | |   | | \___ \ ')
 print(' |  _ <| |___ ___) | |_| | |___| |  ___) |')
 print(' |_| \_\_____|____/ \___/|_____|_| |____/ ')
 
-myBar.plot_STM_barChart(predic_error, algorithm_ary[method])                        # plot accuracy histogram
-myBar.plot_STM_barChartLetter(vowel_true, predic_error, algorithm_ary[method])      # plot letters accuracy histogram
+conf_matr = createConfMatrix(vowel_guess, vowel_true)
+myWrite.save_STMconfMatrix(conf_matr, algorithm_ary[method])
 
-conf_matr = plot_STM_confMatrix(vowel_guess, vowel_true, algorithm_ary[method])     # plot the confusion matrix
-myTable.table_STM_results(conf_matr, algorithm_ary[method])                         # plot the summary table
+myBar.plot_STM_barChart(algorithm_ary[method])          # plot accuracy histogram
+myBar.plot_STM_barChartLetter(algorithm_ary[method])    # plot letters accuracy histogram
 
-# Compute inference times and savd it
+myMatrix.plot_STM_confMatrix(algorithm_ary[method])     # plot the confusion matrix
+myTable.table_STM_results(algorithm_ary[method])        # plot the summary table
+
+# Compute inference times and save it
 sum1 = 0
 sum2 = 0
 for i in range(0, len(frozen_time)):

@@ -8,17 +8,14 @@ This repo contains the code that I developed for a small demo of application for
 
 The main code is divided in 4 runnable scripts. which are:
 
-- `TinyOL.ipynb`: contains a notebook code that is used for simulating the different training algorithms for the continual learning method. In here there is the most important 
-		  part of the code for the TinyOL application.
-
+- `TinyOL.ipynb`: contains a notebook code that is used for simulating the different training algorithms for the continual learning method. This code is the most important part of the simulations. 
 - `run_parseData`: is a python code that is used for merging all the txt files that contain different parts of the dataset. This code takes these txt files and creates 
                    one single txt file for each letter that contains all the important data in a clean and ordered form.
-
 - `run_sendLetterUART`: is a python code that contains the script used for sending the dataset to the STM board in a fast way. In order to use it just plug in the STM, 
                         start the Python code and then press the BLUE BUTTON when shown on the screen. This will start the communication and the automatic prediction 
                         performed by the STM.
-
 - `run_trainFrozenModel.py`: contains the code that is used for training the frozen model part with keras.
+- `run_createPlot.py`: is a python code that is used to generate all the plots. The idea is that in both the STM application and in the PC simulation the results from the trainigs are written in a specific txt file as a form of confusion matrix. The info are then extrapolated from here in order to create the pltos. In this way is possible to generate the plots without ruttin ghte entire trainings. It makes it easyer to change colors/dimensions, ...
 
 
 For the file `TinyOL.ipynb` I used in the Jupyter IDE. I used notebooks because it was easier for me to debug and perform small changes understanding where the mistakes are.

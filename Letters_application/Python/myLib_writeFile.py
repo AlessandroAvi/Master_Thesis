@@ -4,79 +4,26 @@ import pandas as pd
 
 
 ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
-HISTORY_SIMU_RES_PATH = ROOT_PATH + '\\SimulationResult\\History_simulations\\'
-LAST_SIMU_RES_PATH = ROOT_PATH + '\\SimulationResult\\Last_simulation\\'
-LAST_LAYER_PATH = ROOT_PATH + '\\Saved_models\\Frozen_model\\'
-STM_PERFORMANCE_PATH = ROOT_PATH + '\\Plots\\STM_results\\methodsPerformance.txt'
+HISTORY_SIMU_RES_PATH  = ROOT_PATH + '\\SimulationResult\\History_simulations\\'
+LAST_SIMU_RES_PATH_PC  = ROOT_PATH + '\\SimulationResult\\PC_last_simulation\\'
+LAST_SIMU_RES_PATH_STM = ROOT_PATH + '\\SimulationResult\\STM_last_simulation\\'
+LAST_LAYER_PATH        = ROOT_PATH + '\\Saved_models\\Frozen_model\\'
+STM_PERFORMANCE_PATH   = ROOT_PATH + '\\Plots\\STM_results\\methodsPerformance.txt'
 
 
 
 
 
-def save_confMatrix(model):
+def save_PCconfMatrix(model):
 
     filename = model.filename
-    CONF_MATR_PATH = LAST_SIMU_RES_PATH + filename + '.txt'
+    CONF_MATR_PATH = LAST_SIMU_RES_PATH_PC + filename + '.txt'
 
     with open(CONF_MATR_PATH,'w') as data_file:
 
         for i in range(0, model.conf_matr.shape[0]):
             data_file.write( str(model.conf_matr[i,0])+','+str(model.conf_matr[i,1])+','+str(model.conf_matr[i,2])+','+str(model.conf_matr[i,3])+','+
                              str(model.conf_matr[i,4])+','+str(model.conf_matr[i,5])+','+str(model.conf_matr[i,6])+','+str(model.conf_matr[i,7])+'\n')
-
-
-
-
-
-
-def save_simulationResult(filename, model):
-    """ Writes an array of correct/mistaken/tot prediction in a txt file as a storage.
-
-    This function saves in a txt file the correct/mistaken/total n of prediction for each letter for the 
-    current simulation. The idea is to fill this txt file doing mutiple simulations and then use the info 
-    inside here to plot an average accuracy bar plot
-
-    Parameters
-    ----------
-    filename : string
-        name of the txt file that I want to fill
-
-    model : class
-        the python class that contains the informations of the method that I am testing
-    """
-
-    res1 = model.correct_ary
-    res2 = model.mistake_ary
-    res3 = model.totals_ary
-
-    # NB: with the specification 'a' the content of the txt file is not deleted every time. It just appends new data.
-    with open(HISTORY_SIMU_RES_PATH + filename +'.txt',"a") as f:
-
-        # Save on the first line an array that contains the correct predictions for each letter
-        for i in range(0, len(res1)):
-            f.write(str(int(res1[i])))
-            if(i==len(res1)-1):
-                f.write('\n')
-            else:
-                f.write(',')
-
-        # Save on the second line an array that contains the mistaken predictions for each letter 
-        for i in range(0, len(res2)):
-            f.write(str(int(res2[i])))
-            if(i==len(res2)-1):
-                f.write('\n')
-            else:
-                f.write(',')
-
-        # Save on the third line an array that contains the total predictions for each letter      
-        for i in range(0, len(res3)):
-            f.write(str(int(res3[i])))
-            if(i==len(res3)-1):
-                f.write('\n')
-            else:
-                f.write(',')
-                
-
 
 
 
@@ -161,9 +108,15 @@ def save_KerasModelParams(SAVE_MODEL_PATH, model, batch_size, epochs, metrics, o
 
 
 
-##############################
-# FUNCTIONS FOR THE STM COE
-##############################
+##############################################################################
+#    ____ _____ __  __     _____ _   _ _   _  ____ _____ ___ ___  _   _ ____  
+#   / ___|_   _|  \/  |   |  ___| | | | \ | |/ ___|_   _|_ _/ _ \| \ | / ___| 
+#   \___ \ | | | |\/| |   | |_  | | | |  \| | |     | |  | | | | |  \| \___ \ 
+#    ___) || | | |  | |   |  _| | |_| | |\  | |___  | |  | | |_| | |\  |___) |
+#   |____/ |_| |_|  |_|   |_|    \___/|_| \_|\____| |_| |___\___/|_| \_|____/ 
+
+
+
 
 def save_STM_methodsPerformance(conf_matrix, avrgF, avrgOL, n_line):
     """ Saves the average inference times obtained from the STM in a txt file
@@ -186,7 +139,7 @@ def save_STM_methodsPerformance(conf_matrix, avrgF, avrgOL, n_line):
         Number of the algorithm used that defines the line in which it saves the value
     """
 
-    # The fiel that I am opening contains on each column a parameters regarding accuracy, average inference time of the frozen model,
+    # The file that I am opening contains on each column a parameters regarding accuracy, average inference time of the frozen model,
     # average inference time fo theOL layer, maximum occupied ram 
     # The rowns on the othehand reppresent the methods used in order 'OL', 'OL_V2', 'CWR', 'LWF', 'OL_batch', 'OL_V2_batch', 'LWF_batch'
     columnNames = ['accuracy', 'timeF', 'timeOL', 'ram']
@@ -258,3 +211,14 @@ def save_dataset(dtensor, labels, filename):
 
 
 
+
+
+def save_STMconfMatrix(conf_matr, algorithm):
+
+    CONF_MATR_PATH = LAST_SIMU_RES_PATH_STM + algorithm + '.txt'
+
+    with open(CONF_MATR_PATH,'w') as data_file:
+
+        for i in range(0, conf_matr.shape[0]):
+            data_file.write( str(conf_matr[i,0])+','+str(conf_matr[i,1])+','+str(conf_matr[i,2])+','+str(conf_matr[i,3])+','+
+                             str(conf_matr[i,4])+','+str(conf_matr[i,5])+','+str(conf_matr[i,6])+','+str(conf_matr[i,7])+'\n')

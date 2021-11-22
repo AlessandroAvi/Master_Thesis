@@ -102,14 +102,6 @@ def parseTrainTest(dtensor, labels, percent):
     train_labels_lett : array_like
         It's the array that contains the label for each data inside the train matrix. Filled with chars and has shape [x*perc, 600], where
         x is the shape of the riginal dataset and perc is the percent value of the dataset split. 
-
-    test_data : array_like
-        It's the matrix that contains the dataset portion used for training. Filled with integers and has shape [x*(1-perc), 600], where
-        x is the shape of the riginal dataset and perc is the percent value of the dataset split.
-
-    test_labels_lett : array_like
-     It's the array that contains the label for each data inside the test matrix. Filled with chars and has shape [x*(1-perc), 600], where
-        x is the shape of the riginal dataset and perc is the percent value of the dataset split. 
 """
     
     sep = int(percent*dtensor.shape[0])     # index where to separate train and test
@@ -126,9 +118,6 @@ def parseTrainTest(dtensor, labels, percent):
     print(f"Test data shape   -> {test_data.shape}")
     
     return train_data, train_labels_lett, test_data, test_labels_lett
-
-
-
 
 
 
@@ -198,7 +187,7 @@ def shuffleDataset(data_matrix, lable_ary):
         Same array gave in input but shuffled
     """
 
-    random.seed(56)
+    random.seed(59) ## 77,23 buono
     order_list = list(range(0,data_matrix.shape[0]))    # create list of increasing numbers
     random.shuffle(order_list)                          # shuffle the list of ordered numbers
 

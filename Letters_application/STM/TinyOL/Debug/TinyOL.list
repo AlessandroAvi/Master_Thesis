@@ -5481,7 +5481,7 @@ int main(void)
  8002e34:	6b9b      	ldr	r3, [r3, #56]	; 0x38
  8002e36:	2b00      	cmp	r3, #0
  8002e38:	d103      	bne.n	8002e42 <main+0x52>
-	  OL_layer.l_rate = 0.00005;
+	  OL_layer.l_rate = 0.05;
  8002e3a:	1d3b      	adds	r3, r7, #4
  8002e3c:	4a8b      	ldr	r2, [pc, #556]	; (800306c <main+0x27c>)
  8002e3e:	601a      	str	r2, [r3, #0]
@@ -5491,7 +5491,7 @@ int main(void)
  8002e44:	6b9b      	ldr	r3, [r3, #56]	; 0x38
  8002e46:	2b04      	cmp	r3, #4
  8002e48:	d103      	bne.n	8002e52 <main+0x62>
-	  OL_layer.l_rate = 0.0005;
+	  OL_layer.l_rate = 0.0001;
  8002e4a:	1d3b      	adds	r3, r7, #4
  8002e4c:	4a88      	ldr	r2, [pc, #544]	; (8003070 <main+0x280>)
  8002e4e:	601a      	str	r2, [r3, #0]
@@ -5511,9 +5511,9 @@ int main(void)
  8002e64:	6b9b      	ldr	r3, [r3, #56]	; 0x38
  8002e66:	2b05      	cmp	r3, #5
  8002e68:	d103      	bne.n	8002e72 <main+0x82>
-	  OL_layer.l_rate = 0.0005;
+	  OL_layer.l_rate = 0.001;
  8002e6a:	1d3b      	adds	r3, r7, #4
- 8002e6c:	4a80      	ldr	r2, [pc, #512]	; (8003070 <main+0x280>)
+ 8002e6c:	4a81      	ldr	r2, [pc, #516]	; (8003074 <main+0x284>)
  8002e6e:	601a      	str	r2, [r3, #0]
  8002e70:	e016      	b.n	8002ea0 <main+0xb0>
   }else if(OL_layer.ALGORITHM == MODE_CWR){
@@ -5521,7 +5521,7 @@ int main(void)
  8002e74:	6b9b      	ldr	r3, [r3, #56]	; 0x38
  8002e76:	2b02      	cmp	r3, #2
  8002e78:	d103      	bne.n	8002e82 <main+0x92>
-	  OL_layer.l_rate = 0.01;
+	  OL_layer.l_rate = 0.0005;
  8002e7a:	1d3b      	adds	r3, r7, #4
  8002e7c:	4a7e      	ldr	r2, [pc, #504]	; (8003078 <main+0x288>)
  8002e7e:	601a      	str	r2, [r3, #0]
@@ -5531,9 +5531,9 @@ int main(void)
  8002e84:	6b9b      	ldr	r3, [r3, #56]	; 0x38
  8002e86:	2b03      	cmp	r3, #3
  8002e88:	d103      	bne.n	8002e92 <main+0xa2>
-	  OL_layer.l_rate = 0.00015;
+	  OL_layer.l_rate = 0.001;
  8002e8a:	1d3b      	adds	r3, r7, #4
- 8002e8c:	4a7b      	ldr	r2, [pc, #492]	; (800307c <main+0x28c>)
+ 8002e8c:	4a79      	ldr	r2, [pc, #484]	; (8003074 <main+0x284>)
  8002e8e:	601a      	str	r2, [r3, #0]
  8002e90:	e006      	b.n	8002ea0 <main+0xb0>
   }else if(OL_layer.ALGORITHM == MODE_LWF_batch){
@@ -5541,9 +5541,9 @@ int main(void)
  8002e94:	6b9b      	ldr	r3, [r3, #56]	; 0x38
  8002e96:	2b06      	cmp	r3, #6
  8002e98:	d102      	bne.n	8002ea0 <main+0xb0>
-	  OL_layer.l_rate = 0.0005;
+	  OL_layer.l_rate = 0.0007;
  8002e9a:	1d3b      	adds	r3, r7, #4
- 8002e9c:	4a74      	ldr	r2, [pc, #464]	; (8003070 <main+0x280>)
+ 8002e9c:	4a77      	ldr	r2, [pc, #476]	; (800307c <main+0x28c>)
  8002e9e:	601a      	str	r2, [r3, #0]
   }
 
@@ -5747,7 +5747,7 @@ int main(void)
  8002ffe:	4b24      	ldr	r3, [pc, #144]	; (8003090 <main+0x2a0>)
  8003000:	681b      	ldr	r3, [r3, #0]
  8003002:	2b01      	cmp	r3, #1
- 8003004:	f040 8160 	bne.w	80032c8 <main+0x4d8>
+ 8003004:	f040 815f 	bne.w	80032c6 <main+0x4d6>
 
 		  // *************************
 		  //                   DATA IN
@@ -5799,11 +5799,11 @@ int main(void)
  8003062:	edc3 7a00 	vstr	s15, [r3]
  8003066:	e031      	b.n	80030cc <main+0x2dc>
  8003068:	0800a9a0 	.word	0x0800a9a0
- 800306c:	3851b717 	.word	0x3851b717
- 8003070:	3a03126f 	.word	0x3a03126f
+ 800306c:	3d4ccccd 	.word	0x3d4ccccd
+ 8003070:	38d1b717 	.word	0x38d1b717
  8003074:	3a83126f 	.word	0x3a83126f
- 8003078:	3c23d70a 	.word	0x3c23d70a
- 800307c:	391d4952 	.word	0x391d4952
+ 8003078:	3a03126f 	.word	0x3a03126f
+ 800307c:	3a378034 	.word	0x3a378034
  8003080:	05f5e100 	.word	0x05f5e100
  8003084:	20000000 	.word	0x20000000
  8003088:	20000a00 	.word	0x20000a00
@@ -6033,105 +6033,105 @@ int main(void)
  8003238:	ddeb      	ble.n	8003212 <main+0x422>
 		  }
 
-		  if(OL_layer.counter <= 826){
+		  if(OL_layer.counter <= 992){
  800323a:	1d3b      	adds	r3, r7, #4
  800323c:	689b      	ldr	r3, [r3, #8]
- 800323e:	f240 323a 	movw	r2, #826	; 0x33a
- 8003242:	4293      	cmp	r3, r2
- 8003244:	dc22      	bgt.n	800328c <main+0x49c>
+ 800323e:	f5b3 7f78 	cmp.w	r3, #992	; 0x3e0
+ 8003242:	dc22      	bgt.n	800328a <main+0x49a>
 			  HAL_Delay(15); 			// Helps the code to not get stuck, no idea why
- 8003246:	200f      	movs	r0, #15
- 8003248:	f000 fba2 	bl	8003990 <HAL_Delay>
+ 8003244:	200f      	movs	r0, #15
+ 8003246:	f000 fba3 	bl	8003990 <HAL_Delay>
 			  HAL_UART_Transmit(&huart2, (uint8_t*)msgBias, 8*4, 100);
- 800324c:	2364      	movs	r3, #100	; 0x64
- 800324e:	2220      	movs	r2, #32
- 8003250:	4930      	ldr	r1, [pc, #192]	; (8003314 <main+0x524>)
- 8003252:	482f      	ldr	r0, [pc, #188]	; (8003310 <main+0x520>)
- 8003254:	f001 fd9f 	bl	8004d96 <HAL_UART_Transmit>
+ 800324a:	2364      	movs	r3, #100	; 0x64
+ 800324c:	2220      	movs	r2, #32
+ 800324e:	4931      	ldr	r1, [pc, #196]	; (8003314 <main+0x524>)
+ 8003250:	482f      	ldr	r0, [pc, #188]	; (8003310 <main+0x520>)
+ 8003252:	f001 fda0 	bl	8004d96 <HAL_UART_Transmit>
 			  HAL_UART_Transmit(&huart2, (uint8_t*)msgWeights, 10*8*4, 100);
- 8003258:	2364      	movs	r3, #100	; 0x64
- 800325a:	f44f 72a0 	mov.w	r2, #320	; 0x140
- 800325e:	492f      	ldr	r1, [pc, #188]	; (800331c <main+0x52c>)
- 8003260:	482b      	ldr	r0, [pc, #172]	; (8003310 <main+0x520>)
- 8003262:	f001 fd98 	bl	8004d96 <HAL_UART_Transmit>
+ 8003256:	2364      	movs	r3, #100	; 0x64
+ 8003258:	f44f 72a0 	mov.w	r2, #320	; 0x140
+ 800325c:	492f      	ldr	r1, [pc, #188]	; (800331c <main+0x52c>)
+ 800325e:	482c      	ldr	r0, [pc, #176]	; (8003310 <main+0x520>)
+ 8003260:	f001 fd99 	bl	8004d96 <HAL_UART_Transmit>
 			  HAL_UART_Transmit(&huart2, (uint8_t*)msgFrozenOut, 128*4, 100);
- 8003266:	2364      	movs	r3, #100	; 0x64
- 8003268:	f44f 7200 	mov.w	r2, #512	; 0x200
- 800326c:	492c      	ldr	r1, [pc, #176]	; (8003320 <main+0x530>)
- 800326e:	4828      	ldr	r0, [pc, #160]	; (8003310 <main+0x520>)
- 8003270:	f001 fd91 	bl	8004d96 <HAL_UART_Transmit>
+ 8003264:	2364      	movs	r3, #100	; 0x64
+ 8003266:	f44f 7200 	mov.w	r2, #512	; 0x200
+ 800326a:	492d      	ldr	r1, [pc, #180]	; (8003320 <main+0x530>)
+ 800326c:	4828      	ldr	r0, [pc, #160]	; (8003310 <main+0x520>)
+ 800326e:	f001 fd92 	bl	8004d96 <HAL_UART_Transmit>
 			  HAL_UART_Transmit(&huart2, (uint8_t*)msgSoftmax, 8*4, 100);
- 8003274:	2364      	movs	r3, #100	; 0x64
- 8003276:	2220      	movs	r2, #32
- 8003278:	4927      	ldr	r1, [pc, #156]	; (8003318 <main+0x528>)
- 800327a:	4825      	ldr	r0, [pc, #148]	; (8003310 <main+0x520>)
- 800327c:	f001 fd8b 	bl	8004d96 <HAL_UART_Transmit>
+ 8003272:	2364      	movs	r3, #100	; 0x64
+ 8003274:	2220      	movs	r2, #32
+ 8003276:	4928      	ldr	r1, [pc, #160]	; (8003318 <main+0x528>)
+ 8003278:	4825      	ldr	r0, [pc, #148]	; (8003310 <main+0x520>)
+ 800327a:	f001 fd8c 	bl	8004d96 <HAL_UART_Transmit>
 			  HAL_UART_Transmit(&huart2, (uint8_t*)msgPreSoftmax, 8*4, 100);
- 8003280:	2364      	movs	r3, #100	; 0x64
- 8003282:	2220      	movs	r2, #32
- 8003284:	4927      	ldr	r1, [pc, #156]	; (8003324 <main+0x534>)
- 8003286:	4822      	ldr	r0, [pc, #136]	; (8003310 <main+0x520>)
- 8003288:	f001 fd85 	bl	8004d96 <HAL_UART_Transmit>
+ 800327e:	2364      	movs	r3, #100	; 0x64
+ 8003280:	2220      	movs	r2, #32
+ 8003282:	4928      	ldr	r1, [pc, #160]	; (8003324 <main+0x534>)
+ 8003284:	4822      	ldr	r0, [pc, #136]	; (8003310 <main+0x520>)
+ 8003286:	f001 fd86 	bl	8004d96 <HAL_UART_Transmit>
 		  }
 #endif
 
 		  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);	// LED toggle
- 800328c:	2120      	movs	r1, #32
- 800328e:	4826      	ldr	r0, [pc, #152]	; (8003328 <main+0x538>)
- 8003290:	f000 fe8b 	bl	8003faa <HAL_GPIO_TogglePin>
+ 800328a:	2120      	movs	r1, #32
+ 800328c:	4826      	ldr	r0, [pc, #152]	; (8003328 <main+0x538>)
+ 800328e:	f000 fe8c 	bl	8003faa <HAL_GPIO_TogglePin>
 		  enable_inference = 0;						// Reset inference flag
- 8003294:	4b25      	ldr	r3, [pc, #148]	; (800332c <main+0x53c>)
- 8003296:	2200      	movs	r2, #0
- 8003298:	601a      	str	r2, [r3, #0]
+ 8003292:	4b26      	ldr	r3, [pc, #152]	; (800332c <main+0x53c>)
+ 8003294:	2200      	movs	r2, #0
+ 8003296:	601a      	str	r2, [r3, #0]
 
 		  if(((OL_layer.counter-1) % 10 == 0) && (OL_layer.counter >= 100)){
- 800329a:	1d3b      	adds	r3, r7, #4
- 800329c:	689b      	ldr	r3, [r3, #8]
- 800329e:	1e59      	subs	r1, r3, #1
- 80032a0:	4b23      	ldr	r3, [pc, #140]	; (8003330 <main+0x540>)
- 80032a2:	fb83 2301 	smull	r2, r3, r3, r1
- 80032a6:	109a      	asrs	r2, r3, #2
- 80032a8:	17cb      	asrs	r3, r1, #31
- 80032aa:	1ad2      	subs	r2, r2, r3
- 80032ac:	4613      	mov	r3, r2
- 80032ae:	009b      	lsls	r3, r3, #2
- 80032b0:	4413      	add	r3, r2
- 80032b2:	005b      	lsls	r3, r3, #1
- 80032b4:	1aca      	subs	r2, r1, r3
- 80032b6:	2a00      	cmp	r2, #0
- 80032b8:	d106      	bne.n	80032c8 <main+0x4d8>
- 80032ba:	1d3b      	adds	r3, r7, #4
- 80032bc:	689b      	ldr	r3, [r3, #8]
- 80032be:	2b63      	cmp	r3, #99	; 0x63
- 80032c0:	dd02      	ble.n	80032c8 <main+0x4d8>
+ 8003298:	1d3b      	adds	r3, r7, #4
+ 800329a:	689b      	ldr	r3, [r3, #8]
+ 800329c:	1e59      	subs	r1, r3, #1
+ 800329e:	4b24      	ldr	r3, [pc, #144]	; (8003330 <main+0x540>)
+ 80032a0:	fb83 2301 	smull	r2, r3, r3, r1
+ 80032a4:	109a      	asrs	r2, r3, #2
+ 80032a6:	17cb      	asrs	r3, r1, #31
+ 80032a8:	1ad2      	subs	r2, r2, r3
+ 80032aa:	4613      	mov	r3, r2
+ 80032ac:	009b      	lsls	r3, r3, #2
+ 80032ae:	4413      	add	r3, r2
+ 80032b0:	005b      	lsls	r3, r3, #1
+ 80032b2:	1aca      	subs	r2, r1, r3
+ 80032b4:	2a00      	cmp	r2, #0
+ 80032b6:	d106      	bne.n	80032c6 <main+0x4d6>
+ 80032b8:	1d3b      	adds	r3, r7, #4
+ 80032ba:	689b      	ldr	r3, [r3, #8]
+ 80032bc:	2b63      	cmp	r3, #99	; 0x63
+ 80032be:	dd02      	ble.n	80032c6 <main+0x4d6>
 			  OL_layer.batch_size = 8;
- 80032c2:	1d3b      	adds	r3, r7, #4
- 80032c4:	2208      	movs	r2, #8
- 80032c6:	711a      	strb	r2, [r3, #4]
+ 80032c0:	1d3b      	adds	r3, r7, #4
+ 80032c2:	2208      	movs	r2, #8
+ 80032c4:	711a      	strb	r2, [r3, #4]
 		  }
 	  }
 
 	  HAL_Delay(5); 			// Helps the code to not get stuck
- 80032c8:	2005      	movs	r0, #5
- 80032ca:	f000 fb61 	bl	8003990 <HAL_Delay>
+ 80032c6:	2005      	movs	r0, #5
+ 80032c8:	f000 fb62 	bl	8003990 <HAL_Delay>
 
 	  // If the blue button has been pressed and the cycle inference cycle is finished enable again the interrupt for the infinite cycle
 	  if(BlueButton == 1 && enable_inference == 0){
- 80032ce:	4b19      	ldr	r3, [pc, #100]	; (8003334 <main+0x544>)
- 80032d0:	781b      	ldrb	r3, [r3, #0]
- 80032d2:	2b01      	cmp	r3, #1
- 80032d4:	f47f ae93 	bne.w	8002ffe <main+0x20e>
- 80032d8:	4b14      	ldr	r3, [pc, #80]	; (800332c <main+0x53c>)
- 80032da:	681b      	ldr	r3, [r3, #0]
- 80032dc:	2b00      	cmp	r3, #0
- 80032de:	f47f ae8e 	bne.w	8002ffe <main+0x20e>
+ 80032cc:	4b19      	ldr	r3, [pc, #100]	; (8003334 <main+0x544>)
+ 80032ce:	781b      	ldrb	r3, [r3, #0]
+ 80032d0:	2b01      	cmp	r3, #1
+ 80032d2:	f47f ae94 	bne.w	8002ffe <main+0x20e>
+ 80032d6:	4b15      	ldr	r3, [pc, #84]	; (800332c <main+0x53c>)
+ 80032d8:	681b      	ldr	r3, [r3, #0]
+ 80032da:	2b00      	cmp	r3, #0
+ 80032dc:	f47f ae8f 	bne.w	8002ffe <main+0x20e>
 		  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_10, GPIO_PIN_SET);	// Set high the value for interrupt for infinity cycle
- 80032e2:	2201      	movs	r2, #1
- 80032e4:	f44f 6180 	mov.w	r1, #1024	; 0x400
- 80032e8:	4813      	ldr	r0, [pc, #76]	; (8003338 <main+0x548>)
- 80032ea:	f000 fe45 	bl	8003f78 <HAL_GPIO_WritePin>
+ 80032e0:	2201      	movs	r2, #1
+ 80032e2:	f44f 6180 	mov.w	r1, #1024	; 0x400
+ 80032e6:	4814      	ldr	r0, [pc, #80]	; (8003338 <main+0x548>)
+ 80032e8:	f000 fe46 	bl	8003f78 <HAL_GPIO_WritePin>
 	  if(enable_inference == 1){
- 80032ee:	e686      	b.n	8002ffe <main+0x20e>
+ 80032ec:	e687      	b.n	8002ffe <main+0x20e>
+ 80032ee:	bf00      	nop
  80032f0:	20001940 	.word	0x20001940
  80032f4:	20002000 	.word	0x20002000
  80032f8:	200010c8 	.word	0x200010c8

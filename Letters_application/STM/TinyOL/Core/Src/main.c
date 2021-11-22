@@ -154,19 +154,19 @@ int main(void)
 
   // Define the learn rate depending on the algorithm
   if(OL_layer.ALGORITHM       == MODE_OL){
-	  OL_layer.l_rate = 0.00005;
+	  OL_layer.l_rate = 0.05;
   }else if(OL_layer.ALGORITHM == MODE_OL_batch){
-	  OL_layer.l_rate = 0.0005;
+	  OL_layer.l_rate = 0.0001;
   }else if(OL_layer.ALGORITHM == MODE_OL_V2){
 	  OL_layer.l_rate = 0.001;
   }else if(OL_layer.ALGORITHM == MODE_OL_V2_batch){
-	  OL_layer.l_rate = 0.0005;
+	  OL_layer.l_rate = 0.001;
   }else if(OL_layer.ALGORITHM == MODE_CWR){
-	  OL_layer.l_rate = 0.01;
-  }else if(OL_layer.ALGORITHM == MODE_LWF){
-	  OL_layer.l_rate = 0.00015;
-  }else if(OL_layer.ALGORITHM == MODE_LWF_batch){
 	  OL_layer.l_rate = 0.0005;
+  }else if(OL_layer.ALGORITHM == MODE_LWF){
+	  OL_layer.l_rate = 0.001;
+  }else if(OL_layer.ALGORITHM == MODE_LWF_batch){
+	  OL_layer.l_rate = 0.0007;
   }
 
 
@@ -297,7 +297,7 @@ int main(void)
 			  sendFrozenOutUART(&OL_layer, k, k*4, out_data, msgFrozenOut);
 		  }
 
-		  if(OL_layer.counter <= 826){
+		  if(OL_layer.counter <= 992){
 			  HAL_Delay(15); 			// Helps the code to not get stuck, no idea why
 			  HAL_UART_Transmit(&huart2, (uint8_t*)msgBias, 8*4, 100);
 			  HAL_UART_Transmit(&huart2, (uint8_t*)msgWeights, 10*8*4, 100);

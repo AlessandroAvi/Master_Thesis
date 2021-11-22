@@ -4,9 +4,10 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
-SAVE_PLOT__PATH                = ROOT_PATH + '\\Plots\\TinyOL_Plots\\'
+SAVE_PLOT__PATH                = ROOT_PATH + '\\Plots\\PC_results\\'
 READ_TXT_PERFORMANCE_STM__PATH = ROOT_PATH + '\\Plots\\STM_results\\methodsPerformance.txt'
-READ_TXT_CONF_MATR__PATH       = ROOT_PATH + '\\SimulationResult\\Last_simulation\\'
+READ_TXT_CONF_MATR_PC__PATH    = ROOT_PATH + '\\SimulationResult\\PC_last_simulation\\'
+READ_TXT_CONF_MATR_STM__PATH   = ROOT_PATH + '\\SimulationResult\\stm_last_simulation\\'
 
 
 
@@ -31,7 +32,7 @@ def table_params(model):
     title       = model.title 
     filename    = model.filename
 
-    conf_matr = np.loadtxt(READ_TXT_CONF_MATR__PATH + filename +'.txt', delimiter=',')  # read from txt
+    conf_matr = np.loadtxt(READ_TXT_CONF_MATR_PC__PATH + filename +'.txt', delimiter=',')  # read from txt
 
     table_values = np.zeros([3,conf_matr.shape[0]])
 
@@ -86,7 +87,7 @@ def table_params(model):
 
 
 
-def table_simulationResult(model1, model2, model3, model4, model5, model6, model7, model8, model9):
+def table_simulationResult(model1, model2, model3, model4, model5, model6, model7, model8):
     """ Generates a table in which the results of the test for each method is shown
     
     This function creates a table in which the performance parameters (accuracy, precision, recall, F1 score)
@@ -99,11 +100,12 @@ def table_simulationResult(model1, model2, model3, model4, model5, model6, model
 
     .....
 
-    model9 : class 
+    model8 : class 
         Container for the model weights, biases, parameters. Each model is a different OL training method. 
     """
-    
-    models = [model1, model2, model3, model4, model5, model6, model7, model8, model9]
+    SAVE_PLOT__PATH                = ROOT_PATH + '\\Plots\\PC_results\\'
+
+    models = [model1, model2, model3, model4, model5, model6, model7, model8]
     
     row_label = []
     
@@ -111,14 +113,31 @@ def table_simulationResult(model1, model2, model3, model4, model5, model6, model
     
     for i in range(len(models)):
         model = models[i]
-        
-        table_content[i, 0] = round(round(np.sum(model.correct_ary)/np.sum(model.totals_ary),4)*100,2) # overall accuracy
-        table_content[i, 1] = model.macro_avrg_precision    # average precision between letters
-        table_content[i, 2] = model.macro_avrg_recall       # average recall between letters
-        table_content[i, 3] = model.macro_avrg_F1score      # average F1 score between letters
-        row_label = np.append(row_label, model.title)       # names to be put in the table
-        
-        
+
+        if(model == model1):
+            correct_ary = np.zeros(8)
+            tot_ary     = np.zeros(8)
+            for j in range(0, 5):
+                correct_ary[j] = model.conf_matr[j,j]
+                tot_ary[j]     = sum(model.conf_matr[j,:])
+
+            table_content[i, 0] = round(round(np.sum(correct_ary)/np.sum(tot_ary),4)*100,2) # overall accuracy
+            table_content[i, 1] = model.macro_avrg_precision    # average precision between letters
+            table_content[i, 2] = model.macro_avrg_recall       # average recall between letters
+            table_content[i, 3] = model.macro_avrg_F1score      # average F1 score between letters
+            row_label = np.append(row_label, model.title)       # names to be put in the table
+        else:
+            correct_ary = np.zeros(len(model.label))
+            tot_ary     = np.zeros(len(model.label))
+            for j in range(0, len(model.label)):
+                correct_ary[j] = model.conf_matr[j,j]
+                tot_ary[j]     = sum(model.conf_matr[j,:])
+
+            table_content[i, 0] = round(round(np.sum(correct_ary)/np.sum(tot_ary),4)*100,2) # overall accuracy
+            table_content[i, 1] = model.macro_avrg_precision    # average precision between letters
+            table_content[i, 2] = model.macro_avrg_recall       # average recall between letters
+            table_content[i, 3] = model.macro_avrg_F1score      # average F1 score between letters
+            row_label = np.append(row_label, model.title)       # names to be put in the table
         
     # Find the max in each colum and assign yelow color to the top 3
     colors = []
@@ -130,7 +149,7 @@ def table_simulationResult(model1, model2, model3, model4, model5, model6, model
     # Find the max value of the column
     for i in range(0,table_content.shape[1]):
         
-        tmp_ary = np.copy(table_content[:,i])   # copy the content of the i columns
+        tmp_ary = np.copy(table_content[0:,i])   # copy the content of the i columns
         tmp_matr[0,i] = np.argmax(tmp_ary)      # extract the highest value position
         
         tmp_ary[int(tmp_matr[0,i])] = 0         # remove the higest value (to find the new higest value)
@@ -143,19 +162,16 @@ def table_simulationResult(model1, model2, model3, model4, model5, model6, model
             
     # Substitute the 'white' color with yellow for the best 3 of each column
     for i in range(0,tmp_matr.shape[1]):
-        colors[tmp_matr[0,i]][i] = 'wheat'
-        colors[tmp_matr[1,i]][i] = 'wheat'
-        colors[tmp_matr[2,i]][i] = 'wheat'
-
-        
-
-        
+        colors[tmp_matr[0,i]+1][i] = 'wheat'
+        colors[tmp_matr[1,i]+1][i] = 'wheat'
+        colors[tmp_matr[2,i]+1][i] = 'wheat'
+            
     fig, ax = plt.subplots() 
     ax.set_axis_off() 
     
     table = plt.table( 
         cellText = table_content,  
-        colLabels = ['Overall Accuracy', 'Average Precision', 'Average Recall', 'AVRG F1 score'],  
+        colLabels = ['Model Accuracy [%]', 'Average Precision', 'Average Recall', 'Average F1 score'],  
         rowLabels = row_label, 
         rowColours =["cornflowerblue"] * 200,  
         colColours =["cornflowerblue"] * 200, 
@@ -186,9 +202,14 @@ def table_simulationResult(model1, model2, model3, model4, model5, model6, model
 
 
 
-##############################
-# FUNCTIONS FOR THE STM COE
-##############################
+##############################################################################
+#    ____ _____ __  __     _____ _   _ _   _  ____ _____ ___ ___  _   _ ____  
+#   / ___|_   _|  \/  |   |  ___| | | | \ | |/ ___|_   _|_ _/ _ \| \ | / ___| 
+#   \___ \ | | | |\/| |   | |_  | | | |  \| | |     | |  | | | | |  \| \___ \ 
+#    ___) || | | |  | |   |  _| | |_| | |\  | |___  | |  | | |_| | |\  |___) |
+#   |____/ |_| |_|  |_|   |_|    \___/|_| \_|\____| |_| |___\___/|_| \_|____/ 
+
+
 
 
 def table_STM_methodsPerformance():
@@ -212,10 +233,6 @@ def table_STM_methodsPerformance():
         dtensor[i,1] = timeF_val[i]
         dtensor[i,2] = timeOL_val[i]
         dtensor[i,3] = round((96000-ram_val[i])/1000,2)
-
-
-
-
 
     # Find the max in each colum and assign yelow color to the top 3
     colors = []
@@ -256,10 +273,6 @@ def table_STM_methodsPerformance():
     for i in range(0,dtensor.shape[0]):
         colors[i][1] = 'white'
 
-
-
-
-
     # Generate the table
     fig, ax = plt.subplots(figsize =(12, 5)) 
     ax.set_axis_off() 
@@ -289,7 +302,7 @@ def table_STM_methodsPerformance():
 
 
 
-def table_STM_results(conf_matrix, algorithm):
+def table_STM_results(algorithm):
     """ Generates a table that contains the important parameters for the confusion matrix.
 
     This functions takes the informations stored inside a confusion matrix and computes some
@@ -303,19 +316,20 @@ def table_STM_results(conf_matrix, algorithm):
     algorithm : string
         Name of the method used in the STM for the training
 """
+    conf_matr = np.loadtxt(READ_TXT_CONF_MATR_STM__PATH + algorithm +'.txt', delimiter=',')  
 
-    table_values = np.zeros([3,conf_matrix.shape[1]])
+    table_values = np.zeros([3,conf_matr.shape[1]])
 
     for i in range(0, table_values.shape[1]):
-        if(sum(conf_matrix[i,:]) == 0):
+        if(sum(conf_matr[i,:]) == 0):
             table_values[0,i] = 0 
         else:
-            table_values[0,i] = round(conf_matrix[i,i]/sum(conf_matrix[i,:]),2)  # RECALL    or SENSITIVITY
+            table_values[0,i] = round(conf_matr[i,i]/sum(conf_matr[i,:]),2)  # RECALL    or SENSITIVITY
 
-        if(sum(conf_matrix[:,i]) == 0):
+        if(sum(conf_matr[:,i]) == 0):
             table_values[1,i] = 0
         else:
-            table_values[1,i] = round(conf_matrix[i,i]/sum(conf_matrix[:,i]),2)     # PRECISION 
+            table_values[1,i] = round(conf_matr[i,i]/sum(conf_matr[:,i]),2)     # PRECISION 
 
         if((table_values[1,i]+table_values[2,i])==0):
             table_values[2,i] = 0

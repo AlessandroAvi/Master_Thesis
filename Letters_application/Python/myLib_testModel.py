@@ -1,6 +1,7 @@
 import numpy as np
+import os
 
-
+ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
 
 
 
@@ -73,6 +74,8 @@ def test_OLlayer(model, test_data, test_label):
     tot_ary          = np.zeros([8])
     confusion_matrix = np.zeros([8,8])
     n_samples        = test_data.shape[0]
+    filename = model.filename
+
 
     standard_label = ['A','E','I','O','U','B','R','M'] # order of labels that is used in all plots
 
@@ -113,7 +116,17 @@ def test_OLlayer(model, test_data, test_label):
         confusion_matrix[t,p] += 1
 
 
-    model.confusion_matrix = confusion_matrix
-    model.correct_ary      = corr_ary
-    model.mistake_ary      = err_ary
-    model.totals_ary       = tot_ary
+    model.conf_matr   = confusion_matrix
+    model.correct_ary = corr_ary
+    model.mistake_ary = err_ary
+    model.totals_ary  = tot_ary
+
+
+    CONF_MATR_PATH = ROOT_PATH + '\\SimulationResult\\PC_last_simulation\\' + filename + '.txt'
+
+    with open(CONF_MATR_PATH,'w') as data_file:
+
+        for i in range(0, model.conf_matr.shape[0]):
+            data_file.write( str(model.conf_matr[i,0])+','+str(model.conf_matr[i,1])+','+str(model.conf_matr[i,2])+','+str(model.conf_matr[i,3])+','+
+                             str(model.conf_matr[i,4])+','+str(model.conf_matr[i,5])+','+str(model.conf_matr[i,6])+','+str(model.conf_matr[i,7])+'\n')
+
