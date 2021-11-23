@@ -84,6 +84,3 @@ while(True):
 
 
     counter += 1
-
-
-

@@ -100,50 +100,56 @@ port = 'COM9'     # See the name of the com port used from the camera in   Windo
 sp = serial.Serial(port, baudrate=115200, bytesize=serial.EIGHTBITS, parity=serial.PARITY_NONE, xonxoff=False, rtscts=False, stopbits=serial.STOPBITS_ONE, timeout=None, dsrdtr=True)
 sp.setDTR(True) # dsrdtr is ignored on Windows.
 
-# Create widnows with slider and show python image
+# Create window with slider and show python image
 main_img = cv2.imread(main_img_PATH)
 cv2.imshow('SYNC APP', main_img)
 cv2.createTrackbar('Training', 'SYNC APP', 0, 1, on_change)
 
 cntr = 0
 while 1:
+    
+    if(cntr == len(labels)-1):
+        myClass.TRAINING_FLAG = 0
+        break
+
+    if(cntr <10):
+        name = '00' + str(cntr)
+    elif(cntr < 100):
+        name = '0' + str(cntr)
+    else:
+        name = str(cntr)
+
+    # OPEN THE IMAGE I WANT TO TAKE THE SHOT OF
+    digit = cv2.imread(IMAGE__PATH + name + '.png')
+    cv2.imshow('SYNC APP', digit)
+    cv2.waitKey(1)
 
     if(myClass.TRAINING_FLAG == 1):
 
-        # OPEN THE IMAGE I WANT TO TAKE THE SHOT OF
-
-        if(cntr <10):
-            name = '00' + str(cntr)
-        elif(cntr < 100):
-            name = '0' + str(cntr)
-        else:
-            name = str(cntr)
-
-        digit = cv2.imread(IMAGE__PATH + name + '.png')
-        cv2.imshow('SYNC APP', digit)
-        cv2.waitKey(1)
-
-        # SEND TO OPENMV THE NUMBER AND SHOW ON SCREEN THE IMAGE CAPTURED FROM THE OPENMV
-
-        sp.write(b"snap")
+        sp.write(b"trai")
         b_label = bytes(labels[cntr], 'utf-8')
         sp.write(b_label)
         sp.flush()
-        size = struct.unpack('<L', sp.read(4))[0]
-        img_raw = sp.read(size)
-
-        img_int = np.frombuffer(img_raw, np.uint8)
-        img_openmv = cv2.imdecode(img_int, cv2.IMREAD_COLOR)
-
-        cv2.imshow('OpenMV view', img_openmv)
-        cv2.waitKey(500)
-        
-        
+          
         print(f'counter: {cntr}')
-
         cntr += 1
-
     else:
-        cv2.waitKey(500)
+        sp.write(b"snap")
+        b_label = bytes('q', 'utf-8')
+        sp.write(b_label)
+        sp.flush()
 
 
+
+    size = struct.unpack('<L', sp.read(4))[0]
+    img_raw = sp.read(size)
+    img_int = np.frombuffer(img_raw, np.uint8)
+    img_openmv = cv2.imdecode(img_int, cv2.IMREAD_COLOR)
+    zoom_img = cv2.resize(img_openmv, (0, 0), fx=3, fy=3)
+
+    cv2.imshow('OpenMV view', zoom_img)
+    cv2.waitKey(5)
+
+
+print('The training images are finished, press SPACE to close the script')
+cv2.waitKey(0)
