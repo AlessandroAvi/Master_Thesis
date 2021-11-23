@@ -148,13 +148,13 @@ int main(void)
   //	MODE_OL_batch
   //	MODE_OL_V2_batch
   //	MODE_LWF_batch
-  OL_layer.ALGORITHM = MODE_OL;
+  OL_layer.ALGORITHM = MODE_LWF_batch;
 
   OL_layer.batch_size = 8;
 
   // Define the learn rate depending on the algorithm
   if(OL_layer.ALGORITHM       == MODE_OL){
-	  OL_layer.l_rate = 0.05;
+	  OL_layer.l_rate = 0.001;
   }else if(OL_layer.ALGORITHM == MODE_OL_batch){
 	  OL_layer.l_rate = 0.0001;
   }else if(OL_layer.ALGORITHM == MODE_OL_V2){

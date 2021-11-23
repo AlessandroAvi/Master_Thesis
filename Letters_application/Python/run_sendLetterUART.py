@@ -200,7 +200,7 @@ def UART_receiveWeights():
         # if the higest byte of interest has the MSB 1 -> is a negative number 
         if((rx3[n+3] & mask_128) == 128):
             tmp = np.int(rx3[n+3]) & mask_64
-            weights_stm[i,l] = -((tmp<<24)    | (rx3[n+2]<<16) | (rx3[n+1]<<8)  | rx3[n])/1000000000
+            weights_stm[i,l] = -((tmp<<24)    | (rx3[n+2]<<16) | (rx3[n+1]<<8)  | rx3[n])/1000000000 
         else:
             weights_stm[i,l] = ((rx3[n+3]<<24) | (rx3[n+2]<<16) | (rx3[n+1]<<8) | rx3[n])/1000000000
         n += 4
@@ -371,7 +371,7 @@ print('\n')
 
 
 DATASET = 2             # 1 for the randomization | 2 for the same dataset as the laptop simulation
-DEBUG_HISTORY = 1       # 0 for no debug          | 1 for yes debug
+DEBUG_HISTORY = 0       # 0 for no debug          | 1 for yes debug
 
 print('Loading dataset ....')
 if(DATASET == 1):
