@@ -67,7 +67,7 @@ while(True):
         myLib.check_label(OL_layer, counter)
         true_label = myLib.label_to_softmax(OL_layer, counter)
 
-        """
+
         # PREDICTION
         out_OL     = myLib.feed_forward(out_frozen, OL_layer)
         prediction = myLib.softmax(out_OL)
@@ -76,7 +76,7 @@ while(True):
         myLib.back_propagation(true_label, prediction, OL_layer, out_frozen)
         # Update confusion matrix
         myLib.update_conf_matr(true_label, prediction, OL_layer)
-        """
+
 
         counter += 1
     else:

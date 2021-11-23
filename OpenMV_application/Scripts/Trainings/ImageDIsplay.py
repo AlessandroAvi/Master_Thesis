@@ -135,7 +135,7 @@ while 1:
         cntr += 1
     else:
         sp.write(b"snap")
-        b_label = bytes('q', 'utf-8')
+        b_label = bytes('X', 'utf-8')
         sp.write(b_label)
         sp.flush()
 
