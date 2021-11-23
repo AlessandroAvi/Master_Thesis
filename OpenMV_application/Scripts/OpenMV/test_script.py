@@ -30,9 +30,14 @@ sensor.set_framesize(sensor.QVGA)   # Set frame size to QVGA (320x240)
 sensor.skip_frames(time = 2000)     # Wait for settings take effect.
 
 while(True):
-    cmd = usb.recv(4, timeout=5000)
-    if (cmd == b'snap'):
-        img = sensor.snapshot().compress()
+    cmd1 = usb.recv(4, timeout=5000)
+    cmd2 = usb.recv(1, timeout=5000)
+
+    if (cmd1 == b'snap'):
+
+        img = sensor.snapshot()
+        img.draw_string(0, 0, 'LABEL FROM PC IS:' + str(cmd2) )
+        img = img.compress()
         usb.send(ustruct.pack("<L", img.size()))
         usb.send(img)
 

@@ -15,6 +15,9 @@ class LastLayer(object):
         self.std_label = ['0','1','2','3','4','5','6','7','8','9']
         self.l_rate = 0.005
 
+        self.weights_new = np.zeros((1,2028))
+        self.biases_new  = np.zeros((1,1))
+
         self.weights    = np.zeros((6,2028))
         self.biases     = np.zeros((6,1))
         self.true_label = []
@@ -133,15 +136,11 @@ def check_label(OL_layer, itr):
 
         OL_layer.W += 1
 
-        # NEED TO FIND A SOLUTION TO MEMORY ALLOCATION DURING RUNTIME, CANNOT CREATE
-        # MATRIXWITH THESE MUCH ZEROS
-        tmp = np.zeros((OL_layer.W,OL_layer.H))
-        for i in range(0, OL_layer.W-1):
-            tmp[i,:] = OL_layer.weights[i,:]
-        OL_layer.weights = tmp
-
-        tmp = np.zeros((1,1))
-        OL_layer.biases  = np.concatenate((OL_layer.biases, tmp), axis=0)
+        if(OL_layer.W>7):
+            tmp = np.zeros((1,2028))
+            OL_layer.weights_new = np.concatenate((OL_layer.weights_new, tmp))
+            tmp = np.zeros((1,1))
+            OL_layer.biases_new  = np.concatenate((OL_layer.biases_new, tmp), axis=0)
 
         OL_layer.label.append(OL_layer.true_label[itr])
 
@@ -169,7 +168,16 @@ def feed_forward(out_frozen, OL_layer):
 
     out_frozen = np.array(out_frozen).reshape((OL_layer.H,1))
 
+    num_letters = OL_layer.W
+
+    # Feed forward on the original weights
     ret_ary = np.linalg.dot(OL_layer.weights, out_frozen) + OL_layer.biases
+
+    # Feed forward on the new weights
+    if(num_letters > 6 ):
+        ret_ary_new = np.linalg.dot(OL_layer.weights_new, out_frozen) + OL_layer.biases_new
+
+        ret_ary = np.concatenate((ret_ary, ret_ary_new))
 
     return ret_ary
 
@@ -235,22 +243,32 @@ def update_conf_matr(true_label, prediction, OL_layer):
 """ Performs the back propagation with the OL algorithm """
 def back_propagation_OL(true_label, prediction, OL_layer, out_frozen):
 
+    # Create vector of cost
     cost = np.zeros((OL_layer.W,1))
+    # Reshape the output of the frozen layer
     out_frozen = np.array(out_frozen).reshape((1,OL_layer.H))
 
+    # Compute cost
     for i in range(0, OL_layer.W):
-        print(i)
         cost[i,0] = (prediction[i,0]-true_label[i,0])*OL_layer.l_rate
 
+    # Container used for performing dot product
     tmp = np.zeros((2,1))
     # Update weights
     for i in range(0, OL_layer.W):
-        # toppa per farlo funzionare, non riesce ad aprire tutta la matrice in un colpo
+
         tmp[0,0] = cost[i,0]
         dW = np.linalg.dot(tmp, out_frozen)
-        OL_layer.weights[i,:] = OL_layer.weights[i,:] - dW[0,:]
-        # Update biases
-        OL_layer.biases[i,0]  = OL_layer.biases[i,0] - cost[i,0]
+        if(i<6):
+            OL_layer.weights[i,:] = OL_layer.weights[i,:] - dW[0,:]
+            # Update biases
+            OL_layer.biases[i,0]  = OL_layer.biases[i,0] - cost[i,0]
+        else:
+            OL_layer.weights_new[i-7,:] = OL_layer.weights_new[i-7,:] - dW[0,:]
+            # Update biases
+            OL_layer.biases_new[i-7,0]  = OL_layer.biases_new[i-7,0] - cost[i,0]
+
+
 
 
 

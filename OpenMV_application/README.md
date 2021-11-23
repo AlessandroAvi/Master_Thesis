@@ -25,3 +25,19 @@ This repo contains the code that I developed for a demo of application for the c
     
 
 - `Shared_openmv_env`: is a folder that I used as a shared space in between the ubuntu virtual machine and my host system
+
+
+
+
+
+
+
+
+
+## DEBUGGING
+
+Here are some useful links for understanding some problems of the camera. In general by searching in the forum it's quite easy to find the answer. If nothing can be found the developer are very quick to answer new issues.
+
+[In order to read file written from the camera in the SD is necessary to unplug and plug again](https://forums.openmv.io/t/saving-a-txt-file/700)
+
+In order to use the COM port for sending data to the camera is necessary to load the main.py file on the camera and disconnect the IDE, this because the IDE keeps occupied the USB port for sending to the PC the video stream [link 1](https://forums.openmv.io/t/usb-vcp-acces-denied-with-pyserial/2026) [link 2](https://forums.openmv.io/t/is-the-serial-terminal-in-ide-output-only/850/3) [link 3](https://forums.openmv.io/search?q=serial%20)
