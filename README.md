@@ -22,7 +22,7 @@ These two datasets are also separated in train and test portions. For the Tensor
 
 Each single letter is composed of 3 arrays of data (x,y,z), each one long 200 (recorded for 2 seconds, 100Hz).
 
-<img src="https://github.com/AlessandroAvi/Master_Thesis/blob/main/Letters_application/Python/Plots/ReadmeImages/PieCharts.jpg" width=80% height=80%>
+<img src="https://github.com/AlessandroAvi/Master_Thesis/blob/main/Letters_application/Python/Plots/ReadmeImages/PieCharts.jpg" width=100% height=100%>
 
 The letters recorder were written eith this patters. I also tried to change the speed, dimensions and proportions of the letters in order to make the dataset a bit more variate (also change between left and right hand).
 
@@ -38,7 +38,7 @@ The parameters, shape and structure of the model were chosen from an existing ex
 Once the model is trained it is also saved as a file.h5. The next step is to modify the model and be able to cut away the last layer (the softmax). This because I want to have total control over the last layer weights and biases in order to increase its dimension and update its weights. After this is done the result should be a cut model and a layer saved as a matrix and array. These two components will be called **Frozen model** and **OL layer**. Thanks to this type of model I can deploy the Frozen model on the NUCELO STM using STM-X-CUBE-AI and save the OL layer on a weights.h file. In this way I am able to exploit the X-CUBE-AI code for performing the inference with the first part of the model, and later pass the output of the model to the OL layer, from which I will perform the inference and the following training with some custom functions.
 Once the frozen model and the OL layer are put together, the new model should look like this:
 
-<img src="https://github.com/AlessandroAvi/Master_Thesis/blob/main/Letters_application/Python/Plots/ReadmeImages/model_structure.jpg" width=80% height=80%>
+<img src="https://github.com/AlessandroAvi/Master_Thesis/blob/main/Letters_application/Python/Plots/ReadmeImages/model_structure.jpg" width=100% height=100%>
 
 ### TRAINING ALGORITHMS
 
