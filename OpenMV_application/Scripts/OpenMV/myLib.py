@@ -101,11 +101,19 @@ def write_results(OL_layer):
 
     with open('training_results.txt', 'w') as f:
 
+        # write the labels
+        for i in range(0, OL_layer.W):
+            f.write(OL_layer.label[i])
+            if(i != OL_layer.W-1):
+                f.write(',')
+
+        f.write('\n')
+
         # write the confusion matrix
         for i in range(0, OL_layer.W):
             for j in range(0, OL_layer.W):
 
-                f.write(str(OL_layer.confusion_matrix[i,j]))
+                f.write(str(int(OL_layer.confusion_matrix[i,j])))
                 if(j!=OL_layer.W-1):
                     f.write(',')
             f.write('\n')
@@ -123,12 +131,12 @@ def write_results(OL_layer):
 
 
 """ Checks if the label is known, if not increase the dimension of the layer """
-def check_label(OL_layer, itr):
+def check_label(OL_layer, current_label):
 
     found = False
 
     for i in range(0, OL_layer.W):
-        if(OL_layer.true_label[itr] == OL_layer.label[i]):
+        if(current_label == OL_layer.label[i]):
             found = True
 
     # Label is not known
@@ -142,19 +150,19 @@ def check_label(OL_layer, itr):
             tmp = np.zeros((1,1))
             OL_layer.biases_new  = np.concatenate((OL_layer.biases_new, tmp), axis=0)
 
-        OL_layer.label.append(OL_layer.true_label[itr])
+        OL_layer.label.append(current_label)
 
 
 
 
 
 """ Transforms a label in an hot one encoded array """
-def label_to_softmax(OL_layer, itr):
+def label_to_softmax(OL_layer, current_label):
 
     ret_ary = np.zeros((OL_layer.W, 1))
 
     for i in range(0, OL_layer.W):
-        if(OL_layer.true_label[itr] == OL_layer.label[i]):
+        if( current_label == OL_layer.label[i]):
             ret_ary[i] = 1
 
     return ret_ary
@@ -224,7 +232,7 @@ def update_conf_matr(true_label, prediction, OL_layer):
         if(true_digit == OL_layer.std_label[i]):
             t = i
 
-    OL_layer.confusion_matrix[t,p] +=1          # increase of 1 the correct space inside the confusion matrix
+    OL_layer.confusion_matrix[t,p] += 1          # increase of 1 the correct space inside the confusion matrix
 
 
 

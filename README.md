@@ -22,31 +22,23 @@ These two datasets are also separated in train and test portions. For the Tensor
 
 Each single letter is composed of 3 arrays of data (x,y,z), each one long 200 (recorded for 2 seconds, 100Hz).
 
-<img src="https://github.com/AlessandroAvi/Master_Thesis/blob/main/Letters_application/Python/Plots/ReadmeImages/STM_GPIO.png" width=50% height=50%>
-
-<img src="C:\Users\massi\UNI\Magistrale\Anno 5\Semestre 2\Tesi\Code\Letters_application\Python\Plots\ReadmeImages\PieCharts.jpg" style="zoom:80%;" />
+<img src="https://github.com/AlessandroAvi/Master_Thesis/blob/main/Letters_application/Python/Plots/ReadmeImages/PieCharts.jpg" width=80% height=80%>
 
 The letters recorder were written eith this patters. I also tried to change the speed, dimensions and proportions of the letters in order to make the dataset a bit more variate (also change between left and right hand).
 
-<img src="https://github.com/AlessandroAvi/Master_Thesis/blob/main/Letters_application/Python/Plots/ReadmeImages/letters.png" width=50% height=50%>
-
-<img src="C:\Users\massi\UNI\Magistrale\Anno 5\Semestre 2\Tesi\Code\Letters_application\Python\Plots\ReadmeImages\letters.png" style="zoom: 30%;" />
+<img src="https://github.com/AlessandroAvi/Master_Thesis/blob/main/Letters_application/Python/Plots/ReadmeImages/letters.png" width=80% height=80%>
 
 ### FROZEN MODEL TRAINING
 
 Next is the training of the frozen model. This is done on the PC with python and keras. The code is quite simple, it just takes the dataset that has been defined and feeds it to the model. 
 The parameters, shape and structure of the model were chosen from an existing example of the application of this exercise (seen in class during the course). The NN is quite simple, it's composed of just 2 layers of fully connected nodes, the input layer is 600 (because the signal from accelerometer is long 600), then the first and sendo layer both have shape 128-1, while the output layer is a softmax that bring everything to 5 classes (because 5 vowels). 
 
-<img src="https://github.com/AlessandroAvi/Master_Thesis/blob/main/Letters_application/Python/Plots/ReadmeImages/ModelTraining.jpg" width=50% height=50%>
-
-![](C:\Users\massi\UNI\Magistrale\Anno 5\Semestre 2\Tesi\Code\Letters_application\Python\Plots\ReadmeImages\ModelTraining.jpg)
+<img src="https://github.com/AlessandroAvi/Master_Thesis/blob/main/Letters_application/Python/Plots/ReadmeImages/ModelTraining.jpg" width=80% height=80%>
 
 Once the model is trained it is also saved as a file.h5. The next step is to modify the model and be able to cut away the last layer (the softmax). This because I want to have total control over the last layer weights and biases in order to increase its dimension and update its weights. After this is done the result should be a cut model and a layer saved as a matrix and array. These two components will be called **Frozen model** and **OL layer**. Thanks to this type of model I can deploy the Frozen model on the NUCELO STM using STM-X-CUBE-AI and save the OL layer on a weights.h file. In this way I am able to exploit the X-CUBE-AI code for performing the inference with the first part of the model, and later pass the output of the model to the OL layer, from which I will perform the inference and the following training with some custom functions.
 Once the frozen model and the OL layer are put together, the new model should look like this:
 
-<img src="https://github.com/AlessandroAvi/Master_Thesis/blob/main/Letters_application/Python/Plots/ReadmeImages/model_structure.jpg" width=50% height=50%>
-
-<img src="C:\Users\massi\UNI\Magistrale\Anno 5\Semestre 2\Tesi\Code\Letters_application\Python\Plots\ReadmeImages\model_structure.jpg" style="zoom:70%;" />
+<img src="https://github.com/AlessandroAvi/Master_Thesis/blob/main/Letters_application/Python/Plots/ReadmeImages/model_structure.jpg" width=80% height=80%>
 
 ### TRAINING ALGORITHMS
 
@@ -100,8 +92,17 @@ In order to reproduce correctly the entire project some steps need to be applied
 
 In this part of the project the main goal is to apply the same code and idea developed for the nucelo F401RE on the OpenMV camera. This is a very small device based on a STM32 H7 microcontroller that is specifically developed for the application of machine learning with images taken from camera built on the chip. The device is the following:
 
-![image_for_github_repo](https://github.com/AlessandroAvi/Master_Thesis/blob/main/OpenMV_application/Images/openmv.jpg) 
+<img src="https://github.com/AlessandroAvi/Master_Thesis/blob/main/OpenMV_application/Images/openmv.jpg" width=50% height=50%>
 
-<img src="C:\Users\massi\UNI\Magistrale\Anno 5\Semestre 2\Tesi\Code\OpenMV_application\Images\openmv.jpg" style="zoom:33%;" />
+In the first part of this section the idea is to apply a CNN model that is trained for the recognition of the famous MNIST dataset of written digits. The idea here is to train the model to recognize only the digits from 0 to 5 and later try to apply the OL method with the aim of obtaining a model that has learned all the digits. The training is done directly on the OpenMV camera which is paired with a python script that is run on the laptop. The idea is to use the python script to show a digit on the screen, notify the camera that a new digit has been shown and communicate to it the label through the UART connection. At this point the camera can take the frame and use it to train the model on the new class. 
 
-In the first part of this section the idea is to apply a CNN model that is trained for the recognition of the famous MNIST dataset of written digits. The idea here is to train the model to recognize only the digits from 0 to 5 and later try to apply the OL method with the aim of obtaining a model that has learned all the digits. The training is done directly on the OpenMV camera which is paired with a python script that is run on the laptop. The idea is to use the python script to show a digit on the screen, notify the camera that a new digit has been shown and communicate to it the new digit through a UART connection. At this point the camera can take the frame and use it to train the model on the new class (if detected). 
+### HOW TO RUN  THE CODE
+
+In order to reproduce correctly the OpenMV project some steps are necessary. 
+
+- Train a model to recognize only half of the digits. This can be done in [this](https://github.com/AlessandroAvi/Master_Thesis/blob/main/OpenMV_application/Scripts/Trainings/Train_MNIST_half.ipynb) jupyter notebook. It will also automatically save the trained model and the last layer (as a txt file) in a specific directory.
+- Load the trained model on the OpenMV camera. Simply follow the instructions in [this](https://github.com/AlessandroAvi/Master_Thesis/tree/main/OpenMV_application/Documentation) this power point. 
+- Load in the SD card of the OpenMV cam the library called `myLib.py` and the two files in which weights and biases of the last layer are saved. These two fils are called `ll_weights.txt` and `ll_biases.txt`. 
+- Flash on the camera the main code that I developed, which is called `OL_training.py` 
+- Is now very important to connect the camera to the PC but do not connect it to the IDE. This because my script uses the UART connection for sending the true labels and in debugging mode (camera connected to the IDE) the UART connection is not available (occupied by the video stream). 
+- Now for performing the training simply run the code `ImageDisplay.py`, point the camera to the SYNC APP window and toggle the bar. Once the bar is toggled the script automatically syncs with the camera and shows the image on screen + sends the label to the camera.

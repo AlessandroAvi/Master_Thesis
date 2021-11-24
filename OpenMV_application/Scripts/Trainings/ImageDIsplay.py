@@ -4,10 +4,8 @@ import cv2
 import serial.tools.list_ports
 import sys, serial, struct
 import pandas as pd
-
-import sys, serial, struct
 from PIL import Image
-  
+from importMnist import createDataset
 
 
 
@@ -60,6 +58,7 @@ def on_change(val):
 class uselessContainer():
     def __init__(self):
         self.TRAINING_FLAG = 0
+        self.cont = 0
 
 
 
@@ -78,6 +77,8 @@ ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
 IMAGE__PATH   = ROOT_PATH + '\\Training_images\\'
 main_img_PATH = IMAGE__PATH + 'main_image.png'
 
+
+# Init class used for pointing to the training flag
 myClass = uselessContainer()
 
 
@@ -96,59 +97,65 @@ my_file.close()
 # OPEN SERIAL PORT
 port = 'COM9'     # See the name of the com port used from the camera in   Windows->Device manager->Ports(COM and LPT)
 
-# Next two lines are taken from the example in the OpenMV IDE - the example is in File->Examples->OpenMV->Board Control->usb_vcp.py
-sp = serial.Serial(port, baudrate=115200, bytesize=serial.EIGHTBITS, parity=serial.PARITY_NONE, xonxoff=False, rtscts=False, stopbits=serial.STOPBITS_ONE, timeout=None, dsrdtr=True)
-sp.setDTR(True) # dsrdtr is ignored on Windows.
+# Next two lines are taken from the example in the OpenMV IDE - the example is in    File->Examples->OpenMV->Board Control->usb_vcp.py
+sp = serial.Serial(port, baudrate=115200, bytesize=serial.EIGHTBITS, parity=serial.PARITY_NONE, xonxoff=False, 
+                   rtscts=False, stopbits=serial.STOPBITS_ONE, timeout=None, dsrdtr=True)
+sp.setDTR(True)
 
-# Create window with slider and show python image
+# Create window with slider
 main_img = cv2.imread(main_img_PATH)
 cv2.imshow('SYNC APP', main_img)
 cv2.createTrackbar('Training', 'SYNC APP', 0, 1, on_change)
 
-cntr = 0
+# Import the dataset that I am going to display
+samples_for_each_digit = 40
+digits_i_want          = [0,1,2,3,4,5,6]
+
+digits_data, digits_label = createDataset(samples_for_each_digit, digits_i_want)
+
+tot_samples = len(digits_label)
+
+cntr = 1
 while 1:
     
-    if(cntr == len(labels)-1):
+    if(cntr == tot_samples-1):
         myClass.TRAINING_FLAG = 0
-        break
-
-    if(cntr <10):
-        name = '00' + str(cntr)
-    elif(cntr < 100):
-        name = '0' + str(cntr)
-    else:
-        name = str(cntr)
+        myClass.cont += 1
 
     # OPEN THE IMAGE I WANT TO TAKE THE SHOT OF
-    digit = cv2.imread(IMAGE__PATH + name + '.png')
-    cv2.imshow('SYNC APP', digit)
-    cv2.waitKey(1)
+    zoom_digit = cv2.resize(digits_data[cntr], (0, 0), fx=7, fy=7)
+    cv2.imshow('SYNC APP', zoom_digit)
 
     if(myClass.TRAINING_FLAG == 1):
 
-        sp.write(b"trai")
-        b_label = bytes(labels[cntr], 'utf-8')
+        b_label = bytes(digits_label[cntr-1], 'utf-8')
         sp.write(b_label)
+        sp.write(b"trai")
         sp.flush()
           
-        print(f'counter: {cntr}')
+        print(f'counter: {cntr}/{tot_samples}')
         cntr += 1
     else:
+        sp.write(b'X')
         sp.write(b"snap")
-        b_label = bytes('X', 'utf-8')
-        sp.write(b_label)
         sp.flush()
 
 
-
+    # Receive image from OpenMV
     size = struct.unpack('<L', sp.read(4))[0]
     img_raw = sp.read(size)
     img_int = np.frombuffer(img_raw, np.uint8)
     img_openmv = cv2.imdecode(img_int, cv2.IMREAD_COLOR)
-    zoom_img = cv2.resize(img_openmv, (0, 0), fx=3, fy=3)
+    zoom_openmv = cv2.resize(img_openmv, (0, 0), fx=5, fy=5)
+    cv2.imshow('OpenMV view - Zoomed', zoom_openmv)
 
-    cv2.imshow('OpenMV view', zoom_img)
-    cv2.waitKey(5)
+    if(myClass.TRAINING_FLAG == 1):
+        cv2.waitKey(150)
+    elif(myClass.TRAINING_FLAG == 0):
+        cv2.waitKey(10)
+
+    if(myClass.cont>100):
+        break
 
 
 print('The training images are finished, press SPACE to close the script')

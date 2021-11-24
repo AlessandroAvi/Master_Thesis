@@ -22,8 +22,6 @@ net = nn_st.loadnnst('network')
 
 nn_input_sz = 28 # The NN input is 28x28
 
-counter = 0
-
 OL_layer = myLib.LastLayer()
 
 myLib.load_biases(OL_layer)
@@ -41,22 +39,26 @@ myLib.load_labels(OL_layer)
 # 7 -> LWF mini batch
 OL_layer.method = 1
 
-
+current_label = 'X'
 
 # START THE INFINITE LOOP
-
+counter = 0
 while(True):
-    clock.tick()                            # Update the FPS clock.
 
-    cmd1 = usb.recv(4, timeout=5000)        # Receive the command message from the laptop
     cmd2 = usb.recv(1, timeout=5000)        # Receive the label from the laptop
+    cmd1 = usb.recv(4, timeout=10)         # Receive the command message from the laptop
 
+    current_label = cmd2.decode("utf-8")   # convert from byte to string
+
+    # DO NOT TRAIN MODEL
     if(cmd1 == b'snap'):
 
         img = sensor.snapshot()             # Take the photo and return image
         myLib.write_results(OL_layer)       # Write confusion matrix in a txt file
 
+    # DO TRAIN MODEL
     elif(cmd1 == b'trai'):
+
 
         img = sensor.snapshot()             # Take the photo and return image
         img.midpoint(2, bias=0.5, threshold=True, offset=5, invert=True) # Binarize the image, size is 3x3,
@@ -64,9 +66,8 @@ while(True):
         out_frozen = net.predict(img)       # [CUBE.AI] run the inference on frozen model
 
         # CHECK LABEL
-        myLib.check_label(OL_layer, counter)
-        true_label = myLib.label_to_softmax(OL_layer, counter)
-
+        myLib.check_label(OL_layer, current_label)
+        true_label = myLib.label_to_softmax(OL_layer, current_label)
 
         # PREDICTION
         out_OL     = myLib.feed_forward(out_frozen, OL_layer)
@@ -80,14 +81,16 @@ while(True):
 
         counter += 1
     else:
-
         img = sensor.snapshot()             # Take the photo and return image
+        myLib.write_results(OL_layer)       # Write confusion matrix in a txt file
 
 
-    img.draw_string(0, 0, str(cmd2))
+    img.draw_string(0, 0, current_label )
+    img.draw_string(40, 0,cmd1.decode("utf-8"))
     img = img.compress()
     usb.send(ustruct.pack("<L", img.size()))
     usb.send(img)
+
 
 
 
