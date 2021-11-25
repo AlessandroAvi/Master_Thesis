@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.11.13)  13 NOV 2021 14:46
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.11.13)  25 NOV 2021 14:51
 entering extended mode
 **./main.tex
 (main.tex
@@ -330,6 +330,10 @@ Package: inputenc 2021/02/14 v1.3d Input encoding file
 )
 (C:\Users\massi\AppData\Local\Programs\MiKTeX\tex/latex/base\fontenc.sty
 Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
+)
+(C:\Users\massi\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\mathpazo.sty
+Package: mathpazo 2020/03/25 PSNFSS-v9.3 Palatino w/ Pazo Math (D.Puga, WaS) 
+\symupright=\mathgroup4
 )
 (C:\Users\massi\AppData\Local\Programs\MiKTeX\tex/latex/biblatex\biblatex.sty
 Package: biblatex 2020/12/31 v3.16 programmable bibliographies (PK/MW)
@@ -687,7 +691,7 @@ package with kernel methods
 )
 Package scrhack Info: hyperref hack deactivated because of
 (scrhack)             detection of hyperref version, that doesn't
-(scrhack)             need that hack, on input line 70.
+(scrhack)             need that hack, on input line 69.
 Package hyperref Info: Driver (autodetected): hpdftex.
 (C:\Users\massi\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hpdftex.def
 File: hpdftex.def 2021-06-07 v7.00m Hyperref driver for pdfTeX
@@ -713,34 +717,42 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 \Hy@SectionHShift=\skip78
 )
-Package hyperref Info: Option `bookmarksopen' set `true' on input line 70.
-Package hyperref Info: Option `hypertexnames' set `false' on input line 70.
-Package hyperref Info: Option `colorlinks' set `true' on input line 70.
-Package hyperref Info: Option `unicode' set `true' on input line 70.
-Package hyperref Info: Option `breaklinks' set `true' on input line 70.
+Package hyperref Info: Option `bookmarksopen' set `true' on input line 69.
+Package hyperref Info: Option `hypertexnames' set `false' on input line 69.
+Package hyperref Info: Option `colorlinks' set `true' on input line 69.
+Package hyperref Info: Option `unicode' set `true' on input line 69.
+Package hyperref Info: Option `breaklinks' set `true' on input line 69.
 Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... found 'babel' package.
- (main.aux (Chapters/Chapter1.aux) (Appendices/AppendixA.aux))
+LaTeX Font Info:    Trying to load font information for T1+ppl on input line 69
+.
+
+(C:\Users\massi\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\t1ppl.fd
+File: t1ppl.fd 2001/06/04 font definitions for T1/ppl.
+)
+(main.aux (Chapters/Chapter1_intro.aux) (Chapters/Chapter2_stateOfArt.aux)
+(Chapters/Chapter3_application.aux) (Chapters/Chapter4_results.aux)
+(Chapters/Chapter5_conclusions.aux))
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 70.
-LaTeX Font Info:    ... okay on input line 70.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 70.
-LaTeX Font Info:    ... okay on input line 70.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 70.
-LaTeX Font Info:    ... okay on input line 70.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 70.
-LaTeX Font Info:    ... okay on input line 70.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 70.
-LaTeX Font Info:    ... okay on input line 70.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 70.
-LaTeX Font Info:    ... okay on input line 70.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 70.
-LaTeX Font Info:    ... okay on input line 70.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 70.
-LaTeX Font Info:    ... okay on input line 70.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 70.
-LaTeX Font Info:    ... okay on input line 70.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 69.
+LaTeX Font Info:    ... okay on input line 69.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 69.
+LaTeX Font Info:    ... okay on input line 69.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 69.
+LaTeX Font Info:    ... okay on input line 69.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 69.
+LaTeX Font Info:    ... okay on input line 69.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 69.
+LaTeX Font Info:    ... okay on input line 69.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 69.
+LaTeX Font Info:    ... okay on input line 69.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 69.
+LaTeX Font Info:    ... okay on input line 69.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 69.
+LaTeX Font Info:    ... okay on input line 69.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 69.
+LaTeX Font Info:    ... okay on input line 69.
 
 (C:\Users\massi\AppData\Local\Programs\MiKTeX\tex/latex/translations/dicts\tran
 slations-basic-dictionary-english.trsl
@@ -748,7 +760,7 @@ File: translations-basic-dictionary-english.trsl (english translation file `tra
 nslations-basic-dictionary')
 )
 Package translations Info: loading dictionary `translations-basic-dictionary' f
-or `english'. on input line 70.
+or `english'. on input line 69.
 
 (C:\Users\massi\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mk
 ii
@@ -815,14 +827,15 @@ Package caption Info: End \AtBeginDocument code.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 Package scrlayer Info: Setting magic \footheight to \baselineskip while
-(scrlayer)             \begin{document} on input line 70.
-Package scrbase Info: activating english \abbrevname on input line 70.
-Package scrbase Info: activating english \byname on input line 70.
-Package scrbase Info: activating english \acknowledgementname on input line 70.
+(scrlayer)             \begin{document} on input line 69.
+Package scrbase Info: activating english \abbrevname on input line 69.
+Package scrbase Info: activating english \byname on input line 69.
+Package scrbase Info: activating english \acknowledgementname on input line 69.
 
-Package scrbase Info: activating english \authorshipname on input line 70.
-Package scrbase Info: activating english \constantsname on input line 70.
-Package scrbase Info: activating english \symbolsname on input line 70.
+Package scrbase Info: activating english \authorshipname on input line 69.
+Package scrbase Info: activating english \constantsname on input line 69.
+Package scrbase Info: activating english \symbolsname on input line 69.
+\big@size=\dimen185
 Package biblatex Info: Trying to load language 'english'...
 Package biblatex Info: ... file 'english.lbx' found.
 
@@ -852,9 +865,9 @@ Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'main.bbl' not found.
 
 No file main.bbl.
-Package biblatex Info: Reference section=0 on input line 70.
-Package biblatex Info: Reference segment=0 on input line 70.
-Package hyperref Info: Link coloring ON on input line 70.
+Package biblatex Info: Reference section=0 on input line 69.
+Package biblatex Info: Reference segment=0 on input line 69.
+Package hyperref Info: Link coloring ON on input line 69.
 (C:\Users\massi\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
 
@@ -867,9 +880,9 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count431
 )
-LaTeX Info: Redefining \ref on input line 70.
-LaTeX Info: Redefining \pageref on input line 70.
-LaTeX Info: Redefining \nameref on input line 70.
+LaTeX Info: Redefining \ref on input line 69.
+LaTeX Info: Redefining \pageref on input line 69.
+LaTeX Info: Redefining \nameref on input line 69.
  (main.out) (main.out)
 \@outlinefile=\write4
 \openout4 = `main.out'.
@@ -886,18 +899,45 @@ LaTeX Info: Redefining \nameref on input line 70.
 --------------------
  Declaration of Authorship
 --------------------
-
-Underfull \hbox (badness 10000) in paragraph at lines 133--134
+LaTeX Font Info:    Trying to load font information for TS1+ppl on input line 1
+27.
+(C:\Users\massi\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ts1ppl.fd
+File: ts1ppl.fd 2001/06/04 font definitions for TS1/ppl.
+)
+Underfull \hbox (badness 10000) in paragraph at lines 132--133
 
  []
 
 1: section
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <10.95> on input line 143.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 143.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 143.
+LaTeX Font Info:    Trying to load font information for OT1+ppl on input line 1
+42.
+(C:\Users\massi\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ot1ppl.fd
+File: ot1ppl.fd 2001/06/04 font definitions for OT1/ppl.
+)
+LaTeX Font Info:    Trying to load font information for OML+zplm on input line 
+142.
+
+(C:\Users\massi\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\omlzplm.fd
+File: omlzplm.fd 2002/09/08 Fontinst v1.914 font definitions for OML/zplm.
+)
+LaTeX Font Info:    Trying to load font information for OMS+zplm on input line 
+142.
+
+(C:\Users\massi\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\omszplm.fd
+File: omszplm.fd 2002/09/08 Fontinst v1.914 font definitions for OMS/zplm.
+)
+LaTeX Font Info:    Trying to load font information for OMX+zplm on input line 
+142.
+
+(C:\Users\massi\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\omxzplm.fd
+File: omxzplm.fd 2002/09/08 Fontinst v1.914 font definitions for OMX/zplm.
+)
+LaTeX Font Info:    Trying to load font information for OT1+zplm on input line 
+142.
+
+(C:\Users\massi\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ot1zplm.fd
+File: ot1zplm.fd 2002/09/08 Fontinst v1.914 font definitions for OT1/zplm.
+)
 [3] [4
 
 ] [5] [6
@@ -916,16 +956,7 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 1: section
 [9] [10
 
-] (main.toc
-LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 3
-4.
-
-(C:\Users\massi\AppData\Local\Programs\MiKTeX\tex/latex/base\t1cmtt.fd
-File: t1cmtt.fd 2019/12/16 v2.5j Standard LaTeX font definitions
-)
-LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <10.95> not available
-(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 34.
-)
+] (main.toc)
 \tf@toc=\write5
 \openout5 = `main.toc'.
 
@@ -958,124 +989,108 @@ LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <10.95> not available
 
 ]
 1: section
-\openout2 = `Chapters/Chapter_test.aux'.
+\openout2 = `Chapters/Chapter1_intro.aux'.
 
-(Chapters/Chapter_test.tex
+(Chapters/Chapter1_intro.tex
 Chapter 1.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <14.4> on input line 27.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 27.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 31.
+)
 1: section
 [1
 
 
-] [2] [3]
-LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <14.4> not available
-(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 136.
- [4] [5]
+]
+\openout2 = `Chapters/Chapter2_stateOfArt.aux'.
 
-LaTeX Warning: Citation 'Reference1' on page 6 undefined on input line 194.
+ (Chapters/Chapter2_stateOfArt.tex [2
 
 
-LaTeX Warning: Citation 'Reference2' on page 6 undefined on input line 194.
 
 
-LaTeX Warning: Citation 'Reference1' on page 6 undefined on input line 194.
+]
+Chapter 2.
+)
+1: section
+[3]
+\openout2 = `Chapters/Chapter3_application.aux'.
+
+ (Chapters/Chapter3_application.tex [4
 
 
-LaTeX Warning: Citation 'Reference3' on page 6 undefined on input line 194.
 
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <9> on input line 196.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 196.
-[6] [7]
-<Figures/Electron.pdf, id=316, 398.3386pt x 284.52756pt>
-File: Figures/Electron.pdf Graphic file (type pdf)
-<use Figures/Electron.pdf>
-Package pdftex.def Info: Figures/Electron.pdf  used on input line 262.
-(pdftex.def)             Requested size: 398.33762pt x 284.52686pt.
- [8 <./Figures/Electron.pdf>] [9]) [10]
 
-LaTeX Warning: Empty bibliography on input line 211.
+]
+Chapter 3.
+)
+1: section
+[5]
+\openout2 = `Chapters/Chapter4_results.aux'.
 
-(main.aux (Chapters/Chapter_test.aux))
+ (Chapters/Chapter4_results.tex [6
 
-LaTeX Warning: There were undefined references.
 
+
+
+]
+Chapter 4.
+)
+1: section
+[7]
+\openout2 = `Chapters/Chapter5_conclusions.aux'.
+
+ (Chapters/Chapter5_conclusions.tex [8
+
+
+
+
+]
+Chapter 5.
+)
+1: section
+[9]
+
+LaTeX Warning: Empty bibliography on input line 215.
+
+(main.aux (Chapters/Chapter1_intro.aux) (Chapters/Chapter2_stateOfArt.aux)
+(Chapters/Chapter3_application.aux) (Chapters/Chapter4_results.aux)
+(Chapters/Chapter5_conclusions.aux))
 
 Package rerunfilecheck Warning: File `main.out' has changed.
 (rerunfilecheck)                Rerun to get outlines right
 (rerunfilecheck)                or use package `bookmark'.
 
 Package rerunfilecheck Info: Checksums for `main.out':
-(rerunfilecheck)             Before: 5720F4A7BC23992134B74670745FE285;4792
-(rerunfilecheck)             After:  C0B39ABC01B3B283E048BB32C818F4B1;4353.
-
-Package biblatex Warning: Please (re)run BibTeX on the file(s):
-(biblatex)                main
-(biblatex)                and rerun LaTeX afterwards.
-
+(rerunfilecheck)             Before: C586B3C32300407E853F5F9CC5B28C43;861
+(rerunfilecheck)             After:  F0201734BACB578E768D22F78D616BBE;861.
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 27292 strings out of 478927
- 589531 string characters out of 2852534
- 1099625 words of memory out of 3000000
- 44753 multiletter control sequences out of 15000+600000
- 431797 words of font info for 79 fonts, out of 8000000 for 9000
+ 27226 strings out of 478927
+ 588777 string characters out of 2852534
+ 1099507 words of memory out of 3000000
+ 44673 multiletter control sequences out of 15000+600000
+ 441105 words of font info for 81 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 96i,20n,95p,1820b,1822s stack positions out of 5000i,500n,10000p,200000b,80000s
-pdfTeX warning (dest): name{section.37} has been referenced but does not exis
+ 96i,21n,95p,1820b,1734s stack positions out of 5000i,500n,10000p,200000b,80000s
+pdfTeX warning (dest): name{chapter.20} has been referenced but does not exis
 t, replaced by a fixed one
 
-pdfTeX warning (dest): name{appendix.36} has been referenced but does not exist
-, replaced by a fixed one
+pdfTeX warning (dest): name{chapter.19} has been referenced but does not exist,
+ replaced by a fixed one
 
- <C:\Users\massi\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm10
-00.pk> <C:\Users\massi\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\
-eccc1000.pk> <C:\Users\massi\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/d
-pi600\ectt1000.pk> <C:\Users\massi\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappe
-n/ec/dpi600\ecrm0900.pk> <C:\Users\massi\AppData\Local\MiKTeX\fonts/pk/ljfour/j
-knappen/ec/dpi600\ecrm0600.pk> <C:\Users\massi\AppData\Local\MiKTeX\fonts/pk/lj
-four/jknappen/ec/dpi600\ecit1095.pk> <C:\Users\massi\AppData\Local\MiKTeX\fonts
-/pk/ljfour/jknappen/ec/dpi600\ecst1095.pk> <C:\Users\massi\AppData\Local\MiKTeX
-\fonts/pk/ljfour/jknappen/ec/dpi600\ectt1440.pk> <C:\Users\massi\AppData\Local\
-MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecsl1095.pk> <C:\Users\massi\AppData\
-Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx0800.pk> <C:\Users\massi\Ap
-pData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\ma
-ssi\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1000.pk> <C:\Us
-ers\massi\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1440.pk> 
-<C:\Users\massi\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx172
-8.pk> <C:\Users\massi\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\e
-csl1440.pk> <C:\Users\massi\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dp
-i600\ectt1095.pk> <C:\Users\massi\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen
-/ec/dpi600\ecrm0800.pk> <C:\Users\massi\AppData\Local\MiKTeX\fonts/pk/ljfour/jk
-nappen/ec/dpi600\ecbx2488.pk> <C:\Users\massi\AppData\Local\MiKTeX\fonts/pk/ljf
-our/jknappen/ec/dpi600\ecbx1095.pk> <C:\Users\massi\AppData\Local\MiKTeX\fonts/
-pk/ljfour/jknappen/ec/dpi600\ecti2074.pk> <C:\Users\massi\AppData\Local\MiKTeX\
-fonts/pk/ljfour/jknappen/ec/dpi600\ecti1095.pk> <C:\Users\massi\AppData\Local\M
-iKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1095.pk> <C:\Users\massi\AppData\L
-ocal\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\eccc1095.pk> <C:\Users\massi\App
-Data\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1095.pk> <C:\Users\mas
-si\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\eccc1200.pk> <C:\Use
-rs\massi\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1200.pk> <
-C:\Users\massi\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti1200
-.pk> <C:\Users\massi\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ec
-bx2074.pk> <C:\Users\massi\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi
-600\eccc1440.pk> <C:\Users\massi\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/
-ec/dpi600\eccc1728.pk><C:/Users/massi/AppData/Local/Programs/MiKTeX/fonts/type1
-/public/amsfonts/cm/cmmi10.pfb><C:/Users/massi/AppData/Local/Programs/MiKTeX/fo
-nts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/massi/AppData/Local/Programs/M
-iKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb>
-Output written on main.pdf (28 pages, 362658 bytes).
+pdfTeX warning (dest): name{chapter.18} has been referenced but does not exist,
+ replaced by a fixed one
+
+{C:/Users/massi/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}<C:/U
+sers/massi/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplb8a.pfb><C
+:/Users/massi/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplr8a.pfb
+><C:/Users/massi/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplr8a.
+pfb><C:/Users/massi/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplr
+i8a.pfb>
+Output written on main.pdf (27 pages, 97612 bytes).
 PDF statistics:
- 1182 PDF objects out of 1200 (max. 8388607)
- 66 named destinations out of 1000 (max. 500000)
- 238 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 217 PDF objects out of 1000 (max. 8388607)
+ 54 named destinations out of 1000 (max. 500000)
+ 65 words of extra memory for PDF output out of 10000 (max. 10000000)
 

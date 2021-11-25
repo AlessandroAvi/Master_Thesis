@@ -7,50 +7,12 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {chapter}{Acknowledgements}{ix}{section*.3}%
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {1}Chapter Title Here}{1}{chapter.8}%
+\contentsline {chapter}{\numberline {1}Intro}{1}{chapter.8}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {1.1}Welcome and Thank You}{1}{section.9}%
+\contentsline {chapter}{\numberline {2}State of the art}{3}{chapter.17}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {1.2}Learning \LaTeX {}}{1}{section.10}%
+\contentsline {chapter}{\numberline {3}Application}{5}{chapter.21}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {1.2.1}A (not so short) Introduction to \LaTeX {}}{1}{subsection.11}%
+\contentsline {chapter}{\numberline {4}Results}{7}{chapter.22}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {1.2.2}A Short Math Guide for \LaTeX {}}{2}{subsection.12}%
-\defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {1.2.3}Common \LaTeX {} Math Symbols}{2}{subsection.13}%
-\defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {1.2.4}\LaTeX {} on a Mac}{2}{subsection.14}%
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {1.3}Getting Started with this Template}{2}{section.15}%
-\defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {1.3.1}About this Template}{2}{subsection.16}%
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {1.4}What this Template Includes}{3}{section.17}%
-\defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {1.4.1}Folders}{3}{subsection.18}%
-\defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {1.4.2}Files}{3}{subsection.19}%
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {1.5}Filling in Your Information in the \texttt {\bfseries main.tex} File}{4}{section.20}%
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {1.6}The \texttt {main.tex} File Explained}{5}{section.21}%
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {1.7}Thesis Features and Conventions}{6}{section.22}%
-\defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {1.7.1}Printing Format}{6}{subsection.23}%
-\defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {1.7.2}Using US Letter Paper}{6}{subsection.24}%
-\defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {1.7.3}References}{6}{subsection.25}%
-\defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{A Note on bibtex}{7}{section*.27}%
-\defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {1.7.4}Tables}{7}{subsection.28}%
-\defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {1.7.5}Figures}{7}{subsection.30}%
-\defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {1.7.6}Typesetting mathematics}{9}{subsection.32}%
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {1.8}Sectioning and Subsectioning}{9}{section.34}%
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {1.9}In Closing}{9}{section.35}%
+\contentsline {chapter}{\numberline {5}Conclusions}{9}{chapter.23}%

@@ -128,7 +128,7 @@ while 1:
 
     if(myClass.TRAINING_FLAG == 1):
 
-        b_label = bytes(digits_label[cntr-1], 'utf-8')
+        b_label = bytes(digits_label[cntr]-1, 'utf-8')
         sp.write(b_label)
         sp.write(b"trai")
         sp.flush()

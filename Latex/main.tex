@@ -3,12 +3,11 @@
 %----------------------------------------------------------------------------------------
 
 \documentclass[
-11pt, % The default document font size, options: 10pt, 11pt, 12pt
-%oneside, % Two side (alternating margins) for binding by default, uncomment to switch to one side
+11pt, 
+%oneside, BY DEAULT TWO SIDED 
 english, 
-singlespacing, % Single line spacing, alternatives: onehalfspacing or doublespacing
+singlespacing,
 %draft, % Uncomment to enable draft mode (no pictures, no links, overfull hboxes indicated)
-%nolistspacing, % If the document is onehalfspacing or doublespacing, uncomment this to set spacing in lists to single
 %liststotoc, % Uncomment to add the list of figures/tables/etc to the table of contents
 %toctotoc, % Uncomment to add the main table of contents to the table of contents
 %parskip, % Uncomment to add space between paragraphs
@@ -21,11 +20,11 @@ headsepline, % Uncomment to get a line under the header
 \usepackage[utf8]{inputenc} % Required for inputting international characters
 \usepackage[T1]{fontenc} % Output font encoding for international characters
 
-%\usepackage{mathpazo} % Use the Palatino font by default
+\usepackage{mathpazo} % Use the Palatino font by default
 
-\usepackage[backend=bibtex,style=authoryear,natbib=true]{biblatex} % Use the bibtex backend with the authoryear citation style (which resembles APA)
+\usepackage[backend=bibtex,style=authoryear,natbib=true]{biblatex}
 
-\addbibresource{example.bib} % The filename of the bibliography
+\addbibresource{bibliography.bib}
 
 \usepackage[autostyle=true]{csquotes} % Required to generate language-dependent quotes in the bibliography
 
@@ -34,12 +33,12 @@ headsepline, % Uncomment to get a line under the header
 %----------------------------------------------------------------------------------------
 
 \geometry{
-	paper=a4paper, % Change to letterpaper for US letter
-	inner=2.5cm, % Inner margin
-	outer=3.8cm, % Outer margin
+	paper=a4paper, 
+	inner=2.5cm, 
+	outer=3.8cm, 
 	bindingoffset=.5cm, % Binding offset
-	top=1.5cm, % Top margin
-	bottom=1.5cm, % Bottom margin
+	top=1.5cm, 
+	bottom=1.5cm, 
 	%showframe, % Uncomment to show how the type block is set on the page
 }
 
@@ -48,7 +47,7 @@ headsepline, % Uncomment to get a line under the header
 %----------------------------------------------------------------------------------------
 
 \thesistitle{OnLine Learning applied on image classification} % print it elsewhere with \ttitle
-\supervisor{Prof. Davide \textsc{Brunelli}} % Your supervisor's name, this is used in the title page, print it elsewhere with \supname
+\supervisor{Prof. Davide \textsc{Brunelli}} % print it elsewhere with \supname
 \examiner{} % print it elsewhere with \examname
 \degree{Master Degree} % print it elsewhere with \degreename
 \author{Alessandro \textsc{Avi}} % print it elsewhere with \authorname
@@ -82,7 +81,7 @@ headsepline, % Uncomment to get a line under the header
 
 \vspace*{.06\textheight}
 {\scshape\LARGE \univname\par}\vspace{1.5cm} % University name
-\textsc{\Large Doctoral Thesis}\\[0.5cm] % Thesis type
+\textsc{\Large Master Thesis}\\[0.5cm] % Thesis type
 
 \HRule \\[0.4cm] % Horizontal line
 {\huge \bfseries \ttitle\par}\vspace{0.4cm} % Thesis title
@@ -91,13 +90,13 @@ headsepline, % Uncomment to get a line under the header
 \begin{minipage}[t]{0.4\textwidth}
 \begin{flushleft} \large
 \emph{Author:}\\
-\href{http://www.johnsmith.com}{\authorname} % Author name - remove the \href bracket to remove the link
+{\authorname} % Author name - remove the \href bracket to remove the link
 \end{flushleft}
 \end{minipage}
 \begin{minipage}[t]{0.4\textwidth}
 \begin{flushright} \large
 \emph{Supervisor:} \\
-\href{http://www.jamessmith.com}{\supname} % Supervisor name - remove the \href bracket to remove the link  
+{\supname} % Supervisor name - remove the \href bracket to remove the link  
 \end{flushright}
 \end{minipage}\\[3cm]
  
@@ -109,7 +108,7 @@ headsepline, % Uncomment to get a line under the header
  
 \vfill
 
-{\large \today}\\[4cm] % Date
+{\large \today}\\[4cm] % Data
 %\includegraphics{Logo} % University/department logo - uncomment to place it
  
 \vfill
@@ -194,7 +193,12 @@ Ciao grazie
 
 \pagestyle{thesis} % Return the page headers back to the "thesis" style
 
-\include{Chapters/Chapter_test} 
+%\include{Chapters/ChapterTemplate} 
+\include{Chapters/Chapter1_intro} 
+\include{Chapters/Chapter2_stateOfArt} 
+\include{Chapters/Chapter3_application} 
+\include{Chapters/Chapter4_results} 
+\include{Chapters/Chapter5_conclusions} 
 
 %----------------------------------------------------------------------------------------
 %	THESIS CONTENT - APPENDICES
