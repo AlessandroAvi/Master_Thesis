@@ -34,10 +34,13 @@ This repo contains the code that I developed for a demo of application for the c
 
 
 
-## DEBUGGING
+## TIPS AND TRICKS
 
-Here are some useful links for understanding some problems of the camera. In general by searching in the forum it's quite easy to find the answer. If nothing can be found the developer are very quick to answer new issues.
+Here are some useful links for understanding some problems I had on the camera. In general by searching in the forum it's quite easy to find the answer. If nothing can be found the developer are very quick to answer new issues.
 
-[In order to read file written from the camera in the SD is necessary to unplug and plug again](https://forums.openmv.io/t/saving-a-txt-file/700)
+- In order to read files written from the camera on the SD (like a txt file) it's necessary to unplug and plug again hte camera. [See link here](https://forums.openmv.io/t/saving-a-txt-file/700)
+- In order to use the COM port for sending data from the PC to the camera it's necessary to load the scipr on the camera as a main.py file and not use the IDE. This because the connection camera-IDE turns the camera in debugging mode, which will use the COM port to send the video stream and other things, so the UART communication is occupied (or use the externa pins on the camera for the UART). See these [link 1](https://forums.openmv.io/t/usb-vcp-acces-denied-with-pyserial/2026) [link 2](https://forums.openmv.io/t/is-the-serial-terminal-in-ide-output-only/850/3) [link 3](https://forums.openmv.io/search?q=serial%20)
+- The toolchain developed by students in the Embedded systems lab for flashing the firmware with a trained neural network the camera allows the use of tensorflow 2.4 or lower. (Because the tool fro STM CUBE accepts only this one). To avoid the error train the model with tenworflow 2.4 from the beginning.
 
-In order to use the COM port for sending data to the camera is necessary to load the main.py file on the camera and disconnect the IDE, this because the IDE keeps occupied the USB port for sending to the PC the video stream [link 1](https://forums.openmv.io/t/usb-vcp-acces-denied-with-pyserial/2026) [link 2](https://forums.openmv.io/t/is-the-serial-terminal-in-ide-output-only/850/3) [link 3](https://forums.openmv.io/search?q=serial%20)
+
+

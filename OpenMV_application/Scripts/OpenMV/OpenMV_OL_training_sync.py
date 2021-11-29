@@ -2,7 +2,7 @@ import sensor, image, time, ustruct, nn_st
 import ulab
 from ulab import numpy as np
 from pyb import USB_VCP
-import myLib
+import OpenMV_myLib as myLib
 
 #################################
 
@@ -26,8 +26,7 @@ OL_layer = myLib.LastLayer()
 
 myLib.load_biases(OL_layer)
 myLib.load_weights(OL_layer)
-myLib.load_labels(OL_layer)
-
+#myLib.load_labels(OL_layer)
 
 # 0 -> no training, just inference
 # 1 -> OL
@@ -37,12 +36,12 @@ myLib.load_labels(OL_layer)
 # 5 -> OL mini batch
 # 6 -> OLV2 mini batch
 # 7 -> LWF mini batch
-OL_layer.method = 1
+OL_layer.method = 5
 
 current_label = 'X'
 
 # START THE INFINITE LOOP
-counter = 0
+OL_layer.counter = 0
 while(True):
 
     cmd2 = usb.recv(1, timeout=5000)        # Receive the label from the laptop
@@ -50,13 +49,15 @@ while(True):
 
     current_label = cmd2.decode("utf-8")   # convert from byte to string
 
-    # DO NOT TRAIN MODEL
+    # STREAM
     if(cmd1 == b'snap'):
 
         img = sensor.snapshot()             # Take the photo and return image
-        myLib.write_results(OL_layer)       # Write confusion matrix in a txt file
 
-    # DO TRAIN MODEL
+        if(OL_layer.counter>3000):
+            myLib.write_results(OL_layer)       # Write confusion matrix in a txt file
+
+    # TRAIN
     elif(cmd1 == b'trai'):
 
 
@@ -64,6 +65,7 @@ while(True):
         img.midpoint(2, bias=0.5, threshold=True, offset=5, invert=True) # Binarize the image, size is 3x3,
 
         out_frozen = net.predict(img)       # [CUBE.AI] run the inference on frozen model
+
 
         # CHECK LABEL
         myLib.check_label(OL_layer, current_label)
@@ -76,17 +78,24 @@ while(True):
         # Apply changes on weights and biases
         myLib.back_propagation(true_label, prediction, OL_layer, out_frozen)
         # Update confusion matrix
-        myLib.update_conf_matr(true_label, prediction, OL_layer)
+
+        if(OL_layer.counter>3000):
+            myLib.update_conf_matr(true_label, prediction, OL_layer)
 
 
-        counter += 1
+
+        OL_layer.counter += 1
+
+    # STREAM/NOTHING
     else:
         img = sensor.snapshot()             # Take the photo and return image
-        myLib.write_results(OL_layer)       # Write confusion matrix in a txt file
+        if(OL_layer.counter>3000):
+            myLib.write_results(OL_layer)       # Write confusion matrix in a txt file
 
 
     img.draw_string(0, 0, current_label )
     img.draw_string(40, 0,cmd1.decode("utf-8"))
+    img.draw_string(0, 40, str(OL_layer.counter))
     img = img.compress()
     usb.send(ustruct.pack("<L", img.size()))
     usb.send(img)

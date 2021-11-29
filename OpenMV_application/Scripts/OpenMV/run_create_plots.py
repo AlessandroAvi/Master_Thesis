@@ -5,12 +5,16 @@ import os
 
 
 
-ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
+ROOT__PATH = os.path.dirname(os.path.abspath(__file__))
+SAVE_PLOTS__PATH = ROOT__PATH + '\\Plots_results\\'
+
+
 confusion_matrix = np.zeros((10,10))
 openmv_labels = []
+real_labels = ['0','1','2','3','4','5','6','7','8','9']
 
 # -------- READ FROM TXT FILE
-with open(ROOT_PATH + '\\training_results.txt') as f:
+with open(ROOT__PATH + '\\training_results.txt') as f:
 
     j,i = 0,0
     label_flag = 0
@@ -33,7 +37,7 @@ with open(ROOT_PATH + '\\training_results.txt') as f:
             i=0
 # --------
 
-size = len(openmv_labels)
+size = len(real_labels)
 
 
 
@@ -46,7 +50,7 @@ for i in range(0, size):
     bar_values[i] = round(round(confusion_matrix[i,i]/sum(confusion_matrix[i,:]),4)*100,2)
 
 fig = plt.subplots(figsize =(12, 8))
-bar_plot = plt.bar(openmv_labels, bar_values, color=colors, edgecolor='grey')
+bar_plot = plt.bar(real_labels, bar_values, color=colors, edgecolor='grey')
 
 # Add text to each bar showing the percent
 for p in bar_plot:
@@ -65,8 +69,9 @@ for p in bar_plot:
 plt.ylim([0, 100])
 plt.ylabel('Accuracy %', fontsize = 15)
 plt.xlabel('Classes', fontsize = 15)
-plt.xticks([r for r in range(size)], openmv_labels, fontweight ='bold', fontsize = 12)
+plt.xticks([r for r in range(size)], real_labels, fontweight ='bold', fontsize = 12)
 plt.title('Accuracy test - Method used: '  , fontweight ='bold', fontsize = 15)
+plt.savefig(SAVE_PLOTS__PATH + 'barPlot.png')
 plt.show()
 # --------
 
@@ -75,22 +80,29 @@ plt.show()
 
 
 # -------- CREATE CONFUSION MATRIX
-fig, ax = plt.subplots()
-im = ax.matshow(confusion_matrix, cmap=plt.cm.Blues)
-fig.colorbar(im)
+fig = plt.figure(figsize =(6,6))
+plt.clf()
+ax = fig.add_subplot(111)
+ax.set_aspect(1)
+res = ax.imshow(confusion_matrix, cmap=plt.cm.Blues, interpolation='nearest')
+width, height = confusion_matrix.shape
+
 
 # Loop over data dimensions and create text annotations.
-for i in range(len(openmv_labels)):
-    for j in range(len(openmv_labels)):
-        text = ax.text(j, i, int(confusion_matrix[i, j]), ha="center", va="center", size='large')
+for x in range(width):
+    for y in range(height):
+        ax.annotate(str(int(confusion_matrix[x,y])), xy=(y, x), ha="center", va="center", size='large')
 
-ax.set_xticks(np.arange(len(openmv_labels)))
-ax.set_yticks(np.arange(len(openmv_labels)))
-ax.xaxis.set_ticks_position("bottom")
-# NB THAT THE DIGITS LABELS ARE NEVER PUT, JUST USE THE DEFAULT LABEL NOTATION FROM 0 TO 9
-
-# Rotate the tick labels and set their alignment.
-plt.setp(ax.get_xticklabels(), ha="right", rotation_mode="anchor")
-fig.tight_layout()
+cb = fig.colorbar(res)
+plt.xticks(range(width), real_labels[:width])
+plt.yticks(range(height), real_labels[:height])
+plt.savefig(SAVE_PLOTS__PATH + 'confusionMatrix.png')
 plt.show()
+
 # --------
+
+
+
+
+
+

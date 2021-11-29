@@ -74,25 +74,10 @@ class uselessContainer():
 
 # Path of the images to open
 ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
-IMAGE__PATH   = ROOT_PATH + '\\Training_images\\'
-main_img_PATH = IMAGE__PATH + 'main_image.png'
-
+main_img_PATH =  ROOT_PATH + '\\Training_images\\main_image.png'
 
 # Init class used for pointing to the training flag
 myClass = uselessContainer()
-
-
-# Open the labels txt file and save them in a list
-labels = []
-
-my_file = open(IMAGE__PATH + 'label_order.txt', 'r')
-for line in my_file.readlines():
-    digits = line.split(',')
-    for i in range(0, len(digits)):
-        labels.append(digits[i])
-my_file.close()
-
-
 
 # OPEN SERIAL PORT
 port = 'COM9'     # See the name of the com port used from the camera in   Windows->Device manager->Ports(COM and LPT)
@@ -108,12 +93,14 @@ cv2.imshow('SYNC APP', main_img)
 cv2.createTrackbar('Training', 'SYNC APP', 0, 1, on_change)
 
 # Import the dataset that I am going to display
-samples_for_each_digit = 100
-digits_i_want          = [0,1,2,3,4,5,6]
+samples_for_each_digit = 400
+digits_i_want          = [0,1,2,3,4,5,6,7,8,9]
 
 digits_data, digits_label = createDataset(samples_for_each_digit, digits_i_want)
 
 tot_samples = len(digits_label)
+
+print('\n\n ***** EVERYTHING IS LOADED - READY TO RUN ***** \n\n')
 
 cntr = 1
 while 1:
@@ -128,7 +115,7 @@ while 1:
 
     if(myClass.TRAINING_FLAG == 1):
 
-        b_label = bytes(digits_label[cntr]-1, 'utf-8')
+        b_label = bytes(digits_label[cntr-1], 'utf-8')
         sp.write(b_label)
         sp.write(b"trai")
         sp.flush()

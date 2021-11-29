@@ -1,7 +1,7 @@
 import sensor, image, time, nn_st
 from ulab import numpy as np
 import ulab
-import myLib
+import OpenMV_myLib as myLib
 
 sensor.reset()                         # Reset and initialize the sensor.
 sensor.set_contrast(3)
@@ -43,44 +43,31 @@ OL_layer.method = 1
 # START THE INFINITE LOOP
 
 while(True):
-    clock.tick()                                            # Update the FPS clock.
-
 
     img = sensor.snapshot()                                 # Take the photo and return image
 
-    img.midpoint(2, bias=0.5, threshold=True,               # Binarize the image, size is 3x3,
-                    offset=5, invert=True)
-
-
+    img.midpoint(2, bias=0.5, threshold=True, offset=5, invert=True)
 
     out_frozen = net.predict(img)                           # [CUBE.AI] run the inference on frozen model
 
 
     # CHECK LABEL
     if(counter%47==0 and train_counter<len(OL_layer.true_label)):
-        myLib.check_label(OL_layer, train_counter)
-        true_label = myLib.label_to_softmax(OL_layer, train_counter)
+        current_label = OL_layer.true_label[train_counter]
+        myLib.check_label(OL_layer, current_label)
+        true_label = myLib.label_to_softmax(OL_layer, current_label)
 
     # PREDICTION
-    out_OL     = myLib.feed_forward(out_frozen, OL_layer)   # Feed forward
+    out_OL     = myLib.feed_forward(out_frozen, OL_layer)
     prediction = myLib.softmax(out_OL)
 
     # PERFORM BACK PROPAGATION AND UPDATE PERFORMANCE COUNTER
     if(counter%47==0 and train_counter<100):
-        # Apply changes on weights and biases
+
         myLib.back_propagation(true_label, prediction, OL_layer, out_frozen)
-        # Update confusion matrix
-        myLib.update_conf_matr(true_label, prediction, OL_layer)
-        # Write confusion matrix in a txt file
-        myLib.write_results(OL_layer)
+
         train_counter+=1
 
-    # TERMINAL DEBUG
-
-    print('FPS {}'.format(clock.fps())) # Note: OpenMV Cam runs about half as fast when connected
-    img.draw_string(0, 0, 'P:'+str( np.argmax(prediction) ))
-    img.draw_string(50, 0,'T:'+str( OL_layer.true_label[train_counter] ))
-    img.draw_string(50, 5,'i:'+str( train_counter ))
 
 
     counter += 1
