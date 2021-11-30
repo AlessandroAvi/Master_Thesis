@@ -23,21 +23,40 @@ class LastLayer(object):
 
         # MATRICES CONTAIENRS
         # These weights and biases are used for the standard inference and prediction of known labels
-        self.weights    = np.zeros((6,2028))
-        self.biases     = np.zeros((6,1))
-        # These weights and biases are used when the labels found are new
-        self.weights_new = np.zeros((1,2028))
-        self.biases_new  = np.zeros((1,1))
-        # These weights and matrices are used for the algorithms like OL mini batch, OLV2 mini batch,...
-        self.weights_2    = np.zeros((6,2028))
-        self.biases_2     = np.zeros((6,1))
-        self.weights_new_2 = np.zeros((1,2028))
-        self.biases_new_2  = np.zeros((1,1))
+        self.weights       = np.zeros((6,2028))
+        self.biases        = np.zeros((6,1))
 
         self.confusion_matrix = np.zeros((10,10))
 
 
 
+
+# 0 -> no training, just inference
+# 1 -> OL
+# 2 -> OLV2
+# 3 -> LWF
+# 4 -> CWR
+# 5 -> OL mini batch
+# 6 -> OLV2 mini batch
+# 7 -> LWF mini batch
+
+def init_newCOntainers(OL_layer):
+
+    if(OL_layer.method == 1):
+        dummy = 0
+    elif(OL_layer.method == 2):
+        dummy = 0
+    elif(OL_layer.method == 3):
+        dummy = 0
+    elif(OL_layer.method == 4):
+        dummy = 0
+    elif(OL_layer.method == 5):
+        dummy = 0
+    elif(OL_layer.method == 6):
+        setattr(OL_layer, 'weights_new_2', np.zeros((1,2028)))
+        setattr(OL_layer, 'biases_new_2',  np.zeros((1,1)))
+    elif(OL_layer.method == 7):
+        dummy = 0
 
 
 
@@ -121,8 +140,8 @@ def write_results(OL_layer):
         f.write('\n')
 
         # write the confusion matrix
-        for i in range(0, OL_layer.W):
-            for j in range(0, OL_layer.W):
+        for i in range(0, len(OL_layer.label_std)):
+            for j in range(0, len(OL_layer.label_std)):
 
                 f.write(str(int(OL_layer.confusion_matrix[i,j])))
                 if(j!=OL_layer.W-1):
@@ -155,14 +174,22 @@ def check_label(OL_layer, current_label):
 
         OL_layer.W += 1
 
+        # If first time a new label is found, create the matrix of new weights/biases
+        if(OL_layer.W==7):
+            setattr(OL_layer, 'weights_new', np.zeros((1,2028)))
+            setattr(OL_layer, 'biases_new', np.zeros((1,1)))
+
+        # If new label are multiple expand the matrix of weights/biases
         if(OL_layer.W>7):
             tmp = np.zeros((1,2028))
-            OL_layer.weights_new = np.concatenate((OL_layer.weights_new, tmp))
-            OL_layer.weights_new_2 = np.concatenate((OL_layer.weights_new_2, tmp))
-            tmp = np.zeros((1,1))
-            OL_layer.biases_new  = np.concatenate((OL_layer.biases_new, tmp), axis=0)
-            OL_layer.biases_new_2  = np.concatenate((OL_layer.biases_new_2, tmp), axis=0)
+            OL_layer.weights_new   = np.concatenate((OL_layer.weights_new, tmp))
+            #OL_layer.weights_new_2 = np.concatenate((OL_layer.weights_new_2, tmp))
 
+            tmp = np.zeros((1,1))
+            OL_layer.biases_new    = np.concatenate((OL_layer.biases_new, tmp), axis=0)
+            #OL_layer.biases_new_2  = np.concatenate((OL_layer.biases_new_2, tmp), axis=0)
+
+        # Append to known labels the new one
         OL_layer.label.append(current_label)
 
 
@@ -391,9 +418,45 @@ def back_propagation_OL_mini_batch(true_label, prediction, OL_layer, out_frozen)
 
 
 
+
+
+
 """ Performs the back propagation with the OL V2 mini batches algorithm """
-def back_propagation_OLV2_mini_batch():
-    l_rate = 0.005
+def back_propagation_OLV2_mini_batch(true_label, prediction, OL_layer, out_frozen):
+
+    cost = np.zeros((OL_layer.W,1))
+
+    out_frozen = np.array(out_frozen).reshape((1,OL_layer.H)) # Reshape
+
+    # Compute cost
+    for i in range(0, OL_layer.W):
+        cost[i,0] = (prediction[i,0]-true_label[i,0])*OL_layer.l_rate/OL_layer.batch_size
+
+    # Container used for performing dot product
+    tmp = np.zeros((2,1))
+    # Update weights
+    for i in range(6, OL_layer.W):
+
+        # Update weights
+        tmp[0,0] = cost[i,0]
+        dW = np.linalg.dot(tmp, out_frozen)
+        OL_layer.weights_new_2[i-6,:] = OL_layer.weights_new_2[i-6,:] + dW[0,:]
+        # Update biases
+        OL_layer.biases_new_2[i-6,0]  = OL_layer.biases_new_2[i-6,0] + cost[i,0]
+
+
+    if((OL_layer.counter % OL_layer.batch_size == 0) and (OL_layer.counter != 0)):
+
+        for i in range(6, OL_layer.W):
+            # Update weight matrix
+            OL_layer.weights_new[i-6,:] = OL_layer.weights_new[i-6,:] - OL_layer.weights_new_2[i-6,:]
+            # Update biases
+            OL_layer.biases_new[i-6,0]  = OL_layer.biases_new[i-6,0] - OL_layer.biases_new_2[i-6,0]
+
+        OL_layer.weights_2     = np.zeros((6,2028))
+        OL_layer.biases_2      = np.zeros((6,1))
+        OL_layer.weights_new_2 = np.zeros((OL_layer.W-OL_layer.W_orig,2028))
+        OL_layer.biases_new_2  = np.zeros((OL_layer.W-OL_layer.W_orig,1))
 
 
 
@@ -421,7 +484,7 @@ def back_propagation(true_label, prediction, OL_layer, out_frozen):
     elif(OL_layer.method==5):
         back_propagation_OL_mini_batch(true_label, prediction, OL_layer, out_frozen)
     elif(OL_layer.method==6):
-        back_propagation_OLV2_mini_batch()
+        back_propagation_OLV2_mini_batch(true_label, prediction, OL_layer, out_frozen)
     elif(OL_layer.method==7):
         back_propagation_LWF_mini_batch()
 
