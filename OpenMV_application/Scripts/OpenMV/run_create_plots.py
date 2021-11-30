@@ -31,7 +31,7 @@ with open(ROOT__PATH + '\\training_results.txt') as f:
         elif(times_flag==0 and label_flag==1):
             data = line.split(',')  # split one line in each single number
             for number in data:
-                openmv_times.append(number)
+                openmv_times.append(float(number))
             times_flag = 1
 
         else:   
@@ -103,6 +103,7 @@ for x in range(width):
 cb = fig.colorbar(res)
 plt.xticks(range(width), real_labels[:width])
 plt.yticks(range(height), real_labels[:height])
+plt.title('OpenMV training confusion matrix', fontweight ="bold") 
 plt.savefig(SAVE_PLOTS__PATH + 'confusionMatrix.png')
 plt.show()
 
@@ -110,12 +111,44 @@ plt.show()
 
 
 
+# -------- CREATE TABLE 
+table_values = np.zeros([3,confusion_matrix.shape[1]])
+
+for i in range(0, table_values.shape[1]):
+    if(sum(confusion_matrix[i,:]) != 0):
+        table_values[0,i] = round(confusion_matrix[i,i]/sum(confusion_matrix[i,:]),2)       # RECALL/SENSITIVITY
+
+    if(sum(confusion_matrix[:,i]) != 0):
+        table_values[1,i] = round(confusion_matrix[i,i]/sum(confusion_matrix[:,i]),2)       # PRECISION 
+
+    if((table_values[1,i]+table_values[2,i])!=0):
+        table_values[2,i] = round((2*table_values[0,i]*table_values[1,i])/(table_values[0,i]+table_values[1,i]),2)  # F1 SCORE
+
+fig, ax = plt.subplots(figsize =(10, 3)) 
+ax.set_axis_off() 
+
+table = ax.table( 
+    cellText = table_values,  
+    rowLabels = ['Accuracy', 'Precision', 'F1 score'],  
+    colLabels = real_labels, 
+    rowColours =["cornflowerblue"] * 200,  
+    colColours =["cornflowerblue"] * 200, 
+    cellLoc ='center',  
+    loc ='upper left')         
+
+table.scale(1,2) 
+table.set_fontsize(10)
+ax.set_title('OpenMV training results', fontweight ="bold") 
+plt.show()
+# --------
+
+
 
 
 # -------- PRINT ON SCREEN AVERAGE TIMES
 print('\n\n******************************************************')
-print('Here are the average times for inference and training')
-print(f'    Average frozen model inference time:        {openmv_times[0]}')
-print(f'    Average OL model inference + training time: {openmv_times[1]}')
-print(f'    Average total time:                         {openmv_times[1]}')
+print('TIME INFO  -  Here are the average times for inference and training')
+print(f'              Average frozen model inference time:        {openmv_times[0]} ms')
+print(f'              Average OL model inference + training time: {openmv_times[1]} ms')
+print(f'              Average total time:                         {openmv_times[1]} ms')
 print('******************************************************')

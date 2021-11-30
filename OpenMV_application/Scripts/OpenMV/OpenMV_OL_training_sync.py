@@ -40,21 +40,22 @@ OL_layer.method = 1
 
 myLib.init_newContainers(OL_layer)
 
-train_limit = 60
+train_limit = 1000
 
-current_label = 'X'
+label = 'X'
 
 # START THE INFINITE LOOP
 OL_layer.counter = 0
 while(True):
 
-    cmd2 = usb.recv(1, timeout=5000)        # Receive the label from the laptop
-    cmd1 = usb.recv(4, timeout=10)         # Receive the command message from the laptop
+    label_b = usb.recv(1, timeout=10)        # Receive the label from the laptop
+    cmd_b   = usb.recv(4, timeout=10)          # Receive the command message from the laptop
+    label = label_b.decode("utf-8")    # convert from byte to string
+    cmd   = cmd_b.decode("utf-8")
 
-    current_label = cmd2.decode("utf-8")   # convert from byte to string
 
     # STREAM
-    if(cmd1 == b'snap'):
+    if(cmd == 'snap'):
 
         img = sensor.snapshot()             # Take the photo and return image
 
@@ -62,7 +63,7 @@ while(True):
             myLib.write_results(OL_layer)       # Write confusion matrix in a txt file
 
     # TRAIN
-    elif(cmd1 == b'trai'):
+    elif(cmd == 'trai'):
 
         t_0 = pyb.millis()
 
@@ -74,8 +75,8 @@ while(True):
         t_1 = pyb.millis()
 
         # CHECK LABEL
-        myLib.check_label(OL_layer, current_label)
-        true_label = myLib.label_to_softmax(OL_layer, current_label)
+        myLib.check_label(OL_layer, label)
+        true_label = myLib.label_to_softmax(OL_layer, label)
 
         # PREDICTION
         out_OL     = myLib.feed_forward(out_frozen, OL_layer)
@@ -100,8 +101,8 @@ while(True):
         img = sensor.snapshot()             # Take the photo and return image
 
     # Draw on the image
-    img.draw_string(0, 0, current_label )
-    img.draw_string(40, 0,cmd1.decode("utf-8"))
+    img.draw_string(0, 0, label )
+    img.draw_string(40, 0,cmd)
     img.draw_string(0, 40, str(OL_layer.counter))
     img = img.compress()
     usb.send(ustruct.pack("<L", img.size()))

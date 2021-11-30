@@ -135,9 +135,9 @@ def load_labels(OL_layer):
 def write_results(OL_layer):
 
     # compute average time
-    #OL_layer.times[0,0] = OL_layer.times[0,0]
-    #OL_layer.times[0,1] = OL_layer.times[0,1]
-    #OL_layer.times[0,2] = OL_layer.times[0,2]
+    OL_layer.times[0,0] = OL_layer.times[0,0]*(1/OL_layer.counter)
+    OL_layer.times[0,1] = OL_layer.times[0,1]*(1/OL_layer.counter)
+    OL_layer.times[0,2] = OL_layer.times[0,2]*(1/OL_layer.counter)
 
     with open('training_results.txt', 'w') as f:
 
@@ -283,9 +283,9 @@ def update_conf_matr(true_label, prediction, OL_layer):
 
     # assign the correct value corresponding to the standard label
     for i in range(0, 10):
-        if(predicted_digit == OL_layer.label[i]):
+        if(predicted_digit == OL_layer.label_std[i]):
             p = i
-        if(true_digit == OL_layer.label[i]):
+        if(true_digit == OL_layer.label_std[i]):
             t = i
 
     OL_layer.confusion_matrix[t,p] += 1          # increase of 1 the correct space inside the confusion matrix
