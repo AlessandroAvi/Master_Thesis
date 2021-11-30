@@ -46,9 +46,11 @@ def on_change(val):
 
     myClass.TRAINING_FLAG = val
     if(val == 0):
-        print('Training is now DISABLED')
+        print('Script is in IDLE MODE')
     elif(val == 1):
-        print('Training is now ENABLED')
+        print('Script is in STREAMING MODE')
+    elif():
+        print('Script is in TRAINING MODE')
 
 
 
@@ -90,11 +92,11 @@ sp.setDTR(True)
 # Create window with slider
 main_img = cv2.imread(main_img_PATH)
 cv2.imshow('SYNC APP', main_img)
-cv2.createTrackbar('Training', 'SYNC APP', 0, 1, on_change)
+cv2.createTrackbar('Training', 'SYNC APP', 0, 2, on_change)
 
 # Import the dataset that I am going to display
-samples_for_each_digit = 400
-digits_i_want          = [0,1,2,3,4,5,6,7,8,9]
+samples_for_each_digit = 10
+digits_i_want          = [0,1,2,3,4,5,6]
 
 digits_data, digits_label = createDataset(samples_for_each_digit, digits_i_want)
 
@@ -105,21 +107,19 @@ print('\n\n ***** EVERYTHING IS LOADED - READY TO RUN ***** \n\n')
 cntr = 1
 while 1:
     
-    if(cntr == tot_samples-1):
-        myClass.TRAINING_FLAG = 0
-        myClass.cont += 1
+    # Show digit/idle message
+    if(myClass.TRAINING_FLAG == 0):
+        cv2.imshow('SYNC APP', main_img)
+    else:
+        zoom_digit = cv2.resize(digits_data[cntr], (0, 0), fx=7, fy=7)
+        cv2.imshow('SYNC APP', zoom_digit)
 
-    # OPEN THE IMAGE I WANT TO TAKE THE SHOT OF
-    zoom_digit = cv2.resize(digits_data[cntr], (0, 0), fx=7, fy=7)
-    cv2.imshow('SYNC APP', zoom_digit)
-
-    if(myClass.TRAINING_FLAG == 1):
-
+    # Send msg to OpenMV
+    if(myClass.TRAINING_FLAG == 2):
         b_label = bytes(digits_label[cntr-1], 'utf-8')
         sp.write(b_label)
         sp.write(b"trai")
         sp.flush()
-          
         print(f'counter: {cntr}/{tot_samples}')
         cntr += 1
     else:
@@ -136,14 +136,22 @@ while 1:
     zoom_openmv = cv2.resize(img_openmv, (0, 0), fx=5, fy=5)
     cv2.imshow('OpenMV view - Zoomed', zoom_openmv)
 
-    if(myClass.TRAINING_FLAG == 1):
+    if(myClass.TRAINING_FLAG == 2):
         cv2.waitKey(150)
-    elif(myClass.TRAINING_FLAG == 0):
+    elif(myClass.TRAINING_FLAG == 1 or myClass.TRAINING_FLAG == 0):
         cv2.waitKey(10)
+
+
+    # Condition for exiting the loop at end training
+    if(cntr == tot_samples-1):
+        myClass.TRAINING_FLAG = 1
+        myClass.cont += 1
 
     if(myClass.cont>100):
         break
 
 
-print('The training images are finished, press SPACE to close the script')
+print('*******************************************************************************')
+print('***** The training images are finished, press ANY KEY to close the script *****')
+print('*******************************************************************************')
 cv2.waitKey(0)

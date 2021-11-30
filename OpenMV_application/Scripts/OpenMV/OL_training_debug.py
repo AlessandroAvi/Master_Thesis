@@ -3,6 +3,7 @@ from ulab import numpy as np
 import ulab
 import OpenMV_myLib as myLib
 import gc
+import pyb
 
 sensor.reset()                         # Reset and initialize the sensor.
 sensor.set_contrast(3)
@@ -12,7 +13,6 @@ sensor.set_auto_exposure(True)
 sensor.set_pixformat(sensor.GRAYSCALE) # Set pixel format to Grayscale
 sensor.set_framesize(sensor.QQQVGA)    # Set frame size to 80x60
 sensor.skip_frames(time = 2000)        # Wait for settings take effect.
-clock = time.clock()                   # Create a clock object to track the FPS.
 
 gc.enable()
 print('BEGINNING OF CODE')
@@ -52,8 +52,10 @@ print('BEFORE WHILE LOOP')
 print('Used: ' + str(gc.mem_alloc()) + ' Free: ' + str(gc.mem_free()))
 
 # START THE INFINITE LOOP
-
+t=0
 while(True):
+
+    t_0 = pyb.millis()
 
     img = sensor.snapshot()                                 # Take the photo and return image
 
@@ -74,7 +76,7 @@ while(True):
     # PREDICTION
     out_OL     = myLib.feed_forward(out_frozen, OL_layer)
     prediction = myLib.softmax(out_OL)
-
+    t_1 = pyb.millis()
     # PERFORM BACK PROPAGATION AND UPDATE PERFORMANCE COUNTER
     if(counter%47==0 and train_counter<100):
 
@@ -83,5 +85,11 @@ while(True):
         train_counter+=1
 
 
+    t_2 = pyb.millis()
+    OL_layer.times[0,0] += t_1 - t_0
+    OL_layer.times[0,1] += t_2 - t_1
+    OL_layer.times[0,2] += t_2 - t_0
+
+    print(OL_layer.times[0,0])
 
     counter += 1

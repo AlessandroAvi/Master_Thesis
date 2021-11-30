@@ -11,6 +11,7 @@ SAVE_PLOTS__PATH = ROOT__PATH + '\\Plots_results\\'
 
 confusion_matrix = np.zeros((10,10))
 openmv_labels = []
+openmv_times = []
 real_labels = ['0','1','2','3','4','5','6','7','8','9']
 
 # -------- READ FROM TXT FILE
@@ -18,6 +19,7 @@ with open(ROOT__PATH + '\\training_results.txt') as f:
 
     j,i = 0,0
     label_flag = 0
+    times_flag = 0
     for line in f:  # cycle over lines 
 
         if(label_flag==0):
@@ -25,9 +27,14 @@ with open(ROOT__PATH + '\\training_results.txt') as f:
             for number in data:
                 openmv_labels.append(number)
             label_flag = 1
-            confusion_matrix = np.zeros((len(openmv_labels),len(openmv_labels)))
-        else:   
 
+        elif(times_flag==0 and label_flag==1):
+            data = line.split(',')  # split one line in each single number
+            for number in data:
+                openmv_times.append(number)
+            times_flag = 1
+
+        else:   
             data = line.split(',')  # split one line in each single number
             for number in data:
                 confusion_matrix[j,i] = float(number)   # save the number
@@ -105,4 +112,10 @@ plt.show()
 
 
 
-
+# -------- PRINT ON SCREEN AVERAGE TIMES
+print('\n\n******************************************************')
+print('Here are the average times for inference and training')
+print(f'    Average frozen model inference time:        {openmv_times[0]}')
+print(f'    Average OL model inference + training time: {openmv_times[1]}')
+print(f'    Average total time:                         {openmv_times[1]}')
+print('******************************************************')

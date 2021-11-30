@@ -1,8 +1,10 @@
-import sensor, image, time, ustruct, nn_st
+import sensor, image, ustruct, nn_st
 import ulab
 from ulab import numpy as np
 from pyb import USB_VCP
 import OpenMV_myLib as myLib
+import gc
+import pyb
 
 #################################
 
@@ -15,7 +17,6 @@ sensor.set_auto_exposure(True)
 sensor.set_pixformat(sensor.GRAYSCALE) # Set pixel format to Grayscale
 sensor.set_framesize(sensor.QQQVGA)    # Set frame size to 80x60
 sensor.skip_frames(time = 2000)        # Wait for settings take effect.
-clock = time.clock()                   # Create a clock object to track the FPS.
 
 # [CUBE.AI] Initialize the network
 net = nn_st.loadnnst('network')
@@ -26,17 +27,20 @@ OL_layer = myLib.LastLayer()
 
 myLib.load_biases(OL_layer)
 myLib.load_weights(OL_layer)
-#myLib.load_labels(OL_layer)
 
 # 0 -> no training, just inference
-# 1 -> OL
-# 2 -> OLV2
-# 3 -> LWF
-# 4 -> CWR
-# 5 -> OL mini batch
-# 6 -> OLV2 mini batch
-# 7 -> LWF mini batch
-OL_layer.method = 2
+# 1 -> OL               WORKS
+# 2 -> OLV2             WORKS
+# 3 -> LWF              NOT IMPLEMENTED
+# 4 -> CWR              NOT IMPLEMENTED
+# 5 -> OL mini batch    NOT WORKING
+# 6 -> OLV2 mini batch  NOT WORKING
+# 7 -> LWF mini batch   NOT IMPLEMENTED
+OL_layer.method = 1
+
+myLib.init_newContainers(OL_layer)
+
+train_limit = 60
 
 current_label = 'X'
 
@@ -54,18 +58,20 @@ while(True):
 
         img = sensor.snapshot()             # Take the photo and return image
 
-        if(OL_layer.counter>3000):
+        if(OL_layer.counter>train_limit):
             myLib.write_results(OL_layer)       # Write confusion matrix in a txt file
 
     # TRAIN
     elif(cmd1 == b'trai'):
 
+        t_0 = pyb.millis()
 
         img = sensor.snapshot()             # Take the photo and return image
         img.midpoint(2, bias=0.5, threshold=True, offset=5, invert=True) # Binarize the image, size is 3x3,
 
         out_frozen = net.predict(img)       # [CUBE.AI] run the inference on frozen model
 
+        t_1 = pyb.millis()
 
         # CHECK LABEL
         myLib.check_label(OL_layer, current_label)
@@ -77,29 +83,26 @@ while(True):
 
         # Apply changes on weights and biases
         myLib.back_propagation(true_label, prediction, OL_layer, out_frozen)
-        # Update confusion matrix
 
-        if(OL_layer.counter>3000):
+        t_2 = pyb.millis()
+
+        # Update confusion matrix
+        if(OL_layer.counter>train_limit):
             myLib.update_conf_matr(true_label, prediction, OL_layer)
 
-
-
+        OL_layer.times[0,0] += t_1 - t_0
+        OL_layer.times[0,1] += t_2 - t_1
+        OL_layer.times[0,2] += t_2 - t_0
         OL_layer.counter += 1
 
-    # STREAM/NOTHING
+    # STREAM
     else:
         img = sensor.snapshot()             # Take the photo and return image
-        if(OL_layer.counter>3000):
-            myLib.write_results(OL_layer)       # Write confusion matrix in a txt file
 
-
+    # Draw on the image
     img.draw_string(0, 0, current_label )
     img.draw_string(40, 0,cmd1.decode("utf-8"))
     img.draw_string(0, 40, str(OL_layer.counter))
     img = img.compress()
     usb.send(ustruct.pack("<L", img.size()))
     usb.send(img)
-
-
-
-
