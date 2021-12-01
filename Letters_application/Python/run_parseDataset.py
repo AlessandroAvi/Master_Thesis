@@ -231,11 +231,13 @@ A_data_3, A_label_3 = loadDataFromRawTxt('letter_A_3')    # 50 samples
 A_data_4, A_label_4 = loadDataFromRawTxt('letter_A_4')    # 100 samples
 
 
+
 E_data_0, E_label_0 = loadDataFromRawTxt_v2('E')
 E_data_1, E_label_1 = loadDataFromRawTxt('letter_E_1')    # 40 samples
 E_data_2, E_label_2 = loadDataFromRawTxt('letter_E_2')    # 80 samples
 E_data_3, E_label_3 = loadDataFromRawTxt('letter_E_3')    # 50 samples
 E_data_4, E_label_4 = loadDataFromRawTxt('letter_E_4')    # 100 samples
+
 
 
 I_data_0, I_label_0 = loadDataFromRawTxt_v2('I')
@@ -245,11 +247,13 @@ I_data_3, I_label_3 = loadDataFromRawTxt('letter_I_3')    # 50 samples
 I_data_4, I_label_4 = loadDataFromRawTxt('letter_I_4')    # 100 samples
 
 
+
 O_data_0, O_label_0 = loadDataFromRawTxt_v2('O')
 O_data_1, O_label_1 = loadDataFromRawTxt('letter_O_1')    # 40 samples
 O_data_2, O_label_2 = loadDataFromRawTxt('letter_O_2')    # 80 samples
 O_data_3, O_label_3 = loadDataFromRawTxt('letter_O_3')    # 50 samples
 O_data_4, O_label_4 = loadDataFromRawTxt('letter_O_4')    # 100 samples
+
 
 
 U_data_0, U_label_0 = loadDataFromRawTxt_v2('U')          
@@ -260,9 +264,12 @@ U_data_4, U_label_4 = loadDataFromRawTxt('letter_U_4')    # 100 samples
 
 
 
+
 R_data_4, R_label_4 = loadDataFromRawTxt('letter_R_4')    # 100 samples
 R_data_5, R_label_5 = loadDataFromRawTxt('letter_R_5')    # 63 samples
 R_data_7, R_label_7 = loadDataFromRawTxt('letter_R_7')    # 100 samples
+
+
 
 
 
@@ -272,10 +279,12 @@ B_data_7, B_label_7 = loadDataFromRawTxt('letter_B_7')    # 100 samples
 
 
 
+
 M_data_4, M_label_4 = loadDataFromRawTxt('letter_M_4')    # 100 samples
 M_data_5, M_label_5 = loadDataFromRawTxt('letter_M_5')    # 63 samples
 M_data_7, M_label_7 = loadDataFromRawTxt('letter_M_7')    # 100 samples
 M_data_8, M_label_8 = loadDataFromRawTxt('letter_M_8')    # 100 samples
+
 
 
 
@@ -502,3 +511,131 @@ training_dataset, training_labels = shuffleDataset(training_dataset, training_la
 myWrite.save_dataset(training_dataset, training_labels, 'training_file')
 print(f'The dataset for OL training has shape: {training_dataset.shape}')
 print('Dataset for controlled training:         saved \n')
+
+
+
+
+##################################################################
+# CREATE DATASET NUMBER 1 - THE BAD DATA
+
+R_data_0, R_label_0 = loadDataFromRawTxt('letter_R_0')    
+R_data_1, R_label_1 = loadDataFromRawTxt('letter_R_1')    
+R_data_2, R_label_2 = loadDataFromRawTxt('letter_R_2')    
+R_data_3, R_label_3 = loadDataFromRawTxt('letter_R_3')   
+R_data_6, R_label_6 = loadDataFromRawTxt('letter_R_6')   
+
+B_data_0, B_label_0 = loadDataFromRawTxt('letter_B_0') 
+B_data_1, B_label_1 = loadDataFromRawTxt('letter_B_1') 
+B_data_2, B_label_2 = loadDataFromRawTxt('letter_B_2') 
+B_data_3, B_label_3 = loadDataFromRawTxt('letter_B_3') 
+B_data_6, B_label_6 = loadDataFromRawTxt('letter_B_6') 
+
+M_data_0, M_label_0 = loadDataFromRawTxt('letter_M_0') 
+M_data_1, M_label_1 = loadDataFromRawTxt('letter_M_1') 
+M_data_2, M_label_2 = loadDataFromRawTxt('letter_M_2') 
+M_data_3, M_label_3 = loadDataFromRawTxt('letter_M_3') 
+M_data_6, M_label_6 = loadDataFromRawTxt('letter_M_6') 
+
+
+
+
+training_dataset_2 = vowels_data_OL
+training_dataset_2 = np.vstack(( training_dataset_2, A_data_4))
+training_dataset_2 = np.vstack(( training_dataset_2, E_data_4))
+training_dataset_2 = np.vstack(( training_dataset_2, I_data_4))
+training_dataset_2 = np.vstack(( training_dataset_2, O_data_4))
+training_dataset_2 = np.vstack(( training_dataset_2, U_data_4))
+training_dataset_2 = np.vstack(( training_dataset_2, R_data_0))
+training_dataset_2 = np.vstack(( training_dataset_2, R_data_1))
+training_dataset_2 = np.vstack(( training_dataset_2, R_data_2))
+training_dataset_2 = np.vstack(( training_dataset_2, R_data_3))
+training_dataset_2 = np.vstack(( training_dataset_2, R_data_6))
+training_dataset_2 = np.vstack(( training_dataset_2, B_data_0))
+training_dataset_2 = np.vstack(( training_dataset_2, B_data_1))
+training_dataset_2 = np.vstack(( training_dataset_2, B_data_2))
+training_dataset_2 = np.vstack(( training_dataset_2, B_data_3))
+training_dataset_2 = np.vstack(( training_dataset_2, B_data_6))
+training_dataset_2 = np.vstack(( training_dataset_2, M_data_0))
+training_dataset_2 = np.vstack(( training_dataset_2, M_data_1))
+training_dataset_2 = np.vstack(( training_dataset_2, M_data_2))
+training_dataset_2 = np.vstack(( training_dataset_2, M_data_3))
+training_dataset_2 = np.vstack(( training_dataset_2, M_data_6))
+
+
+
+# Create an array that contains all the train labels
+training_labels_2 = vowels_label_OL
+training_labels_2 = np.hstack(( training_labels_2, A_label_4))
+training_labels_2 = np.hstack(( training_labels_2, E_label_4))
+training_labels_2 = np.hstack(( training_labels_2, I_label_4))
+training_labels_2 = np.hstack(( training_labels_2, O_label_4))
+training_labels_2 = np.hstack(( training_labels_2, U_label_4))
+training_labels_2 = np.hstack(( training_labels_2, R_label_0))
+training_labels_2 = np.hstack(( training_labels_2, R_label_1))
+training_labels_2 = np.hstack(( training_labels_2, R_label_2))
+training_labels_2 = np.hstack(( training_labels_2, R_label_3))
+training_labels_2 = np.hstack(( training_labels_2, R_label_6))
+training_labels_2 = np.hstack(( training_labels_2, B_label_0))
+training_labels_2 = np.hstack(( training_labels_2, B_label_1))
+training_labels_2 = np.hstack(( training_labels_2, B_label_2))
+training_labels_2 = np.hstack(( training_labels_2, B_label_3))
+training_labels_2 = np.hstack(( training_labels_2, B_label_6))
+training_labels_2 = np.hstack(( training_labels_2, M_label_0))
+training_labels_2 = np.hstack(( training_labels_2, M_label_1))
+training_labels_2 = np.hstack(( training_labels_2, M_label_2))
+training_labels_2 = np.hstack(( training_labels_2, M_label_3))
+training_labels_2 = np.hstack(( training_labels_2, M_label_6))
+
+
+
+# Shuffle the matrix and the label
+training_dataset_2, training_labels_2 = shuffleDataset(training_dataset_2, training_labels_2)
+
+# Save the dataset in a txt file
+myWrite.save_dataset(training_dataset_2, training_labels_2, 'training_file_2')
+print(f'The dataset for OL training has shape: {training_dataset_2.shape}')
+print('Dataset for controlled training:         saved \n')
+
+
+
+##################################################################
+# CREATE DATASET NUMBER 3
+"""
+A_data_10, A_label_10 = loadDataFromRawTxt('letter_A_10')    # 200 samples
+E_data_10, E_label_10 = loadDataFromRawTxt('letter_E_10')    # 200 samples
+I_data_10, I_label_10 = loadDataFromRawTxt('letter_I_10')    # 200 samples
+O_data_10, O_label_10 = loadDataFromRawTxt('letter_O_10')    # 200 samples
+U_data_10, U_label_10 = loadDataFromRawTxt('letter_U_10')    # 200 samples
+R_data_10, R_label_10 = loadDataFromRawTxt('letter_R_10')    # 200 samples
+B_data_10, B_label_10 = loadDataFromRawTxt('letter_B_10')    # 200 samples
+M_data_10, M_label_10 = loadDataFromRawTxt('letter_M_10')    # 200 samples
+
+
+training_dataset_3 = A_data_10
+training_dataset_3 = np.vstack(( training_dataset_3, E_data_10))
+training_dataset_3 = np.vstack(( training_dataset_3, I_data_10))
+training_dataset_3 = np.vstack(( training_dataset_3, O_data_10))
+training_dataset_3 = np.vstack(( training_dataset_3, U_data_10))
+training_dataset_3 = np.vstack(( training_dataset_3, B_data_10))
+training_dataset_3 = np.vstack(( training_dataset_3, R_data_10))
+training_dataset_3 = np.vstack(( training_dataset_3, M_data_10))
+
+# Create an array that contains all the train labels
+training_labels_3 = A_label_10
+training_labels_3 = np.hstack(( training_labels_3, E_label_10))
+training_labels_3 = np.hstack(( training_labels_3, I_label_10))
+training_labels_3 = np.hstack(( training_labels_3, O_label_10))
+training_labels_3 = np.hstack(( training_labels_3, U_label_10))
+training_labels_3 = np.hstack(( training_labels_3, B_label_10))
+training_labels_3 = np.hstack(( training_labels_3, R_label_10))
+training_labels_3 = np.hstack(( training_labels_3, M_label_10))
+
+
+# Shuffle the matrix and the label
+training_dataset_3, training_labels_3 = shuffleDataset(training_dataset_3, training_labels_3)
+
+# Save the dataset in a txt file
+myWrite.save_dataset(training_dataset_3, training_labels_3, 'training_file_3')
+print(f'The dataset for OL training has shape: {training_dataset_3.shape}')
+print('Dataset for controlled training:         saved \n')
+"""

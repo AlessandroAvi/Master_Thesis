@@ -7,10 +7,10 @@ TinyOL.c:159:6:OL_increaseYpredDim	16	static
 TinyOL.c:188:6:OL_resetInfo	16	static
 TinyOL.c:199:6:OL_lettToSoft	24	static
 TinyOL.c:216:6:OL_feedForward	48	static
-TinyOL.c:240:6:OL_softmax	64	static
+TinyOL.c:240:6:OL_softmax	56	static
 TinyOL.c:276:6:OL_checkNewClass	24	static
 TinyOL.c:307:6:OL_compareLabels	24	static
-TinyOL.c:351:6:OL_train	256	dynamic
+TinyOL.c:351:6:OL_train	200	dynamic
 TinyOL.c:608:6:sendBiasUART	32	static
 TinyOL.c:637:6:sendWeightsUART	32	static
 TinyOL.c:663:6:sendFrozenOutUART	32	static

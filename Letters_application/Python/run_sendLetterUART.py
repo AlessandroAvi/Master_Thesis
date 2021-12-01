@@ -319,9 +319,9 @@ def UART_receivePreSoftmax():
     while n < 30:
         if((rx6[n+3] & mask_128) == 128):
             tmp = np.int(rx6[n+3]) & mask_64
-            preSoftmax_stm[i,l] = -((tmp<<24)    | (rx6[n+2]<<16) | (rx6[n+1]<<8)  | rx6[n])/1000000
+            preSoftmax_stm[i,l] = -((tmp<<24)    | (rx6[n+2]<<16) | (rx6[n+1]<<8)  | rx6[n])/10000
         else:
-            preSoftmax_stm[i,l] = ((rx6[n+3]<<24) | (rx6[n+2]<<16) | (rx6[n+1]<<8) | rx6[n])/1000000
+            preSoftmax_stm[i,l] = ((rx6[n+3]<<24) | (rx6[n+2]<<16) | (rx6[n+1]<<8) | rx6[n])/10000
 
         n += 4
         l += 1
@@ -371,7 +371,7 @@ print('\n')
 
 
 DATASET = 2             # 1 for the randomization | 2 for the same dataset as the laptop simulation
-DEBUG_HISTORY = 0       # 0 for no debug          | 1 for yes debug
+DEBUG_HISTORY = 1       # 0 for no debug          | 1 for yes debug
 
 print('Loading dataset ....')
 if(DATASET == 1):
@@ -419,8 +419,8 @@ if(DATASET == 1):
 
 else:
     # IF YOU WANT TO TEST LAPTOP AND STM WITH THE SAME EXACT DATASET IN THE SAME ORDER USE THIS
-    data, label = myParse.loadDataFromTxt('training_file')
-    train_data, train_label, test_data, test_label = myParse.parseTrainTest(data, label, 0.55)
+    data, label = myParse.loadDataFromTxt('training_file_2')
+    train_data, train_label, test_data, test_label = myParse.parseTrainTest(data, label, 0.5)
 
 print(f'The entire training dataset has shape {train_data.shape}')
 print(f'The entire testing dataset has shape   {test_data.shape}')

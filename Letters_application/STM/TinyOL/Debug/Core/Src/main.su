@@ -1,4 +1,4 @@
-main.c:95:5:main	104	static
+main.c:95:5:main	448	static
 main.c:342:6:SystemClock_Config	88	static
 main.c:387:6:HAL_GPIO_EXTI_Callback	16	static
 main.c:441:6:HAL_TIM_PeriodElapsedCallback	16	static

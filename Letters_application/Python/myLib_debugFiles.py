@@ -97,10 +97,15 @@ def debug_plotHistoryWeight(weight_num, weight_stm, weight_pc, max_dim):
 
     diff = np.abs(weight_pc[max_dim-1,weight_num]-weight_stm[max_dim-1,weight_num])
     max_val = np.abs(max(weight_pc[max_dim-1,weight_num],weight_stm[max_dim-1,weight_num]))
-    if(diff/max_val > 0.05):
-        print(f'  difference:{col_FAIL}{(weight_pc[max_dim-1,weight_num]-weight_stm[max_dim-1,weight_num]):.11f}{col_RESET}  - which is {diff/max_val}%')
+    if(max_val == 0):
+        perc_err = 0
     else:
-        print(f'  difference:{col_OK}{(weight_pc[max_dim-1,weight_num]-weight_stm[max_dim-1,weight_num]):.11f}{col_RESET}  - which is {diff/max_val}%')
+        perc_err = round(diff/max_val,2)
+
+    if(diff/max_val > 0.05):
+        print(f'  difference:{col_FAIL}{(weight_pc[max_dim-1,weight_num]-weight_stm[max_dim-1,weight_num]):.11f}{col_RESET}  - which is {perc_err}%')
+    else:
+        print(f'  difference:{col_OK}{(weight_pc[max_dim-1,weight_num]-weight_stm[max_dim-1,weight_num]):.11f}{col_RESET}  - which is {perc_err}%')
 
     plt.savefig(SAVE_PLOT_PATH + 'WeightHistory_' + str(weight_num) + '.png', bbox_inches='tight', dpi=200 )
     plt.show()
@@ -127,10 +132,16 @@ def debug_plotHistoryBias(bias_num, bias_stm, bias_pc, label,max_dim):
 
     diff = np.abs(bias_pc[max_dim-1,bias_num]-bias_stm[max_dim-1,bias_num])
     max_val = np.abs(max(bias_pc[max_dim-1,bias_num],bias_stm[max_dim-1,bias_num]))
-    if(diff/max_val > 0.05):
-        print(f'  difference:{col_FAIL}{(bias_pc[max_dim-1,bias_num]-bias_stm[max_dim-1,bias_num]):.11f}{col_RESET}  - which is {diff/max_val}%')
+
+    if(max_val == 0):
+        perc_err = 0
     else:
-        print(f'  difference:{col_OK}{(bias_pc[max_dim-1,bias_num]-bias_stm[max_dim-1,bias_num]):.11f}{col_RESET}  - which is {diff/max_val}%')
+        perc_err = round(diff/max_val,2)
+
+    if(diff/max_val > 0.05):
+        print(f'  difference:{col_FAIL}{(bias_pc[max_dim-1,bias_num]-bias_stm[max_dim-3,bias_num]):.11f}{col_RESET}  - which is {perc_err}%')
+    else:
+        print(f'  difference:{col_OK}{(bias_pc[max_dim-1,bias_num]-bias_stm[max_dim-3,bias_num]):.11f}{col_RESET}  - which is {perc_err}%')
 
     plt.savefig(SAVE_PLOT_PATH + 'BiasHistory_' + label[bias_num] + '.png', bbox_inches='tight', dpi=200 )
     plt.show()
@@ -174,12 +185,12 @@ def debug_confrontBias(numero, bias_stm, bias_pc, label):
 
 
         
-def debug_confrontWeights(numero, weight_stm, weight_pc, vec, selected_w):
+def debug_confrontWeights(n_prova, weight_stm, weight_pc, vec, selected_w):
 
-    vec_weig_stm = weight_stm[numero,:]
-    vec_weig_pc  = weight_pc[numero,:]
+    vec_weig_stm = weight_stm[n_prova,:]
+    vec_weig_pc  = weight_pc[n_prova,:]
 
-    print(f'Iteration number {numero}')
+    print(f'Iteration number {n_prova}')
     print('n weight')
 
     for q in range(0, len(vec)):

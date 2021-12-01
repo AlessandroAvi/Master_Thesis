@@ -148,7 +148,7 @@ int main(void)
   //	MODE_OL_batch
   //	MODE_OL_V2_batch
   //	MODE_LWF_batch
-  OL_layer.ALGORITHM = MODE_LWF_batch;
+  OL_layer.ALGORITHM = MODE_OL;
 
   OL_layer.batch_size = 8;
 
@@ -297,7 +297,7 @@ int main(void)
 			  sendFrozenOutUART(&OL_layer, k, k*4, out_data, msgFrozenOut);
 		  }
 
-		  if(OL_layer.counter <= 992){
+		  if(OL_layer.counter <= 951){
 			  HAL_Delay(15); 			// Helps the code to not get stuck, no idea why
 			  HAL_UART_Transmit(&huart2, (uint8_t*)msgBias, 8*4, 100);
 			  HAL_UART_Transmit(&huart2, (uint8_t*)msgWeights, 10*8*4, 100);

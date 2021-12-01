@@ -723,21 +723,21 @@ void sendPreSoftmaxUART(OL_LAYER_STRUCT * layer, int j, int i, uint8_t * msgPreS
 	msgPreSoftmax[i+2] = 0;
 	msgPreSoftmax[i+3] = 0;
 
-	int softmax_val = layer->y_pred[j]*1000000;
+	int preSoftmax_val = layer->y_pred[j]*10000;
 
 	if(j<layer->WIDTH){
-		if(softmax_val<0){
-			softmax_val = -softmax_val;
+		if(preSoftmax_val<0){
+			preSoftmax_val = -preSoftmax_val;
 
-			msgPreSoftmax[i]   = softmax_val   & byte_1;
-			msgPreSoftmax[i+1] = (softmax_val  & byte_2)>>8;
-			msgPreSoftmax[i+2] = (softmax_val  & byte_3)>>16;
-			msgPreSoftmax[i+3] = ((softmax_val & byte_4) | (0x80000000))>>24;
+			msgPreSoftmax[i]   = preSoftmax_val   & byte_1;
+			msgPreSoftmax[i+1] = (preSoftmax_val  & byte_2)>>8;
+			msgPreSoftmax[i+2] = (preSoftmax_val  & byte_3)>>16;
+			msgPreSoftmax[i+3] = ((preSoftmax_val & byte_4) | (0x80000000))>>24;
 		}else{
-			msgPreSoftmax[i]   = softmax_val  & byte_1;
-			msgPreSoftmax[i+1] = (softmax_val & byte_2)>>8;
-			msgPreSoftmax[i+2] = (softmax_val & byte_3)>>16;
-			msgPreSoftmax[i+3] = (softmax_val & byte_4)>>24;
+			msgPreSoftmax[i]   = preSoftmax_val  & byte_1;
+			msgPreSoftmax[i+1] = (preSoftmax_val & byte_2)>>8;
+			msgPreSoftmax[i+2] = (preSoftmax_val & byte_3)>>16;
+			msgPreSoftmax[i+3] = (preSoftmax_val & byte_4)>>24;
 		}
 	}
 }

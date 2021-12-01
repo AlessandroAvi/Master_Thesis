@@ -1,0 +1,7 @@
+/Core/
+/Drivers/
+/X-CUBE-AI/
+/makefile
+/objects.list
+/objects.mk
+/sources.mk
