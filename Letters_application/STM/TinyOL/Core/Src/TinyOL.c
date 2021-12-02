@@ -641,7 +641,7 @@ void sendWeightsUART(OL_LAYER_STRUCT * layer, int j, int i, uint8_t * msgWeights
 	msgWeights[i+2] = 0;
 	msgWeights[i+3] = 0;
 
-	int weight_val = layer->weights[j]*1000000000;
+	int weight_val = layer->weights[j]*100000000;
 
 	if(weight_val<0){
 		weight_val = -weight_val;

@@ -600,7 +600,7 @@ print('Dataset for controlled training:         saved \n')
 
 ##################################################################
 # CREATE DATASET NUMBER 3
-"""
+
 A_data_10, A_label_10 = loadDataFromRawTxt('letter_A_10')    # 200 samples
 E_data_10, E_label_10 = loadDataFromRawTxt('letter_E_10')    # 200 samples
 I_data_10, I_label_10 = loadDataFromRawTxt('letter_I_10')    # 200 samples
@@ -638,4 +638,3 @@ training_dataset_3, training_labels_3 = shuffleDataset(training_dataset_3, train
 myWrite.save_dataset(training_dataset_3, training_labels_3, 'training_file_3')
 print(f'The dataset for OL training has shape: {training_dataset_3.shape}')
 print('Dataset for controlled training:         saved \n')
-"""

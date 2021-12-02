@@ -4463,7 +4463,7 @@ void sendWeightsUART(OL_LAYER_STRUCT * layer, int j, int i, uint8_t * msgWeights
  80027ac:	2200      	movs	r2, #0
  80027ae:	701a      	strb	r2, [r3, #0]
 
-	int weight_val = layer->weights[j]*1000000000;
+	int weight_val = layer->weights[j]*100000000;
  80027b0:	68fb      	ldr	r3, [r7, #12]
  80027b2:	699a      	ldr	r2, [r3, #24]
  80027b4:	68bb      	ldr	r3, [r7, #8]
@@ -4568,7 +4568,7 @@ void sendWeightsUART(OL_LAYER_STRUCT * layer, int j, int i, uint8_t * msgWeights
  8002860:	46bd      	mov	sp, r7
  8002862:	f85d 7b04 	ldr.w	r7, [sp], #4
  8002866:	4770      	bx	lr
- 8002868:	4e6e6b28 	.word	0x4e6e6b28
+ 8002868:	4cbebc20 	.word	0x4cbebc20
 
 0800286c <sendFrozenOutUART>:
 

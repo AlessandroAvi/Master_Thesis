@@ -200,9 +200,9 @@ def UART_receiveWeights():
         # if the higest byte of interest has the MSB 1 -> is a negative number 
         if((rx3[n+3] & mask_128) == 128):
             tmp = np.int(rx3[n+3]) & mask_64
-            weights_stm[i,l] = -((tmp<<24)    | (rx3[n+2]<<16) | (rx3[n+1]<<8)  | rx3[n])/1000000000 
+            weights_stm[i,l] = -((tmp<<24)    | (rx3[n+2]<<16) | (rx3[n+1]<<8)  | rx3[n])/100000000 
         else:
-            weights_stm[i,l] = ((rx3[n+3]<<24) | (rx3[n+2]<<16) | (rx3[n+1]<<8) | rx3[n])/1000000000
+            weights_stm[i,l] = ((rx3[n+3]<<24) | (rx3[n+2]<<16) | (rx3[n+1]<<8) | rx3[n])/100000000
         n += 4
         l += 1
 
