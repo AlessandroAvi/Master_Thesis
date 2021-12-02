@@ -420,7 +420,7 @@ if(DATASET == 1):
 else:
     # IF YOU WANT TO TEST LAPTOP AND STM WITH THE SAME EXACT DATASET IN THE SAME ORDER USE THIS
     data, label = myParse.loadDataFromTxt('training_file_2')
-    train_data, train_label, test_data, test_label = myParse.parseTrainTest(data, label, 0.5)
+    train_data, train_label, test_data, test_label = myParse.parseTrainTest(data, label, 0.50)
 
 print(f'The entire training dataset has shape {train_data.shape}')
 print(f'The entire testing dataset has shape   {test_data.shape}')
