@@ -604,8 +604,7 @@ training_labels_1 = np.hstack(( training_labels_1, M_label_6))
 # Shuffle the matrix and the label
 training_dataset_1, training_labels_1 = shuffleDataset(training_dataset_1, training_labels_1)
 training_dataset_1, training_labels_1 = shuffleDataset(training_dataset_1, training_labels_1)
-training_dataset_1, training_labels_1 = shuffleDataset(training_dataset_1, training_labels_1)
-training_dataset_1, training_labels_1 = shuffleDataset(training_dataset_1, training_labels_1)
+
 
 
 
@@ -632,9 +631,17 @@ training_dataset_2 = np.vstack(( training_dataset_2, I_data_4))
 training_dataset_2 = np.vstack(( training_dataset_2, O_data_4))
 training_dataset_2 = np.vstack(( training_dataset_2, U_data_4))
 
-training_dataset_2 = np.vstack(( training_dataset_2, B_data))
-training_dataset_2 = np.vstack(( training_dataset_2, R_data))
-training_dataset_2 = np.vstack(( training_dataset_2, M_data))
+training_dataset_2 = np.vstack(( training_dataset_2, R_data_4))
+training_dataset_2 = np.vstack(( training_dataset_2, R_data_5))
+training_dataset_2 = np.vstack(( training_dataset_2, R_data_7))
+
+training_dataset_2 = np.vstack(( training_dataset_2, B_data_4))
+training_dataset_2 = np.vstack(( training_dataset_2, B_data_5))
+training_dataset_2 = np.vstack(( training_dataset_2, B_data_7))
+
+training_dataset_2 = np.vstack(( training_dataset_2, M_data_4))
+training_dataset_2 = np.vstack(( training_dataset_2, M_data_5))
+training_dataset_2 = np.vstack(( training_dataset_2, M_data_7))
 
 
 
@@ -647,13 +654,22 @@ training_labels_2 = np.hstack(( training_labels_2, I_label_4))
 training_labels_2 = np.hstack(( training_labels_2, O_label_4))
 training_labels_2 = np.hstack(( training_labels_2, U_label_4))
 
-training_labels_2 = np.hstack(( training_labels_2, B_label))
-training_labels_2 = np.hstack(( training_labels_2, R_label))
-training_labels_2 = np.hstack(( training_labels_2, M_label))
+training_labels_2 = np.hstack(( training_labels_2, R_label_4))
+training_labels_2 = np.hstack(( training_labels_2, R_label_5))
+training_labels_2 = np.hstack(( training_labels_2, R_label_7))
 
+training_labels_2 = np.hstack(( training_labels_2, B_label_4))
+training_labels_2 = np.hstack(( training_labels_2, B_label_5))
+training_labels_2 = np.hstack(( training_labels_2, B_label_7))
+
+training_labels_2 = np.hstack(( training_labels_2, M_label_4))
+training_labels_2 = np.hstack(( training_labels_2, M_label_5))
+training_labels_2 = np.hstack(( training_labels_2, M_label_7))
 
 
 # Shuffle the matrix and the label
+training_dataset_2, training_labels_2 = shuffleDataset(training_dataset_2, training_labels_2)
+training_dataset_2, training_labels_2 = shuffleDataset(training_dataset_2, training_labels_2)
 training_dataset_2, training_labels_2 = shuffleDataset(training_dataset_2, training_labels_2)
 training_dataset_2, training_labels_2 = shuffleDataset(training_dataset_2, training_labels_2)
 
