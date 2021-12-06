@@ -8,19 +8,19 @@ PARAMETERS SAVED FROM THE TRAINING
  Optimizer:        adam
  Loss:             SparseCategoricalCrossentropy 
 
-Model: "sequential"
+Model: "sequential_9"
 _________________________________________________________________
 Layer (type)                 Output Shape              Param #   
 =================================================================
-conv2d (Conv2D)              (None, 26, 26, 12)        120       
+conv2d_9 (Conv2D)            (None, 26, 26, 8)         80        
 _________________________________________________________________
-max_pooling2d (MaxPooling2D) (None, 13, 13, 12)        0         
+max_pooling2d_9 (MaxPooling2 (None, 13, 13, 8)         0         
 _________________________________________________________________
-flatten (Flatten)            (None, 2028)              0         
+flatten_9 (Flatten)          (None, 1352)              0         
 _________________________________________________________________
-dense (Dense)                (None, 6)                 12174     
+dense_10 (Dense)             (None, 6)                 8118      
 =================================================================
-Total params: 12,294
-Trainable params: 12,294
+Total params: 8,198
+Trainable params: 8,198
 Non-trainable params: 0
 _________________________________________________________________

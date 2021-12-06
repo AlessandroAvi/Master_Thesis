@@ -41,9 +41,7 @@ myLib.load_labels(OL_layer)
 # 5 -> OL mini batch
 # 6 -> OLV2 mini batch
 # 7 -> LWF mini batch
-OL_layer.method = 6
-
-myLib.init_newContainers(OL_layer)
+OL_layer.method = 5
 
 current_label ='X'
 
@@ -89,7 +87,8 @@ while(True):
     OL_layer.times[0,0] += t_1 - t_0
     OL_layer.times[0,1] += t_2 - t_1
     OL_layer.times[0,2] += t_2 - t_0
-
-    print(OL_layer.times[0,0])
+    if(OL_layer.counter > 10):
+        print(OL_layer.times[0,0]*(1/OL_layer.counter))
 
     counter += 1
+    OL_layer.counter += 1

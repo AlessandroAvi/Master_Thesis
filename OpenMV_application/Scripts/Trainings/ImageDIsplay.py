@@ -89,7 +89,7 @@ myClass = uselessContainer()
 # Next lines are taken from the example in the OpenMV IDE - the example is in    File->Examples->OpenMV->Board Control->usb_vcp.py
 port = 'COM9'     # See the name of the com port used from the camera in   Windows->Device manager->Ports(COM and LPT)
 sp = serial.Serial(port, baudrate=115200, bytesize=serial.EIGHTBITS, parity=serial.PARITY_NONE, xonxoff=False, 
-                   rtscts=False, stopbits=serial.STOPBITS_ONE, timeout=1000, dsrdtr=True)
+                   rtscts=False, stopbits=serial.STOPBITS_ONE, timeout=5000, dsrdtr=True)
 sp.setDTR(True)
 
 # Create window with slider
@@ -98,7 +98,7 @@ cv2.imshow('SYNC APP', main_img)
 cv2.createTrackbar('Training', 'SYNC APP', 0, 2, on_change)
 
 # Import the dataset that I am going to display
-samples_for_each_digit = 200
+samples_for_each_digit = 400
 digits_i_want          = [0,1,2,3,4,5,6,7,8,9]
 digits_data, digits_label = createDataset(samples_for_each_digit, digits_i_want)
 tot_samples = len(digits_label)
@@ -117,7 +117,7 @@ while 1:
 
     # Send cmd + label to OpenMV
     if(myClass.TRAINING_FLAG == 2):
-        b_label = bytes(digits_label[cntr], 'utf-8')
+        b_label = bytes(digits_label[cntr-1], 'utf-8')
         sp.write(b_label)
         sp.write(b"trai")
         sp.flush()
@@ -130,17 +130,16 @@ while 1:
 
 
     # Receive image from OpenMV
+    """
     size = struct.unpack('<L', sp.read(4))[0]
     img_raw = sp.read(size)
     img_openmv = cv2.imdecode(np.frombuffer(img_raw, np.uint8), cv2.IMREAD_COLOR)
     zoom_openmv = cv2.resize(img_openmv, (0, 0), fx=5, fy=5)
     cv2.imshow('OpenMV view - Zoomed', zoom_openmv)
-
-    if(cntr >1 and cntr <100):
-        cv2.imwrite('TMP\\immagine'+ str(cntr) +'.png',zoom_openmv)
+    """
 
     if(myClass.TRAINING_FLAG == 2):
-        cv2.waitKey(50)
+        cv2.waitKey(150)
     elif(myClass.TRAINING_FLAG == 1 or myClass.TRAINING_FLAG == 0):
         cv2.waitKey(10)
 

@@ -19,7 +19,7 @@ import seaborn as sns
 # |_| /_/   \_\_| \_\____/|_____|
 
 
-# extract 100 samples for each digit from the training dataset
+""" Given an original dataset this function will generate a smaller dataset that contains NUM samples for each label """
 def extract_tot_samples(data_low, data_high, label_low, label_high, num):
     
     digits_0 = data_low[np.where(label_low==0)[0][:num]]
@@ -74,9 +74,11 @@ def extract_tot_samples(data_low, data_high, label_low, label_high, num):
 
 
 
+""" This function shuffles the dataset given as output, the randomization can be changed by chaanging the seed """
 def shuffleDataset(data_matrix, lable_ary):
    
     random.seed(56)
+
     order_list = list(range(0,data_matrix.shape[0]))  
     random.shuffle(order_list)                         
 
@@ -101,14 +103,12 @@ def shuffleDataset(data_matrix, lable_ary):
 
 
 
-
+""" The function transforms a label saves as a char in an hot one encoded array where the 1 is put in the correct label space """
 def letterToSoftmax(current_label, known_labels):
     ret_ary = np.zeros(len(known_labels))
-
-    known_labels_2 = [0,1,2,3,4,5]
                        
     for i in range(0, len(known_labels)):
-        if(current_label == known_labels_2[i]):
+        if(current_label == known_labels[i]):
             ret_ary[i] = 1
 
     return ret_ary  
@@ -117,7 +117,8 @@ def letterToSoftmax(current_label, known_labels):
 
 
 
-
+""" Function that computes the softmax operator of the array in input.
+    Slightly differs from the one implemented by Keras but is needed to maintain consistency here and in the OpenMV camera """
 def myFunc_softmax(array):
     
     if(len(array.shape)==2):
@@ -145,6 +146,7 @@ def myFunc_softmax(array):
 
 
 
+""" Function that chekcs if the current label is already known. If not it increases the dimension of the OL layer (weights and biases) and sstores the new label found """
 def checkLabelKnown(model, current_label):
     
     found = 0
@@ -179,35 +181,36 @@ def checkLabelKnown(model, current_label):
 #   |_|   |_____\___/ |_| |____/ 
                               
 
-
+""" Generates a bar plot of the class model given in input. The bar plot is generated from the attributo confusion_matrix """
 def plot_barChart(model):
     
     conf_matr   = model.conf_matr
     title       = model.title 
     filename    = model.filename
 
-    bar_plot_label = ['0','1','2','3','4','5','6','7','8','9','Model']
+    real_label = ['0','1','2','3','4','5','6','7','8','9','Model']
+    # Generate matrix of colors for the bars
     blue2 = 'cornflowerblue'
     colors = [blue2, blue2, blue2, blue2, blue2, 
               blue2, blue2, blue2, blue2, blue2, 'steelblue']  
 
-    bar_values = np.zeros(conf_matr.shape[0]+1)
-    
+    bar_values   = np.zeros(conf_matr.shape[0]+1)
     tot_pred     = 0
     correct_pred = 0
 
+    # Compute the accuracy for each label and store it inside array
     for i in range(0, conf_matr.shape[0]):
-        bar_values[i] = round(round(conf_matr[i,i]/sum(conf_matr[i,:]),4)*100, 2)      # Accuracy for each letter
+        if( sum(conf_matr[i,:]) != 0):
+            bar_values[i] = round(round(conf_matr[i,i]/sum(conf_matr[i,:]),4)*100, 2)      # Accuracy for each letter
         tot_pred += sum(conf_matr[i,:])
         correct_pred += conf_matr[i,i]
 
     bar_values[-1] = round(round(correct_pred/tot_pred, 4)*100,2)   # Overall accuracy of the model
     
     fig = plt.subplots(figsize =(12, 8))
+    bar_plot = plt.bar(real_label, bar_values, color=colors, edgecolor='grey')
 
-    bar_plot = plt.bar(bar_plot_label, bar_values, color=colors, edgecolor='grey')
-
-    # Add text to each bar showing the percent
+    # Add text to each bar showing the percentage of accuracy
     for p in bar_plot:
         height = p.get_height()
         xy_pos = (p.get_x() + p.get_width() / 2, height)
@@ -224,24 +227,77 @@ def plot_barChart(model):
     plt.ylim([0, 100])
     plt.ylabel('Accuracy %', fontsize = 15)
     plt.xlabel('Classes', fontsize = 15)
-    plt.xticks([r for r in range(len(bar_plot_label))], bar_plot_label, fontweight ='bold', fontsize = 12) # Write on x axis the letter name
+    plt.xticks([r for r in range(len(real_label))], real_label, fontweight ='bold', fontsize = 12) # Write on x axis the letter name
     plt.title('Accuracy test - Method used: '+title, fontweight ='bold', fontsize = 15)
 
 
 
+
+""" Function that generates a plot showing the confusion matrix of the class given in input """
 def plot_confMatrix(model):
 
-    title       = model.title 
-    filename    = model.filename
+    title         = model.title 
+    filename      = model.filename
     letter_labels = model.std_label 
-
-    conf_matrix = model.conf_matr    
+    conf_matrix   = model.conf_matr    
     
-    plt.figure(figsize=(10,6))
+    fig = plt.figure(figsize =(6,6))
+    plt.clf()
+    ax = fig.add_subplot(111)
+    ax.set_aspect(1)
 
-    sns.heatmap(conf_matrix, annot=True, cmap="Blues", xticklabels=letter_labels, yticklabels=letter_labels)
+    res = ax.imshow(conf_matrix, cmap=plt.cm.Blues, interpolation='nearest')
+    width, height = conf_matrix.shape
+
+    # Loop over data dimensions and create text annotations.
+    for x in range(width):
+        for y in range(height):
+            ax.annotate(str(int(conf_matrix[x,y])), xy=(y, x), ha="center", va="center", size='large')
+
+    cb = fig.colorbar(res)
+    plt.xticks(range(width), letter_labels[:width])
+    plt.yticks(range(height), letter_labels[:height])
 
     # labels, title and ticks
     plt.xlabel('PREDICTED LABELS')
     plt.ylabel('TRUE LABELS') 
-    plt.title('Confusion Matrix - ' + title, fontweight ='bold', fontsize = 15)
+    plt.title('OpenMV training confusion matrix - ' + title, fontweight ='bold', fontsize = 15)
+    plt.show()
+
+
+
+""" Function that computes the accuracy, precision adn F1 score and generates a table """
+def plot_table(model):
+
+    title         = model.title 
+    filename      = model.filename
+    letter_labels = model.std_label 
+    conf_matrix   = model.conf_matr   
+    table_values  = np.zeros([3,conf_matrix.shape[1]])
+
+    for i in range(0, table_values.shape[1]):
+        if(sum(conf_matrix[i,:]) != 0):
+            table_values[0,i] = round(conf_matrix[i,i]/sum(conf_matrix[i,:]),2)       # RECALL/SENSITIVITY
+
+        if(sum(conf_matrix[:,i]) != 0):
+            table_values[1,i] = round(conf_matrix[i,i]/sum(conf_matrix[:,i]),2)       # PRECISION 
+
+        if((table_values[1,i]+table_values[2,i])!=0):
+            table_values[2,i] = round((2*table_values[0,i]*table_values[1,i])/(table_values[0,i]+table_values[1,i]),2)  # F1 SCORE
+
+    fig, ax = plt.subplots(figsize =(10, 3)) 
+    ax.set_axis_off() 
+
+    table = ax.table( 
+        cellText = table_values,  
+        rowLabels = ['Accuracy', 'Precision', 'F1 score'],  
+        colLabels = letter_labels, 
+        rowColours =["cornflowerblue"] * 200,  
+        colColours =["cornflowerblue"] * 200, 
+        cellLoc ='center',  
+        loc ='upper left')         
+
+    table.scale(1,2) 
+    table.set_fontsize(10)
+    ax.set_title('OpenMV training table - ' + title, fontweight ="bold") 
+    plt.show()

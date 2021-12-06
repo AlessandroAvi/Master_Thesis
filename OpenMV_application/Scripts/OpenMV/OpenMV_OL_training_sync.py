@@ -30,40 +30,46 @@ myLib.load_weights(OL_layer)
 
 # 0 -> no training, just inference
 # 1 -> OL               WORKS
-# 2 -> OLV2             WORKS
+# 2 -> OLV2             WORKS BUT NOT PERFECT
 # 3 -> LWF              NOT IMPLEMENTED
 # 4 -> CWR              NOT IMPLEMENTED
 # 5 -> OL mini batch    NOT WORKING
 # 6 -> OLV2 mini batch  NOT WORKING
 # 7 -> LWF mini batch   NOT IMPLEMENTED
-OL_layer.method = 1
+OL_layer.method = 6
 
-myLib.init_newContainers(OL_layer)
-
-train_limit = 1000
+train_limit = 3000
 
 label = 'X'
+
+LED1 = pyb.LED(1)
+LED2 = pyb.LED(1)
 
 # START THE INFINITE LOOP
 OL_layer.counter = 0
 while(True):
 
-    label_b = usb.recv(1, timeout=10)        # Receive the label from the laptop
-    cmd_b   = usb.recv(4, timeout=10)          # Receive the command message from the laptop
-    label = label_b.decode("utf-8")    # convert from byte to string
+
+    label_b = usb.recv(1, timeout=5000)        # Receive the label from the laptop
+    cmd_b   = usb.recv(4, timeout=10)        # Receive the command message from the laptop
+
+    label = label_b.decode("utf-8")          # convert from byte to string
     cmd   = cmd_b.decode("utf-8")
 
 
     # STREAM
     if(cmd == 'snap'):
 
+        LED2.off()
         img = sensor.snapshot()             # Take the photo and return image
 
         if(OL_layer.counter>train_limit):
             myLib.write_results(OL_layer)       # Write confusion matrix in a txt file
+        LED2.off()
 
     # TRAIN
     elif(cmd == 'trai'):
+        LED1.on()
 
         t_0 = pyb.millis()
 
@@ -95,15 +101,16 @@ while(True):
         OL_layer.times[0,1] += t_2 - t_1
         OL_layer.times[0,2] += t_2 - t_0
         OL_layer.counter += 1
+        LED1.off()
 
     # STREAM
     else:
         img = sensor.snapshot()             # Take the photo and return image
 
     # Draw on the image
-    img.draw_string(0, 0, label )
-    img.draw_string(40, 0,cmd)
-    img.draw_string(0, 40, str(OL_layer.counter))
-    img = img.compress()
-    usb.send(ustruct.pack("<L", img.size()))
-    usb.send(img)
+    #img.draw_string(0, 0, label )
+    #img.draw_string(40, 0,cmd)
+    #img.draw_string(0, 40, str(OL_layer.counter))
+    #img = img.compress()
+    #usb.send(ustruct.pack("<L", img.size()))
+    #usb.send(img)
