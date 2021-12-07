@@ -58,8 +58,28 @@ Both methods are easy to implement. The version OLV2 requires a matrx of size mx
 These method try to overcome catastrophic forgetting by not applyting a training on the original weights at all. This could benefict the aspect of catastrophic forgetting but for sure also works against the possibility to perform a fine tuning in case new patters on already known labels are presented. Additionally by training the model in this way columns of weights of the OL layer will not work together ??.
 
 ### METHOD LWF
-spiegazione LWF
-spiegazione LWF mini batches
+The LWF algorithms is a regularization approach that tries to overcome catastrophic forgetting by balacning the update of weights with a weighted average. The method tries to update the weights and biases by exploiting a loss function that uses 2 compoennts. One coming from the error perfomed by the prediction of the model that is currently training, the other coming from the error performed by the original model. Which means that this method requires two predictions. The methowd works as following:
+ - feed the new data sample throught the frozen model, thig generates the output out_ml
+ - check if the ground truth label is known, if not increase the dimension of the OL layer
+ - feed manually the array ml_out through the LWF_layer, which is the matrix and array in which are saved the weight and biases of the original model (just after the trainin gon the laptop) and apply a softmax actiavation function
+ - feed manually the array out_ml throught the last layer (OL_layer) and compute the output with the softmac activation function
+ - compute the error performed by the two prediction and perform a back propagation following the gradient descent rule. This time the update on the last layer is applied as a weighted sum between the two errors, where the value lambda is the most important factor. As mentioned in [REFERECE] usign a constanv alue of lambda can be sub optimal, so the best idea is to change it following a linear function where the number of prediction performed is the variable. In this application it has been decided to use the following function FUNZIONE LAMNDA, since it gave good results. 
+    INSERIRE FORMULA UPDATE WEIGHTS
+    INSERIRE FORMULA UPDATE BIASES
+
+This first LWF method bass the update of the weights only on the current prediction and on the prediction that the original model would have made. The last part is sligtly changed in the LWM mini batche method, this because instead of maintaining the saecond model constant, its weight and biases are update every time a batch is finished. This changes a bit the idea of the LWF method, since isntead of having an update based on the original method and the new method, the update is made basing tehe variation on the current model and the model in an old version.
+So again, the algorithm is: 
+ - feed the new data sample throught the frozen model, thig generates the output out_ml
+ - check if the ground truth label is known, if not increase the dimension of the OL layer
+ - feed manually the array ml_out through the LWF_layer, which is the matrix and array in which are saved the weight and biases of the original model (just after the trainin gon the laptop) and apply a softmax actiavation function
+ - feed manually the array out_ml throught the last layer (OL_layer) and compute the output with the softmac activation function
+ - compute the error performed by the two prediction and perform a back propagation following the gradient descent rule. This time the value lambda has a different update function which is [INSERIRE LAMBDA FUNCTION].
+    INSERIRE FORMULA UPDATE WEIGHTS
+    INSERIRE FORMULA UPDATE BIASES
+ - if the batch is finished, copy the current model in the old model.
+
+The LWF method is quite simple to implement, since it differs from the previous only for an additional prediction and a sligtly different loss function. Both methods require the allocation of 2 matrices of size mxn and 2 arrays of size mx1. 
+The LWF method tries to overcome the catastrophic forgetting by updating the weights and biases with a loss function dependent on the current error and the error that an old model would perform. By using this behaviour the model evolution always keeps an eye on the info that it already learned and tries to balance new learning opportunities with old and consolidated knowledge. 
 
 ### METHOD CWR
 spiegazione CWR
