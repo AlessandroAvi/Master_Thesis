@@ -505,7 +505,7 @@ def train_OL_mini_batch(OL_layer, true_label, out_frozen):
 
 
 """ Performs the back propagation with the OL V2 mini batches algorithm """
-def train_OLV2_mini_batch(true_label, prediction, OL_layer, out_frozen):
+def train_OLV2_mini_batch(OL_layer, true_label, out_frozen):
 
     # PREDICTION & SOFTMAX
     out_OL     = feed_forward(out_frozen, OL_layer)
@@ -549,8 +549,58 @@ def train_OLV2_mini_batch(true_label, prediction, OL_layer, out_frozen):
 
 
 """ Performs the back propagation with the LWF mini batches algorithm """
-def train_LWF_mini_batch():
-    l_rate = 0.005
+def train_LWF_mini_batch(OL_layer, true_label, out_frozen):
+
+    # PREDICTION & SOFTMAX
+    out_LWF_1 = feed_forward(out_frozen, OL_layer)
+    out_LWF_2 = feed_forward_V2(out_frozen, OL_layer)
+    prediction_1 = softmax(out_LWF_1)
+    prediction_2 = softmax(out_LWF_2)
+
+    # BACKPROPAGATION
+    if(OL_layer.counter < OL_layer.batch_size)
+        my_lambda = 1
+    else:
+        my_lambda = OL_layer.batch_size/OL_layer.counter
+
+    cost_1 = np.zeros((OL_layer.W,1)) # normal cost
+    cost_2 = np.zeros((OL_layer.W,1)) # LWF cost
+
+    out_frozen = np.array(out_frozen).reshape((1,OL_layer.H)) # Reshape
+
+    # Compute cost
+    for i in range(0, OL_layer.W):
+        cost_1[i,0] = (prediction_1[i,0]-true_label[i,0])*(1-my_lambda)*OL_layer.l_rate
+        cost_2[i,0] = (prediction_1[i,0]-prediction_2[i,0])*my_lambda*OL_layer.l_rate
+
+    # Container used for performing dot product, needs to be a matrix of size 1x1
+    tmp = np.zeros((2,1))
+    # Update weights
+    for i in range(0, OL_layer.W):
+
+        tmp[0,0] = cost_1[i,0]
+        tmp[1,0] = cost_2[i,0]
+        dW = np.linalg.dot(tmp, out_frozen)
+        if(i<6):
+            OL_layer.weights[i,:] = OL_layer.weights[i,:] - dW[0,:]
+            # Update biases
+            OL_layer.biases[i,0]  = OL_layer.biases[i,0] - cost_1[i,0] - cost_2[i,:]
+        else:
+            OL_layer.weights_new[i-6,:] = OL_layer.weights_new[i-6,:] - dW[0,:]
+            # Update biases
+            OL_layer.biases_new[i-6,0]  = OL_layer.biases_new[i-6,0] - cost_1[i,0] - cost_2[i,:]
+
+    # BATCH FINISHED
+    if((OL_layer.counter % OL_layer.batch_size == 0) and (OL_layer.counter != 0)):
+
+        for i in range(0, size):
+            # Update weight matrix
+            OL_layer.weights_2 = OL_layer.weights.copy()
+            OL_layer.weights_new_2 = OL_layer.weights_new.copy()
+            # Update biases
+            OL_layer.biases_2 = OL_layer.biases.copy()
+            OL_layer.biases_new_2 = OL_layer.biases_new.copy()
+
 
 
 
