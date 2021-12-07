@@ -29,11 +29,14 @@ class LastLayer(object):
         # new labels inference
         self.weights_new =  np.zeros((1,self.H))
         self.biases_new  =  np.zeros((1,1))
+
+
+        # THESE ARE ALLOCATED LATER IN THE CODE IF NECESSARY
         # new methods that requier multiple matrices
-        self.weights_2 =  np.zeros((6,self.H))
-        self.biases_2  =  np.zeros((6,1))
-        self.weights_new_2 =  np.zeros((1,self.H))
-        self.biases_new_2  =  np.zeros((1,1))
+        #self.weights_2 =  np.zeros((6,self.H))
+        #self.biases_2  =  np.zeros((6,1))
+        #self.weights_new_2 =  np.zeros((1,self.H))
+        #self.biases_new_2  =  np.zeros((1,1))
 
         self.confusion_matrix = np.zeros((10,10))
         self.times = np.zeros((1,3))
@@ -150,6 +153,18 @@ def write_results(OL_layer):
 #     |_| |___|_| \_| |_|    \___/|_____|
 
 
+
+def init_containers(OL_layer):
+
+    if(OL_layer.method != 0 and OL_layer.method != 1 and OL_layer.method != 3):
+        setattr(OL_layer, "weights_2", np.zeros((1,OL_layer.H)) )
+        setattr(OL_layer, "biases_2", np.zeros((1,1)) )
+        setattr(OL_layer, "weights_new_2", np.zeros((1,OL_layer.H)) )
+        setattr(OL_layer, "biases_new_2", np.zeros((1,1)) )
+
+
+
+
 """ Checks if the label is known, if not increase the dimension of the layer """
 def check_label(OL_layer, current_label):
 
@@ -212,14 +227,34 @@ def feed_forward(out_frozen, OL_layer):
 
     out_frozen = np.array(out_frozen).reshape((OL_layer.H,1)) # reshape
 
-    num_letters = OL_layer.W
-
     # Feed forward on the original weights
     ret_ary = np.linalg.dot(OL_layer.weights, out_frozen) + OL_layer.biases
 
     # Feed forward on the new weights
-    if(num_letters > 6 ):
+    if(OL_layer.W > 6 ):
         ret_ary_new = np.linalg.dot(OL_layer.weights_new, out_frozen) + OL_layer.biases_new
+
+        ret_ary = np.concatenate((ret_ary, ret_ary_new))
+
+    return ret_ary
+
+
+
+
+
+
+
+""" Computes the feed forward operation -> out = W*out_frozen+bias """
+def feed_forward_V2(out_frozen, OL_layer):
+
+    out_frozen = np.array(out_frozen).reshape((OL_layer.H,1)) # reshape
+
+    # Feed forward on the original weights
+    ret_ary = np.linalg.dot(OL_layer.weights_2, out_frozen) + OL_layer.biases_2
+
+    # Feed forward on the new weights
+    if(OL_layer.W > 6 ):
+        ret_ary_new = np.linalg.dot(OL_layer.weights_new_2, out_frozen) + OL_layer.biases_new_2
 
         ret_ary = np.concatenate((ret_ary, ret_ary_new))
 
@@ -285,8 +320,13 @@ def update_conf_matr(true_label, prediction, OL_layer):
 
 
 """ Performs the back propagation with the OL algorithm """
-def back_propagation_OL(true_label, prediction, OL_layer, out_frozen):
+def train_OL(OL_layer, true_label, out_frozen):
 
+    # PREDICTION & SOFTMAX
+    out_OL     = feed_forward(out_frozen, OL_layer)
+    prediction = softmax(out_OL)
+
+    # BACKPROPAGATION
     cost = np.zeros((OL_layer.W,1))
 
     out_frozen = np.array(out_frozen).reshape((1,OL_layer.H)) # Reshape
@@ -318,9 +358,14 @@ def back_propagation_OL(true_label, prediction, OL_layer, out_frozen):
 
 
 """ Performs the back propagation with the OL V2 algorithm """
-def back_propagation_OLV2(true_label, prediction, OL_layer, out_frozen):
+def train_OLV2(OL_layer, true_label, out_frozen):
 
-    size = OL_layer.W-OL_layer.W_orig
+    # PREDICTION & SOFTMAX
+    out_OL     = feed_forward(out_frozen, OL_layer)
+    prediction = softmax(out_OL)
+
+    # BACKPROPAGATION
+    size   = OL_layer.W - OL_layer.W_orig
     offset = OL_layer.W_orig
 
     cost = np.zeros((size,1))
@@ -350,8 +395,45 @@ def back_propagation_OLV2(true_label, prediction, OL_layer, out_frozen):
 
 
 """ Performs the back propagation with the LWF algorithm """
-def back_propagation_LWF():
-    l_rate = 0.005
+def train_LWF(OL_layer, true_label, out_frozen):
+
+    # PREDICTION & SOFTMAX
+    out_LWF_1 = feed_forward(out_frozen, OL_layer)
+    out_LWF_2 = feed_forward_V2(out_frozen, OL_layer)
+    prediction_1 = softmax(out_LWF_1)
+    prediction_2 = softmax(out_LWF_2)
+
+    # BACKPROPAGATION
+    my_lambda = 100/(100+Ol_layer.counter)
+
+    cost_1 = np.zeros((OL_layer.W,1)) # normal cost
+    cost_2 = np.zeros((OL_layer.W,1)) # LWF cost
+
+    out_frozen = np.array(out_frozen).reshape((1,OL_layer.H)) # Reshape
+
+    # Compute cost
+    for i in range(0, OL_layer.W):
+        cost_1[i,0] = (prediction_1[i,0]-true_label[i,0])*(1-my_lambda)*OL_layer.l_rate
+        cost_2[i,0] = (prediction_1[i,0]-prediction_2[i,0])*my_lambda*OL_layer.l_rate
+
+    # Container used for performing dot product, needs to be a matrix of size 1x1
+    tmp = np.zeros((2,1))
+    # Update weights
+    for i in range(0, OL_layer.W):
+
+        tmp[0,0] = cost_1[i,0]
+        tmp[1,0] = cost_2[i,0]
+        dW = np.linalg.dot(tmp, out_frozen)
+        if(i<6):
+            OL_layer.weights[i,:] = OL_layer.weights[i,:] - dW[0,:]
+            # Update biases
+            OL_layer.biases[i,0]  = OL_layer.biases[i,0] - cost_1[i,0] - cost_2[i,:]
+        else:
+            OL_layer.weights_new[i-6,:] = OL_layer.weights_new[i-6,:] - dW[0,:]
+            # Update biases
+            OL_layer.biases_new[i-6,0]  = OL_layer.biases_new[i-6,0] - cost_1[i,0] - cost_2[i,:]
+
+
 
 
 
@@ -359,7 +441,7 @@ def back_propagation_LWF():
 
 
 """ Performs the back propagation with the CWR algorithm """
-def back_propagation_CWR():
+def train_CWR():
     l_rate = 0.005
 
 
@@ -367,10 +449,14 @@ def back_propagation_CWR():
 
 
 """ Performs the back propagation with the OL mini batches algorithm """
-def back_propagation_OL_mini_batch(true_label, prediction, OL_layer, out_frozen):
+def train_OL_mini_batch(OL_layer, true_label, out_frozen):
 
+    # PREDICTION & SOFTMAX
+    out_OL     = feed_forward(out_frozen, OL_layer)
+    prediction = softmax(out_OL)
+
+    # BACKPROPAGATION
     cost = np.zeros((OL_layer.W,1))
-
     out_frozen = np.array(out_frozen).reshape((1,OL_layer.H)) # Reshape
 
     # Compute cost
@@ -419,12 +505,15 @@ def back_propagation_OL_mini_batch(true_label, prediction, OL_layer, out_frozen)
 
 
 """ Performs the back propagation with the OL V2 mini batches algorithm """
-def back_propagation_OLV2_mini_batch(true_label, prediction, OL_layer, out_frozen):
+def train_OLV2_mini_batch(true_label, prediction, OL_layer, out_frozen):
 
+    # PREDICTION & SOFTMAX
+    out_OL     = feed_forward(out_frozen, OL_layer)
+    prediction = softmax(out_OL)
+
+    # BACKPROPAGATION
     size = OL_layer.W - OL_layer.W_orig
-
     cost = np.zeros((size,1))
-
     out_frozen = np.array(out_frozen).reshape((1,OL_layer.H)) # Reshape
 
     # Compute cost
@@ -460,31 +549,29 @@ def back_propagation_OLV2_mini_batch(true_label, prediction, OL_layer, out_froze
 
 
 """ Performs the back propagation with the LWF mini batches algorithm """
-def back_propagation_LWF_mini_batch():
+def train_LWF_mini_batch():
     l_rate = 0.005
 
 
 
 
-
 """ Calls the correct function for hte back propagation """
-def back_propagation(true_label, prediction, OL_layer, out_frozen):
+def train_layer(OL_layer, true_label, out_frozen):
 
     if(OL_layer.method==1):
-        back_propagation_OL(true_label, prediction, OL_layer, out_frozen)
+        train_OL(OL_layer, true_label, out_frozen)
     elif(OL_layer.method==2):
-        back_propagation_OLV2(true_label, prediction, OL_layer, out_frozen)
+        train_OLV2(OL_layer, true_label, out_frozen)
     elif(OL_layer.method==3):
-        back_propagation_LWF()
+        train_LWF()
     elif(OL_layer.method==4):
-        back_propagation_CWR()
+        train_CWR()
     elif(OL_layer.method==5):
-        back_propagation_OL_mini_batch(true_label, prediction, OL_layer, out_frozen)
+        train_OL_mini_batch(OL_layer, true_label, out_frozen)
     elif(OL_layer.method==6):
-        back_propagation_OLV2_mini_batch(true_label, prediction, OL_layer, out_frozen)
+        train_OLV2_mini_batch(OL_layer, true_label, out_frozen)
     elif(OL_layer.method==7):
-        back_propagation_LWF_mini_batch()
-
+        train_LWF_mini_batch()
 
 
 

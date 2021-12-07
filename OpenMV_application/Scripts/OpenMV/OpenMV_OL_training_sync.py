@@ -33,10 +33,12 @@ myLib.load_weights(OL_layer)
 # 2 -> OLV2             WORKS BUT NOT PERFECT
 # 3 -> LWF              NOT IMPLEMENTED
 # 4 -> CWR              NOT IMPLEMENTED
-# 5 -> OL mini batch    NOT WORKING
-# 6 -> OLV2 mini batch  NOT WORKING
+# 5 -> OL mini batch    WORKS
+# 6 -> OLV2 mini batch  WORKS
 # 7 -> LWF mini batch   NOT IMPLEMENTED
 OL_layer.method = 6
+
+myLib.init_containers(OL_layer)
 
 train_limit = 3000
 
@@ -84,12 +86,10 @@ while(True):
         myLib.check_label(OL_layer, label)
         true_label = myLib.label_to_softmax(OL_layer, label)
 
-        # PREDICTION
-        out_OL     = myLib.feed_forward(out_frozen, OL_layer)
-        prediction = myLib.softmax(out_OL)
-
-        # Apply changes on weights and biases
-        myLib.back_propagation(true_label, prediction, OL_layer, out_frozen)
+        # PREDICTION - BACK PROPAGATION
+        ##################################################
+        myLib.train_layer(OL_layer, true_label, out_frozen)
+        ##################################################
 
         t_2 = pyb.millis()
 
