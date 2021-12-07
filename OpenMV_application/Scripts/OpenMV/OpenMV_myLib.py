@@ -328,20 +328,19 @@ def train_OL(OL_layer, true_label, out_frozen):
 
     # BACKPROPAGATION
     cost = np.zeros((OL_layer.W,1))
-
     out_frozen = np.array(out_frozen).reshape((1,OL_layer.H)) # Reshape
+    tmp = np.zeros((1,1))
+
 
     # Compute cost
     for i in range(0, OL_layer.W):
+
         cost[i,0] = (prediction[i,0]-true_label[i,0])*OL_layer.l_rate
-
-    # Container used for performing dot product, needs to be a amtrix of size 1x1
-    tmp = np.zeros((1,1))
-    # Update weights
-    for i in range(0, OL_layer.W):
-
+        if(cost[i,0]==0):
+            continue
         tmp[0,0] = cost[i,0]
         dW = np.linalg.dot(tmp, out_frozen)
+
         if(i<6):
             OL_layer.weights[i,:] = OL_layer.weights[i,:] - dW[0,:]
             # Update biases
@@ -367,22 +366,19 @@ def train_OLV2(OL_layer, true_label, out_frozen):
     # BACKPROPAGATION
     size   = OL_layer.W - OL_layer.W_orig
     offset = OL_layer.W_orig
-
     cost = np.zeros((size,1))
-
     out_frozen = np.array(out_frozen).reshape((1,OL_layer.H)) # Reshape
+    tmp = np.zeros((1,1))
 
     # Compute cost
     for i in range(0, size):
-        cost[i,0] = (prediction[i+offset,0]-true_label[i+offset,0])*OL_layer.l_rate
 
-    # Container used for performing dot product, needs to be a matrix of size 1x1
-    tmp = np.zeros((1,1))
-    # Update weights
-    for i in range(0, size):
+        cost[i,0] = (prediction[i+offset,0]-true_label[i+offset,0])*OL_layer.l_rate
+        if(cost[i,0]==0):
+            continue
+        tmp[0,0] = cost[i,0]
 
         # Update weights
-        tmp[0,0] = cost[i,0]
         dW = np.linalg.dot(tmp, out_frozen)
         OL_layer.weights_new[i,:] = OL_layer.weights_new[i,:] - dW[0,:]
         # Update biases
@@ -408,22 +404,21 @@ def train_LWF(OL_layer, true_label, out_frozen):
 
     cost_1 = np.zeros((OL_layer.W,1)) # normal cost
     cost_2 = np.zeros((OL_layer.W,1)) # LWF cost
+    if(cost_1[i,0]==0 and cost_2[i,0]==0):
+            continue
+    tmp = np.zeros((2,1))
 
     out_frozen = np.array(out_frozen).reshape((1,OL_layer.H)) # Reshape
 
     # Compute cost
     for i in range(0, OL_layer.W):
+
         cost_1[i,0] = (prediction_1[i,0]-true_label[i,0])*(1-my_lambda)*OL_layer.l_rate
         cost_2[i,0] = (prediction_1[i,0]-prediction_2[i,0])*my_lambda*OL_layer.l_rate
-
-    # Container used for performing dot product, needs to be a matrix of size 1x1
-    tmp = np.zeros((2,1))
-    # Update weights
-    for i in range(0, OL_layer.W):
-
         tmp[0,0] = cost_1[i,0]
         tmp[1,0] = cost_2[i,0]
         dW = np.linalg.dot(tmp, out_frozen)
+
         if(i<6):
             OL_layer.weights[i,:] = OL_layer.weights[i,:] - dW[0,:]
             # Update biases
@@ -442,9 +437,54 @@ def train_LWF(OL_layer, true_label, out_frozen):
 
 """ Performs the back propagation with the CWR algorithm """
 def train_CWR():
-    l_rate = 0.005
 
+    # PREDICTION & SOFTMAX
+    out_CWR = feed_forward_V2(out_frozen, OL_layer)
+    prediction = softmax(out_CWR)
 
+    # BACKPROPAGATION
+    cost = np.zeros((OL_layer.W,1)) # normal cost
+    tmp = np.zeros((1,1))
+
+    out_frozen = np.array(out_frozen).reshape((1,OL_layer.H)) # Reshape
+
+    # Compute cost
+    for i in range(0, OL_layer.W):
+
+        cost[i,0] = (prediction[i,0]-true_label[i,0])*OL_layer.l_rate
+        if(cost[i,0]==0):
+            continue
+
+        tmp[0,0] = cost[i,0]
+        dW = np.linalg.dot(tmp, out_frozen)
+
+        if(i<6):
+            OL_layer.weights[i,:] = OL_layer.weights[i,:] - dW[0,:]
+            # Update biases
+            OL_layer.biases[i,0]  = OL_layer.biases[i,0] - cost[i,0]
+        else:
+            OL_layer.weights_new[i-6,:] = OL_layer.weights_new[i-6,:] - dW[0,:]
+            # Update biases
+            OL_layer.biases_new[i-6,0]  = OL_layer.biases_new[i-6,0] - cost[i,0]
+
+    # BATCH FINISHED
+    if((OL_layer.counter % OL_layer.batch_size == 0) and (OL_layer.counter != 0)):
+
+        for i in range(0, OL_layer.W):
+            if(OL_layer.found_lett[i] != 0):
+
+                if(i<6):
+                    for j in range(0, OL_layer.H):
+                        OL_layer.weights[i,j] = ((OL_layer.weights[i,j]*OL_layer.found_lett[i])+OL_layer.weights_2[i,j])/(OL_layer.found_lett[i]+1)
+                        OL_layer.weights_2[i,j] = OL_layer.weights[i,j]
+                    OL_layer.biases[i,0] = ((OL_layer.biases[]*OL_layer.found_lett[i])+OL_layer.biases_2[i,0])/(OL_layer.found_lett[i]+1)
+                    OL_layer.biases_2[i,0] = OL_layer.biases[i,0]
+                else:
+                    for j in range(0, OL_layer.H):
+                        OL_layer.weights_new[i-6,j] = ((OL_layer.weights_new[i-6,j]*OL_layer.found_lett[i])+OL_layer.weights_new_2[i-6,j])/(OL_layer.found_lett[i]+1)
+                        OL_layer.weights_new_2[i-6,j] = OL_layer.weights_new[i-6,j]
+                    OL_layer.biases_new[i-6,0] = ((OL_layer.biases_new[]*OL_layer.found_lett[i])+OL_layer.biases_new_2[i-6,0])/(OL_layer.found_lett[i]+1)
+                    OL_layer.biases_new_2[i,0] = OL_layer.biases_new[i,0]
 
 
 
@@ -458,18 +498,17 @@ def train_OL_mini_batch(OL_layer, true_label, out_frozen):
     # BACKPROPAGATION
     cost = np.zeros((OL_layer.W,1))
     out_frozen = np.array(out_frozen).reshape((1,OL_layer.H)) # Reshape
+    tmp = np.zeros((1,1))
 
     # Compute cost
     for i in range(0, OL_layer.W):
+
         cost[i,0] = (prediction[i,0]-true_label[i,0])*OL_layer.l_rate/OL_layer.batch_size
-
-    # Container used for performing dot product, needs to be a matrix of size 1x1
-    tmp = np.zeros((1,1))
-    # Update weights
-    for i in range(0, OL_layer.W):
-
+        if(cost[i,0]==0):
+            continue
         tmp[0,0] = cost[i,0]
         dW = np.linalg.dot(tmp, out_frozen)
+
         if(i<6):
             OL_layer.weights_2[i,:] = OL_layer.weights_2[i,:] + dW[0,:]
             # Update biases
@@ -515,18 +554,17 @@ def train_OLV2_mini_batch(OL_layer, true_label, out_frozen):
     size = OL_layer.W - OL_layer.W_orig
     cost = np.zeros((size,1))
     out_frozen = np.array(out_frozen).reshape((1,OL_layer.H)) # Reshape
+    tmp = np.zeros((1,1))
 
     # Compute cost
     for i in range(0, size):
-        cost[i,0] = (prediction[i+6,0]-true_label[i+6,0])*OL_layer.l_rate/OL_layer.batch_size
 
-    # Container used for performing dot product, needs to be a ndarray of size 1x1
-    tmp = np.zeros((1,1))
-    # Update weights
-    for i in range(0, size):
+        cost[i,0] = (prediction[i+6,0]-true_label[i+6,0])*OL_layer.l_rate/OL_layer.batch_size
+        if(cost[i,0]==0):
+            continue
+        tmp[0,0]  = cost[i,0]
 
         # Update weights
-        tmp[0,0] = cost[i,0]
         dW = np.linalg.dot(tmp, out_frozen)
         OL_layer.weights_new_2[i,:] = OL_layer.weights_new_2[i,:] + dW[0,:]
         # Update biases
@@ -565,22 +603,21 @@ def train_LWF_mini_batch(OL_layer, true_label, out_frozen):
 
     cost_1 = np.zeros((OL_layer.W,1)) # normal cost
     cost_2 = np.zeros((OL_layer.W,1)) # LWF cost
+    tmp = np.zeros((2,1))
 
     out_frozen = np.array(out_frozen).reshape((1,OL_layer.H)) # Reshape
 
     # Compute cost
     for i in range(0, OL_layer.W):
+
         cost_1[i,0] = (prediction_1[i,0]-true_label[i,0])*(1-my_lambda)*OL_layer.l_rate
         cost_2[i,0] = (prediction_1[i,0]-prediction_2[i,0])*my_lambda*OL_layer.l_rate
-
-    # Container used for performing dot product, needs to be a matrix of size 1x1
-    tmp = np.zeros((2,1))
-    # Update weights
-    for i in range(0, OL_layer.W):
-
+        if(cost_1[i,0]==0 and cost_2[i,0]==0):
+            continue
         tmp[0,0] = cost_1[i,0]
         tmp[1,0] = cost_2[i,0]
         dW = np.linalg.dot(tmp, out_frozen)
+
         if(i<6):
             OL_layer.weights[i,:] = OL_layer.weights[i,:] - dW[0,:]
             # Update biases
