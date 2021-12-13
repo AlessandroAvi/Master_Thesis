@@ -98,7 +98,7 @@ cv2.imshow('SYNC APP', main_img)
 cv2.createTrackbar('Training', 'SYNC APP', 0, 2, on_change)
 
 # Import the dataset that I am going to display
-samples_for_each_digit = 400
+samples_for_each_digit = 600
 digits_i_want          = [0,1,2,3,4,5,6,7,8,9]
 digits_data, digits_label = createDataset(samples_for_each_digit, digits_i_want)
 tot_samples = len(digits_label)
@@ -137,6 +137,7 @@ while 1:
     zoom_openmv = cv2.resize(img_openmv, (0, 0), fx=5, fy=5)
     cv2.imshow('OpenMV view - Zoomed', zoom_openmv)
     """
+    
 
     if(myClass.TRAINING_FLAG == 2):
         cv2.waitKey(150)

@@ -10,7 +10,7 @@ class LastLayer(object):
 
         self.method = 0
         self.W = 6
-        self.offset = self.W.copy()
+        self.offset = 6
         self.H = 1352
         self.counter = 0
 
@@ -115,6 +115,8 @@ def write_results(OL_layer):
 
     with open('training_results.txt', 'w') as f:
 
+        f.write(str(OL_layer.method) + '\n')
+
         # write the labels
         for i in range(0, OL_layer.W):
             f.write(OL_layer.label[i])
@@ -151,7 +153,7 @@ def write_results(OL_layer):
 
 def allocateMemory(OL_layer):
 
-    if(OL_layer.method != 0 and OL_layer.method != 1 and OL_layer.method != 3):
+    if(OL_layer.method != 0 and OL_layer.method != 1):
         setattr(OL_layer, "weights_2",     np.zeros((OL_layer.W,OL_layer.H)) )
         setattr(OL_layer, "biases_2",      np.zeros((OL_layer.W,1)) )
         setattr(OL_layer, "weights_new_2", np.zeros((1,OL_layer.H)) )
@@ -161,13 +163,8 @@ def allocateMemory(OL_layer):
     if(OL_layer.method == 4):
         setattr(OL_layer, "found_lett", np.zeros((OL_layer.W,1)) )
 
-    # LWF or LWF mini batches
-    if(OL_layer.method == 3 or OL_layer.method == 7):
 
-        OL_layer.weights_2     = OL_layer.weights.copy()
-        OL_layer.biases_2      = OL_layer.biases.copy()
-        OL_layer.weights_new_2 = OL_layer.weights_new.copy()
-        OL_layer.biases_new_2  = OL_layer.biases_new.copy()
+
 
 
 
@@ -189,21 +186,25 @@ def check_label(OL_layer, current_label):
         # If new label are multiple expand the matrix of weights/biases
         if(OL_layer.W>7):
 
+            # expand weights new
             tmp = np.zeros((1,OL_layer.H))
             OL_layer.weights_new   = np.concatenate((OL_layer.weights_new, tmp))
 
-            if(OL_layer.method != 0 and OL_layer.method != 1 and OL_layer.method != 3):
+            # expand weights new 2
+            if(OL_layer.method==4 or OL_layer.method==5 or OL_layer.method==6 or OL_layer.method==7):
                 OL_layer.weights_new_2 = np.concatenate((OL_layer.weights_new_2, tmp))
 
+            # expand biases new
             tmp = np.zeros((1,1))
             OL_layer.biases_new    = np.concatenate((OL_layer.biases_new, tmp), axis=0)
 
-            if(OL_layer.method != 0 and OL_layer.method != 1 and OL_layer.method != 3):
+            # expand biases new 2
+            if(OL_layer.method==4 or OL_layer.method==5 or OL_layer.method==6 or OL_layer.method==7):
                 OL_layer.biases_new_2  = np.concatenate((OL_layer.biases_new_2, tmp), axis=0)
 
-            if(OL_layer.method == 4):
-            OL_layer.found_lett = np.concatenate((OL_layer.found_lett, tmp), axis=0)
-
+        # expand found letters
+        if(OL_layer.method==4):
+            OL_layer.found_lett = np.concatenate((OL_layer.found_lett, np.zeros((1,1)) ), axis=0)
 
         # Append to known labels the new one
         OL_layer.label.append(current_label)
@@ -261,7 +262,7 @@ def feed_forward_V2(out_frozen, OL_layer):
     ret_ary = np.linalg.dot(OL_layer.weights_2, out_frozen) + OL_layer.biases_2
 
     # Feed forward on the new weights
-    if(OL_layer.W > 6 ):
+    if(OL_layer.W > 6 and OL_layer.method != 3):
         ret_ary_new = np.linalg.dot(OL_layer.weights_new_2, out_frozen) + OL_layer.biases_new_2
 
         ret_ary = np.concatenate((ret_ary, ret_ary_new))
@@ -402,17 +403,17 @@ def train_LWF(OL_layer, true_label, out_frozen):
     out_LWF_1 = feed_forward(out_frozen, OL_layer)
     out_LWF_2 = feed_forward_V2(out_frozen, OL_layer)
     prediction_1 = softmax(out_LWF_1)
-    prediction_2 = softmax(out_LWF_2)
+    prediction_2_tmp = softmax(out_LWF_2)
+    prediction_2 = np.zeros((OL_layer.W,1))
+    prediction_2[:6,0] = prediction_2_tmp[:6,0]
+
 
     # BACKPROPAGATION
     my_lambda = 100/(100+OL_layer.counter)
 
     cost_1 = np.zeros((OL_layer.W,1)) # normal cost
     cost_2 = np.zeros((OL_layer.W,1)) # LWF cost
-    if(cost_1[i,0]==0 and cost_2[i,0]==0):
-            continue
     tmp = np.zeros((2,1))
-
     out_frozen = np.array(out_frozen).reshape((1,OL_layer.H)) # Reshape
 
     # Compute cost
@@ -448,6 +449,9 @@ def train_CWR(OL_layer, true_label, out_frozen):
     out_CWR = feed_forward_V2(out_frozen, OL_layer)
     prediction = softmax(out_CWR)
 
+    # UPDATE LETTER FOUND COUNTER
+    OL_layer.found_lett[np.argmax(true_label)] += 1
+
     # BACKPROPAGATION
     cost = np.zeros((OL_layer.W,1)) # normal cost
     tmp = np.zeros((1,1))
@@ -477,20 +481,22 @@ def train_CWR(OL_layer, true_label, out_frozen):
     if((OL_layer.counter % OL_layer.batch_size == 0) and (OL_layer.counter != 0)):
 
         for i in range(0, OL_layer.W):
-            if(OL_layer.found_lett[i] != 0):
+            if(OL_layer.found_lett[i,0] != 0):
 
                 if(i<offset):
                     for j in range(0, OL_layer.H):
-                        OL_layer.weights[i,j] = ((OL_layer.weights[i,j]*OL_layer.found_lett[i])+OL_layer.weights_2[i,j])/(OL_layer.found_lett[i]+1)
+                        OL_layer.weights[i,j] = ((OL_layer.weights[i,j]*OL_layer.found_lett[i,0])+OL_layer.weights_2[i,j])/(OL_layer.found_lett[i,0]+1)
                         OL_layer.weights_2[i,j] = OL_layer.weights[i,j]
-                    OL_layer.biases[i,0] = ((OL_layer.biases[]*OL_layer.found_lett[i])+OL_layer.biases_2[i,0])/(OL_layer.found_lett[i]+1)
+                    OL_layer.biases[i,0] = ((OL_layer.biases[i,0]*OL_layer.found_lett[i,0])+OL_layer.biases_2[i,0])/(OL_layer.found_lett[i,0]+1)
                     OL_layer.biases_2[i,0] = OL_layer.biases[i,0]
                 else:
                     for j in range(0, OL_layer.H):
-                        OL_layer.weights_new[i-offset,j] = ((OL_layer.weights_new[i-offset,j]*OL_layer.found_lett[i])+OL_layer.weights_new_2[i-offset,j])/(OL_layer.found_lett[i]+1)
+                        OL_layer.weights_new[i-offset,j] = ((OL_layer.weights_new[i-offset,j]*OL_layer.found_lett[i])+OL_layer.weights_new_2[i-offset,j])/(OL_layer.found_lett[i,0]+1)
                         OL_layer.weights_new_2[i-offset,j] = OL_layer.weights_new[i-offset,j]
-                    OL_layer.biases_new[i-offset,0] = ((OL_layer.biases_new[i-offset,0]*OL_layer.found_lett[i])+OL_layer.biases_new_2[i-offset,0])/(OL_layer.found_lett[i]+1)
+                    OL_layer.biases_new[i-offset,0] = ((OL_layer.biases_new[i-offset,0]*OL_layer.found_lett[i,0])+OL_layer.biases_new_2[i-offset,0])/(OL_layer.found_lett[i,0]+1)
                     OL_layer.biases_new_2[i-offset,0] = OL_layer.biases_new[i-offset,0]
+
+            OL_layer.found_lett[i,0] = 0
 
     return prediction
 
@@ -609,10 +615,14 @@ def train_LWF_mini_batch(OL_layer, true_label, out_frozen):
     out_LWF_1 = feed_forward(out_frozen, OL_layer)
     out_LWF_2 = feed_forward_V2(out_frozen, OL_layer)
     prediction_1 = softmax(out_LWF_1)
-    prediction_2 = softmax(out_LWF_2)
+    # non propriamente giusto per lwf bathc
+    prediction_2_tmp = softmax(out_LWF_2)
+    prediction_2 = np.zeros((OL_layer.W,1))
+    prediction_2[:6,0] = prediction_2_tmp[:6,0]
 
+    my_lambda = 0
     # BACKPROPAGATION
-    if(OL_layer.counter < OL_layer.batch_size)
+    if(OL_layer.counter < OL_layer.batch_size):
         my_lambda = 1
     else:
         my_lambda = OL_layer.batch_size/OL_layer.counter
@@ -629,8 +639,6 @@ def train_LWF_mini_batch(OL_layer, true_label, out_frozen):
 
         cost_1[i,0] = (prediction_1[i,0]-true_label[i,0])*(1-my_lambda)*OL_layer.l_rate
         cost_2[i,0] = (prediction_1[i,0]-prediction_2[i,0])*my_lambda*OL_layer.l_rate
-        if(cost_1[i,0]==0 and cost_2[i,0]==0):
-            continue
         tmp[0,0] = cost_1[i,0]
         tmp[1,0] = cost_2[i,0]
         dW = np.linalg.dot(tmp, out_frozen)
@@ -646,13 +654,13 @@ def train_LWF_mini_batch(OL_layer, true_label, out_frozen):
     # BATCH FINISHED
     if((OL_layer.counter % OL_layer.batch_size == 0) and (OL_layer.counter != 0)):
 
-        for i in range(0, size):
-            # Reset weight matrix
-            OL_layer.weights_2 = OL_layer.weights.copy()
-            OL_layer.weights_new_2 = OL_layer.weights_new.copy()
-            # Reset biases
-            OL_layer.biases_2 = OL_layer.biases.copy()
-            OL_layer.biases_new_2 = OL_layer.biases_new.copy()
+        for i in range(0, OL_layer.W):
+            if(i<6):
+                OL_layer.weights_2[i,:] = OL_layer.weights[i,:]
+                OL_layer.biases_2[i,0] = OL_layer.biases[i,0]
+            else:
+                OL_layer.weights_new_2[i-offset,:] = OL_layer.weights_new[i-offset,:]
+                OL_layer.biases_new_2[i-offset,0] = OL_layer.biases_new[i-offset,0]
 
     return prediction_1
 

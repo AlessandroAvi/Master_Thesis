@@ -41,7 +41,8 @@ myLib.load_labels(OL_layer)
 # 5 -> OL mini batch
 # 6 -> OLV2 mini batch
 # 7 -> LWF mini batch
-OL_layer.method = 5
+OL_layer.method = 4
+myLib.allocateMemory(OL_layer)
 
 current_label ='X'
 
@@ -78,7 +79,7 @@ while(True):
     # PERFORM BACK PROPAGATION AND UPDATE PERFORMANCE COUNTER
     if(counter%47==0 and train_counter<100):
 
-        myLib.back_propagation(true_label, prediction, OL_layer, out_frozen)
+        myLib.train_layer(OL_layer, true_label, out_frozen)
 
         train_counter+=1
 

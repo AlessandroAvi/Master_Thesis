@@ -40,6 +40,9 @@ SAVE_PLOTS__PATH = ROOT__PATH + '\\Plots_results\\'
 
 
 confusion_matrix = np.zeros((10,10))
+method_used = -1
+methods = ["INFERENCE", "OL", "OLV2", "LWF", "CWR", "OL mini batches", "OLV2 mini batches", "LWF mini batches"]
+save_name = ["INFERENCE_", "OL_", "OLV2_", "LWF_", "CWR_", "OL_batches_", "OLV2_batches_", "LWF_batches_"]
 openmv_labels = []
 openmv_times = []
 real_labels = ['0','1','2','3','4','5','6','7','8','9']
@@ -49,11 +52,18 @@ size = len(real_labels)
 with open(ROOT__PATH + '\\training_results.txt') as f:
 
     j,i = 0,0
+    method_flag = 0
     label_flag = 0
     times_flag = 0
     for line in f:  # cycle over lines 
 
-        if(label_flag==0):
+        if(method_flag==0):
+            data = line.split(',')  # split one line in each single number
+            for number in data:
+                method_used = int(number)
+            method_flag = 1
+
+        elif(label_flag==0 and method_flag==1):
             data = line.split(',')  # split one line in each single number
             for number in data:
                 openmv_labels.append(number)
@@ -105,8 +115,8 @@ plt.ylim([0, 100])
 plt.ylabel('Accuracy %', fontsize = 15)
 plt.xlabel('Classes', fontsize = 15)
 plt.xticks([r for r in range(size)], real_labels, fontweight ='bold', fontsize = 12)
-plt.title('Accuracy test - Method used: '  , fontweight ='bold', fontsize = 15)
-plt.savefig(SAVE_PLOTS__PATH + 'barPlot.png')
+plt.title('Accuracy test - Method used: ' + methods[method_used]  , fontweight ='bold', fontsize = 15)
+plt.savefig(SAVE_PLOTS__PATH + save_name[method_used] +'barPlot.png')
 plt.show()
 # --------
 
@@ -128,8 +138,8 @@ for x in range(width):
 cb = fig.colorbar(res)
 plt.xticks(range(width), real_labels[:width])
 plt.yticks(range(height), real_labels[:height])
-plt.title('OpenMV training confusion matrix', fontweight ="bold") 
-plt.savefig(SAVE_PLOTS__PATH + 'confusionMatrix.png')
+plt.title('OpenMV training confusion matrix - Method used ' + methods[method_used], fontweight ="bold") 
+plt.savefig(SAVE_PLOTS__PATH + save_name[method_used] +'confusionMatrix.png')
 plt.show()
 
 # --------
@@ -162,7 +172,9 @@ table = ax.table(
 
 table.scale(1,2) 
 table.set_fontsize(10)
-ax.set_title('OpenMV training results', fontweight ="bold") 
+ax.set_title('OpenMV training results - Method used ' + methods[method_used], fontweight ="bold") 
+plt.savefig(SAVE_PLOTS__PATH + save_name[method_used] +'table.png')
+
 plt.show()
 # --------
 

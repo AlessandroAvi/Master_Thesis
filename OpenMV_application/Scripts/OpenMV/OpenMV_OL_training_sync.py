@@ -33,12 +33,12 @@ myLib.load_weights(OL_layer)            # Read from the txt file the biases and 
 # 0 -> no training, just inference
 # 1 -> OL               WORKS - perfoms good
 # 2 -> OLV2             WORKS - labels confused
-# 3 -> LWF              IMPLEMENTED
+# 3 -> LWF              WORKS - still to test best performance
 # 4 -> CWR              IMPLEMENTED
 # 5 -> OL mini batch    WORKS - still to test best performance
 # 6 -> OLV2 mini batch  WORKS - still to test best performance
-# 7 -> LWF mini batch   IMPLEMENTED
-OL_layer.method = 6
+# 7 -> LWF mini batch   WORKS - still to test best performance
+OL_layer.method = 4
 
 myLib.allocateMemory(OL_layer)
 
@@ -48,7 +48,7 @@ LED2 = pyb.LED(1)
 # *******************
 
 label = 'X'
-train_limit = 3000      # after how many prediction start to save inside confusion matrix
+train_limit = 5000      # after how many prediction start to save inside confusion matrix
 
 # START THE INFINITE LOOP
 OL_layer.counter = 0
@@ -65,16 +65,16 @@ while(True):
     # STREAM
     if(cmd == 'snap'):
 
-        LED2.off()
+        #LED2.off()
         img = sensor.snapshot()                 # Take the photo and return image
 
         if(OL_layer.counter>train_limit):
             myLib.write_results(OL_layer)       # Write confusion matrix in a txt file
-        LED2.off()
+        #LED2.off()
 
     # TRAIN
     elif(cmd == 'trai'):
-        LED1.on()
+        #LED1.on()
 
         t_0 = pyb.millis()
 
@@ -102,7 +102,7 @@ while(True):
         OL_layer.times[0,1] += t_2 - t_1
         OL_layer.times[0,2] += t_2 - t_0
         OL_layer.counter += 1
-        LED1.off()
+        #LED1.off()
 
     # STREAM
     else:
