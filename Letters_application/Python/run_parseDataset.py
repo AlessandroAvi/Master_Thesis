@@ -747,6 +747,14 @@ training_dataset_0, training_labels_0 = shuffleDataset(training_dataset_0, train
 training_dataset_0, training_labels_0 = shuffleDataset(training_dataset_0, training_labels_0)
 training_dataset_0, training_labels_0 = shuffleDataset(training_dataset_0, training_labels_0)
 training_dataset_0, training_labels_0 = shuffleDataset(training_dataset_0, training_labels_0)
+training_dataset_0, training_labels_0 = shuffleDataset(training_dataset_0, training_labels_0)
+training_dataset_0, training_labels_0 = shuffleDataset(training_dataset_0, training_labels_0)
+training_dataset_0, training_labels_0 = shuffleDataset(training_dataset_0, training_labels_0)
+training_dataset_0, training_labels_0 = shuffleDataset(training_dataset_0, training_labels_0)
+training_dataset_0, training_labels_0 = shuffleDataset(training_dataset_0, training_labels_0)
+training_dataset_0, training_labels_0 = shuffleDataset(training_dataset_0, training_labels_0)
+training_dataset_0, training_labels_0 = shuffleDataset(training_dataset_0, training_labels_0)
+training_dataset_0, training_labels_0 = shuffleDataset(training_dataset_0, training_labels_0)
 
 
 
@@ -755,3 +763,21 @@ myWrite.save_dataset(training_dataset_0, training_labels_0, 'training_file_0')
 print(f'The dataset COMPLETE VERSION for OL training has shape: {training_dataset_0.shape}')
 print(f'The dataset train part has {int(training_dataset_0.shape[0]*0.5)} elements')
 print('Dataset for controlled training:         saved \n')
+
+
+
+"""
+new_dataset = B_data_0
+new_dataset = np.vstack(( new_dataset, R_data_0))
+new_dataset = np.vstack(( new_dataset, M_data_0))
+
+new_dataset_l = B_label_0
+new_dataset_l = np.hstack(( new_dataset_l, R_label_1))
+new_dataset_l = np.hstack(( new_dataset_l, M_label_1))
+
+new_dataset, new_dataset_l = shuffleDataset(new_dataset, new_dataset_l)
+
+myWrite.save_dataset(new_dataset, new_dataset_l, 'consonants')
+"""
+
+

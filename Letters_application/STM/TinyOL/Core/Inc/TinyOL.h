@@ -57,7 +57,7 @@ typedef struct {
 
 	// BASIC PARAMETERS OF THE NN
 	float l_rate;
-	uint8_t batch_size;
+	uint16_t batch_size;
 	int counter;
 	int WIDTH;
 	int HEIGHT;
@@ -73,9 +73,10 @@ typedef struct {
 	// *** Used by mini batches|LWF|CWR
 	float *weights_2;
 	float *biases_2;
+	uint16_t end_training;
 	// *** Used by CWR
 	uint8_t *found_lett;
-	// *** Used by LWF|LWF_2
+	// *** Used by LWF|LWF_2|CWR
 	float *y_pred_2;
 
 	// INFO PARAMETERS
@@ -108,7 +109,7 @@ typedef struct {
 #define READ_FREE_RAM                 0
 
 // UNCOMMENT THIS TO SEND TO PC THE HOSTORY OF THE TRAINING
-#define DEBUG_SEND_HISTORY
+//#define DEBUG_SEND_HISTORY
 
 
 int msgLen;

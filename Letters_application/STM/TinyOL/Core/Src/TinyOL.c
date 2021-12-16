@@ -35,7 +35,7 @@ void OL_allocateMemory(OL_LAYER_STRUCT * layer){
 	}
 
 
-	if( layer->ALGORITHM!=MODE_OL && layer->ALGORITHM!=MODE_OL_V2 ){
+	if( layer->ALGORITHM!=MODE_OL && layer->ALGORITHM!=MODE_OL_V2){
 
 		layer->weights_2 = calloc(layer->WIDTH*layer->HEIGHT, sizeof(float));
 		if(layer->weights_2==NULL){
@@ -54,13 +54,14 @@ void OL_allocateMemory(OL_LAYER_STRUCT * layer){
 			}
 		}
 
-		if(layer->ALGORITHM == MODE_LWF || layer->ALGORITHM == MODE_LWF_batch){
+		if(layer->ALGORITHM == MODE_LWF || layer->ALGORITHM == MODE_LWF_batch || layer->ALGORITHM == MODE_CWR){
 			layer->y_pred_2 = calloc(layer->WIDTH, sizeof(float));
 			if(layer->y_pred_2==NULL){
 				layer->OL_ERROR = CALLOC_Y_PRED_2;
 			}
 		}
 	}
+
 }
 
 
@@ -163,7 +164,7 @@ void OL_increaseYpredDim(OL_LAYER_STRUCT * layer){
 		layer->OL_ERROR = REALLOC_Y_PRED;
 	}
 
-	if(layer->ALGORITHM == MODE_LWF || layer->ALGORITHM == MODE_LWF_batch){
+	if(layer->ALGORITHM == MODE_LWF || layer->ALGORITHM == MODE_LWF_batch || layer->ALGORITHM == MODE_CWR){
 		layer->y_pred_2 = realloc(layer->y_pred_2, layer->WIDTH*sizeof(float));
 		if(layer->y_pred_2==NULL){
 			layer->OL_ERROR = REALLOC_Y_PRED_2;
@@ -457,11 +458,27 @@ void OL_train(OL_LAYER_STRUCT * layer, float * input, char *letter){
 		float cost[w];
 
 		// Prediction
-		OL_feedForward(layer, layer->weights_2, input, layer->biases_2, layer->y_pred);
-		OL_softmax(layer, layer->y_pred);
+		if(layer->counter < layer->end_training){
+			OL_feedForward(layer, layer->weights_2, input, layer->biases_2, layer->y_pred);
+			OL_softmax(layer, layer->y_pred);
+		}else{
+			// Prediction of consolidated weights
+			OL_feedForward(layer, layer->weights, input, layer->biases, layer->y_pred);
+			OL_softmax(layer, layer->y_pred);
+			// Prediction of training weights
+			OL_feedForward(layer, layer->weights_2, input, layer->biases_2, layer->y_pred_2);
+			OL_softmax(layer, layer->y_pred_2);
+		}
+
 
 		for(int j=0; j<w; j++){
-			cost[j] = layer->y_pred[j]-layer->y_true[j];		  	// Cost computation
+
+			if(layer->counter < layer->end_training){
+				cost[j] = layer->y_pred[j]-layer->y_true[j];		  	// Cost computation
+			}else{
+				cost[j] = layer->y_pred_2[j]-layer->y_true[j];		  	// Cost computation
+			}
+
 			if (cost[j]==0) continue;								// If nothing to update skip loop
 
 			// Back propagation on TW
@@ -490,9 +507,9 @@ void OL_train(OL_LAYER_STRUCT * layer, float * input, char *letter){
 			// Reset TW
 			for(int j=0; j<w; j++){
 				for(int i=0; i<h; i++){
-					layer->weights_2[j*h+i] = layer->weights[j*h+i];	// reset
+					layer->weights_2[j*h+i] = 0;//layer->weights[j*h+i];	// reset
 				}
-				layer->biases_2[j] = layer->biases[j];					// reset
+				layer->biases_2[j] = 0;//layer->biases[j];					// reset
 				layer->found_lett[j] = 0;								// reset
 			}
 		}

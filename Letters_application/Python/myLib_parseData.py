@@ -161,8 +161,6 @@ def sanityCheckDataset(dataset):
 
 
 
-
-
 def shuffleDataset(data_matrix, lable_ary):
     """ Function that shuffles the matrix and label in the same manner.
 
@@ -187,7 +185,7 @@ def shuffleDataset(data_matrix, lable_ary):
         Same array gave in input but shuffled
     """
 
-    random.seed(13) ## 77,23, 59 buono
+    random.seed(55) ## 77,23, 59 buono
     order_list = list(range(0,data_matrix.shape[0]))    # create list of increasing numbers
     random.shuffle(order_list)                          # shuffle the list of ordered numbers
 

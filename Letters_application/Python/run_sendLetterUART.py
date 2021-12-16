@@ -371,7 +371,7 @@ print('\n')
 
 
 DATASET = 2             # 1 for the randomization | 2 for the same dataset as the laptop simulation
-DEBUG_HISTORY = 1       # 0 for no debug          | 1 for yes debug
+DEBUG_HISTORY = 0       # 0 for no debug          | 1 for yes debug
 
 print('Loading dataset ....')
 if(DATASET == 1):
@@ -419,8 +419,8 @@ if(DATASET == 1):
 
 else:
     # IF YOU WANT TO TEST LAPTOP AND STM WITH THE SAME EXACT DATASET IN THE SAME ORDER USE THIS
-    data, label = myParse.loadDataFromTxt('training_file_1')
-    train_data, train_label, test_data, test_label = myParse.parseTrainTest(data, label, 0.50)
+    data, label = myParse.loadDataFromTxt('training_file_0')
+    train_data, train_label, test_data, test_label = myParse.parseTrainTest(data, label, 0.81)
 
 print(f'The entire training dataset has shape {train_data.shape}')
 print(f'The entire testing dataset has shape   {test_data.shape}')
