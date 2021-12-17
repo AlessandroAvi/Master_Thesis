@@ -307,7 +307,7 @@ void OL_checkNewClass(OL_LAYER_STRUCT * layer, char *letter){
  * same positition in the array the prediction is correct.  */
 void OL_compareLabels(OL_LAYER_STRUCT * layer){
 
-	uint8_t max_pred = 0;	// USed ofr saving the maximum value
+	uint8_t max_pred = 0;	// Used for saving the maximum value
 	uint8_t max_true = 0;
 	uint8_t max_j_pred;		// Used for saving the position where the max value is
 	uint8_t max_j_true;
@@ -332,7 +332,7 @@ void OL_compareLabels(OL_LAYER_STRUCT * layer){
 		layer->prediction_correct = 2;
 	}
 
-	// Used from the LWF algorithm
+	// Used from the CWR algorithm
 	if(layer->ALGORITHM == MODE_CWR){
 		layer->found_lett[max_j_true] += 1;		// Update the found_lett array
 	}
@@ -462,12 +462,12 @@ void OL_train(OL_LAYER_STRUCT * layer, float * input, char *letter){
 			OL_feedForward(layer, layer->weights_2, input, layer->biases_2, layer->y_pred);
 			OL_softmax(layer, layer->y_pred);
 		}else{
-			// Prediction of consolidated weights
-			OL_feedForward(layer, layer->weights, input, layer->biases, layer->y_pred);
-			OL_softmax(layer, layer->y_pred);
 			// Prediction of training weights
 			OL_feedForward(layer, layer->weights_2, input, layer->biases_2, layer->y_pred_2);
 			OL_softmax(layer, layer->y_pred_2);
+			// Prediction of consolidated weights
+			OL_feedForward(layer, layer->weights, input, layer->biases, layer->y_pred);
+			OL_softmax(layer, layer->y_pred);
 		}
 
 
@@ -507,9 +507,9 @@ void OL_train(OL_LAYER_STRUCT * layer, float * input, char *letter){
 			// Reset TW
 			for(int j=0; j<w; j++){
 				for(int i=0; i<h; i++){
-					layer->weights_2[j*h+i] = 0;//layer->weights[j*h+i];	// reset
+					layer->weights_2[j*h+i] = layer->weights[j*h+i];	// reset
 				}
-				layer->biases_2[j] = 0;//layer->biases[j];					// reset
+				layer->biases_2[j] = layer->biases[j];					// reset
 				layer->found_lett[j] = 0;								// reset
 			}
 		}

@@ -73,7 +73,7 @@ typedef struct {
 	// *** Used by mini batches|LWF|CWR
 	float *weights_2;
 	float *biases_2;
-	uint16_t end_training;
+	int end_training;
 	// *** Used by CWR
 	uint8_t *found_lett;
 	// *** Used by LWF|LWF_2|CWR

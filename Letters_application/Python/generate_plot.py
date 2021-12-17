@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import pandas as pd
+from matplotlib.font_manager import FontProperties
 
 
 
@@ -85,44 +86,6 @@ def plot_barChart_All():
 
 
 
-def plot():
-
-    #images = [np.random.rayleigh((i+1)/8., size=(180, 200, 3)) for i in range(4)]
-
-    Image1 = mpimg.imread(SAVE_PLOT__PATH + 'STM_barPlot_OL.jpg')
-    Image2 = mpimg.imread(SAVE_PLOT__PATH + 'STM_barPlot_OL_batch.jpg')
-    Image3 = mpimg.imread(SAVE_PLOT__PATH + 'STM_barPlot_LWF.jpg')
-    Image4 = mpimg.imread(SAVE_PLOT__PATH + 'STM_barPlot_LWF_batch.jpg')
-    Image5 = mpimg.imread(SAVE_PLOT__PATH + 'STM_barPlot_OL_v2.jpg')
-    Image6 = mpimg.imread(SAVE_PLOT__PATH + 'STM_barPlot_OL_v2_batch.jpg')
-    Image7 = mpimg.imread(SAVE_PLOT__PATH + 'STM_barPlot_CWR.jpg')
-    Image8 = mpimg.imread(SAVE_PLOT__PATH_2 + 'barPlot_KERAS.jpg')
-
-    images = [Image1,Image2,Image3,Image4,Image5,Image6,Image7,Image8]
-
-    margin  = 0 # pixels
-    spacing = 0 # pixels
-    dpi     = 300 # dots per inch
-
-    width = (200+200+2*margin+spacing)/dpi # inches
-    height= (180+180+2*margin+spacing)/dpi
-
-    left = margin/dpi/width #axes ratio
-    bottom = margin/dpi/height
-    wspace = spacing/float(200)
-
-    fig, axes  = plt.subplots(4,2, figsize=(width,height), dpi=dpi)
-    fig.subplots_adjust(left=left, bottom=bottom, right=1.-left, top=1.-bottom, 
-                        wspace=wspace, hspace=wspace)
-
-    for ax, im, name in zip(axes.flatten(),images, list("ABCD")):
-        ax.axis('off')
-        ax.set_title('restored {}'.format(name))
-        ax.imshow(im)
-
-    plt.show()
-
-
 
 
 def table_STM_methodsPerformance():
@@ -149,7 +112,7 @@ def table_STM_methodsPerformance():
 
 
     # Generate the table
-    fig, ax = plt.subplots(figsize =(12, 5)) 
+    fig, ax = plt.subplots(figsize =(12, 12)) 
     ax.set_axis_off() 
     
     table = ax.table( 
@@ -159,10 +122,14 @@ def table_STM_methodsPerformance():
         rowColours =["cornflowerblue"] * 200,  
         colColours =["cornflowerblue"] * 200, 
         cellLoc ='center',  
-        loc ='upper left')         
+        loc ='upper left')   
+            
+    for (row, col), cell in table.get_celld().items():
+        cell.set_text_props(fontproperties=FontProperties(weight='bold'))
+        cell.set_fontsize(40)
 
     table.scale(1,3) 
-    table.set_fontsize(40)
+
     #ax.set_title('Performance of all methods on the STM application', fontweight ="bold") 
     plt.savefig(ROOT_PATH + '\\Plots\\STM_results\\table_methodsPerformance_2.jpg',
                 bbox_inches='tight',
@@ -173,7 +140,6 @@ def table_STM_methodsPerformance():
 
 
 
-#table_STM_methodsPerformance()
+table_STM_methodsPerformance()
 
-#plot_barChart_All()
-plot()
+plot_barChart_All()

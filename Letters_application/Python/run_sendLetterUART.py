@@ -168,7 +168,7 @@ def UART_receiveBiases():
         l += 1
 
     # write everything down at step 700
-    if(train_iter==train_max-1):
+    if(train_iter==train_max-1 or train_iter%200==0):
         with open(BIAS_SAVE_PATH,'w') as data_file:
             for q in range(0, biases_stm.shape[0]):
                 data_file.write( str(biases_stm[q,0])+','+
@@ -207,7 +207,7 @@ def UART_receiveWeights():
         l += 1
 
     # write everything down at step 700
-    if(train_iter==train_max-1):
+    if(train_iter==train_max-1 or train_iter%200==0):
 
         with open(WEIGHTS_SAVE_PATH,'w') as data_file: # open file
 
@@ -250,7 +250,7 @@ def UART_receiveFrozenOut():
         l += 1
 
     # write everything down at step 700
-    if(train_iter==train_max-1):
+    if(train_iter==train_max-1 or train_iter%200==0):
 
         with open(FROZENOUT_SAVE_PATH,'w') as data_file: # open file
 
@@ -290,7 +290,7 @@ def UART_receiveSoftmax():
         l += 1
 
     # write everything down at step 700
-    if(train_iter==train_max-1):
+    if(train_iter==train_max-1 or train_iter%200==0):
         with open(SOFTMAX_SAVE_PATH,'w') as data_file:
             for q in range(0, softmax_stm.shape[0]):
                 data_file.write(str(softmax_stm[q,0])+','+
@@ -327,7 +327,7 @@ def UART_receivePreSoftmax():
         l += 1
 
     # write everything down at step 700
-    if(train_iter==train_max-1):
+    if(train_iter==train_max-1 or train_iter%200==0):
         with open(PRESOFTMAX_SAVE_PATH,'w') as data_file:
             for q in range(0, preSoftmax_stm.shape[0]):
                 data_file.write(str(preSoftmax_stm[q,0])+','+
@@ -507,7 +507,6 @@ while (train_iter + test_iter)<send_max-1:
     if(train_iter < train_max):
 
         print(f'Training, sample number:   {train_iter}/{train_max}')
-        
         
         # DEBUGGING SECTION - save the history of some matrices used in the training
         ###########################################
