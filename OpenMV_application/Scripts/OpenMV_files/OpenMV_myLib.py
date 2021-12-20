@@ -115,7 +115,8 @@ def write_results(OL_layer):
 
     with open('training_results.txt', 'w') as f:
 
-        f.write(str(OL_layer.method) + '\n')
+        f.write(str(OL_layer.method)+','+str(OL_layer.counter)+str(OL_layer.counter*0.1)
+        +','+str(OL_layer.l_rate)+','+str(OL_layer.batch_size)+'\n')
 
         # write the labels
         for i in range(0, OL_layer.W):

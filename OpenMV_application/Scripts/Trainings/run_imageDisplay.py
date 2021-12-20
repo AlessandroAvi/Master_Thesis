@@ -63,7 +63,9 @@ def on_change(val):
         print('Script is in IDLE MODE')
     elif(val == 1):
         print('Script is in STREAMING MODE')
-    elif():
+    elif(val == 2):
+        print('Script is in STREAMING ELABORATION MODE')
+    elif(val == 3):
         print('Script is in TRAINING MODE')
 
 
@@ -95,6 +97,7 @@ class uselessContainer():
 # Path of the images to open
 ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
 main_img_PATH =  ROOT_PATH + '\\Training_images\\main_image.png'
+no_stream_PATH =  ROOT_PATH + '\\Training_images\\no_stream.png'
 
 myClass = uselessContainer()        # Init the class that stores the state of the camera
 
@@ -107,56 +110,91 @@ sp = serial.Serial(port, baudrate=115200, bytesize=serial.EIGHTBITS, parity=seri
 sp.setDTR(True)
 
 # Create window with slider
-main_img = cv2.imread(main_img_PATH)
-cv2.imshow('SYNC APP', main_img)
-cv2.createTrackbar('Training', 'SYNC APP', 0, 2, on_change)
+init_img = cv2.imread(main_img_PATH)
+no_stream = cv2.imread(no_stream_PATH)
+cv2.imshow('SYNC APP', init_img)
+cv2.createTrackbar('Training', 'SYNC APP', 0, 3, on_change)
 
 # Import the dataset that I am going to display
-samples_for_each_digit = 600
+samples_for_each_digit = 100
 digits_i_want          = [0,1,2,3,4,5,6,7,8,9]
-digits_data, digits_label = createDataset(samples_for_each_digit, digits_i_want)    # load dataset
-tot_samples = len(digits_label)
+digits_data, digits_label = createDataset(samples_for_each_digit+1, digits_i_want)    # load dataset
+tot_samples = len(digits_label)-10
+
+
+# USED FOR DEBUGGING
+digit_order = np.empty((10,58,58,1))
+for j in range(0, 10):
+    for i in range(0,100):
+        if(digits_label[i] == str(j)):
+            digit_order[j,:,:,:] = digits_data[i,:,:,:]
+            break
+
+# ------------------
 
 print('\n\n ***** EVERYTHING IS LOADED - READY TO RUN ***** \n\n')
 
 cntr = 1
+elab_cntr = 1
 while 1:
     
     # Show digit/idle message
     if(myClass.TRAINING_FLAG == 0):
-        cv2.imshow('SYNC APP', main_img)
+        cv2.imshow('SYNC APP', init_img)
     else:
         zoom_digit = cv2.resize(digits_data[cntr], (0, 0), fx=7, fy=7)
         cv2.imshow('SYNC APP', zoom_digit)
 
+
+
     # Send cmd + label to OpenMV
-    if(myClass.TRAINING_FLAG == 2):
-        b_label = bytes(digits_label[cntr-1], 'utf-8')
-        sp.write(b_label)
-        sp.write(b"trai")   # the camra will train on the image taken
-        sp.flush()
-        print(f'counter: {cntr}/{tot_samples}')
-        cntr += 1
-    else:
+    if(myClass.TRAINING_FLAG == 0 or myClass.TRAINING_FLAG == 1):
         sp.write(b'X')
         sp.write(b"snap")   # the camera will be in streaming mode
         sp.flush()
 
-
-    # Receive image from OpenMV - careful it's easy to get out of sync
-    """
-    size = struct.unpack('<L', sp.read(4))[0]
-    img_raw = sp.read(size)
-    img_openmv = cv2.imdecode(np.frombuffer(img_raw, np.uint8), cv2.IMREAD_COLOR)
-    zoom_openmv = cv2.resize(img_openmv, (0, 0), fx=5, fy=5)
-    cv2.imshow('OpenMV view - Zoomed', zoom_openmv)
-    """
-    
-
-    if(myClass.TRAINING_FLAG == 2):
-        cv2.waitKey(150)
-    elif(myClass.TRAINING_FLAG == 1 or myClass.TRAINING_FLAG == 0):
+        # Receive image from OpenMV - careful it's easy to get out of sync
+        size = struct.unpack('<L', sp.read(4))[0]
+        img_raw = sp.read(size)
+        img_openmv = cv2.imdecode(np.frombuffer(img_raw, np.uint8), cv2.IMREAD_COLOR)
+        zoom_openmv = cv2.resize(img_openmv, (0, 0), fx=5, fy=5)
+        cv2.imshow('OpenMV view - Zoomed', zoom_openmv)
         cv2.waitKey(10)
+
+
+    elif(myClass.TRAINING_FLAG == 2):
+        sp.write(b'X')
+        sp.write(b"elab")   # the camera will be in streaming mode
+        sp.flush()
+
+        # Receive image from OpenMV - careful it's easy to get out of sync
+        size = struct.unpack('<L', sp.read(4))[0]
+        img_raw = sp.read(size)
+        img_openmv = cv2.imdecode(np.frombuffer(img_raw, np.uint8), cv2.IMREAD_COLOR)
+        zoom_openmv = cv2.resize(img_openmv, (0, 0), fx=5, fy=5)
+        cv2.imshow('OpenMV view - Zoomed', zoom_openmv)
+        if(elab_cntr % 50):
+            zoom_digit = cv2.resize(digit_order[elab_cntr//50], (0, 0), fx=7, fy=7)
+            cv2.imshow('SYNC APP', zoom_digit)
+        elab_cntr += 1
+        if(elab_cntr > 500):
+            elab_cntr = 0
+        cv2.waitKey(10)
+
+
+    elif(myClass.TRAINING_FLAG == 3):
+        b_label = bytes(digits_label[cntr-1], 'utf-8')
+        sp.write(b_label)
+        sp.write(b"trai")   # the camera will train on the image taken
+        sp.flush()
+        print(f'counter: {cntr}/{tot_samples}')
+        cntr += 1
+        cv2.imshow('OpenMV view - Zoomed', no_stream)
+
+        cv2.waitKey(100)
+
+
+        
 
 
     # Condition for exiting the loop at end training
