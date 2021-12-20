@@ -1,9 +1,13 @@
-import os
+import os, sys
 import pandas as pd
 import numpy as np
 import re
 import random
 import matplotlib.pyplot as plt
+
+ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, ROOT_PATH + '/lib')
+
 from myLib_parseData import shuffleDataset
 import myLib_writeFile as myWrite
 

@@ -5,7 +5,11 @@ import glob
 import random
 import re
 import msvcrt
-import os
+import os, sys
+
+ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, ROOT_PATH + '/lib')
+
 import myLib_parseData as myParse
 import myLib_writeFile as myWrite
 import myLib_table as myTable

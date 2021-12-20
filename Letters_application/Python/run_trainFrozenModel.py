@@ -1,4 +1,4 @@
-import os
+import os, sys
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 import pandas as pd
@@ -10,6 +10,10 @@ from tensorflow import keras
 from tensorflow.keras.layers import Dense
 from tensorflow.keras.models import Sequential, Model
 from tensorflow.keras import optimizers
+
+ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, ROOT_PATH + '/lib')
+
 import myLib_parseData as myParse
 import myLib_writeFile as myWrite
 import myLib_testModel as myTest
