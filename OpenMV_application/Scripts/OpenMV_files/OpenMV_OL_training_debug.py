@@ -41,14 +41,11 @@ myLib.load_labels(OL_layer)
 # 5 -> OL mini batch
 # 6 -> OLV2 mini batch
 # 7 -> LWF mini batch
-OL_layer.method = 4
+OL_layer.method = 3
 myLib.allocateMemory(OL_layer)
 
 current_label ='X'
-
-
-print('BEFORE WHILE LOOP')
-print('Used: ' + str(gc.mem_alloc()) + ' Free: ' + str(gc.mem_free()))
+OL_layer.train_limit = 5      # after how many prediction start to save inside confusion matrix
 
 # START THE INFINITE LOOP
 t=0
@@ -58,7 +55,7 @@ while(True):
 
     img = sensor.snapshot()                                 # Take the photo and return image
 
-    img.midpoint(2, bias=0.5, threshold=True, offset=5, invert=True)
+    img.midpoint(1, bias=0.5, threshold=True, offset=5, invert=True)
 
     out_frozen = net.predict(img)                           # [CUBE.AI] run the inference on frozen model
 
@@ -71,16 +68,11 @@ while(True):
 
     img.draw_string(0, 0, current_label )
 
-
-    # PREDICTION
-    out_OL     = myLib.feed_forward(out_frozen, OL_layer)
-    prediction = myLib.softmax(out_OL)
     t_1 = pyb.millis()
     # PERFORM BACK PROPAGATION AND UPDATE PERFORMANCE COUNTER
     if(counter%47==0 and train_counter<100):
 
-        myLib.train_layer(OL_layer, true_label, out_frozen)
-
+        prediction = myLib.train_layer(OL_layer, true_label, out_frozen)
         train_counter+=1
 
 

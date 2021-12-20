@@ -40,7 +40,7 @@ SAVE_PLOTS__PATH = ROOT__PATH + '\\OpenMV_results\\'
 
 
 confusion_matrix = np.zeros((10,10))
-method_used = -1
+method_used = 0
 methods = ["INFERENCE", "OL", "OLV2", "LWF", "CWR", "OL mini batches", "OLV2 mini batches", "LWF mini batches"]
 save_name = ["INFERENCE_", "1_OL_", "2_OLV2_", "3_LWF_", "4_CWR_", "5_OL_batches_", "6_OLV2_batches_", "7_LWF_batches_"]
 openmv_labels = []
@@ -61,7 +61,7 @@ with open(SAVE_PLOTS__PATH + 'training_results.txt') as f:
         if(info_flag==0):
             data = line.split(',')  # split one line in each single number
             for number in data:
-                info.append(int(number))
+                info.append(float(number))
             info_flag = 1
 
         elif(label_flag==0 and info_flag==1):
@@ -84,6 +84,7 @@ with open(SAVE_PLOTS__PATH + 'training_results.txt') as f:
 
             j+=1
             i=0
+method_used = int(info[0])
 # --------
 
 
@@ -116,8 +117,8 @@ plt.ylim([0, 100])
 plt.ylabel('Accuracy %', fontsize = 15)
 plt.xlabel('Classes', fontsize = 15)
 plt.xticks([r for r in range(size)], real_labels, fontweight ='bold', fontsize = 12)
-plt.title('Accuracy test - Method used: ' + methods[info[0]]  , fontweight ='bold', fontsize = 15)
-plt.savefig(SAVE_PLOTS__PATH + save_name[info[0]] +'barPlot.png')
+plt.title('Accuracy test - Method used: ' + methods[method_used]  , fontweight ='bold', fontsize = 15)
+plt.savefig(SAVE_PLOTS__PATH + save_name[method_used] +'barPlot.png')
 plt.show(block=False)
 plt.close()
 # --------
@@ -140,8 +141,8 @@ for x in range(width):
 cb = fig2.colorbar(res)
 plt.xticks(range(width), real_labels[:width])
 plt.yticks(range(height), real_labels[:height])
-plt.title('OpenMV training confusion matrix - Method used ' + methods[info[0]], fontweight ="bold") 
-plt.savefig(SAVE_PLOTS__PATH + save_name[info[0]] +'confusionMatrix.png')
+plt.title('OpenMV training confusion matrix - Method used ' + methods[method_used], fontweight ="bold") 
+plt.savefig(SAVE_PLOTS__PATH + save_name[method_used] +'confusionMatrix.png')
 plt.show(block=False)
 plt.close()
 # --------
@@ -174,8 +175,8 @@ table = ax.table(
 
 table.scale(1,2) 
 table.set_fontsize(10)
-ax.set_title('OpenMV training results - Method used ' + methods[info[0]], fontweight ="bold") 
-plt.savefig(SAVE_PLOTS__PATH + save_name[info[0]] +'table.png')
+ax.set_title('OpenMV training results - Method used ' + methods[method_used], fontweight ="bold") 
+plt.savefig(SAVE_PLOTS__PATH + save_name[method_used] +'table.png')
 plt.show(block=False)
 plt.close()
 # --------
@@ -186,42 +187,48 @@ plt.close()
 # -------- CREATE INFORMATION BLOCK
 fig, ax = plt.subplots(figsize =(8, 3)) 
      
-fig.text(0.2, 0.8, 
-         'TRAINING INFORMATIONS:', fontsize = 15)
-   
+fig.text(0.2, 0.8, 'TRAINING INFORMATIONS:', fontsize = 15)
+
 fig.text(0.2, 0.7,'Method:')
-fig.text(0.7, 0.7,f'{info[0]}')
+fig.text(0.7, 0.7,f'{methods[method_used]}')
+
 fig.text(0.2, 0.65,'Number of training samples:')
 fig.text(0.7, 0.65,f'{info[1]}')
+
 fig.text(0.2, 0.6,'Number of testing samples:')
 fig.text(0.7, 0.6,f'{info[2]}')
+
 fig.text(0.2, 0.55,'Learning rate:')
 fig.text(0.7, 0.55,f'{info[3]}')
+
 fig.text(0.2, 0.50,'Batch size:')
 fig.text(0.7, 0.50,f'{info[4]}')
 
 fig.text(0.2, 0.45,'Average frozen model inference time:')
 fig.text(0.7, 0.45,f'{openmv_times[0]} ms')
+
 fig.text(0.2, 0.40,'Average OL model inference + training time:')
 fig.text(0.7, 0.40,f'{openmv_times[1]} ms')
+
 fig.text(0.2, 0.35,'Average total time:')
 fig.text(0.7, 0.35,f'{openmv_times[1]} ms')
    
 ax.set(xlim =(0, 10), ylim =(0, 10))
-plt.savefig(SAVE_PLOTS__PATH + save_name[info[0]] +'esempio.png')
+plt.savefig(SAVE_PLOTS__PATH + save_name[method_used] +'esempio.png')
 plt.show(block=False)
 plt.close()
 # --------
 
 
 
+
+# -------- CREATE FINAL PLOT
 fig = plt.figure(figsize=(20,15))
 
-Image1 = mpimg.imread(SAVE_PLOTS__PATH + save_name[info[0]]  + 'barPlot.png')
-Image2 = mpimg.imread(SAVE_PLOTS__PATH + save_name[info[0]]  + 'confusionMatrix.png')
-Image3 = mpimg.imread(SAVE_PLOTS__PATH + save_name[info[0]]  + 'table.png')
-Image4 = mpimg.imread(SAVE_PLOTS__PATH + save_name[info[0]]  + 'esempio.png')
-
+Image1 = mpimg.imread(SAVE_PLOTS__PATH + save_name[method_used]  + 'barPlot.png')
+Image2 = mpimg.imread(SAVE_PLOTS__PATH + save_name[method_used]  + 'confusionMatrix.png')
+Image3 = mpimg.imread(SAVE_PLOTS__PATH + save_name[method_used]  + 'table.png')
+Image4 = mpimg.imread(SAVE_PLOTS__PATH + save_name[method_used]  + 'esempio.png')
 
 # Adds a subplot at the 1st position
 fig.add_subplot(2, 2, 1)
@@ -245,12 +252,12 @@ plt.axis('off')
 
 plt.tight_layout()
 
-plt.savefig(SAVE_PLOTS__PATH + save_name[info[0]]  + 'recap.png', bbox_inches='tight', 
+plt.savefig(SAVE_PLOTS__PATH + save_name[method_used]  + 'recap.png', bbox_inches='tight', 
             edgecolor=fig.get_edgecolor(), facecolor=fig.get_facecolor(), dpi=200 )
 
 plt.show()
 
-os.remove(SAVE_PLOTS__PATH + save_name[info[0]] +'esempio.png')
-
+os.remove(SAVE_PLOTS__PATH + save_name[method_used] +'esempio.png')
+# --------
 
 

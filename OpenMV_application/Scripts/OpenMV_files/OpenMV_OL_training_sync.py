@@ -46,10 +46,15 @@ OL_layer.method = 2
 myLib.allocateMemory(OL_layer)
 
 label = 'X'
-train_limit = 900      # after how many prediction start to save inside confusion matrix
 
-# START THE INFINITE LOOP
-OL_layer.counter = 0
+# DEFINE TRAINING PARAMS
+OL_layer.l_rate = 0.005
+OL_layer.batch_size = 64
+OL_layer.train_limit = 900      # after how many prediction start testing
+OL_layer.counter = 0            # just a reset
+
+
+
 while(True):
 
 
@@ -65,27 +70,21 @@ while(True):
 
         img = sensor.snapshot()                 # Take the photo and return image
 
-        if(OL_layer.counter>train_limit):
+        if(OL_layer.counter>OL_layer.train_limit):
             myLib.write_results(OL_layer)       # Write confusion matrix in a txt file
 
-        # Draw on the image
-        img = img.compress()
-        usb.send(ustruct.pack("<L", img.size()))
-        usb.send(img)
+        myLib.sendImageUART(img)
 
     # STREAM BUT SHOW HOW THE CAMERA MANIPULATES THE IMAGE BEFORE INFERENCE
     elif(cmd == 'elab'):
 
         img = sensor.snapshot()                 # Take the photo and return image
-        img.midpoint(1, bias=0.5, threshold=True, offset=5, invert=True) # Binarize the image, size is 3x3,
+        img.midpoint(2, bias=0.5, threshold=True, offset=5, invert=True) # Binarize the image, size is 3x3,
 
-        if(OL_layer.counter>train_limit):
+        if(OL_layer.counter>OL_layer.train_limit):
             myLib.write_results(OL_layer)       # Write confusion matrix in a txt file
 
-        # Draw on the image
-        img = img.compress()
-        usb.send(ustruct.pack("<L", img.size()))
-        usb.send(img)
+        myLib.sendImageUART(img)
 
     # TRAIN
     elif(cmd == 'trai'):
@@ -93,7 +92,7 @@ while(True):
         t_0 = pyb.millis()
 
         img = sensor.snapshot()             # Take the photo and return image
-        img.midpoint(2, bias=0.5, threshold=True, offset=5, invert=True) # Binarize the image, size is 3x3,
+        img.midpoint(1, bias=0.5, threshold=True, offset=5, invert=True) # Binarize the image, size is 3x3,
 
         out_frozen = net.predict(img)       # Run the inference on frozen model
 
@@ -109,7 +108,7 @@ while(True):
         t_2 = pyb.millis()
 
         # Update confusion matrix
-        if(OL_layer.counter>train_limit):
+        if(OL_layer.counter>OL_layer.train_limit):
             myLib.update_conf_matr(true_label, prediction, OL_layer)
 
         OL_layer.times[0,0] += t_1 - t_0
