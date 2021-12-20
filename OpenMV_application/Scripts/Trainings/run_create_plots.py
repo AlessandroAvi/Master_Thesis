@@ -211,7 +211,7 @@ fig.text(0.2, 0.40,'Average OL model inference + training time:')
 fig.text(0.7, 0.40,f'{openmv_times[1]} ms')
 
 fig.text(0.2, 0.35,'Average total time:')
-fig.text(0.7, 0.35,f'{openmv_times[1]} ms')
+fig.text(0.7, 0.35,f'{openmv_times[2]} ms')
    
 ax.set(xlim =(0, 10), ylim =(0, 10))
 plt.savefig(SAVE_PLOTS__PATH + save_name[method_used] +'esempio.png')

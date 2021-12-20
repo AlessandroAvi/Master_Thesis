@@ -41,18 +41,18 @@ myLib.load_weights(OL_layer)            # Read from the txt file the biases and 
 # 5 -> OL mini batch    WORKS - still to test best performance
 # 6 -> OLV2 mini batch  WORKS - still to test best performance
 # 7 -> LWF mini batch   WORKS - still to test best performance
-OL_layer.method = 2
+OL_layer.method = 7
 
 myLib.allocateMemory(OL_layer)
 
 label = 'X'
 
 # DEFINE TRAINING PARAMS
-OL_layer.l_rate = 0.005
-OL_layer.batch_size = 64
+OL_layer.l_rate      = 0.005
+OL_layer.batch_size  = 8
 OL_layer.train_limit = 900      # after how many prediction start testing
-OL_layer.counter = 0            # just a reset
-
+OL_layer.counter     = 0        # just a reset
+midpoint_type = 1
 
 
 while(True):
@@ -73,18 +73,20 @@ while(True):
         if(OL_layer.counter>OL_layer.train_limit):
             myLib.write_results(OL_layer)       # Write confusion matrix in a txt file
 
-        myLib.sendImageUART(img)
+        img = img.compress()
+        usb.send(ustruct.pack("<L", img.size()))
+        usb.send(img)
 
     # STREAM BUT SHOW HOW THE CAMERA MANIPULATES THE IMAGE BEFORE INFERENCE
     elif(cmd == 'elab'):
 
         img = sensor.snapshot()                 # Take the photo and return image
-        img.midpoint(2, bias=0.5, threshold=True, offset=5, invert=True) # Binarize the image, size is 3x3,
+        img.midpoint(midpoint_type, bias=0.5, threshold=True, offset=5, invert=True) # Binarize the image, size is 3x3,
 
-        if(OL_layer.counter>OL_layer.train_limit):
-            myLib.write_results(OL_layer)       # Write confusion matrix in a txt file
+        img = img.compress()
+        usb.send(ustruct.pack("<L", img.size()))
+        usb.send(img)
 
-        myLib.sendImageUART(img)
 
     # TRAIN
     elif(cmd == 'trai'):
@@ -92,7 +94,7 @@ while(True):
         t_0 = pyb.millis()
 
         img = sensor.snapshot()             # Take the photo and return image
-        img.midpoint(1, bias=0.5, threshold=True, offset=5, invert=True) # Binarize the image, size is 3x3,
+        #img.midpoint(midpoint_type, bias=0.5, threshold=True, offset=5, invert=True) # Binarize the image, size is 3x3,
 
         out_frozen = net.predict(img)       # Run the inference on frozen model
 

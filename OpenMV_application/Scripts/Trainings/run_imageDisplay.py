@@ -191,7 +191,7 @@ while 1:
         cntr += 1
         cv2.imshow('OpenMV view - Zoomed', no_stream)
 
-        cv2.waitKey(100)
+        cv2.waitKey(150)
 
 
         
