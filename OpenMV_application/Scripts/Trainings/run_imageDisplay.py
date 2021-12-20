@@ -22,7 +22,7 @@ from importMnist import createDataset
 #   |_____/_/\_\_|   |_____/_/   \_\_| \_/_/   \_\_| |___\___/|_| \_|
 
 """
-This python script is used for sincronizing the OpenMV camera and the laptop during training. The idea is to disaply certain images on the 
+This python script is used for sincronizing the OpenMV camera and the laptop during training. The idea is to disaply digits images on the 
 laptop screen and at the same time send throught the UART (usb cable) to the OpenMV camera the correct label of the image displayed.
 This should allow the camera to have the true label and correctly compute the error and later perform the backpropagation on biases and weights 
 in order to perform the OL training.

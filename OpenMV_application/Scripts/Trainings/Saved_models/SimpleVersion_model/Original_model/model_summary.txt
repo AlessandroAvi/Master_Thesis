@@ -1,0 +1,26 @@
+PARAMETERS SAVED FROM THE TRAINING
+
+ This model has been trained for learning the first 6 digits from the MNIST dataset, this is the ORIGINAL MODEL
+
+ Batch size:       60
+ Epochs:           30
+ Metrics:          ['accuracy']
+ Optimizer:        adam
+ Loss:             SparseCategoricalCrossentropy 
+
+Model: "sequential_9"
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+conv2d_9 (Conv2D)            (None, 26, 26, 8)         80        
+_________________________________________________________________
+max_pooling2d_9 (MaxPooling2 (None, 13, 13, 8)         0         
+_________________________________________________________________
+flatten_9 (Flatten)          (None, 1352)              0         
+_________________________________________________________________
+dense_10 (Dense)             (None, 6)                 8118      
+=================================================================
+Total params: 8,198
+Trainable params: 8,198
+Non-trainable params: 0
+_________________________________________________________________

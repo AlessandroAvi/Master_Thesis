@@ -686,8 +686,8 @@ def train_layer(OL_layer, true_label, out_frozen):
     elif(OL_layer.method==7):
         prediction = train_LWF_mini_batch(OL_layer, true_label, out_frozen)
 
-
     return prediction
+
 
 
 

@@ -1,0 +1,24 @@
+PARAMETERS SAVED FROM THE TRAINING
+
+ This model has been trained for learning the first 6 digits from the MNIST dataset, this is the FROZEN MODEL
+
+ Batch size:       60
+ Epochs:           30
+ Metrics:          ['accuracy']
+ Optimizer:        adam
+ Loss:             SparseCategoricalCrossentropy 
+
+Model: "sequential_10"
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+conv2d_9 (Conv2D)            (None, 26, 26, 8)         80        
+_________________________________________________________________
+max_pooling2d_9 (MaxPooling2 (None, 13, 13, 8)         0         
+_________________________________________________________________
+flatten_9 (Flatten)          (None, 1352)              0         
+=================================================================
+Total params: 80
+Trainable params: 80
+Non-trainable params: 0
+_________________________________________________________________
