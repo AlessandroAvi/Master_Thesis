@@ -587,14 +587,16 @@ def train_OLV2_mini_batch(OL_layer, true_label, out_frozen):
         OL_layer.weights_new_2[i,:] = OL_layer.weights_new_2[i,:] + dW[0,:]
         OL_layer.biases_new_2[i,0]  = OL_layer.biases_new_2[i,0] + cost[i,0]
 
+    # BATCH FINISHED
     if((OL_layer.counter % OL_layer.batch_size == 0) and (OL_layer.counter != 0)):
 
         for i in range(0, size):
             OL_layer.weights_new[i,:] = OL_layer.weights_new[i,:] - OL_layer.weights_new_2[i,:]
             OL_layer.biases_new[i,0]  = OL_layer.biases_new[i,0] - OL_layer.biases_new_2[i,0]
             # Reset
-        OL_layer.OL_layer.weights_new_2[i,:] = np.zeros((size,OL_layer.H)).copy()
-        OL_layer.biases_new_2[i,0] = np.zeros((size, 1)).copy()
+            for j in range(0, OL_layer.H):
+                OL_layer.weights_new_2[i,j] = 0
+        OL_layer.biases_new_2[i,0] = 0
 
     return prediction
 

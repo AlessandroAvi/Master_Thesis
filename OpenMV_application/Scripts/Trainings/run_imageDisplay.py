@@ -116,7 +116,7 @@ cv2.imshow('SYNC APP', init_img)
 cv2.createTrackbar('Training', 'SYNC APP', 0, 3, on_change)
 
 # Import the dataset that I am going to display
-samples_for_each_digit = 100
+samples_for_each_digit = 400
 digits_i_want          = [0,1,2,3,4,5,6,7,8,9]
 digits_data, digits_label = createDataset(samples_for_each_digit+1, digits_i_want)    # load dataset
 tot_samples = len(digits_label)-8

@@ -41,7 +41,7 @@ myLib.load_labels(OL_layer)
 # 5 -> OL mini batch
 # 6 -> OLV2 mini batch
 # 7 -> LWF mini batch
-OL_layer.method = 3
+OL_layer.method = 7
 myLib.allocateMemory(OL_layer)
 
 current_label ='X'
@@ -61,7 +61,7 @@ while(True):
 
 
     # CHECK LABEL
-    if(counter%47==0 and train_counter<len(OL_layer.true_label)):
+    if(counter%10==0 and train_counter<len(OL_layer.true_label)):
         current_label = OL_layer.true_label[train_counter]
         myLib.check_label(OL_layer, current_label)
         true_label = myLib.label_to_softmax(OL_layer, current_label)
@@ -70,7 +70,7 @@ while(True):
 
     t_1 = pyb.millis()
     # PERFORM BACK PROPAGATION AND UPDATE PERFORMANCE COUNTER
-    if(counter%47==0 and train_counter<100):
+    if(counter%10==0 and train_counter<100):
 
         prediction = myLib.train_layer(OL_layer, true_label, out_frozen)
         train_counter+=1
