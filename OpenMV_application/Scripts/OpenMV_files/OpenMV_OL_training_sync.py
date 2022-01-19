@@ -38,9 +38,9 @@ myLib.load_weights(OL_layer)            # Read from the txt file the biases and 
 # 2 -> OLV2             WORKS - perfoms good
 # 3 -> LWF              WORKS - perfoms good
 # 4 -> CWR              WORKS - performs not so good
-# 5 -> OL mini batch    NOT WORKS - still to test best performance
-# 6 -> OLV2 mini batch  NOT WORKS - still to test best performance
-# 7 -> LWF mini batch   NOT WORKS - still to test best performance
+# 5 -> OL mini batch    WORKS - still to test best performance
+# 6 -> OLV2 mini batch  WORKS - still to test best performance
+# 7 -> LWF mini batch   WORKS - still to test best performance
 OL_layer.method = 7
 
 myLib.allocateMemory(OL_layer)
@@ -50,7 +50,7 @@ label = 'X'
 # DEFINE TRAINING PARAMS
 OL_layer.l_rate      = 0.005
 OL_layer.batch_size  = 8
-OL_layer.train_limit = 3000      # after how many prediction start testing
+OL_layer.train_limit = 900      # after how many prediction start testing
 OL_layer.counter     = 0        # just a reset
 midpoint_type = 1
 

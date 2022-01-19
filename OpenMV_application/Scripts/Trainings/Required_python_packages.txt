@@ -1,0 +1,6 @@
+numpy  		py -m pip install numpy
+cv2		pip install opencv-python
+serial		pip install pyserial
+pandas  	pip install pandas
+pillow/PIL	pip install Pillow
+tensorflow 	pip install --upgrade tensorflow
