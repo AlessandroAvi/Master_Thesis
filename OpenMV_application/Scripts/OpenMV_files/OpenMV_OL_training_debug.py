@@ -67,6 +67,8 @@ while(True):
         true_label = myLib.label_to_softmax(OL_layer, current_label)
 
     img.draw_string(0, 0, current_label )
+    img.draw_string(30, 0, str(OL_layer.counter) )
+
 
     t_1 = pyb.millis()
     # PERFORM BACK PROPAGATION AND UPDATE PERFORMANCE COUNTER
@@ -84,4 +86,5 @@ while(True):
         print(OL_layer.times[0,0]*(1/OL_layer.counter))
 
     counter += 1
-    OL_layer.counter += 1
+    if(counter%10==0 and train_counter<100):
+        OL_layer.counter += 1
