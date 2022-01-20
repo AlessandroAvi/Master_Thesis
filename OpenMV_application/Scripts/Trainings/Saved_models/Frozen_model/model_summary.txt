@@ -8,25 +8,27 @@ PARAMETERS SAVED FROM THE TRAINING
  Optimizer:        adam
  Loss:             SparseCategoricalCrossentropy 
 
-Model: "sequential_2"
+Model: "sequential_4"
 _________________________________________________________________
 Layer (type)                 Output Shape              Param #   
 =================================================================
-conv2d_1 (Conv2D)            (None, 26, 26, 32)        320       
+conv2d_5 (Conv2D)            (None, 26, 26, 64)        640       
 _________________________________________________________________
-conv2d_2 (Conv2D)            (None, 24, 24, 32)        9248      
+max_pooling2d_5 (MaxPooling2 (None, 13, 13, 64)        0         
 _________________________________________________________________
-max_pooling2d_1 (MaxPooling2 (None, 12, 12, 32)        0         
+conv2d_6 (Conv2D)            (None, 11, 11, 8)         4616      
 _________________________________________________________________
-dropout (Dropout)            (None, 12, 12, 32)        0         
+max_pooling2d_6 (MaxPooling2 (None, 5, 5, 8)           0         
 _________________________________________________________________
-flatten_1 (Flatten)          (None, 4608)              0         
+dropout_4 (Dropout)          (None, 5, 5, 8)           0         
 _________________________________________________________________
-dense_1 (Dense)              (None, 128)               589952    
+flatten_3 (Flatten)          (None, 200)               0         
 _________________________________________________________________
-dropout_1 (Dropout)          (None, 128)               0         
+dense_5 (Dense)              (None, 128)               25728     
+_________________________________________________________________
+dropout_5 (Dropout)          (None, 128)               0         
 =================================================================
-Total params: 599,520
-Trainable params: 599,520
+Total params: 30,984
+Trainable params: 30,984
 Non-trainable params: 0
 _________________________________________________________________

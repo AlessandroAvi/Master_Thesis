@@ -50,7 +50,7 @@ label = 'X'
 # DEFINE TRAINING PARAMS
 OL_layer.l_rate      = 0.005
 OL_layer.batch_size  = 8
-OL_layer.train_limit = 4000      # after how many prediction start testing
+OL_layer.train_limit = 4000     # after how many prediction start testing
 OL_layer.counter     = 0        # just a reset
 midpoint_type = 1
 
