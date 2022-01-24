@@ -11,7 +11,7 @@ class LastLayer(object):
         self.method = 0
         self.W = 6
         self.offset = 6
-        self.H = 1352
+        self.H = 160
         self.counter = 0
 
         self.label     = ['0','1','2','3','4','5']

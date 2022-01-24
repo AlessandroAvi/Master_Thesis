@@ -3,32 +3,32 @@ PARAMETERS SAVED FROM THE TRAINING
  This model has been trained for learning the first 6 digits from the MNIST dataset, this is the FROZEN MODEL
 
  Batch size:       32
- Epochs:           20
+ Epochs:           5
  Metrics:          ['accuracy']
  Optimizer:        adam
  Loss:             SparseCategoricalCrossentropy 
 
-Model: "sequential"
+Model: "sequential_2"
 _________________________________________________________________
 Layer (type)                 Output Shape              Param #   
 =================================================================
-conv2d (Conv2D)              (None, 26, 26, 64)        640       
+prune_low_magnitude_conv2d ( (None, 26, 26, 8)         154       
 _________________________________________________________________
-max_pooling2d (MaxPooling2D) (None, 13, 13, 64)        0         
+prune_low_magnitude_conv2d_1 (None, 24, 24, 8)         1162      
 _________________________________________________________________
-conv2d_1 (Conv2D)            (None, 11, 11, 8)         4616      
+prune_low_magnitude_max_pool (None, 12, 12, 8)         1         
 _________________________________________________________________
-max_pooling2d_1 (MaxPooling2 (None, 5, 5, 8)           0         
+prune_low_magnitude_conv2d_2 (None, 10, 10, 32)        4642      
 _________________________________________________________________
-dropout (Dropout)            (None, 5, 5, 8)           0         
+prune_low_magnitude_conv2d_3 (None, 8, 8, 32)          18466     
 _________________________________________________________________
-flatten (Flatten)            (None, 200)               0         
+prune_low_magnitude_max_pool (None, 4, 4, 32)          1         
 _________________________________________________________________
-dense (Dense)                (None, 128)               25728     
+prune_low_magnitude_dropout  (None, 4, 4, 32)          1         
 _________________________________________________________________
-dense_1 (Dense)              (None, 6)                 774       
+prune_low_magnitude_flatten  (None, 512)               1         
 =================================================================
-Total params: 31,758
-Trainable params: 31,758
-Non-trainable params: 0
+Total params: 24,428
+Trainable params: 12,248
+Non-trainable params: 12,180
 _________________________________________________________________

@@ -41,7 +41,7 @@ myLib.load_weights(OL_layer)            # Read from the txt file the biases and 
 # 5 -> OL mini batch    WORKS - perfoms good
 # 6 -> OLV2 mini batch  WORKS - performs not so good - batch 32 a bit better
 # 7 -> LWF mini batch   WORKS - perfoms good - careful around label 30 camera reboots easily , dunno why
-OL_layer.method = 6
+OL_layer.method = 7
 
 myLib.allocateMemory(OL_layer)
 
@@ -120,7 +120,7 @@ while(True):
         OL_layer.times[0,2] += t_2 - t_0
         OL_layer.counter += 1
 
-        if(OL_layer.counter>3999):
+        if(OL_layer.counter>OL_layer.train_limit-4):
             myLib.write_results(OL_layer)       # Write confusion matrix in a txt file
 
     # STREAM

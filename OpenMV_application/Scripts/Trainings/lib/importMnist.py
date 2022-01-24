@@ -54,7 +54,7 @@ def createDataset(n_samples_to_save, numbers_requested):
             
             
     # Shuffle the array
-    random.seed(8524)
+    random.seed(652)
     order_list = list(range(0,tot_samples))    # create list of ordered numbers
     random.shuffle(order_list)                            # shuffle the list of ordered numbers
 
