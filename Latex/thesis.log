@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.11.13)  24 JAN 2022 20:30
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.11.13)  26 JAN 2022 20:24
 entering extended mode
 **./thesis.tex
 (thesis.tex
@@ -443,36 +443,36 @@ LaTeX Info: Redefining \nameref on input line 36.
 <Figures/frontespizio.pdf, id=43, 597.50829pt x 845.0471pt>
 File: Figures/frontespizio.pdf Graphic file (type pdf)
 <use Figures/frontespizio.pdf>
-Package pdftex.def Info: Figures/frontespizio.pdf  used on input line 69.
+Package pdftex.def Info: Figures/frontespizio.pdf  used on input line 62.
 (pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
 File: Figures/frontespizio.pdf Graphic file (type pdf)
 <use Figures/frontespizio.pdf>
-Package pdftex.def Info: Figures/frontespizio.pdf  used on input line 69.
+Package pdftex.def Info: Figures/frontespizio.pdf  used on input line 62.
 (pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
 <Figures/frontespizio.pdf, id=46, page=1, 597.50829pt x 845.0471pt>
 File: Figures/frontespizio.pdf Graphic file (type pdf)
 <use Figures/frontespizio.pdf, page 1>
-Package pdftex.def Info: Figures/frontespizio.pdf , page1 used on input line 69
+Package pdftex.def Info: Figures/frontespizio.pdf , page1 used on input line 62
 .
 (pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
 File: Figures/frontespizio.pdf Graphic file (type pdf)
 <use Figures/frontespizio.pdf, page 1>
-Package pdftex.def Info: Figures/frontespizio.pdf , page1 used on input line 69
+Package pdftex.def Info: Figures/frontespizio.pdf , page1 used on input line 62
 .
 (pdftex.def)             Requested size: 562.12285pt x 795.00201pt.
 File: Figures/frontespizio.pdf Graphic file (type pdf)
 <use Figures/frontespizio.pdf, page 1>
-Package pdftex.def Info: Figures/frontespizio.pdf , page1 used on input line 69
+Package pdftex.def Info: Figures/frontespizio.pdf , page1 used on input line 62
 .
 (pdftex.def)             Requested size: 562.12285pt x 795.00201pt.
 File: Figures/frontespizio.pdf Graphic file (type pdf)
 <use Figures/frontespizio.pdf, page 1>
-Package pdftex.def Info: Figures/frontespizio.pdf , page1 used on input line 69
+Package pdftex.def Info: Figures/frontespizio.pdf , page1 used on input line 62
 .
 (pdftex.def)             Requested size: 562.12285pt x 795.00201pt.
 File: Figures/frontespizio.pdf Graphic file (type pdf)
 <use Figures/frontespizio.pdf, page 1>
-Package pdftex.def Info: Figures/frontespizio.pdf , page1 used on input line 74
+Package pdftex.def Info: Figures/frontespizio.pdf , page1 used on input line 67
 .
 (pdftex.def)             Requested size: 562.12285pt x 795.00201pt.
  [1 <./Figures/frontespizio.pdf{C:/Users/massi/AppData/Local/MiKTeX/pdftex/conf
@@ -500,51 +500,51 @@ ig/pdftex.map}>] [2
 
 ] [8
 
-] [1]
+] [1] [2]
 Chapter 1.
-[2
-
-]
-Chapter 2.
 [3
 
 ]
-Chapter 3.
+Chapter 2.
 [4
 
 ]
-Chapter 4.
+Chapter 3.
 [5
 
 ]
-Chapter 5.
+Chapter 4.
 [6
+
+]
+Chapter 5.
+[7
 
 ]
 Chapter 6.
 No file thesis.bbl.
-[7
+[8
 
 ] (thesis.aux)
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: 985244B996B112C8CA19CD90EA7C0FB1;1249.
+(rerunfilecheck)             Checksum: 4B7BB8543E163962FA49EF6079CF218D;1422.
  ) 
 Here is how much of TeX's memory you used:
- 11279 strings out of 478927
- 174292 string characters out of 2852534
- 478287 words of memory out of 3000000
- 28948 multiletter control sequences out of 15000+600000
- 409311 words of font info for 47 fonts, out of 8000000 for 9000
+ 11276 strings out of 478927
+ 174226 string characters out of 2852534
+ 482226 words of memory out of 3000000
+ 28944 multiletter control sequences out of 15000+600000
+ 408706 words of font info for 45 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 62i,17n,75p,245b,409s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 62i,17n,75p,2301b,409s stack positions out of 5000i,500n,10000p,200000b,80000s
 <C:/Users/massi/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/
 cmbx12.pfb><C:/Users/massi/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
 fonts/cm/cmcsc10.pfb><C:/Users/massi/AppData/Local/Programs/MiKTeX/fonts/type1/
 public/amsfonts/cm/cmr12.pfb><C:/Users/massi/AppData/Local/Programs/MiKTeX/font
 s/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on thesis.pdf (15 pages, 232718 bytes).
+Output written on thesis.pdf (16 pages, 240448 bytes).
 PDF statistics:
- 172 PDF objects out of 1000 (max. 8388607)
- 31 named destinations out of 1000 (max. 500000)
+ 176 PDF objects out of 1000 (max. 8388607)
+ 32 named destinations out of 1000 (max. 500000)
  101 words of extra memory for PDF output out of 10000 (max. 10000000)
 

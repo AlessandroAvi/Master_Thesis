@@ -34,8 +34,7 @@
 \pagenumbering{roman}
 
 \begin{document}
-%\title{OpenMV}
-%\author{Avi Alessandro}
+
 
 % The following degrees are included in the current dalthesis.cls
 % class file:
@@ -48,13 +47,7 @@
 % maintainer of this class file know (Vlado Keselj, vlado@cs.dal.ca).
 % MCS Example:
 
-%\degree{Master of Mechatronics Engineering}
-%\degreeinitial{M.M.E.}
-%\faculty{Computer Science}
-%\dept{Faculty of Industrial Engineering}
 
-% Month and Year of Defence
-%\defencemonth{June}\defenceyear{2013}
 
 
 
@@ -73,9 +66,9 @@
 
 \chapter*{}
 \vspace*{\fill}
-\textit{"The revolution is not an apple that falls when it is ripe. You have to make it fall."} 
+\textit{"There's no bad condition, only weakeness"} 
 \begin{flushright}
-Che Guevara
+Alex Megos
 \end{flushright}
 \vspace*{\fill}
 
@@ -99,6 +92,9 @@ Che Guevara
 \mychapter{0}{Introduction}
 \pagenumbering{arabic}
 
+Application of machine learning (ML) on small devices, in a word TinyML, is becoming more and more popular as technologies advances. The usage of this type of technology on micro controllers (MCUs) is proving to be more indispensable and helpful in several applications like the industrial world, the agricultural world, autonomous driving, human machine interaction. The best field of application for TinyML is for suer the world of Internet of Things (IoT). Here machine learning finds its sweet spot since it can be exploited to change the idea of cloud computing into edge computing. The change that TinyML can bring to IoT would allow for several advantages, starting from reduced traffic on the networks and low latency for real time applications to improved security, privacy and reliability of the entire system. By exploiting all the small devices connected for performing data manipulation and elaboration, the cloud can be relieved from all the weight of computations and it could directly receive refined data already elaborated by the devices themselves. This would redirect the energy flow of all the embedded systems deployed in the environment from transmission of lots of data to elaboration of data with a subsequent transmission of high value information. By doing this the cloud is relieved from the huge amount of computation that would be required and the performances of real time application can be boosted reducing the latency. The application of edge computing brings to lots of advantages but it comes with a cost. Cost that is redirected to the preparation of intelligent MCUs, small devices that are known for their limitation in memory, computational power, limited energy sources that is strictly dependent to the limited availability of energy sources. For these reasons it's important theat the MCUs are well prepared and equipped with frameworks and systems that enabled the devicers to perform machine learning n the edge. Not only TinyML requires the correct tools for creating working fremworks but it's also required to use models specifically trained with a deployments on these devices in mind. This means generating machine learning models that are compressed and characterized by low memory and low computation power need. \\
+One of the main downside of machine learning on the edge is the location of the devices in impractical locations. This can make the maintainance of the devices more difficult and resource demanding, so it's important to reduce as much as possible the maintainance on the MCUs. This is a characteristic that doesn't match with the nature of the static NN models and the natural behaviour of the enironemtn. It can be said that the NN models are incapable of adapting to the context drift that affects teh environment in which the device is deployed and the phenomenon on which data is recorded. It's in fact necesasry for these models to be frequently updated in order tomaintain a stable performance and assura reliability oer time.  
+
 
 
 
@@ -106,20 +102,22 @@ Che Guevara
 \chapter{Related Works}
 
 
-\section{Machine Learning on Robots}
+\section{Machine Learning on MCU}
+
+
+\section{Machine learning on edge computing}
+
+
+\section{Continual-on line learning}
 
 
 
-\subsection{Cloud Inference}
-
-
-
-\subsection{Edge Inference}
 
 
 
 
-\chapter{Hardware} \label{hardware}
+
+\chapter{Hardware} 
 
 
 
@@ -134,7 +132,7 @@ Che Guevara
 
 
 
-\chapter{On line learning Processing}
+\chapter{Application use cases}
 
 
 
@@ -142,7 +140,7 @@ Che Guevara
 
 
 
-\chapter{Results} \label{results}
+\chapter{Experimental results} 
 
 
 

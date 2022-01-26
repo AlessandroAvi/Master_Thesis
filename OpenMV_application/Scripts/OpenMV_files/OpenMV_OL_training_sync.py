@@ -41,7 +41,7 @@ myLib.load_weights(OL_layer)            # Read from the txt file the biases and 
 # 5 -> OL mini batch    WORKS - perfoms good
 # 6 -> OLV2 mini batch  WORKS - performs not so good - batch 32 a bit better
 # 7 -> LWF mini batch   WORKS - perfoms good - careful around label 30 camera reboots easily , dunno why
-OL_layer.method = 7
+OL_layer.method = 4
 
 myLib.allocateMemory(OL_layer)
 
@@ -49,7 +49,7 @@ label = 'X'
 
 # DEFINE TRAINING PARAMS
 OL_layer.l_rate      = 0.005
-OL_layer.batch_size  = 8
+OL_layer.batch_size  = 256
 OL_layer.train_limit = 4000     # after how many prediction start testing
 OL_layer.counter     = 0        # just a reset
 midpoint_type = 1
