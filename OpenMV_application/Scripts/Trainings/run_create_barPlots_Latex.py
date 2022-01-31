@@ -21,26 +21,29 @@ save_name = ['1_OL', '5_OL batch', '2_OL V2', '6_OLV2_batch', '3_LWF', '7_LWF_ba
 
 
 
-
 # Create class for containing the data from the txt file
 class MethodInfo(object):
     def __init__(self, name):
 
         # Related to the layer
         
-        self.label     = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'Model']             # the original model knows only the vowels
+        self.label     = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'Model'] 
         self.conf_matr = np.zeros((10,10))
+
+        self.openmv_label = []
+
+
 
 
 
 # Create a class for each method
-OL_data = MethodInfo('')
-OLb_data = MethodInfo('')
-OLV2_data = MethodInfo('')
+OL_data    = MethodInfo('')
+OLb_data   = MethodInfo('')
+OLV2_data  = MethodInfo('')
 OLV2b_data = MethodInfo('')
-LWF_data = MethodInfo('')
-LWFb_data = MethodInfo('')
-CWR_data = MethodInfo('')
+LWF_data   = MethodInfo('')
+LWFb_data  = MethodInfo('')
+CWR_data   = MethodInfo('')
 
 
 
@@ -67,32 +70,42 @@ for k in range(0,7):
 
 
     with open(TXT_PATH + save_name[k] + '.txt') as f:
+        temp_matr = np.zeros((10,10))
         i=0
         j=0
         tmp=0
         for line in f:  # cycle over lines 
 
             # skip forst 3 lines
-            if(tmp<3):
+            if(tmp==0 or tmp== 2):
                 tmp+=1
                 continue
 
+            if(tmp == 1):
+                data = line.split(',') 
+                for number in data:
+                    strategy.openmv_label.append(int(number)) 
+                tmp+=1
+                continue
+
+
             data = line.split(',')  # split one line in each single number
             for number in data:
-                strategy.conf_matr[j,i] = float(number)   # save the number
+                temp_matr[j,i] = float(number)   # save the number
                 i+=1
 
             j+=1
             i=0
+
+    # reorganize correctly the confusion marix
+    for i in range(0, 10):
+        n = strategy.openmv_label[i]
+        for j in range(0,10):
+            m = strategy.openmv_label[j]
+            strategy.conf_matr[n,m] = temp_matr[i,j]
 # --------
 
 
-# AGGIUNGERE FUNZIONE CHE RIORDINA I LABEL E LA CONF MATRIX
-
-
-
-
-# --- CREATE BAR PLOT
 
 
 def create_plot(method1, method2, group):
@@ -119,7 +132,7 @@ def create_plot(method1, method2, group):
     colors_2 = [orange1, orange1, orange1, orange1, orange1, orange1, orange1, orange1, orange1, orange1, 'orangered']  # different color for the 'Model' bar
 
 
-    # Compute accuracy for each class - method 1
+    # Compute accuracy for each class - METHOD 1
     bar_values_1 = np.zeros(method1.conf_matr.shape[0]+1)
     tot_pred     = 0
     correct_pred = 0
@@ -130,7 +143,7 @@ def create_plot(method1, method2, group):
     bar_values_1[-1] = round(round(correct_pred/tot_pred, 4)*100,2)   # Overall accuracy of the model
 
 
-    # Compute accuracy for each class - method 2
+    # Compute accuracy for each class - METHOD 2
     bar_values_2 = np.zeros(method2.conf_matr.shape[0]+1)
     tot_pred     = 0
     correct_pred = 0
@@ -142,7 +155,7 @@ def create_plot(method1, method2, group):
 
 
 
-    # Create bar plot
+    # Create bar plot -----
     fig = plt.subplots(figsize =(18, 8))
 
     bar_width  = 0.35
@@ -152,13 +165,10 @@ def create_plot(method1, method2, group):
 
     X_axis = np.arange(len(method1.label))
 
-
-
     bar_plot_1 = plt.bar(X_axis - bar_width/2, bar_values_1, 0.3, label = label_1, color=colors_1)
     bar_plot_2 = plt.bar(X_axis + bar_width/2, bar_values_2, 0.3, label = label_2, color=colors_2)
 
     plt.axhline(y = 100, color = 'gray', linestyle = (0, (5, 10)) )
-
 
 
     # Define the height at which to display the bar height
