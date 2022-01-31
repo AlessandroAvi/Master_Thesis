@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.11.13)  31 JAN 2022 16:02
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.11.13)  31 JAN 2022 17:46
 entering extended mode
 **./thesis.tex
 (thesis.tex
@@ -440,7 +440,7 @@ LaTeX Info: Redefining \nameref on input line 36.
 \@outlinefile=\write4
 \openout4 = `thesis.out'.
 
-<Figures/frontespizio.pdf, id=43, 597.50829pt x 845.0471pt>
+<Figures/frontespizio.pdf, id=59, 597.50829pt x 845.0471pt>
 File: Figures/frontespizio.pdf Graphic file (type pdf)
 <use Figures/frontespizio.pdf>
 Package pdftex.def Info: Figures/frontespizio.pdf  used on input line 41.
@@ -449,7 +449,7 @@ File: Figures/frontespizio.pdf Graphic file (type pdf)
 <use Figures/frontespizio.pdf>
 Package pdftex.def Info: Figures/frontespizio.pdf  used on input line 41.
 (pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
-<Figures/frontespizio.pdf, id=46, page=1, 597.50829pt x 845.0471pt>
+<Figures/frontespizio.pdf, id=62, page=1, 597.50829pt x 845.0471pt>
 File: Figures/frontespizio.pdf Graphic file (type pdf)
 <use Figures/frontespizio.pdf, page 1>
 Package pdftex.def Info: Figures/frontespizio.pdf , page1 used on input line 41
@@ -529,42 +529,60 @@ Chapter 3.
 
 ]
 Chapter 4.
+
+Underfull \hbox (badness 10000) in paragraph at lines 153--154
+
+ []
+
 [9
 
 ]
+<Figures/Chapter4/letters_motion.jpg, id=183, 308.352pt x 154.4169pt>
+File: Figures/Chapter4/letters_motion.jpg Graphic file (type jpg)
+<use Figures/Chapter4/letters_motion.jpg>
+Package pdftex.def Info: Figures/Chapter4/letters_motion.jpg  used on input lin
+e 165.
+(pdftex.def)             Requested size: 284.52756pt x 142.48936pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[10] [11 <./Figures/Chapter4/letters_motion.jpg>]
 Chapter 5.
-[10
+[12
 
 ]
 Chapter 6.
 No file thesis.bbl.
-[11
+[13
 
 ] (thesis.aux)
 
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: 9FBBC53E9A3E8CCAA76ED7159A5E9DD6;1384.
+(rerunfilecheck)             Checksum: 78F389A8D232DB3E77A12BC2809A0D37;2084.
  ) 
 Here is how much of TeX's memory you used:
- 11282 strings out of 478927
- 174282 string characters out of 2852534
- 490226 words of memory out of 3000000
- 28946 multiletter control sequences out of 15000+600000
+ 11307 strings out of 478927
+ 174782 string characters out of 2852534
+ 490287 words of memory out of 3000000
+ 28961 multiletter control sequences out of 15000+600000
  409043 words of font info for 46 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 62i,17n,75p,1903b,409s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 62i,17n,75p,2467b,409s stack positions out of 5000i,500n,10000p,200000b,80000s
 {C:/Users/massi/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/cm-super/cm-sup
 er-ts1.enc}<C:/Users/massi/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
 fonts/cm/cmbx12.pfb><C:/Users/massi/AppData/Local/Programs/MiKTeX/fonts/type1/p
 ublic/amsfonts/cm/cmcsc10.pfb><C:/Users/massi/AppData/Local/Programs/MiKTeX/fon
-ts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/massi/AppData/Local/Programs/Mi
-KTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/massi/AppData/Local/Pr
-ograms/MiKTeX/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on thesis.pdf (19 pages, 257667 bytes).
+ts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/massi/AppData/Local/Programs/M
+iKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/massi/AppData/Local/Pr
+ograms/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/massi/AppData
+/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/mass
+i/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfrm1200.pfb>
+Output written on thesis.pdf (21 pages, 331371 bytes).
 PDF statistics:
- 195 PDF objects out of 1000 (max. 8388607)
- 35 named destinations out of 1000 (max. 500000)
- 101 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 240 PDF objects out of 1000 (max. 8388607)
+ 42 named destinations out of 1000 (max. 500000)
+ 138 words of extra memory for PDF output out of 10000 (max. 10000000)
 
