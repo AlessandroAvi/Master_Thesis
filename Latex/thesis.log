@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.11.13)  31 JAN 2022 17:46
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.11.13)  1 FEB 2022 10:45
 entering extended mode
 **./thesis.tex
 (thesis.tex
@@ -530,47 +530,66 @@ Chapter 3.
 ]
 Chapter 4.
 
-Underfull \hbox (badness 10000) in paragraph at lines 153--154
+LaTeX Warning: Reference `' on page 9 undefined on input line 164.
+
+
+LaTeX Warning: Reference `introduction' on page 9 undefined on input line 167.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 160--168
 
  []
 
 [9
 
-]
-<Figures/Chapter4/letters_motion.jpg, id=183, 308.352pt x 154.4169pt>
+] [10]
+<Figures/Chapter4/letters_motion.jpg, id=189, 308.352pt x 154.4169pt>
 File: Figures/Chapter4/letters_motion.jpg Graphic file (type jpg)
 <use Figures/Chapter4/letters_motion.jpg>
 Package pdftex.def Info: Figures/Chapter4/letters_motion.jpg  used on input lin
-e 165.
+e 171.
 (pdftex.def)             Requested size: 284.52756pt x 142.48936pt.
 
 
-LaTeX Warning: `!h' float specifier changed to `!ht'.
+LaTeX Warning: Reference `' on page 11 undefined on input line 176.
 
-[10] [11 <./Figures/Chapter4/letters_motion.jpg>]
+[11 <./Figures/Chapter4/letters_motion.jpg>]
+
+LaTeX Warning: Reference `]' on page 12 undefined on input line 184.
+
+[12] [13] [14]
 Chapter 5.
-[12
+[15
 
 ]
 Chapter 6.
 No file thesis.bbl.
-[13
+[16
 
 ] (thesis.aux)
 
 LaTeX Warning: There were undefined references.
 
-Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: 78F389A8D232DB3E77A12BC2809A0D37;2084.
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+
+Package rerunfilecheck Warning: File `thesis.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `thesis.out':
+(rerunfilecheck)             Before: 78F389A8D232DB3E77A12BC2809A0D37;2084
+(rerunfilecheck)             After:  88B26EE7A19C53BBBE8EBD8C1BCFADF6;2369.
  ) 
 Here is how much of TeX's memory you used:
- 11307 strings out of 478927
- 174782 string characters out of 2852534
+ 11314 strings out of 478927
+ 174833 string characters out of 2852534
  490287 words of memory out of 3000000
- 28961 multiletter control sequences out of 15000+600000
+ 28964 multiletter control sequences out of 15000+600000
  409043 words of font info for 46 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 62i,17n,75p,2467b,409s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 62i,17n,75p,1950b,409s stack positions out of 5000i,500n,10000p,200000b,80000s
 {C:/Users/massi/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/cm-super/cm-sup
 er-ts1.enc}<C:/Users/massi/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
 fonts/cm/cmbx12.pfb><C:/Users/massi/AppData/Local/Programs/MiKTeX/fonts/type1/p
@@ -580,9 +599,9 @@ iKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/massi/AppData/Local/Pr
 ograms/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/massi/AppData
 /Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/mass
 i/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on thesis.pdf (21 pages, 331371 bytes).
+Output written on thesis.pdf (24 pages, 339241 bytes).
 PDF statistics:
- 240 PDF objects out of 1000 (max. 8388607)
- 42 named destinations out of 1000 (max. 500000)
+ 254 PDF objects out of 1000 (max. 8388607)
+ 46 named destinations out of 1000 (max. 500000)
  138 words of extra memory for PDF output out of 10000 (max. 10000000)
 

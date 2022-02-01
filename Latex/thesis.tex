@@ -144,6 +144,10 @@ The type of strategies that better suits an application on MCU are for sure the 
 
 \chapter{Machine Learning}
 
+\section{Basic pipeline of the CL system developed}
+
+\section{Pruning and quantization}
+
 
 
 
@@ -155,19 +159,14 @@ In the next sections all the steps for the correct set up of the entire study ar
 
 \section{Dataset generation}
 
-In order to be able to create and train ML models it's necessary to have large quantities of data. In this study the two application explored are applied on two different types of data: time series of accelerometer data and images of hand written digits. \\
-The MNIST dataset is a large collection of hand written digits that is publicly available and well known in the academic and research world. It was created in 1998 as a combination of other two smaller databases. Today the dataset is composed of 2 groups of 60000 images for the training of ML models and 10000 images for the testing. The images are characterized by a gray scale and a size of $28 \times 28$ pixels. In today's research world this dataset is used a lot in ML trainings and is particularly useful for performing ewasy to reproduce trainings, tests, and studies.
-For the purpose of this study application the dataset is manipulated before use. Since the goal of the base model is to be able to correctly recognize the digits from 0 to 6 it's necessary to separate the dataset in $low\_digits$ and $high\_digits$. Once this is done two dataset are obtained, the $low\_digits$ dataset contains xxx samples while the $high\_digits$ dataset contain xxx samples. Another pre processing step is required for the Tensorflow training. The dataset has to be divided in training,test and validation groups, which in this case is the common 70-20-10 rule. \\
-For the accelerometer application the dataset had to be created from zero. To my knowledge there are no publicly available datasets of accelerometer data and in particular no dataset containing examples of hand written letters in the air. The decision that brought to this particular application was simply because of a academic example already seen in class during the lab session of the course of Embedded Systems. In that lab session the aim was the same as this application, classify letters by applying ML on accelerometer data. The collection of the dataset has been done with the hardware described in chapter \ref{}, which again is a Nucelo STM32 F401-RE equipped with a Nucelo shield IKS01A2 that mounts a 3D accelerometer sensor. 
-The dataset is composed of 8 different letters, which are A, E, I, O, U, B, R, M. The vowels are the classes that are learned by the base model while the 3 consonants are the letters that are added and learned by the CL system. During the collection of the dataset the MCU is connected to a laptop which has the role of power supplier and live data recorder. In order to collect the data the Nucelo has to mount a small script that exploits the usage of some GPIO, timers, interrupts and UART and I2C communication protocols. The idea is that by specifying the letter that is drawn and by pressing the blue button the SMT starts to catch data from the accelerometer with the I2C protocol while sending it to the laptop with UART protocol. The data sampling is done at a frequency of 100 Hz and the data stream lasts for 2 seconds, so a total of 200 samples. Note that a software for serial communication should run at the same time on the laptop. This is required in order to see in real time the data stream on the laptop and for storing the data somewhere. In this application the software of choice is MobaXTerm which is able to save the entire session communication in a txt file by using the UI. 
-Note that a single letter sample is composed of different information. The sample contains the label of the letter drawn, the number of sample saved in the current session and three arrays of 200 values each containing the time series data from the 3 axis of the accelerometer. The final dataset is composed of xxx samples and in particulat the vowels haven average count of xxx samples each while the consonants have an average count of xxx samples each. 
-Another important detail is directly connected to the type of context in which the model will be trained and tested. As mentioned in \ref{introduction} the scenarios in which a CL system can live are three, NIC, NC and NI. In order to make the example as close ass possible to real world scenario the dataset was collected keeping in mind a NIC context. This means that the ML model should be exposed to data containing new classes and new patterns of old classes. In order to simulate the new patters of old classes while generating the dataset it has been decided to accentuate some characteristichs of the motions used for the drwsing of the letters. For example an accentuation of the angles in the letter R, or the velocity at which the letter I is drawn, or the ovality of the letter O. Keep in min that all the letters were drawn with the same general motion as shown in Figure[\ref{fig:letters_motion}].
-
-% AGGIUNGERE POST PROCESSING
-% AGGIUNGERE GRAFICO CHE MOSTRA COME è DIVISO IL DATASET
-
-
-
+In order to be able to create and train ML models it is necessary to have large quantities of data. In this study the two application explored are applied on two different types of data: time series of accelerometer data and images of hand written digits. \\
+The MNIST dataset is a large collection of hand written digits that is publicly available and well known in the academic and research world. It was created in 1998 as a combination of other two smaller databases. Today the dataset is composed of 2 groups of 60000 images for training and 10000 images for testing. The images are gray scaled and have a size of $28 \times 28$ pixels. In today's research world this dataset is used a lot for ML trainings. Its popularity is thanks to its ease of use and its high quality of images which can bring easily to well trained models with high performances.\\
+For the purpose of this application the dataset requires some pre processing. Since the goal of the base model is to be able to correctly recognize the digits from 0 to 6 it's necessary to separate the dataset in $low\_digits$ and $high\_digits$. Once this is done two dataset are obtained, the $low\_digits$ dataset contains 36017 samples while the $high\_digits$ dataset contains 23983 samples. After this the separation of the dataset in train, test and validate portions is requested. It has been decided to use the common rule 70-20-10. 
+\bigskip
+For the accelerometer application the dataset had to be created from zero. To my knowledge there are no publicly available datasets of accelerometer data and in particular no dataset containing examples of hand written letters in the air. The decision that brought to this particular application was simply because of an academic example already seen in class during the lab session of the course of Embedded Systems. In that lab session the aim was the same as this application, classify letters from accelerometer data by applying ML on an MCU. The collection of the dataset has been done with the hardware described in chapter \ref{}, which again is a Nucelo STM32 F401-RE equipped with a Nucleo shield IKS01A2 that mounts a 3D accelerometer sensor. \\
+The dataset is composed of 8 different letters, which are A, E, I, O, U, B, R, M. The vowels are the classes that are learned by the base model while the 3 consonants are the letters that are added and learned by the CL system. During the collection of the dataset the MCU is connected via USB to a laptop which has the role of power supplier and live data recorder. In order to collect the data the Nucelo has to run a small script that exploits the usage of some GPIO, timers, interrupts, UART and I2C communication protocols. The idea is that by specifying the letter that is drawn and by pressing the blue button the STM starts to catch data from the accelerometer with the I2C protocol while sending it to the laptop with UART protocol. The data sampling is done at a frequency of 100 Hz and the data stream lasts for 2 seconds, so a total of 200 samples is recorded. Note that a software for serial communication should be used at the same time on the laptop. This is required in order to see in real time the data stream on the laptop and for storing the data somewhere. In this application the software of choice is MobaXTerm which is able to save the entire session communication in a txt file by using the UI. 
+Note that a single letter sample is composed of different information. The sample contains the label of the letter drawn, the number of sample saved in the current session and three arrays of 200 values each containing the time series data from the 3 axis of the accelerometer. The final dataset is composed of 5130 samples total, where each vowel counts to an average of xxx samples while the consonants have an average count of 760 samples each. \\
+Another important detail is directly connected to the type of context in which the model will be trained and tested. As mentioned in \ref{introduction} the scenarios in which a CL system can live are three, NIC, NC and NI. In order to make the example as close ass possible to real world scenario the dataset was collected keeping in mind a NIC context. This means that the ML model should be exposed to data containing new classes and new patterns of old classes. In order to simulate the new patters of old classes while generating the dataset it has been decided to accentuate some patterns of the hand drawing motion. For example an accentuation of the angles in the letter R, or the velocity at which the letter I is drawn, or the oval shape of the letter O. Keep in mind that all the letters were drawn with the same general motion as shown in Figure[\ref{fig:letters_motion}].\\
 
 \begin{figure}[h!]
     \centering
@@ -176,9 +175,76 @@ Another important detail is directly connected to the type of context in which t
     \label{fig:letters_motion}    
 \end{figure}
 
+Once the entire dataset is collected the post processing is performed. This consists in a simple reshaping of all samples. In order to perform a consistent training it has been decided to define the input shape of the model as a simple array. This means that each letter sample has to be reshaped from a matrix  $3 \times 200$ to an array $1 \times 600$. This is performed simply by stacking horizontally the rows of the sample of interest. After this the final separation of the dataset is done. Since the application requires the usage of the dataset in two different trainings it's necessary to create the setwo in the correct manner. The first portion of the dataset is called Frozen model dataset, the second portion is called OL dataset. The first one is used for the training of the frozen model performed on the laptop with Tensorflow and it contains only vowels, since these are the classes of interest for the base model. The second portion contains all the remaining samples of vowels and all the samples for the three consonants, this because the CL system want to teach to the model the new classes. These two dataset are then also separated in train-test-validation parts. The final composition of the dataset is showed in Figure[\ref{}].
+
+% AGGIUNGERE GRAFICO CHE MOSTRA COME è DIVISO IL DATASET
+
+\section{Training and evaluation}
+
+Once the data is ready to be used it's then possible to train the basic models. AS previously explained in both applications the models have to perform classification. This requires the ML models to elaborate the input data and then generate an output array where each cell contains the probability of one class to represent the data received. This is done simply by applying on the last layer a Softmax activation function, which is able to normalize all the output values and remap them to be contained in between 0 and 1 while maintaining their sum equal to 1. \\
+The trainings for the basic models are all performed on a laptop with Python code averaging the Tensorflow library. Thanks to these powerful tools the generation of models and their training is very fast and easy to do.  \bigskip
+The first application is the one concerning the analysis of accelerometer data. For this type fo task the model doesn't require to be very complex and it's always important to keep in mind the application on the MCU, where memory and computational power are limited. It has been decided to use a simple fully connected Neural Network (NN) with just 3 layers of changing size. The summary and plot of the model is shown in Figure[\ref]. 
+
+% INSERIRE GRAFICO SUMMARY DEL MODELLO + PLOT (USARE COLAB PERCHè SUL MIO PCP NON RIESCO A INSTALLARE IL PACCHETTO GIUSTO)
+
+The output prediction shape is of 5 classes since the classes to be predicted are just the 5 vowels.
+The model's structure is quite small and simple and the number of parameters used for the training and prediction is quite limited. This type of model is well suited for an application on the Nucleo board because of its limited size. \\
+The training parameters are: 
+\begin{itemize}
+	\item Optimizer:
+	\item Loss function:
+	\item Epochs:
+	\item Batch size: 
+	\item Test-train-validation split: 
+\end{itemize}
+
+The accuracy obtained from the testing of the model is of xxx. 
+
+% INSERIRE GRAFICO ANDAMENTO LOSS FUNCTION E ACCURACY - HISTORY DEL TRAINING
+
+The second application requires the training a model for the classification of images, for this case a CNN model is better suited. The CNN structure is characterized by convolutional layer, which are purposely designed to work images. The structure of the model is the following: 
+
+% INSERIRE GRAFICO SUMMARY DEL MODELLO + PLOT (USARE COLAB PERCHè SUL MIO PCP NON RIESCO A INSTALLARE IL PACCHETTO GIUSTO)
+
+The structure contains two subsequent blocks of 2 constitutional layers followed by Max Pooling. This type of structure allows the ML model to immediatly perform feature extraction on the image. After these two block the structure is composed of a flatten layer that changes the shape of the layer from a matrix of data to an array. At this point it's possible to use a fully connected NN that actually performs the elaboration of the data and classifies it with the last Softmax layer. \\
+The output prediction shape this time is of 6 classes, this beacus eth base model is required to recognize the MNIST digits 0,1,2,3,4,5. Note also how despite having a more complex structure the number of parameters in the model is not much hgher with respect to the previous application. This allows to have a small and fast model once deployed on the MCU. \\
+The training parameters are:
+\begin{itemize}
+	\item Optimizer:
+	\item Loss function:
+	\item Epochs:
+	\item Batch size: 
+	\item Test-train-validation split: 
+\end{itemize}
+
+The accuracy obtained from the testing of the model is of $99.35\%$.
+
+% INSERIRE GRAFICO ANDAMENTO LOSS FUNCTION E ACCURACY - HISTORY DEL TRAINING
+
+Another important step that has been performed for the application on the OpenMV camera is the pruning and quantization of the model. Usually in order to deploy big models or well performing state of the art models that are not originally created for MCU use it's necessary to apply some sort of compression of the model. The most common method for doing so is a combination of pruning and quantization. Pruning is a method that tries to reduce the amount of connections in a NN model simply by putting to 0 the redundant weights thus removing the unnecessary connections. This helps in reducing the memory occupied by the model and if done strategically it can reduce the amount of computations required for the inference. In fact by injecting forced sparsity in the weights and biases it's possible to improve the efficiency and reduce the amount of computations needed. \\
+For the OpenMV application a pruning operation is not actually required but it has been applied anyway in order to demonstrate the good performance of a compressed model and the potential of TinyML with complex models. Also for this operation the Tensorflow library has been used. The prunign has been set up with the following characteristics:  
+\begin{itemize}
+	\item Optimizer:
+	\item Loss function:
+	\item Epochs:
+	\item Batch size: 
+	\item Validation split: 
+	\item Initial sparsity: 
+	\item Final sparsity:
+\end{itemize}
+
+After the pruning the model is tested again and its accuracy stays very high with a value of $99.6\%$.\\
+After this step it's also possible to introduce the quantization operation. This is carried out almost automatically by Tensorflow simply by calling the correct functions. The sizes of the model at the different steps of the compression are: 
+
+% INSERRIE DIMENSIONSI FILE COMPRESSI DA PRUNING E QUANTIZATION
+
+
+
+% AGGIUNGERE IL FATTO CHE IL FROZNE MODEL SI CREA TAGLIANDO VIA L'ULTIMO LAYER
+
+
 \section{Implementation of the algorithms}
 
-\section{Trainin of the models}
 
 \section{Deployment on the MCU}
 
