@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.11.13)  1 FEB 2022 16:32
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.11.13)  3 FEB 2022 16:44
 entering extended mode
 **./thesis.tex
 (thesis.tex
@@ -440,49 +440,66 @@ LaTeX Info: Redefining \nameref on input line 36.
 \@outlinefile=\write4
 \openout4 = `thesis.out'.
 
-<Figures/frontespizio.pdf, id=63, 597.50829pt x 845.0471pt>
-File: Figures/frontespizio.pdf Graphic file (type pdf)
-<use Figures/frontespizio.pdf>
-Package pdftex.def Info: Figures/frontespizio.pdf  used on input line 41.
+
+
+pdfTeX warning: pdflatex (file ./Figures/frontespizio_firmato.pdf): PDF inclusi
+on: found PDF version <1.6>, but at most version <1.5> allowed
+<Figures/frontespizio_firmato.pdf, id=71, 597.50829pt x 845.0471pt>
+File: Figures/frontespizio_firmato.pdf Graphic file (type pdf)
+<use Figures/frontespizio_firmato.pdf>
+Package pdftex.def Info: Figures/frontespizio_firmato.pdf  used on input line 4
+1.
 (pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
-File: Figures/frontespizio.pdf Graphic file (type pdf)
-<use Figures/frontespizio.pdf>
-Package pdftex.def Info: Figures/frontespizio.pdf  used on input line 41.
+
+
+pdfTeX warning: pdflatex (file ./Figures/frontespizio_firmato.pdf): PDF inclusi
+on: found PDF version <1.6>, but at most version <1.5> allowed
+File: Figures/frontespizio_firmato.pdf Graphic file (type pdf)
+<use Figures/frontespizio_firmato.pdf>
+Package pdftex.def Info: Figures/frontespizio_firmato.pdf  used on input line 4
+1.
 (pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
-<Figures/frontespizio.pdf, id=66, page=1, 597.50829pt x 845.0471pt>
-File: Figures/frontespizio.pdf Graphic file (type pdf)
-<use Figures/frontespizio.pdf, page 1>
-Package pdftex.def Info: Figures/frontespizio.pdf , page1 used on input line 41
-.
+
+
+pdfTeX warning: pdflatex (file ./Figures/frontespizio_firmato.pdf): PDF inclusi
+on: found PDF version <1.6>, but at most version <1.5> allowed
+
+
+pdfTeX warning: pdflatex (file ./Figures/frontespizio_firmato.pdf): PDF inclusi
+on: found PDF version <1.6>, but at most version <1.5> allowed
+<Figures/frontespizio_firmato.pdf, id=74, page=1, 597.50829pt x 845.0471pt>
+File: Figures/frontespizio_firmato.pdf Graphic file (type pdf)
+<use Figures/frontespizio_firmato.pdf, page 1>
+Package pdftex.def Info: Figures/frontespizio_firmato.pdf , page1 used on input
+ line 41.
 (pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
-File: Figures/frontespizio.pdf Graphic file (type pdf)
-<use Figures/frontespizio.pdf, page 1>
-Package pdftex.def Info: Figures/frontespizio.pdf , page1 used on input line 41
-.
+File: Figures/frontespizio_firmato.pdf Graphic file (type pdf)
+<use Figures/frontespizio_firmato.pdf, page 1>
+Package pdftex.def Info: Figures/frontespizio_firmato.pdf , page1 used on input
+ line 41.
 (pdftex.def)             Requested size: 562.12285pt x 795.00201pt.
-File: Figures/frontespizio.pdf Graphic file (type pdf)
-<use Figures/frontespizio.pdf, page 1>
-Package pdftex.def Info: Figures/frontespizio.pdf , page1 used on input line 41
-.
+File: Figures/frontespizio_firmato.pdf Graphic file (type pdf)
+<use Figures/frontespizio_firmato.pdf, page 1>
+Package pdftex.def Info: Figures/frontespizio_firmato.pdf , page1 used on input
+ line 41.
 (pdftex.def)             Requested size: 562.12285pt x 795.00201pt.
-File: Figures/frontespizio.pdf Graphic file (type pdf)
-<use Figures/frontespizio.pdf, page 1>
-Package pdftex.def Info: Figures/frontespizio.pdf , page1 used on input line 41
-.
+File: Figures/frontespizio_firmato.pdf Graphic file (type pdf)
+<use Figures/frontespizio_firmato.pdf, page 1>
+Package pdftex.def Info: Figures/frontespizio_firmato.pdf , page1 used on input
+ line 41.
 (pdftex.def)             Requested size: 562.12285pt x 795.00201pt.
-File: Figures/frontespizio.pdf Graphic file (type pdf)
-<use Figures/frontespizio.pdf, page 1>
-Package pdftex.def Info: Figures/frontespizio.pdf , page1 used on input line 46
-.
+File: Figures/frontespizio_firmato.pdf Graphic file (type pdf)
+<use Figures/frontespizio_firmato.pdf, page 1>
+Package pdftex.def Info: Figures/frontespizio_firmato.pdf , page1 used on input
+ line 46.
 (pdftex.def)             Requested size: 562.12285pt x 795.00201pt.
- [1 <./Figures/frontespizio.pdf{C:/Users/massi/AppData/Local/MiKTeX/pdftex/conf
-ig/pdftex.map}>] [2
+[1 <./Figures/frontespizio_firmato.pdf{C:/Users/massi/AppData/Local/MiKTeX/pdft
+ex/config/pdftex.map}>] [2
 
 
 ] [3] [4
 
-]
-(thesis.toc)
+] (thesis.toc)
 \tf@toc=\write5
 \openout5 = `thesis.toc'.
 
@@ -492,7 +509,8 @@ ig/pdftex.map}>] [2
 
  [6
 
-] (thesis.lot)
+]
+(thesis.lot)
 \tf@lot=\write7
 \openout7 = `thesis.lot'.
 
@@ -527,78 +545,87 @@ Chapter 2.
 Chapter 3.
 [8
 
-]
-Chapter 4.
-
-LaTeX Warning: Reference `' on page 9 undefined on input line 166.
-
-
-LaTeX Warning: Reference `introduction' on page 9 undefined on input line 169.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 162--170
+] [9]
+Underfull \hbox (badness 10000) in paragraph at lines 186--187
 
  []
 
-[9
 
-] [10]
-<Figures/Chapter4/letters_motion.jpg, id=194, 308.352pt x 154.4169pt>
+Overfull \hbox (18.35928pt too wide) in paragraph at lines 190--192
+\OT1/cmr/m/n/12 data. The OL train-ing is then ap-plied on the weights of the s
+oft-max/classification
+ []
+
+[10] [11] [12]
+Chapter 4.
+
+LaTeX Warning: Reference `' on page 13 undefined on input line 246.
+
+
+LaTeX Warning: Reference `introduction' on page 13 undefined on input line 249.
+
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 242--250
+
+ []
+
+[13
+
+] [14]
+<Figures/Chapter4/letters_motion.jpg, id=240, 308.352pt x 154.4169pt>
 File: Figures/Chapter4/letters_motion.jpg Graphic file (type jpg)
 <use Figures/Chapter4/letters_motion.jpg>
 Package pdftex.def Info: Figures/Chapter4/letters_motion.jpg  used on input lin
-e 173.
+e 253.
 (pdftex.def)             Requested size: 284.52756pt x 142.48936pt.
 
 
-LaTeX Warning: Reference `' on page 11 undefined on input line 178.
+LaTeX Warning: Reference `' on page 15 undefined on input line 258.
 
-[11 <./Figures/Chapter4/letters_motion.jpg>]
+[15 <./Figures/Chapter4/letters_motion.jpg>]
 
-LaTeX Warning: Reference `]' on page 12 undefined on input line 186.
+LaTeX Warning: Reference `]' on page 16 undefined on input line 266.
 
-[12] [13] [14] [15]
+[16] [17] [18] [19] [20] [21] [22]
 Chapter 5.
-[16
+[23
 
 ]
 Chapter 6.
 No file thesis.bbl.
-[17
+[24
 
 ] (thesis.aux)
 
 LaTeX Warning: There were undefined references.
 
-
-Package rerunfilecheck Warning: File `thesis.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `thesis.out':
-(rerunfilecheck)             Before: 88B26EE7A19C53BBBE8EBD8C1BCFADF6;2369
-(rerunfilecheck)             After:  C332F3A461F9EBCB471E4D2AAAA7FA94;2550.
+Package rerunfilecheck Info: File `thesis.out' has not changed.
+(rerunfilecheck)             Checksum: D60FA8BE40DA342C4C9A59E47E7A7037;2870.
  ) 
 Here is how much of TeX's memory you used:
- 11317 strings out of 478927
- 174864 string characters out of 2852534
- 490287 words of memory out of 3000000
- 28965 multiletter control sequences out of 15000+600000
+ 11336 strings out of 478927
+ 175163 string characters out of 2852534
+ 491288 words of memory out of 3000000
+ 28967 multiletter control sequences out of 15000+600000
  409043 words of font info for 46 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  62i,17n,75p,1950b,409s stack positions out of 5000i,500n,10000p,200000b,80000s
 {C:/Users/massi/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/cm-super/cm-sup
 er-ts1.enc}<C:/Users/massi/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
 fonts/cm/cmbx12.pfb><C:/Users/massi/AppData/Local/Programs/MiKTeX/fonts/type1/p
-ublic/amsfonts/cm/cmcsc10.pfb><C:/Users/massi/AppData/Local/Programs/MiKTeX/fon
-ts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/massi/AppData/Local/Programs/M
-iKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/massi/AppData/Local/Pr
-ograms/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/massi/AppData
-/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/mass
-i/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on thesis.pdf (25 pages, 343214 bytes).
+ublic/amsfonts/cm/cmex10.pfb><C:/Users/massi/AppData/Local/Programs/MiKTeX/font
+s/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/massi/AppData/Local/Programs/Mi
+KTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/massi/AppData/Local/Pro
+grams/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/massi/AppData/L
+ocal/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/massi/
+AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Use
+rs/massi/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt12.pf
+b><C:/Users/massi/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfr
+m1200.pfb>
+Output written on thesis.pdf (32 pages, 331282 bytes).
 PDF statistics:
- 264 PDF objects out of 1000 (max. 8388607)
- 48 named destinations out of 1000 (max. 500000)
- 146 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 332 PDF objects out of 1000 (max. 8388607)
+ 65 named destinations out of 1000 (max. 500000)
+ 162 words of extra memory for PDF output out of 10000 (max. 10000000)
 
