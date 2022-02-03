@@ -143,8 +143,19 @@ The type of strategies that better suits an application on MCU are for sure the 
 
 
 \chapter{Machine Learning}
+% introduzione la machine learning
+% spiegare il funzionamento base, nodi, activation function, layers, 
+% CNN, NN fully connected, a cosa servono, quali sono gli obbiettivi specifici
+% back propagation, sgd, l rate, batch size
+% pruning, quantization
+
+Machine learning is a branch of artificial intelligence (AI) and computer science that focuses on the usage of algorithms and huge quantities of data to generate models that are able to perform regression of grey mox models. 
 
 \section{Basic pipeline of the CL system developed}
+% spiegare idea di base del CL in questo caso, training fatto in real time
+% spiegare come si ottiene la back propagation, far vedere formule, applicate a softmax
+% spiegare il sistema fatto a frozen model + OL layer
+% spiegare nel dettaglio i metodi implementati + grafici a blocchi che mostrano come va
 
 \section{Pruning and quantization}
 
@@ -157,7 +168,7 @@ The type of strategies that better suits an application on MCU are for sure the 
 In this chapter the practical aspects of the experiments are explained. Initially the study has been developed entirely on the laptop with Python code with the aim of understanding the theoretical behaviour of the method and the capabilities of CL. Later the same principle and basic pipeline of the framework has been ported to the SMT Nucleo application and to the OpenMV cam. In all applications the idea is to initially train the base model for the recognition of the first few classes. The training is done with Tensorflow and Keras on the laptop and later the model is loaded on the MCU of interest. The CL system which is composed of the OL layer and all the necessary is then attached to work on the output of the frozen model. The idea is to apply different strategies of training only on the last layer in order to be able to perform augmented classifications.  \\
 In the next sections all the steps for the correct set up of the entire study are well explained. Starting from the creation and collection of the dataset, then going to the training of the frozen model, implementation of the CL system on the MCUs and finally the actual implementation of the CL system on the devices. 
 
-\section{Dataset generation}
+\section{Dataset collection}
 
 In order to be able to create and train ML models it is necessary to have large quantities of data. In this study the two application explored are applied on two different types of data: time series of accelerometer data and images of hand written digits. \\
 The MNIST dataset is a large collection of hand written digits that is publicly available and well known in the academic and research world. It was created in 1998 as a combination of other two smaller databases. Today the dataset is composed of 2 groups of 60000 images for training and 10000 images for testing. The images are gray scaled and have a size of $28 \times 28$ pixels. In today's research world this dataset is used a lot for ML trainings. Its popularity is thanks to its ease of use and its high quality of images which can bring easily to well trained models with high performances.\\
@@ -179,7 +190,7 @@ Once the entire dataset is collected the post processing is performed. This cons
 
 % AGGIUNGERE GRAFICO CHE MOSTRA COME è DIVISO IL DATASET
 
-\section{Training and evaluation}
+\section{Frozen model training and evaluation}
 
 Once the data is ready to be used it's then possible to train the basic models. AS previously explained in both applications the models have to perform classification. This requires the ML models to elaborate the input data and then generate an output array where each cell contains the probability of one class to represent the data received. This is done simply by applying on the last layer a Softmax activation function, which is able to normalize all the output values and remap them to be contained in between 0 and 1 while maintaining their sum equal to 1. \\
 The trainings for the basic models are all performed on a laptop with Python code averaging the Tensorflow library. Thanks to these powerful tools the generation of models and their training is very fast and easy to do.  \bigskip
@@ -238,15 +249,25 @@ After this step it's also possible to introduce the quantization operation. This
 
 % INSERRIE DIMENSIONSI FILE COMPRESSI DA PRUNING E QUANTIZATION
 
-
-
-% AGGIUNGERE IL FATTO CHE IL FROZNE MODEL SI CREA TAGLIANDO VIA L'ULTIMO LAYER
-
+The last step required for the correct usage of the base model is the creation of its frozen version. As explained in section x the OL system relies on the usage of the base model as a frozen model, where its weights are not modified. In order to correctly connect to the frozen model the OL system it is necessary to remove the last layer from the frozen model and transmform it into a editable matrix od values. This can be performed easily and the final version of the frozen model is then saved as a model.h file. Then all the weights and biases of the last layer are saved in a txt file whihc will be used at deploy time from teh MCU as a start point for the CL training.  
 
 \section{Implementation of the algorithms}
+% spiegare come funziona il codice sui MCU, step principali
+% spiegare l'uso degli script sul pc in real time per il training
 
 
-\section{Deployment on the MCU}
+
+\section{Deployment and experiment on the MCU}
+In this section the process required to load all the code and models on the MCU and how to perform the experimentations are explained. At this point in the study the small framework and the models have already been created and prepared for a correct usage on the devices and just small steps are required in order to correctly use them for the applications. \bigskip
+In the first experiment, the recognition of letters drawn in the air, the exeriment is carried out on a Nucleo STM32 F401RE. In order to deploy the frozen model on this device the already mentioned tool provided by STM, X-CUBE-AI, can be easily employed. The tool requires only the specification of basic parameters like the definition of the model to be loaded, the compression rateo desired and some additional info regarding validation. For this case no validation is used and no compression is applied. Once the model has been slected it is quickly checked by the tool which will display on screen informations regardin the feasibility of the usage of such model on the desired MCU board. Once this is done the model is loaded in the board and inference can now be performed quite easily by leveraging all the efficient functions provided by the extension pack of STM. \\
+At this point the experiment can be carried out. Instead of having a very long and tedious training performed by a user that keeps recording acclelerometers motion with the MCU in his had it has been decided to feed to the device the data from the computer. In order to do so a small app runnin on Python has been developed. The app exploits the usage of pyserial, a library used for serial communication (UART protocol) via USB cable and it's able to stay in sync with the device and continuosly send and recieve information. 
+The script is divided in x small sections: initially it loads all the arrays of accelerometer data that has been previously saved in a txt file, then it prepares the serial port for the communication by setting the correct parameters, then it initializes some data containers used for saving the performance of the model in real time, then an infinite while loop starts where the actual communication between the devices is performed, here a sort of state machine is used for performing training or testing. 
+The communication is quite easy, when the pythn script is launched an infinite loop starts, here the script wait for an acknoledgment from the device that will let it know that the training is starting. Once the signal is received the laptop will send the data packets used for the training. The data packets are just a string of 600 values that reppresent eh accelerometer data of the three axis and a char value that reppresents the grounf truth label. The training step is then performed on the MCU and once finished another ACK signal is sent to the laptop. At this point the communication repeats. 
+The trainings continues until the device reaches the testing section. Here the communication changes a little, in fact at the end of each training
+As already mentioned the testing portion of the OL starts when the 80\% of the dataset is reached, this means that from this point on the MCU w
+
+In order to have a MCU that is able to performa  training in a reasonabbly short amount oftime it has been decided to develop a computer app that feeds to the MCU a continuous stream of data. The STM then takes
+
 
 
 

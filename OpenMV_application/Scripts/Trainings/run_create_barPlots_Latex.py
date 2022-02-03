@@ -11,6 +11,18 @@ import matplotlib.image as mpimg
 
 
 
+
+bar_width = 0.35
+title_size = 30
+label_size = 30
+txt_size = 25
+legend_size = 28
+
+plot_x_dim = 22
+plot_y_dim =  10
+
+
+
 ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, ROOT_PATH + '/lib')
 TXT_PATH = ROOT_PATH + '\\OpenMV_results\\Results_Model_v2\\Results_backup\\'
@@ -156,12 +168,7 @@ def create_plot(method1, method2, group):
 
 
     # Create bar plot -----
-    fig = plt.subplots(figsize =(18, 8))
-
-    bar_width  = 0.35
-    title_size = 30
-    label_size = 30
-    txt_size   = 16
+    fig = plt.subplots(figsize =(plot_x_dim, plot_y_dim))
 
     X_axis = np.arange(len(method1.label))
 
@@ -188,7 +195,7 @@ def create_plot(method1, method2, group):
     # Add text to each bar showing the percent - method 1
     for p in bar_plot_1:
         height = 107
-        xy_pos = (p.get_x() + p.get_width() / 2 +0.05, text_height[i]+11)
+        xy_pos = (p.get_x() + p.get_width() / 2 +0.05, text_height[i]+12)
         i+=1
         # Write the text
         plt.annotate(str(p.get_height()), xy=xy_pos, xytext=(0, 3), textcoords="offset points", ha='center', va='bottom', fontsize=txt_size, color=blue1, fontweight ='bold')
@@ -206,9 +213,11 @@ def create_plot(method1, method2, group):
     # Actually plot everything
     plt.ylim([0, 119])
     plt.ylabel('Accuracy %', fontsize = label_size)
+    plt.yticks(fontsize = label_size)
+    plt.xlabel('Classes', fontsize = label_size)
     plt.xticks([r for r in range(len(method1.label))], method1.label, fontsize = label_size) # Write on x axis the letter name
     #plt.title('Final accuracy for each class', fontweight ='bold', fontsize = title_size)
-    plt.legend(loc='center right', prop={'size': 15})
+    plt.legend(loc='center right', prop={'size': legend_size})
     plt.savefig(SAVE_PLOT_PATH + save_name + '.png')
     plt.show()
 
@@ -235,12 +244,7 @@ def create_plot_V2(method1):
 
 
     # Create bar plot
-    fig = plt.subplots(figsize =(18, 8))
-
-    bar_width = 0.35
-    title_size = 30
-    label_size = 30
-    txt_size = 16
+    fig = plt.subplots(figsize =(plot_x_dim, plot_y_dim))
 
     X_axis = np.arange(len(method1.label))
 
@@ -262,7 +266,7 @@ def create_plot_V2(method1):
     # Add text to each bar showing the percent - method 1
     for p in bar_plot_1:
         height = 107
-        xy_pos = (p.get_x() + p.get_width() / 2 +0.05, text_height[i]+11)
+        xy_pos = (p.get_x() + p.get_width() / 2 +0.05, height)
         i+=1
         # Write the text
         plt.annotate(str(p.get_height()), xy=xy_pos, xytext=(0, 3), textcoords="offset points", ha='center', va='bottom', fontsize=txt_size, color=blue1, fontweight ='bold')
@@ -272,15 +276,17 @@ def create_plot_V2(method1):
     # Actually plot everything
     plt.ylim([0, 119])
     plt.ylabel('Accuracy %', fontsize = label_size)
+    plt.yticks(fontsize = label_size)
     plt.xticks([r for r in range(len(method1.label))], method1.label, fontsize = label_size) # Write on x axis the letter name
-    plt.legend(loc='center right', prop={'size': 15})
+    plt.xlabel('Classes', fontsize = label_size)
+    plt.legend(loc='center right', prop={'size': legend_size})
     plt.savefig(SAVE_PLOT_PATH + 'result4.png')
     plt.show()
 
 
 def stick_plots_together():
     # -------- CREATE FINAL PLOT
-    fig = plt.figure(figsize=(6,15)) # width, height
+    fig = plt.figure(figsize=(7,15)) # width, height
 
     Image1 = mpimg.imread(SAVE_PLOT_PATH + 'result1.png')
     Image2 = mpimg.imread(SAVE_PLOT_PATH + 'result2.png')

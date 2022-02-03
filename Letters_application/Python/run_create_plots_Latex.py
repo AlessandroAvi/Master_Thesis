@@ -10,6 +10,15 @@ import matplotlib.image as mpimg
 
 
 
+bar_width = 0.35
+title_size = 30
+label_size = 30
+txt_size = 28
+legend_size = 28
+
+plot_x_dim = 22
+plot_y_dim =  10
+
 
 ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, ROOT_PATH + '/lib')
@@ -87,7 +96,22 @@ for k in range(0,7):
 # --- CREATE BAR PLOT
 
 
-def create_plot(method1, method2):
+def create_plot(method1, method2, group):
+
+    if(group==1):
+        label_1 = 'OL'
+        label_2 = 'OL batches'
+        save_name = 'result1'
+
+    elif(group==2):
+        label_1 = 'OL V2'
+        label_2 = 'OL V2 batches'
+        save_name = 'result2'
+
+    elif(group==3):
+        label_1 = 'LWF'
+        label_2 = 'LWF batches'
+        save_name = 'result3'
 
     # Define colors of bars
     blue1 = 'cornflowerblue'
@@ -120,17 +144,12 @@ def create_plot(method1, method2):
 
 
     # Create bar plot
-    fig = plt.subplots(figsize =(18, 8))
-
-    bar_width = 0.35
-    title_size = 30
-    label_size = 30
-    txt_size = 16
+    fig = plt.subplots(figsize =(plot_x_dim, plot_y_dim))
 
     X_axis = np.arange(len(method1.label))
 
-    bar_plot_1 = plt.bar(X_axis - bar_width/2, bar_values_1, 0.3, label = 'LWF',   color=colors_1)
-    bar_plot_2 = plt.bar(X_axis + bar_width/2, bar_values_2, 0.3, label = 'LWF batches', color=colors_2)
+    bar_plot_1 = plt.bar(X_axis - bar_width/2, bar_values_1, 0.3, label = label_1, color=colors_1)
+    bar_plot_2 = plt.bar(X_axis + bar_width/2, bar_values_2, 0.3, label = label_2, color=colors_2)
 
     plt.axhline(y = 100, color = 'gray', linestyle = (0, (5, 10)) )
 
@@ -153,7 +172,7 @@ def create_plot(method1, method2):
     # Add text to each bar showing the percent - method 1
     for p in bar_plot_1:
         height = 107
-        xy_pos = (p.get_x() + p.get_width() / 2 +0.05, text_height[i]+11)
+        xy_pos = (p.get_x() + p.get_width() / 2 +0.05, text_height[i]+12)
         i+=1
         # Write the text
         plt.annotate(str(p.get_height()), xy=xy_pos, xytext=(0, 3), textcoords="offset points", ha='center', va='bottom', fontsize=txt_size, color=blue1, fontweight ='bold')
@@ -171,10 +190,11 @@ def create_plot(method1, method2):
     # Actually plot everything
     plt.ylim([0, 119])
     plt.ylabel('Accuracy %', fontsize = label_size)
+    plt.yticks(fontsize = label_size)
+    plt.xlabel('Classes', fontsize = label_size)
     plt.xticks([r for r in range(len(method1.label))], method1.label, fontsize = label_size) # Write on x axis the letter name
-    #plt.title('Final accuracy for each class', fontweight ='bold', fontsize = title_size)
-    plt.legend(prop={'size': 15})
-    plt.savefig(SAVE_PLOT_PATH + 'result3.png')
+    plt.legend(loc='center right', prop={'size': legend_size})
+    plt.savefig(SAVE_PLOT_PATH + save_name + '.png')
     plt.show()
 
 
@@ -200,12 +220,7 @@ def create_plot_V2(method1):
 
 
     # Create bar plot
-    fig = plt.subplots(figsize =(18, 8))
-
-    bar_width = 0.35
-    title_size = 30
-    label_size = 30
-    txt_size = 16
+    fig = plt.subplots(figsize =(plot_x_dim, plot_y_dim))
 
     X_axis = np.arange(len(method1.label))
 
@@ -227,7 +242,7 @@ def create_plot_V2(method1):
     # Add text to each bar showing the percent - method 1
     for p in bar_plot_1:
         height = 107
-        xy_pos = (p.get_x() + p.get_width() / 2 +0.05, text_height[i]+11)
+        xy_pos = (p.get_x() + p.get_width() / 2 +0.05, height)
         i+=1
         # Write the text
         plt.annotate(str(p.get_height()), xy=xy_pos, xytext=(0, 3), textcoords="offset points", ha='center', va='bottom', fontsize=txt_size, color=blue1, fontweight ='bold')
@@ -237,8 +252,10 @@ def create_plot_V2(method1):
     # Actually plot everything
     plt.ylim([0, 119])
     plt.ylabel('Accuracy %', fontsize = label_size)
+    plt.yticks(fontsize = label_size)
+    plt.xlabel('Classes', fontsize = label_size)
     plt.xticks([r for r in range(len(method1.label))], method1.label, fontsize = label_size) # Write on x axis the letter name
-    plt.legend(prop={'size': 15})
+    plt.legend(loc='center right', prop={'size': legend_size})
     plt.savefig(SAVE_PLOT_PATH + 'result4.png')
     plt.show()
 
@@ -284,10 +301,10 @@ def stick_plots_together():
 
 
 
-#create_plot(OL_data, OLb_data)
-#create_plot(OLV2_data, OLV2b_data)
-#create_plot(LWF_data, LWFb_data)
-#create_plot_V2(CWR_data)
+create_plot(OL_data, OLb_data, 1)
+create_plot(OLV2_data, OLV2b_data, 2)
+create_plot(LWF_data, LWFb_data, 3)
+create_plot_V2(CWR_data)
 
 stick_plots_together()
 

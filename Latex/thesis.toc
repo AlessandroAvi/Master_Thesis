@@ -6,10 +6,11 @@
 \contentsline {chapter}{\numberline {2}Hardware}{7}{chapter.2}%
 \contentsline {chapter}{\numberline {3}Machine Learning}{8}{chapter.3}%
 \contentsline {section}{\numberline {3.1}Basic pipeline of the CL system developed}{8}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Pruning and quantization}{8}{section.3.2}%
 \contentsline {chapter}{\numberline {4}Experimental set up}{9}{chapter.4}%
 \contentsline {section}{\numberline {4.1}Dataset generation}{9}{section.4.1}%
 \contentsline {section}{\numberline {4.2}Training and evaluation}{12}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Implementation of the algorithms}{14}{section.4.3}%
-\contentsline {section}{\numberline {4.4}Deployment on the MCU}{14}{section.4.4}%
-\contentsline {chapter}{\numberline {5}Experimental results}{15}{chapter.5}%
-\contentsline {chapter}{\numberline {6}Conclusion}{16}{chapter.6}%
+\contentsline {section}{\numberline {4.3}Implementation of the algorithms}{15}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Deployment on the MCU}{15}{section.4.4}%
+\contentsline {chapter}{\numberline {5}Experimental results}{16}{chapter.5}%
+\contentsline {chapter}{\numberline {6}Conclusion}{17}{chapter.6}%
