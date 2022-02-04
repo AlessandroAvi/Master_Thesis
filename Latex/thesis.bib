@@ -1,4 +1,144 @@
-% CATASTROPHIC FORGETTING 
+
+
+
+
+
+% paper che introduce algoritmo EWC
+@article{kirkpatrick2017overcoming,
+  title={Overcoming catastrophic forgetting in neural networks},
+  author={Kirkpatrick, James and Pascanu, Razvan and Rabinowitz, Neil and Veness, Joel and Desjardins, Guillaume and Rusu, Andrei A and Milan, Kieran and Quan, John and Ramalho, Tiago and Grabska-Barwinska, Agnieszka and others},
+  journal={Proceedings of the national academy of sciences},
+  volume={114},
+  number={13},
+  pages={3521--3526},
+  year={2017},
+  publisher={National Acad Sciences}
+}
+
+
+% paper che introduce algoritmo LWF
+@article{li2017learning,
+  title={Learning without forgetting},
+  author={Li, Zhizhong and Hoiem, Derek},
+  journal={IEEE transactions on pattern analysis and machine intelligence},
+  volume={40},
+  number={12},
+  pages={2935--2947},
+  year={2017},
+  publisher={IEEE}
+}
+
+
+% paper che introduce algoritmo SI
+@inproceedings{zenke2017continual,
+  title={Continual learning through synaptic intelligence},
+  author={Zenke, Friedemann and Poole, Ben and Ganguli, Surya},
+  booktitle={International Conference on Machine Learning},
+  pages={3987--3995},
+  year={2017},
+  organization={PMLR}
+}
+
+
+% paper che introduce algoritmo CWR 
+@inproceedings{lomonaco2017core50,
+  title={Core50: a new dataset and benchmark for continuous object recognition},
+  author={Lomonaco, Vincenzo and Maltoni, Davide},
+  booktitle={Conference on Robot Learning},
+  pages={17--26},
+  year={2017},
+  organization={PMLR}
+}
+
+
+% paper che introduce algoritmo AR1 e CWR+ 
+@article{maltoni2019continuous,
+  title={Continuous learning in single-incremental-task scenarios},
+  author={Maltoni, Davide and Lomonaco, Vincenzo},
+  journal={Neural Networks},
+  volume={116},
+  pages={56--73},
+  year={2019},
+  publisher={Elsevier}
+}
+
+
+% paper che introduce algoritmo TinyOL 
+@article{ren2021tinyol,
+  title={TinyOL: TinyML with Online-Learning on Microcontrollers},
+  author={Ren, Haoyu and Anicic, Darko and Runkler, Thomas},
+  journal={arXiv preprint arXiv:2103.08295},
+  year={2021}
+}
+
+
+% RECENTE - paper che introduce algoritmo train++ 
+@inproceedings{sudharsan2021train++,
+  title={Train++: An incremental ml model training algorithm to create self-learning iot devices},
+  author={Sudharsan, Bharath and Yadav, Piyush and Breslin, John G and Ali, Muhammad Intizar},
+  booktitle={2021 IEEE SmartWorld, Ubiquitous Intelligence \& Computing, Advanced \& Trusted Computing, Scalable Computing \& Communications, Internet of People and Smart City Innovation (SmartWorld/SCALCOM/UIC/ATC/IOP/SCI)},
+  pages={97--106},
+  year={2021},
+  organization={IEEE}
+}
+
+
+% applicazione di TinyOL per monitorare vibrazioni macchinario - stessi autori di TinyOL 
+@article{ren2021synergy,
+  title={The synergy of complex event processing and tiny machine learning in industrial IoT},
+  author={Ren, Haoyu and Anicic, Darko and Runkler, Thomas},
+  journal={arXiv preprint arXiv:2105.03371},
+  year={2021}
+}
+
+
+% applicazione di CL per monitorazione di vibrazioni su pompa centrifuga 
+@inproceedings{mostafavi2021novel,
+  title={A Novel Online Machine Learning Approach for Real-Time Condition Monitoring of Rotating Machines},
+  author={Mostafavi, Alireza and Sadighi, Ali},
+  booktitle={2021 9th RSI International Conference on Robotics and Mechatronics (ICRoM)},
+  pages={267--273},
+  year={2021},
+  organization={IEEE}
+}
+
+
+% summary ricco di informazioni, overview sul CL, si concentra poi sulle applicazioni su robot 
+@article{lesort2020continual,
+  title={Continual learning for robotics: Definition, framework, learning strategies, opportunities and challenges},
+  author={Lesort, Timoth{\'e}e and Lomonaco, Vincenzo and Stoian, Andrei and Maltoni, Davide and Filliat, David and D{\'\i}az-Rodr{\'\i}guez, Natalia},
+  journal={Information fusion},
+  volume={58},
+  pages={52--68},
+  year={2020},
+  publisher={Elsevier}
+}
+
+
+% altra summary che parla molto di più di TinyML piuttosto che CL 
+@article{ray2021review,
+  title={A review on TinyML: State-of-the-art and prospects},
+  author={Ray, Partha Pratim},
+  journal={Journal of King Saud University-Computer and Information Sciences},
+  year={2021},
+  publisher={Elsevier}
+}
+
+
+% MNIST database 
+@article{deng2012mnist,
+  title={The mnist database of handwritten digit images for machine learning research [best of the web]},
+  author={Deng, Li},
+  journal={IEEE Signal Processing Magazine},
+  volume={29},
+  number={6},
+  pages={141--142},
+  year={2012},
+  publisher={IEEE}
+}
+
+
+% paper vecchio (1999), credo sia il primo che parla di catastrophic forgetting 
 @article{french1999catastrophic,
   title={Catastrophic forgetting in connectionist networks},
   author={French, Robert M},
@@ -11,28 +151,156 @@
 }
 
 
+% paper che propone metodo per fare OL training su datasaet UNBALANCED - punto di vista diverso da solito training, utile 
+@inproceedings{sudharsan2021imbal,
+  title={Imbal-OL: Online Machine Learning from Imbalanced Data Streams in Real-world IoT},
+  author={Sudharsan, Bharath and Breslin, John G and Ali, Muhammad Intizar},
+  booktitle={2021 IEEE International Conference on Big Data (Big Data)},
+  pages={4974--4978},
+  year={2021},
+  organization={IEEE}
+}
 
 
+% MCU NET - metodo per ridurre la dimensione del modello e ottimizzare inference e deplyment 
+@article{lin2020mcunet,
+  title={Mcunet: Tiny deep learning on iot devices},
+  author={Lin, Ji and Chen, Wei-Ming and Lin, Yujun and Cohn, John and Gan, Chuang and Han, Song},
+  journal={arXiv preprint arXiv:2007.10319},
+  year={2020}
+}
 
-% MEGA SUMMARY DEL CONTINUAL LEARNING ON ROBOTS
-@article{lesort2020continual,
-  title={Continual learning for robotics: Definition, framework, learning strategies, opportunities and challenges},
-  author={Lesort, Timoth{\'e}e and Lomonaco, Vincenzo and Stoian, Andrei and Maltoni, Davide and Filliat, David and D{\'\i}az-Rodr{\'\i}guez, Natalia},
-  journal={Information fusion},
-  volume={58},
-  pages={52--68},
+
+% TINY TL - metodo per ottimizzare l'uso della memoria durante CL 
+@article{cai2020tinytl,
+  title={Tinytl: Reduce memory, not parameters for efficient on-device learning},
+  author={Cai, Han and Gan, Chuang and Zhu, Ligeng and Han, Song},
+  journal={arXiv preprint arXiv:2007.11622},
+  year={2020}
+}
+
+
+% progress & compress - framework per ottimizzare il CL dal punto di vista della memoria 
+@inproceedings{schwarz2018progress,
+  title={Progress \& compress: A scalable framework for continual learning},
+  author={Schwarz, Jonathan and Czarnecki, Wojciech and Luketina, Jelena and Grabska-Barwinska, Agnieszka and Teh, Yee Whye and Pascanu, Razvan and Hadsell, Raia},
+  booktitle={International Conference on Machine Learning},
+  pages={4528--4537},
+  year={2018},
+  organization={PMLR}
+}
+
+
+% deep compression with pruning 
+@article{han2015deep,
+  title={Deep compression: Compressing deep neural networks with pruning, trained quantization and huffman coding},
+  author={Han, Song and Mao, Huizi and Dally, William J},
+  journal={arXiv preprint arXiv:1510.00149},
+  year={2015}
+}
+
+
+% training applicato in modo federated, diverso dal solito CL - altro metodo per fare edge training 
+@inproceedings{grau2021device,
+  title={On-Device Training of Machine Learning Models on Microcontrollers With a Look at Federated Learning},
+  author={Grau, Marc Monfort and Centelles, Roger Pueyo and Freitag, Felix},
+  booktitle={Proceedings of the Conference on Information Technology for Social Good},
+  pages={198--203},
+  year={2021}
+}
+
+
+% SRma OPTIMIZED APROOACH FOR CL 
+@inproceedings{sudharsan2021sram,
+  title={An sram optimized approach for constant memory consumption and ultra-fast execution of ml classifiers on tinyml hardware},
+  author={Sudharsan, Bharath and Yadav, Piyush and Breslin, John G and Ali, Muhammad Intizar},
+  booktitle={2021 IEEE International Conference on Services Computing (SCC)},
+  pages={319--328},
+  year={2021},
+  organization={IEEE}
+}
+
+
+% incremental on device learning - inroduce metodo per CL basato su k nearest neighbor 
+@inproceedings{disabato2020incremental,
+  title={Incremental on-device tiny machine learning},
+  author={Disabato, Simone and Roveri, Manuel},
+  booktitle={Proceedings of the 2nd International Workshop on Challenges in Artificial Intelligence and Machine Learning for Internet of Things},
+  pages={7--13},
+  year={2020}
+}
+
+
+% a sort of CL applied on CNN with memories 
+@article{park2020convolutional,
+  title={Convolutional neural network with developmental memory for continual learning},
+  author={Park, Gyeong-Moon and Yoo, Sahng-Min and Kim, Jong-Hwan},
+  journal={IEEE Transactions on Neural Networks and Learning Systems},
   year={2020},
-  publisher={Elsevier}
+  publisher={IEEE}
 }
 
 
-% PAPER DI BOLOGNA CHE RIASSUME E APPLICA I METODI
-@article{maltoni2019continuous,
-  title={Continuous learning in single-incremental-task scenarios},
-  author={Maltoni, Davide and Lomonaco, Vincenzo},
-  journal={Neural Networks},
-  volume={116},
-  pages={56--73},
+% paper che usa tinyML per pattern recognitio su accelerometro+EMG sensor - NON usa CL ma solo standard ML
+@article{zhou2021memory,
+  title={Memory-Efficient, Limb Position-Aware Hand Gesture Recognition using Hyperdimensional Computing},
+  author={Zhou, Andy and Muller, Rikky and Rabaey, Jan},
+  journal={arXiv preprint arXiv:2103.05267},
+  year={2021}
+}
+
+
+
+
+% NON CITATI -----------------------
+% 
+@article{ravaglia2021tinyml,
+  title={A TinyML Platform for On-Device Continual Learning With Quantized Latent Replays},
+  author={Ravaglia, Leonardo and Rusci, Manuele and Nadalini, Davide and Capotondi, Alessandro and Conti, Francesco and Benini, Luca},
+  journal={IEEE Journal on Emerging and Selected Topics in Circuits and Systems},
+  volume={11},
+  number={4},
+  pages={789--802},
+  year={2021},
+  publisher={IEEE}
+}
+
+
+% paper corto che da visione generale del training sui tiny devices, può essere citato per qualche affermazione di contesto
+@inproceedings{kukreja2019training,
+  title={Training on the Edge: The why and the how},
+  author={Kukreja, Navjot and Shilova, Alena and Beaumont, Olivier and Huckelheim, Jan and Ferrier, Nicola and Hovland, Paul and Gorman, Gerard},
+  booktitle={2019 IEEE International Parallel and Distributed Processing Symposium Workshops (IPDPSW)},
+  pages={899--903},
   year={2019},
-  publisher={Elsevier}
+  organization={IEEE}
 }
+
+
+
+
+
+% ##################################################
+% WEB PAGES
+
+
+% blog che spiega l'impatto delle batch size sui training
+@ONLINE{batch_size_medium,
+author = {Kevin Shen},
+title = {Effect of batch size on training dynamics},
+month = june,
+year = {2018},
+howpublished={\url{https://medium.com/mini-distill/effect-of-batch-size-on-training-dynamics-21c14f7a716e}}
+}
+
+
+% tensorflow website
+
+
+
+% stm website
+
+
+
+% my github page
+

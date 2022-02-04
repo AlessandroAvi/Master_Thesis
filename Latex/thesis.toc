@@ -8,15 +8,15 @@
 \contentsline {section}{\numberline {3.1}Basic pipeline of the CL system developed}{8}{section.3.1}%
 \contentsline {section}{\numberline {3.2}Algorithms implemented}{10}{section.3.2}%
 \contentsline {subsubsection}{TinyOL}{11}{section*.7}%
-\contentsline {subsubsection}{TinyOL V2}{12}{section*.8}%
-\contentsline {subsubsection}{LWF}{12}{section*.9}%
-\contentsline {subsubsection}{CWR}{12}{section*.10}%
-\contentsline {subsubsection}{AviLearning}{12}{section*.11}%
-\contentsline {section}{\numberline {3.3}Pruning and quantization}{12}{section.3.3}%
-\contentsline {chapter}{\numberline {4}Experimental set up}{13}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Dataset collection}{13}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Frozen model training and evaluation}{16}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Implementation of the algorithms}{19}{section.4.3}%
-\contentsline {section}{\numberline {4.4}Deployment and experiment on the MCU}{19}{section.4.4}%
-\contentsline {chapter}{\numberline {5}Experimental results}{23}{chapter.5}%
-\contentsline {chapter}{\numberline {6}Conclusion}{24}{chapter.6}%
+\contentsline {subsubsection}{TinyOL V2}{13}{section*.8}%
+\contentsline {subsubsection}{LWF}{14}{section*.9}%
+\contentsline {subsubsection}{CWR}{16}{section*.10}%
+\contentsline {subsubsection}{AviLearning}{17}{section*.11}%
+\contentsline {section}{\numberline {3.3}Pruning and quantization}{17}{section.3.3}%
+\contentsline {chapter}{\numberline {4}Experimental set up}{18}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Dataset collection}{18}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Frozen model training and evaluation}{21}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Implementation of the algorithms}{24}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Deployment and experiment on the MCU}{24}{section.4.4}%
+\contentsline {chapter}{\numberline {5}Experimental results}{28}{chapter.5}%
+\contentsline {chapter}{\numberline {6}Conclusion}{29}{chapter.6}%
