@@ -324,16 +324,111 @@ def stick_plots_together():
 
 
 
+def create_plot_compressed():
 
-create_plot(OL_data, OLb_data, 1)
-create_plot(OLV2_data, OLV2b_data, 2)
-create_plot(LWF_data, LWFb_data, 3)
-create_plot_V2(CWR_data)
+    blue1 = 'cornflowerblue'
+    colors_1 = [blue1, blue1, blue1, blue1, blue1, blue1, 'tomato' ]  # different color for the 'Model' bar
+    bar_values = np.zeros(7)
 
-stick_plots_together()
+    # Compute accuracy for each class - method 1
+    tot_pred     = 0
+    correct_pred = 0
+    method = OL_data
+    for i in range(0, method.conf_matr.shape[0]):
+        tot_pred += sum(method.conf_matr[i,:])
+        correct_pred += method.conf_matr[i,i]
+    bar_values[0] = round(round(correct_pred/tot_pred, 4)*100,2)   # Overall accuracy of the model
+
+    tot_pred     = 0
+    correct_pred = 0
+    method = OLb_data
+    for i in range(0, method.conf_matr.shape[0]):
+        tot_pred += sum(method.conf_matr[i,:])
+        correct_pred += method.conf_matr[i,i]
+    bar_values[1] = round(round(correct_pred/tot_pred, 4)*100,2)   # Overall accuracy of the model
+
+    tot_pred     = 0
+    correct_pred = 0
+    method = OLV2_data
+    for i in range(0, method.conf_matr.shape[0]):
+        tot_pred += sum(method.conf_matr[i,:])
+        correct_pred += method.conf_matr[i,i]
+    bar_values[2] = round(round(correct_pred/tot_pred, 4)*100,2)   # Overall accuracy of the model
+
+    tot_pred     = 0
+    correct_pred = 0
+    method = OLV2b_data
+    for i in range(0, method.conf_matr.shape[0]):
+        tot_pred += sum(method.conf_matr[i,:])
+        correct_pred += method.conf_matr[i,i]
+    bar_values[3] = round(round(correct_pred/tot_pred, 4)*100,2)   # Overall accuracy of the model
+
+    tot_pred     = 0
+    correct_pred = 0
+    method = LWF_data
+    for i in range(0, method.conf_matr.shape[0]):
+        tot_pred += sum(method.conf_matr[i,:])
+        correct_pred += method.conf_matr[i,i]
+    bar_values[4] = round(round(correct_pred/tot_pred, 4)*100,2)   # Overall accuracy of the model
+
+    tot_pred     = 0
+    correct_pred = 0
+    method = LWFb_data
+    for i in range(0, method.conf_matr.shape[0]):
+        tot_pred += sum(method.conf_matr[i,:])
+        correct_pred += method.conf_matr[i,i]
+    bar_values[5] = round(round(correct_pred/tot_pred, 4)*100,2)   # Overall accuracy of the model
+
+    tot_pred     = 0
+    correct_pred = 0
+    method = CWR_data
+    for i in range(0, method.conf_matr.shape[0]):
+        tot_pred += sum(method.conf_matr[i,:])
+        correct_pred += method.conf_matr[i,i]
+    bar_values[6] = round(round(correct_pred/tot_pred, 4)*100,2)   # Overall accuracy of the model
+
+
+    # Create bar plot
+    fig = plt.subplots(figsize =(18, 8))
+    X_axis = np.arange(len(bar_values))
+    bar_plot = plt.bar(X_axis, bar_values, 0.3, label = save_name, color=colors_1)
+    plt.axhline(y = 100, color = 'gray', linestyle = (0, (5, 10)) )
+    alg_names = ['OL', 'OL \n batches', 'OL V2', 'OL V2 \n batches', 'LWF', 'LWF \n batches', 'CWR']
+
+    # Add text to each bar showing the percent - method 1
+    i=0
+    for p in bar_plot:
+        xy_pos = (p.get_x() + p.get_width() / 2, p.get_height()+5)
+        # Write the text
+        if(i==6):
+            plt.annotate(str(p.get_height()), xy=xy_pos, xytext=(0, 3), textcoords="offset points", ha='center', va='bottom', fontsize=txt_size, color='tomato', fontweight ='bold')
+        else:
+            plt.annotate(str(p.get_height()), xy=xy_pos, xytext=(0, 3), textcoords="offset points", ha='center', va='bottom', fontsize=txt_size, color=blue1, fontweight ='bold')
+
+        i+=1
+    # Actually plot everything
+    plt.ylim([0, 109])
+    plt.ylabel('Accuracy %', fontsize = label_size)
+    plt.yticks(fontsize = label_size)
+    plt.xticks([r for r in range(len(bar_values))], alg_names, fontsize = 30) # Write on x axis the letter name
+    plt.savefig(SAVE_PLOT_PATH + 'compressedBarPlot_openmv.png')
+    plt.show()
 
 
 
+
+
+
+
+#create_plot(OL_data, OLb_data, 1)
+#create_plot(OLV2_data, OLV2b_data, 2)
+#create_plot(LWF_data, LWFb_data, 3)
+#create_plot_V2(CWR_data)
+
+#stick_plots_together()
+
+
+create_plot_compressed()
 
 
 

@@ -522,11 +522,16 @@ vowels_label_TF = vowels_label[:sep]
 vowels_data_OL  = vowels_data[sep:,:]
 vowels_label_OL = vowels_label[sep:]
 
+print('OL VOWELS SHAOPE')
+print(vowels_data_OL.shape)
+
+print('TF VOWELS SHAOPE')
+print(vowels_data_TF.shape)
 
 print('Saving datasets ...')
 
 
-
+"""
 # Save the big matrix in a txt file where data is formatted clean
 print(f'The dataset vowels_TF has shape:      {vowels_data_TF.shape}')
 myWrite.save_dataset(vowels_data_TF, vowels_label_TF, 'vowels_TF')
@@ -535,7 +540,7 @@ print('Dataset for letter VOWELS TF:           saved \n')
 print(f'The dataset vowels_OL has shape:      {vowels_data_OL.shape}')
 myWrite.save_dataset(vowels_data_OL, vowels_label_OL, 'vowels_OL')
 print('Dataset for letter VOWELS OL:           saved \n')
-
+"""
 ##################################################################
 
 
@@ -612,13 +617,13 @@ training_dataset_1, training_labels_1 = shuffleDataset(training_dataset_1, train
 
 
 
-
+"""
 # Save the dataset in a txt file
 myWrite.save_dataset(training_dataset_1, training_labels_1, 'training_file_1')
 print(f'The dataset NUMBER 1 for OL training has shape: {training_dataset_1.shape}')
 print(f'The dataset train part has {int(training_dataset_1.shape[0]*0.5)-1} elements')
 print('Dataset for controlled training:         saved \n')
-
+"""
 
 
 
@@ -676,13 +681,13 @@ training_dataset_2, training_labels_2 = shuffleDataset(training_dataset_2, train
 training_dataset_2, training_labels_2 = shuffleDataset(training_dataset_2, training_labels_2)
 training_dataset_2, training_labels_2 = shuffleDataset(training_dataset_2, training_labels_2)
 training_dataset_2, training_labels_2 = shuffleDataset(training_dataset_2, training_labels_2)
-
+"""
 # Save the dataset in a txt file
 myWrite.save_dataset(training_dataset_2, training_labels_2, 'training_file_2')
 print(f'The dataset NUMBER 2 for OL training has shape: {training_dataset_2.shape}')
 print(f'The dataset train part has {int(training_dataset_2.shape[0]*0.5)-1} elements')
 print('Dataset for controlled training:         saved \n')
-
+"""
 
 
 
@@ -716,13 +721,13 @@ training_dataset_3, training_labels_3 = shuffleDataset(training_dataset_3, train
 training_dataset_3, training_labels_3 = shuffleDataset(training_dataset_3, training_labels_3)
 training_dataset_3, training_labels_3 = shuffleDataset(training_dataset_3, training_labels_3)
 training_dataset_3, training_labels_3 = shuffleDataset(training_dataset_3, training_labels_3)
-
+"""
 # Save the dataset in a txt file
 myWrite.save_dataset(training_dataset_3, training_labels_3, 'training_file_3')
 print(f'The dataset NUMBER 3 for OL training has shape: {training_dataset_3.shape}')
 print(f'The dataset train part has {int(training_dataset_3.shape[0]*0.5)-1} elements')
 print('Dataset for controlled training:         saved \n')
-
+"""
 
 
 ###############################################################################
@@ -761,13 +766,13 @@ training_dataset_0, training_labels_0 = shuffleDataset(training_dataset_0, train
 training_dataset_0, training_labels_0 = shuffleDataset(training_dataset_0, training_labels_0)
 
 
-
+"""
 # Save the dataset in a txt file
 myWrite.save_dataset(training_dataset_0, training_labels_0, 'training_file_0')
 print(f'The dataset COMPLETE VERSION for OL training has shape: {training_dataset_0.shape}')
 print(f'The dataset train part has {int(training_dataset_0.shape[0]*0.5)} elements')
 print('Dataset for controlled training:         saved \n')
-
+"""
 
 
 """

@@ -301,16 +301,240 @@ def stick_plots_together():
 
 
 
-create_plot(OL_data, OLb_data, 1)
-create_plot(OLV2_data, OLV2b_data, 2)
-create_plot(LWF_data, LWFb_data, 3)
-create_plot_V2(CWR_data)
-
-stick_plots_together()
+def create_plot_compressed():
 
 
+    blue1 = 'cornflowerblue'
+    colors_1 = [blue1, blue1, blue1, blue1, blue1, blue1, 'tomato' ]  # different color for the 'Model' bar
+
+    bar_values = np.zeros(7)
+
+
+    # exctract overall accuracy from each method
+
+
+    # Compute accuracy for each class - method 1
+    tot_pred     = 0
+    correct_pred = 0
+    method = OL_data
+    for i in range(0, method.conf_matr.shape[0]):
+        tot_pred += sum(method.conf_matr[i,:])
+        correct_pred += method.conf_matr[i,i]
+    bar_values[0] = round(round(correct_pred/tot_pred, 4)*100,2)   # Overall accuracy of the model
+
+
+    tot_pred     = 0
+    correct_pred = 0
+    method = OLb_data
+    for i in range(0, method.conf_matr.shape[0]):
+        tot_pred += sum(method.conf_matr[i,:])
+        correct_pred += method.conf_matr[i,i]
+    bar_values[1] = round(round(correct_pred/tot_pred, 4)*100,2)   # Overall accuracy of the model
+
+
+    tot_pred     = 0
+    correct_pred = 0
+    method = OLV2_data
+    for i in range(0, method.conf_matr.shape[0]):
+        tot_pred += sum(method.conf_matr[i,:])
+        correct_pred += method.conf_matr[i,i]
+    bar_values[2] = round(round(correct_pred/tot_pred, 4)*100,2)   # Overall accuracy of the model
+
+
+    tot_pred     = 0
+    correct_pred = 0
+    method = OLV2b_data
+    for i in range(0, method.conf_matr.shape[0]):
+        tot_pred += sum(method.conf_matr[i,:])
+        correct_pred += method.conf_matr[i,i]
+    bar_values[3] = round(round(correct_pred/tot_pred, 4)*100,2)   # Overall accuracy of the model
+
+
+    tot_pred     = 0
+    correct_pred = 0
+    method = LWF_data
+    for i in range(0, method.conf_matr.shape[0]):
+        tot_pred += sum(method.conf_matr[i,:])
+        correct_pred += method.conf_matr[i,i]
+    bar_values[4] = round(round(correct_pred/tot_pred, 4)*100,2)   # Overall accuracy of the model
+
+
+    tot_pred     = 0
+    correct_pred = 0
+    method = LWFb_data
+    for i in range(0, method.conf_matr.shape[0]):
+        tot_pred += sum(method.conf_matr[i,:])
+        correct_pred += method.conf_matr[i,i]
+    bar_values[5] = round(round(correct_pred/tot_pred, 4)*100,2)   # Overall accuracy of the model
+
+
+    tot_pred     = 0
+    correct_pred = 0
+    method = CWR_data
+    for i in range(0, method.conf_matr.shape[0]):
+        tot_pred += sum(method.conf_matr[i,:])
+        correct_pred += method.conf_matr[i,i]
+    bar_values[6] = round(round(correct_pred/tot_pred, 4)*100,2)   # Overall accuracy of the model
 
 
 
+
+    # Create bar plot
+    fig = plt.subplots(figsize =(18, 8))
+
+    X_axis = np.arange(len(bar_values))
+
+    bar_plot = plt.bar(X_axis, bar_values, 0.3, label = save_name, color=colors_1)
+
+    plt.axhline(y = 100, color = 'gray', linestyle = (0, (5, 10)) )
+
+
+    alg_names = ['OL', 'OL \n batches', 'OL V2', 'OL V2 \n batches', 'LWF', 'LWF \n batches', 'CWR']
+
+
+    # Add text to each bar showing the percent - method 1
+    i=0
+    for p in bar_plot:
+        xy_pos = (p.get_x() + p.get_width() / 2, p.get_height()+5)
+        # Write the text
+        if(i==6):
+            plt.annotate(str(p.get_height()), xy=xy_pos, xytext=(0, 3), textcoords="offset points", ha='center', va='bottom', fontsize=txt_size, color='tomato', fontweight ='bold')
+        else:
+            plt.annotate(str(p.get_height()), xy=xy_pos, xytext=(0, 3), textcoords="offset points", ha='center', va='bottom', fontsize=txt_size, color=blue1, fontweight ='bold')
+
+        i+=1
+
+    
+    # Actually plot everything
+    plt.ylim([0, 109])
+    plt.ylabel('Accuracy %', fontsize = label_size)
+    plt.yticks(fontsize = label_size)
+    #plt.xlabel('Classes', fontsize = label_size)
+    plt.xticks([r for r in range(len(bar_values))], alg_names, fontsize = 30) # Write on x axis the letter name
+    #plt.legend(loc='center right', prop={'size': legend_size})
+    #plt.title('Final accuracy for each algorithm - Gesture training', fontweight ='bold', fontsize = title_size)
+    plt.savefig(SAVE_PLOT_PATH + 'compressedBarPlot_letters.png')
+    plt.show()
+
+
+
+
+
+
+
+
+
+
+
+def create_table():
+
+    alg_names = ['OL', 'OL_batch', 'OL_V2', 'OL_V2_batch', 'LWF', 'LWF_batch', 'CWR']
+
+    table_values = [
+        [86.13, 0.99, 26.10, 94.39, 3.02],
+        [86.26, 1.54, 29.80, 95.40, 3.35],
+        [87.98, 1.03, 26.10, 94.39, 2.13],
+        [87.98, 1.11, 29.80, 93.09, 4.24],
+        [87.61, 3.45, 29.90, 95.20, 4.86],
+        [86.50, 3.26, 29.90, 94.99, 5.20],
+        [88.47, 2.11, 29.90, 95.90, 18.39]
+    ]
+
+ 
+
+    """
+        table_values[0,0] = 86.13
+        table_values[1,0] = 0.99
+        table_values[2,0] = 26.1
+        table_values[3,0] = 94.39
+        table_values[4,0] = 3.02
+
+        table_values[0,1] = 86.26
+        table_values[1,1] = 1.54
+        table_values[2,1] = 29.80
+        table_values[3,0] = 95.40
+        table_values[4,0] = 3.35
+
+        table_values[0,2] = 87.98
+        table_values[1,2] = 1.03
+        table_values[2,2] = 26.1
+        table_values[3,0] = 94.39
+        table_values[4,0] = 2.13
+
+        table_values[0,3] = 87.98
+        table_values[1,3] = 1.11
+        table_values[2,3] = 29.8
+        table_values[3,0] = 93.09
+        table_values[4,0] = 4.24
+
+        table_values[0,4] = 87.61
+        table_values[1,4] = 3.45
+        table_values[2,4] = 29.9
+        table_values[3,0] = 95.20
+        table_values[4,0] = 4.86
+
+        table_values[0,5] = 86.5
+        table_values[1,5] = 3.26
+        table_values[2,5] = 29.9
+        table_values[3,0] = 94.99
+        table_values[4,0] = 5.20
+
+        table_values[0,6] = 88.47
+        table_values[1,6] = 2.11
+        table_values[2,6] = 29.9
+        table_values[3,0] = 95.90
+        table_values[4,0] = 18.39
+    """
+
+
+
+    fig3, ax = plt.subplots(figsize =(10, 3)) 
+    ax.set_axis_off() 
+
+
+    header = ax.table(cellText=[['']*2], colLabels=['Colonna 1', 'Colonna 2'])
+
+    table = ax.table( 
+        cellText = table_values,  
+        colLabels = ['Accuracy %', 'Inference time in ms', 'Max allocated RAM in kB', 'Accuracy %', 'Inference time in ms'],  
+        rowLabels = alg_names, 
+        rowColours =["cornflowerblue"] * 200,  
+        colColours =["cornflowerblue"] * 200, 
+        cellLoc ='center',  
+        loc ='upper left')         
+
+    table.scale(1,2) 
+    table.set_fontsize(10)
+    #ax.set_title('OpenMV training results - Method used ', fontweight ="bold") 
+    #plt.savefig(SAVE_PLOTS__PATH + save_name[method_used] +'table.png')
+    plt.show()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#############################
+# MAIN
+
+#create_plot(OL_data, OLb_data, 1)
+#create_plot(OLV2_data, OLV2b_data, 2)
+#create_plot(LWF_data, LWFb_data, 3)
+#create_plot_V2(CWR_data)
+
+#stick_plots_together()
+
+
+create_plot_compressed()
+
+#create_table()
 
 
