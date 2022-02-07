@@ -1,4 +1,3 @@
-
 % thesis.tex (also saved as simple.tex) -- a simple thesis document
 % for demonstrating dalthesis.cls class file, or to use as a starting
 % document for writing a thesis.
@@ -25,10 +24,6 @@
 \usepackage{afterpage}
 
 
-% BIB ---------
-
-
-% BIB ---------
 
 \newcommand\blankpage{%
     \null
@@ -140,10 +135,24 @@ The type of strategies that better suits an application on MCU are for sure the 
 
 
 \chapter{Hardware} 
-
-
-
-
+The hardware used for this study is composed of just a couple of micro controller with their relative sensors. For the gesture recognition application the MCU of choice is a Nucleo STM32 F401-RE paired with a shield IKS01A2. The Nucleo is a development board easy to use and code with a lot of useful GPIOs and communication protocols like I2C, UART, SPI. The shield \cite{shield_web_page} used in this experiment is a motion MEMS and environmental sensor expansion board for the STM32 Nucleo which mounts a 3D accelerometer, a pressure sensor, capacitive digital relative humidity and temperature. The shield communicates to the Nucelo with I2C protocol and is totally supported by the Nucelo libraries. 
+%
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Figures/Chapter2/hardware.jpg} 
+    \caption{Place holder - nucleo shield}
+    \label{fig:hardware_stm}    
+\end{figure}
+%
+For the image classification application an OpenMV camera is used. This device is equipped with an STMH7 MCU and it has been developed specifically for applications of ML and elaboration of images. The OpenMV \cite{openmv_web_page} can be programmed in micro-python and is still supported and in continuous development from both the software and hardware point of view. 
+%
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Figures/Chapter2/hardware.jpg} 
+    \caption{Place holder - OpenMV camera}
+    \label{fig:hardware_openmv}    
+\end{figure}
+%
 
 
 
@@ -215,7 +224,14 @@ And at the end of every batch the update applied on the real weights is:
     
 Said this both methods are quite simple and are based on the same basic principle. The method TinyOL requires the usage of only one weight matrix and one bias array. their dimension depend on two parameters, the number of classes known by the OL system represented by the value $n$ and the size of the last layer of the frozen layer, represented by the value $m$. This makes the memory allocated from the method be equal to a total of (nxm+nx1)*4 bytes. The method is able to change the layer parameters each time a new sample is received with no constraints. This feature is the main problem that concerns this strategy. In fact it allows for a lot of flexibility but it doesn't provide a protection from catastrophic forgetting catastrophic forgetting. By allowing any possible modification it's immediate for the model to follow what the stream of data is imposing to it, thus it's quite easy to train on noisy or outliers data or even be guided towards context drift.  \\
 On the other hand the method TinyOL with mini batches exploits the same approach seen by the standard TinyOL method but receives a back propagation update that is dictated by the average computed from a group of $k$ samples. Depending on the value of $k$ the group can be considered to be a more or less good representation of the data received. In any case this method should be able to better contrast catastrophic forgetting, noisy data and outliers. 
-
+%
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Figures/Chapter3/OL.png} 
+    \caption{Place holder - OL}
+    \label{fig:block_diag_OL}    
+\end{figure}
+%
 \subsubsection{TinyOL V2}
 
 The TinyOL V2 algorithms is based on the same idea of the original TinyOL. A little intuible modification is applied in the method with the aim of contrasting catastrophic forgetting. The idea is to remove the possibility to have a drift over the original weights by removing completely this possibility. This algorithm in fact applies the same exact update rule on its parameters but it applies it only on the weights that represent the new classes. Which simply means that the rule now becomes:
@@ -232,7 +248,14 @@ And at the end of every batch the update applied on the real weights is:
     \[ \text{where i=p,p+1..,n  and  j=0,1,..,m} \]
 In conclusion TinyOL V2 is a simple method that differs from the original only because of a small difference in the update rule. By forcing the update on only a portion of the weight and biases the behaviour of the catastrophic forgetting that tries to modify the original knowledge and make the model drift from that context is completely removed. This helps the algorithm by contrasting catastrophic forgetting but also reduces the ability of the model to perform fine tuning on those specific classes. Another negative aspect regards the general behaviour of the final mode. By having a training strategy that updates only a portion of weights it's clear how the model itself cannot be optimized to reduce the loss function. This means that at the end of the training the model will be composed of two parts that will not work together to find the best prediction. Like before the TinyOL V2 with mini batches allows the model to learn from a bigger group of samples, this should help the model to avoid over fitting, outliers and noisy data. \\
 The method TinyOL V2 requires the same amount of memory that was used by TinyOL, which means a matrix of size $n \times m$ and an array of size $n \times 1$. On the other hand the method TinyOL V2 with batches requires an additional matrix and array but this time with a reduced size of $(n-p) \times m$ and $(n-p) \times m$ since only the weight of the new classes require an update. 
-
+%
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Figures/Chapter3/OLV2.png} 
+    \caption{Place holder - OLV2}
+    \label{fig:block_diag_OLV2}    
+\end{figure}
+%
 \subsubsection{LWF}
 
 The LWF strategy is a regularization approach introduced in \cite{li2017learning} and later applied with small variation in \cite{maltoni2019continuous}. The main idea of the method is to contrast catastrophic forgetting by applying a smart loss function and double architecture that is able to combine old and new knowledge in the back propagation of the parameters. The double architecture models refers to the fact that two models are required in order to use this method. In this case the entire OL system has been applied only on the last layer of the model so the double architecture in this case is composed only of a double classification layer. The first is called $tl$, training layer while the second is called $cl$, copy layer. The role of $tl$ is to be continuously updated at each training step with the LWF back propagation rule, while $cl$ is a layer that contains a copy of all the original weights computed in the Tensorflow training, thus it represents the original knowledge of the model. The back propagation rule is based on the idea of fusing the weight updates that the two layer would apply. The fusion of these two updates is done with a weighted average that changes dynamically as the training continues. This of course implies that both layers produce a prediction, which means double computation for the OL system.\\
@@ -267,7 +290,14 @@ This method, being different from the previous, requires also a different $\lamb
     		  \right.
 \end{equation}
 Both the LWF methods require the same amount of memory, which is a double prediction layer of size  $n \times m$ and $n \times 1$. Both methods are quite easy to implement and their strength is defined in the value $\lambda$ and in their update rule. They differ only from the weight updated applied on the matrix $cl$. A negative aspect that characterizes these two methods is the amount of computation required, which can be a problem for tiny devices. By having two layers and the need of two prediction is of course needed the double of computation. 
-
+%
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Figures/Chapter3/LWF.png} 
+    \caption{Place holder - LWF}
+    \label{fig:block_diag_LWF}    
+\end{figure}
+%
 \subsubsection{CWR}
 
 CWR is an architectural approach that exploits the usage of two classification layers and a weighted back propagation rule for performing OL. Again the two classification layers are called $tl$, training layer and $cl$, consolidated layer. The idea is to perform training at each step on $tl$ with the same method as TonyOL and at the end of each batch update $cl$ with a particular rule. The back propagations for the $cl$ at the end of a batch are tge same for biases and weights and are the following:
@@ -277,7 +307,14 @@ Where $tw_{i,j}$ are the weights and biases of the training layer, $cw_{i,j}$ ar
 By using two classification layer that update differently the method tries to replicate the short term memory and long term memory architecture that characterizes biological brains ??? ESSERE SICURO. The layer $tl$ behaves as the short term memory since it gets updated at every single training step, and at each batch it gets reset to the correct values. The layer $cl$ behaves as a long term memory since it never gets reset or cleaned and it gets updated only once every batch with a weighted average. This weighting method depends on the number of times that a specific label appeared in the training batch.\\
 Another important aspect of this method is how the prediction is computed and used. While performing only training the method requires only a prediction performed by $tl$ since this needs to get updated by its error. However if an actual prediction is requested to the model also the $cl$ layer should perform the computation and provide an inference. In fact the inference obtained by the consolidated layer is to be considered more relevant and reliable since it is produced by the long term memory. In the case a prediction is required the method needs a double prediction, one from $tl$ and the other from $cl$. Again as said for LWF this is not optimal because of the limits of tiny devices. \\
 CWR is a method easy to implement. Its strength are hidden in the double architecture and the update rule that make it possible to merge short term memories and long term memories and also contrast catastrophic forgetting. The memory required for this algorithm is: to weight matrices of size $n \times m$, 2 bias arrays of size $n \times 1$, one array that keeps track of the labels encountered of size $n \times 1$. The amount of computations can change depending if a simple training step is performed or if an inference is required.
-
+%
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Figures/Chapter3/CWR.png} 
+    \caption{Place holder - CWR}
+    \label{fig:block_diag_CWR}    
+\end{figure}
+%
 \subsubsection{AviLearning}
 
 
@@ -308,14 +345,14 @@ For the accelerometer application the dataset had to be created from zero. To my
 The dataset is composed of 8 different letters, which are A, E, I, O, U, B, R, M. The vowels are the classes that are learned by the base model while the 3 consonants are the letters that are added and learned by the CL system. During the collection of the dataset the MCU is connected via USB to a laptop which has the role of power supplier and live data recorder. In order to collect the data the Nucelo has to run a small script that exploits the usage of some GPIO, timers, interrupts, UART and I2C communication protocols. The idea is that by specifying the letter that is drawn and by pressing the blue button the STM starts to catch data from the accelerometer with the I2C protocol while sending it to the laptop with UART protocol. The data sampling is done at a frequency of 100 Hz and the data stream lasts for 2 seconds, so a total of 200 samples is recorded. Note that a software for serial communication should be used at the same time on the laptop. This is required in order to see in real time the data stream on the laptop and for storing the data somewhere. In this application the software of choice is MobaXTerm which is able to save the entire session communication in a txt file by using the UI. 
 Note that a single letter sample is composed of different information. The sample contains the label of the letter drawn, the number of sample saved in the current session and three arrays of 200 values each containing the time series data from the 3 axis of the accelerometer. The final dataset is composed of 5130 samples total, where each vowel counts to an average of xxx samples while the consonants have an average count of 760 samples each. \\
 Another important detail is directly connected to the type of context in which the model will be trained and tested. As mentioned in \ref{introduction} the scenarios in which a CL system can live are three, NIC, NC and NI. In order to make the example as close ass possible to real world scenario the dataset was collected keeping in mind a NIC context. This means that the ML model should be exposed to data containing new classes and new patterns of old classes. In order to simulate the new patters of old classes while generating the dataset it has been decided to accentuate some patterns of the hand drawing motion. For example an accentuation of the angles in the letter R, or the velocity at which the letter I is drawn, or the oval shape of the letter O. Keep in mind that all the letters were drawn with the same general motion as shown in Figure[\ref{fig:letters_motion}].\\
-
+%
 \begin{figure}[h!]
     \centering
     \includegraphics[width=100mm]{Figures/Chapter4/letters_motion.jpg} 
     \caption{Motion of the accleerometer}
     \label{fig:letters_motion}    
 \end{figure}
-
+%
 Once the entire dataset is collected the post processing is performed. This consists in a simple reshaping of all samples. In order to perform a consistent training it has been decided to define the input shape of the model as a simple array. This means that each letter sample has to be reshaped from a matrix  $3 \times 200$ to an array $1 \times 600$. This is performed simply by stacking horizontally the rows of the sample of interest. After this the final separation of the dataset is done. Since the application requires the usage of the dataset in two different trainings it's necessary to create the setwo in the correct manner. The first portion of the dataset is called Frozen model dataset, the second portion is called OL dataset. The first one is used for the training of the frozen model performed on the laptop with Tensorflow and it contains only vowels, since these are the classes of interest for the base model. The second portion contains all the remaining samples of vowels and all the samples for the three consonants, this because the CL system want to teach to the model the new classes. These two dataset are then also separated in train-test-validation parts. The final composition of the dataset is showed in Figure[\ref{}].
 
 % AGGIUNGERE GRAFICO CHE MOSTRA COME è DIVISO IL DATASET
@@ -425,8 +462,9 @@ The communication is again based on the UART protocol. At first the COM port is 
 
 
 
-\bibliographystyle{IEEEtran}
-\bibliography{thesis.bib}
+\bibliographystyle{IEEEannot}
+\bibliography{thesis}
+
 
 %\clearpage
 %\pagenumbering{arabic}% resets page counter to 1
