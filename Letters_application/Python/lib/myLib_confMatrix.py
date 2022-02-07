@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
+ROOT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__),'..'))
 SAVE_PLOT__PATH           = ROOT_PATH + '\\Plots\\PC_results\\'
 READ_TXT_CONF_MATR_PC__PATH  = ROOT_PATH + '\\SimulationResult\\PC_last_simulation\\'
 READ_TXT_CONF_MATR_STM__PATH = ROOT_PATH + '\\SimulationResult\\STM_last_simulation\\'

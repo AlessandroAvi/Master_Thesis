@@ -3,7 +3,7 @@ import os
 import pandas as pd
 
 
-ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
+ROOT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__),'..'))
 HISTORY_SIMU_RES_PATH  = ROOT_PATH + '\\SimulationResult\\History_simulations\\'
 LAST_SIMU_RES_PATH_PC  = ROOT_PATH + '\\SimulationResult\\PC_last_simulation\\'
 LAST_SIMU_RES_PATH_STM = ROOT_PATH + '\\SimulationResult\\STM_last_simulation\\'
@@ -199,7 +199,6 @@ def save_dataset(dtensor, labels, filename):
         Name of the txt file in which I want to save the dataset.
     """
 
-    ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
     DATASET_SAVE_PATH = ROOT_PATH + '\\Letter_dataset\\Clean_dataset\\' + filename + '.txt'
 
     with open(DATASET_SAVE_PATH,'w') as data_file:

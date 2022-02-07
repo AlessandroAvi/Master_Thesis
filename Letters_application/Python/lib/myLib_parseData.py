@@ -7,11 +7,8 @@ import random
 
 
 
-ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
 
-
-
-
+ROOT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__),'..'))
 
 
 
@@ -185,7 +182,7 @@ def shuffleDataset(data_matrix, lable_ary):
         Same array gave in input but shuffled
     """
 
-    random.seed(55) ## 77,23, 59 buono
+    random.seed(59) ## 77,23, 59 buono
     order_list = list(range(0,data_matrix.shape[0]))    # create list of increasing numbers
     random.shuffle(order_list)                          # shuffle the list of ordered numbers
 

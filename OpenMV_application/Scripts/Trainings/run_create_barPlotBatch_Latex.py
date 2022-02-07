@@ -170,29 +170,30 @@ def create_plot(method1, method2, method3, method4):
     batches = [0,1,2,3,4,5,6]
     batches_v2 = [1,2,3,4,5,6]
 
-    lw = 2
-    ms = 5
+    lw = 7
+    ms = 250
 
     plt.plot(batches, method1.accuracy, label='OL method', color='royalblue', linewidth=lw)
-    plt.plot(batches, method1.accuracy, 'o', color='royalblue', linewidth=ms) 
+    plt.scatter(batches, method1.accuracy, color='royalblue', s=ms) 
 
     plt.plot(batches, method2.accuracy, label='OL V2 method', color='green', linewidth=lw)
-    plt.plot(batches, method2.accuracy, '^', color='green', linewidth=ms) 
+    plt.scatter(batches, method2.accuracy, color='green', s=ms) 
 
     plt.plot(batches, method3.accuracy, label='LWF method', color='darkorange', linewidth=lw)
-    plt.plot(batches, method3.accuracy, 's', color='darkorange', linewidth=ms) 
+    plt.scatter(batches, method3.accuracy, color='darkorange', s=ms) 
 
     plt.plot(batches_v2, method4.accuracy[1:7], label='CWR method', color='darkviolet', linewidth=lw)
-    plt.plot(batches_v2, method4.accuracy[1:7], 'D', color='darkviolet', linewidth=ms) 
+    plt.scatter(batches_v2, method4.accuracy[1:7], color='darkviolet', s=ms) 
 
     
     # Actually plot everything
-    plt.ylim([80,100])
+    plt.ylim([78,100])
     plt.ylabel('Accuracy %', fontsize = label_size)
+    plt.yticks(fontsize = label_size)
     plt.xlabel('Batch size', fontsize = label_size)
-    plt.xticks([r for r in range(len(method1.batch_label))], method1.batch_label, fontsize = 20) # Write on x axis the letter name
+    plt.xticks([r for r in range(len(method1.batch_label))], method1.batch_label, fontsize = label_size) # Write on x axis the letter name
     #plt.title('Method accuracy with batch size variation', fontweight ='bold', fontsize = title_size)
-    plt.legend(loc='lower left', prop={'size': 15})
+    plt.legend(loc='lower left', prop={'size': label_size})
     plt.savefig(SAVE_PLOT_PATH + 'results_batch.png')
     plt.show()
 
