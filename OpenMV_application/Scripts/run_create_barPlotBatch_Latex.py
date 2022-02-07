@@ -14,10 +14,10 @@ import matplotlib.image as mpimg
 ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, ROOT_PATH + '/lib')
 
-TXT_PATH_1 = ROOT_PATH + '\\OpenMV_results\\Results_backup\\'
-TXT_PATH_2 = ROOT_PATH + '\\OpenMV_results\\Results_backup\\Batch_tests\\'
+TXT_PATH_1 = ROOT_PATH + '\\Results\\Results_backup\\'
+TXT_PATH_2 = ROOT_PATH + '\\Results\\Results_backup\\Batch_tests\\'
 
-SAVE_PLOT_PATH = ROOT_PATH + '\\OpenMV_results\\'
+SAVE_PLOT_PATH = ROOT_PATH + '\\Results\\'
 
 save_name = ['1_OL', '5_OL batch', '2_OL V2', '6_OLV2_batch', '3_LWF', '7_LWF_batch', '4_CWR']
 

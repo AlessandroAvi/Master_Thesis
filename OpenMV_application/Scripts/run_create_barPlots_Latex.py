@@ -25,8 +25,8 @@ plot_y_dim =  10
 
 ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, ROOT_PATH + '/lib')
-TXT_PATH = ROOT_PATH + '\\OpenMV_results\\Results_Model_v2\\Results_backup\\'
-SAVE_PLOT_PATH = ROOT_PATH + '\\OpenMV_results\\'
+TXT_PATH = ROOT_PATH + '\\Results\\Results_Model_v2\\Results_backup\\'
+SAVE_PLOT_PATH = ROOT_PATH + '\\Results\\'
 
 save_name = ['1_OL', '5_OL batch', '2_OL V2', '6_OLV2_batch', '3_LWF', '7_LWF_batch', '4_CWR']
 

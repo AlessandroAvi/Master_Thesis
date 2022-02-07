@@ -37,7 +37,7 @@ After that the code in sequence generates and saves:
 
 # Define path where to save the bar plots/tables/confusion matrices
 ROOT__PATH = os.path.dirname(os.path.abspath(__file__))
-SAVE_PLOTS__PATH = ROOT__PATH + '\\OpenMV_results\\'
+SAVE_PLOTS__PATH = ROOT__PATH + '\\Results\\'
 
 
 confusion_matrix = np.zeros((10,10))
