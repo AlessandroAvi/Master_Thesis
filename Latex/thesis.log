@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.11.13)  4 FEB 2022 11:39
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.11.13)  7 FEB 2022 10:41
 entering extended mode
 **./thesis.tex
 (thesis.tex
@@ -577,52 +577,52 @@ LaTeX Warning: Citation `batch_size_medium' on page 11 undefined on input line
 
 [11] [12] [13]
 
-LaTeX Warning: Citation `li2017learning' on page 14 undefined on input line 233
+LaTeX Warning: Citation `li2017learning' on page 14 undefined on input line 238
 .
 
 
 LaTeX Warning: Citation `maltoni2019continuous' on page 14 undefined on input l
-ine 233.
-
-
-LaTeX Warning: Citation `maltoni2019continuous' on page 14 undefined on input l
-ine 240.
+ine 238.
 
 [14]
 
 LaTeX Warning: Citation `maltoni2019continuous' on page 15 undefined on input l
-ine 242.
+ine 247.
+
+
+LaTeX Warning: Citation `maltoni2019continuous' on page 15 undefined on input l
+ine 249.
 
 [15] [16] [17]
 Chapter 4.
 
-LaTeX Warning: Reference `' on page 18 undefined on input line 283.
+LaTeX Warning: Reference `' on page 18 undefined on input line 307.
 
 
-LaTeX Warning: Reference `introduction' on page 18 undefined on input line 286.
+LaTeX Warning: Reference `introduction' on page 18 undefined on input line 310.
 
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 279--287
+Underfull \hbox (badness 10000) in paragraph at lines 303--311
 
  []
 
 [18
 
 ] [19]
-<Figures/Chapter4/letters_motion.jpg, id=261, 308.352pt x 154.4169pt>
+<Figures/Chapter4/letters_motion.jpg, id=263, 308.352pt x 154.4169pt>
 File: Figures/Chapter4/letters_motion.jpg Graphic file (type jpg)
 <use Figures/Chapter4/letters_motion.jpg>
 Package pdftex.def Info: Figures/Chapter4/letters_motion.jpg  used on input lin
-e 290.
+e 314.
 (pdftex.def)             Requested size: 284.52756pt x 142.48936pt.
 
 
-LaTeX Warning: Reference `' on page 20 undefined on input line 295.
+LaTeX Warning: Reference `' on page 20 undefined on input line 319.
 
 [20 <./Figures/Chapter4/letters_motion.jpg>]
 
-LaTeX Warning: Reference `]' on page 21 undefined on input line 303.
+LaTeX Warning: Reference `]' on page 21 undefined on input line 327.
 
 [21] [22] [23] [24] [25] [26] [27]
 Chapter 5.
@@ -641,8 +641,8 @@ Package rerunfilecheck Info: File `thesis.out' has not changed.
 (rerunfilecheck)             Checksum: D60FA8BE40DA342C4C9A59E47E7A7037;2870.
  ) 
 Here is how much of TeX's memory you used:
- 11342 strings out of 478927
- 175212 string characters out of 2852534
+ 11343 strings out of 478927
+ 175226 string characters out of 2852534
  491288 words of memory out of 3000000
  28968 multiletter control sequences out of 15000+600000
  409270 words of font info for 47 fonts, out of 8000000 for 9000
@@ -655,14 +655,15 @@ ublic/amsfonts/cm/cmex10.pfb><C:/Users/massi/AppData/Local/Programs/MiKTeX/font
 s/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/massi/AppData/Local/Programs/Mi
 KTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/massi/AppData/Local/Pro
 grams/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/massi/AppData/L
-ocal/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/massi/
-AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Use
-rs/massi/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt12.pf
-b><C:/Users/massi/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfr
-m1200.pfb>
-Output written on thesis.pdf (37 pages, 346937 bytes).
+ocal/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/massi/Ap
+pData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users
+/massi/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb>
+<C:/Users/massi/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cm
+tt12.pfb><C:/Users/massi/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-su
+per/sfrm1200.pfb>
+Output written on thesis.pdf (37 pages, 360842 bytes).
 PDF statistics:
- 356 PDF objects out of 1000 (max. 8388607)
- 70 named destinations out of 1000 (max. 500000)
+ 362 PDF objects out of 1000 (max. 8388607)
+ 71 named destinations out of 1000 (max. 500000)
  162 words of extra memory for PDF output out of 10000 (max. 10000000)
 
