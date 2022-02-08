@@ -11,7 +11,7 @@ class LastLayer(object):
         self.method = 0
         self.W = 6
         self.offset = 6
-        self.H = 160
+        self.H = 512
         self.counter = 0
 
         self.label     = ['0','1','2','3','4','5']
@@ -473,26 +473,30 @@ def train_CWR(OL_layer, true_label, out_frozen):
             # Update biases
             OL_layer.biases_new[i-offset,0]  = OL_layer.biases_new[i-offset,0] - cost[i,0]
 
-    # BATCH FINISHED
+    # BATCH FINISHED - FIXARE VA TROPPO LENTO
     if((OL_layer.counter % OL_layer.batch_size == 0) and (OL_layer.counter != 0)):
 
         for i in range(0, OL_layer.W):
             if(OL_layer.found_lett[i,0] != 0):
 
                 if(i<offset):
-                    for j in range(0, OL_layer.H):
-                        OL_layer.weights[i,j] = ((OL_layer.weights[i,j]*OL_layer.found_lett[i,0])+OL_layer.weights_2[i,j])/(OL_layer.found_lett[i,0]+1)
-                        OL_layer.weights_2[i,j] = OL_layer.weights[i,j]
-                    OL_layer.biases[i,0] = ((OL_layer.biases[i,0]*OL_layer.found_lett[i,0])+OL_layer.biases_2[i,0])/(OL_layer.found_lett[i,0]+1)
+
+                    OL_layer.weights[i,:]   = (OL_layer.weights[i,:]*OL_layer.found_lett[i,0]+OL_layer.weights_2[i,:])/(OL_layer.found_lett[i,0]+1)
+                    OL_layer.weights_2[i,:] = OL_layer.weights[i,:]
+
+                    OL_layer.biases[i,0]   = ((OL_layer.biases[i,0]*OL_layer.found_lett[i,0])+OL_layer.biases_2[i,0])/(OL_layer.found_lett[i,0]+1)
                     OL_layer.biases_2[i,0] = OL_layer.biases[i,0]
                 else:
-                    for j in range(0, OL_layer.H):
-                        OL_layer.weights_new[i-offset,j] = ((OL_layer.weights_new[i-offset,j]*OL_layer.found_lett[i])+OL_layer.weights_new_2[i-offset,j])/(OL_layer.found_lett[i,0]+1)
-                        OL_layer.weights_new_2[i-offset,j] = OL_layer.weights_new[i-offset,j]
-                    OL_layer.biases_new[i-offset,0] = ((OL_layer.biases_new[i-offset,0]*OL_layer.found_lett[i,0])+OL_layer.biases_new_2[i-offset,0])/(OL_layer.found_lett[i,0]+1)
+
+                    OL_layer.weights_new[i-offset,:]   = (OL_layer.weights_new[i-offset,:]*OL_layer.found_lett[i,0]+OL_layer.weights_new_2[i-offset,:])/(OL_layer.found_lett[i,0]+1)
+                    OL_layer.weights_new_2[i-offset,:] = OL_layer.weights_new[i-offset,:]
+
+                    OL_layer.biases_new[i-offset,0]   = ((OL_layer.biases_new[i-offset,0]*OL_layer.found_lett[i,0])+OL_layer.biases_new_2[i-offset,0])/(OL_layer.found_lett[i,0]+1)
                     OL_layer.biases_new_2[i-offset,0] = OL_layer.biases_new[i-offset,0]
 
             OL_layer.found_lett[i,0] = 0
+
+
 
     return prediction
 

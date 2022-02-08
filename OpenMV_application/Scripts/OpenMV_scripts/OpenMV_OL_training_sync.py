@@ -32,6 +32,8 @@ myLib.load_biases(OL_layer)             # Read from the txt file the weights and
 myLib.load_weights(OL_layer)            # Read from the txt file the biases and save them
 
 
+
+
 # TRAINING METHOD SELECTION **********************************
 # 0 -> no training, just inference
 # 1 -> OL               WORKS - perfoms good
@@ -42,6 +44,9 @@ myLib.load_weights(OL_layer)            # Read from the txt file the biases and 
 # 6 -> OLV2 mini batch  WORKS - performs not so good - batch 32 a bit better
 # 7 -> LWF mini batch   WORKS - perfoms good - careful around label 30 camera reboots easily , dunno why
 OL_layer.method = 4
+
+
+
 
 myLib.allocateMemory(OL_layer)
 

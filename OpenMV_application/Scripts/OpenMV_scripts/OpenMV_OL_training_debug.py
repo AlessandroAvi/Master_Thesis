@@ -41,11 +41,17 @@ myLib.load_labels(OL_layer)
 # 5 -> OL mini batch
 # 6 -> OLV2 mini batch
 # 7 -> LWF mini batch
-OL_layer.method = 1
+OL_layer.method = 4
 myLib.allocateMemory(OL_layer)
 
+# DEFINE TRAINING PARAMS
+OL_layer.l_rate      = 0.005
+OL_layer.batch_size  = 8
+OL_layer.train_limit = 90#4000     # after how many prediction start testing
+OL_layer.counter     = 0        # just a reset
+midpoint_type = 1
+
 current_label ='X'
-OL_layer.train_limit = 5      # after how many prediction start to save inside confusion matrix
 
 # START THE INFINITE LOOP
 t=0
