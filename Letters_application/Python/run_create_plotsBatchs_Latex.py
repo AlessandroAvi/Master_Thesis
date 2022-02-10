@@ -22,6 +22,7 @@ OL_names   = ['OL', 'OL_batches', 'OL_batches16', 'OL_batches32', 'OL_batches64'
 OLV2_names = ['OL_v2', 'OL_v2_batches', 'OL_v2_batches16', 'OL_v2_batches32', 'OL_v2_batches64', 'OL_v2_batches128', 'OL_v2_batches256']
 LWF_names  = ['LWF', 'LWF_batches', 'LWF_batches16', 'LWF_batches32', 'LWF_batches64', 'LWF_batches128', 'LWF_batches256']
 CWR_names  = ['CWR', 'CWR', 'CWR16', 'CWR32', 'CWR64', 'CWR128', 'CWR256']
+MYALG_names  = ['MY_ALG_8', 'MY_ALG_8', 'MY_ALG_16', 'MY_ALG_32', 'MY_ALG_64', 'MY_ALG_128', 'MY_ALG_256']
 
 
 
@@ -57,12 +58,16 @@ CWR_data = MethodInfo('')
 CWR_data.label = 'CWR method'
 CWR_data.color = 'darkviolet'
 
+MYALG_data = MethodInfo('')
+MYALG_data.label = 'MY ALG method'
+MYALG_data.color = 'red'
+
 
 
 
 
 # -------- Read and save the data from the txt files
-for k in range(0,4):
+for k in range(0,5):
 
     if(k==0):
         strategy = OL_data
@@ -76,6 +81,9 @@ for k in range(0,4):
     elif(k==3):
         strategy = CWR_data
         save_name = CWR_names
+    elif(k==4):
+        strategy = MYALG_data
+        save_name = MYALG_names
     else:
         break
 
@@ -141,7 +149,7 @@ def create_plot(methods):
 
     for method in methods:
 
-        if(method.label == 'CWR method'):
+        if(method.label == 'CWR method' or method.label == 'MY ALG method'):
             break   
 
         plt.plot(batches, method.accuracy, label=method.label, color=method.color, linewidth=lw)
@@ -150,9 +158,12 @@ def create_plot(methods):
     plt.plot(batches_v2, methods[3].accuracy[1:7], label=methods[3].label, color=methods[3].color, linewidth=lw)
     plt.scatter(batches_v2, methods[3].accuracy[1:7], color=methods[3].color, s=ms) 
 
+    plt.plot(batches_v2, methods[4].accuracy[1:7], label=methods[4].label, color=methods[4].color, linewidth=lw)
+    plt.scatter(batches_v2, methods[4].accuracy[1:7], color=methods[4].color, s=ms) 
+
     
     # Actually plot everything
-    plt.ylim([60,100])
+    plt.ylim([61,100])
     plt.ylabel('Accuracy %', fontsize = label_size)
     plt.yticks(fontsize = label_size)
     plt.xlabel('Batch size', fontsize = label_size)
@@ -164,5 +175,5 @@ def create_plot(methods):
 
 
 
-methods = [OL_data, OLV2_data, LWF_data, CWR_data]
+methods = [OL_data, OLV2_data, LWF_data, CWR_data, MYALG_data]
 create_plot(methods)

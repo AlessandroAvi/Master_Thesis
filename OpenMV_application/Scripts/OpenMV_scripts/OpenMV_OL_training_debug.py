@@ -41,7 +41,8 @@ myLib.load_labels(OL_layer)
 # 5 -> OL mini batch
 # 6 -> OLV2 mini batch
 # 7 -> LWF mini batch
-OL_layer.method = 4
+# 8 -> MY ALGORITHM
+OL_layer.method = 8
 myLib.allocateMemory(OL_layer)
 
 # DEFINE TRAINING PARAMS
