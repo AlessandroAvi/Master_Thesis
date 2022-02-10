@@ -437,7 +437,7 @@ ports = serial.tools.list_ports.comports()
 serialInst = serial.Serial()
 # SERIAL COMMUNICATION - Properties
 serialInst.baudrate = 115200   
-serialInst.port = "COM4"
+serialInst.port = "COM3"
 
 serialInst.open()
 
@@ -462,7 +462,7 @@ predic_error    = np.zeros(test_max)    # 1/2/3
 OL_width        = np.zeros(test_max)    # int
 vowel_guess     = np.zeros(test_max)    # int (later translated in char)
 vowel_true      = []                    # char
-algorithm_ary   = ['OL', 'OL_V2', 'CWR', 'LWF', 'OL_batch', 'OL_V2_batch', 'LWF_batch']   # Containers of the algorithm names
+algorithm_ary   = ['OL', 'OL_V2', 'CWR', 'LWF', 'OL_batch', 'OL_V2_batch', 'LWF_batch', 'MY_ALGORITHM']   # Containers of the algorithm names
 
 # Containers for the debugging section - in here save the history of different matrices used by the training
 biases_stm     = np.zeros((train_max,9))

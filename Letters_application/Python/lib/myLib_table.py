@@ -7,7 +7,7 @@ ROOT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__),'..'))
 SAVE_PLOT__PATH                = ROOT_PATH + '\\Plots\\PC_results\\'
 READ_TXT_PERFORMANCE_STM__PATH = ROOT_PATH + '\\Plots\\STM_results\\methodsPerformance.txt'
 READ_TXT_CONF_MATR_PC__PATH    = ROOT_PATH + '\\SimulationResult\\PC_last_simulation\\'
-READ_TXT_CONF_MATR_STM__PATH   = ROOT_PATH + '\\SimulationResult\\stm_last_simulation\\'
+READ_TXT_CONF_MATR_STM__PATH   = ROOT_PATH + '\\SimulationResult\\STM_last_simulation\\'
 
 
 
@@ -226,9 +226,9 @@ def table_STM_methodsPerformance():
     timeOL_val   = dataset.timeOL
     ram_val      = dataset.ram
 
-    dtensor = np.empty((7,4))
+    dtensor = np.empty((8,4))
 
-    for i in range(0,7):
+    for i in range(0,8):
         dtensor[i,0] = accuracy_val[i]
         dtensor[i,1] = timeF_val[i]
         dtensor[i,2] = timeOL_val[i]
@@ -280,7 +280,7 @@ def table_STM_methodsPerformance():
     table = ax.table( 
         cellText = dtensor,   
         colLabels = ['Accuracy (%)', 'Avrg time inference \n Frozen model (ms)', 'Avr time inference \n OL layer (ms)', 'Maximum allocated \n RAM (kB)'],  
-        rowLabels = ['OL', 'OL_V2', 'CWR', 'LWF', 'OL_batch', 'OL_V2_batch', 'LWF_batch'], 
+        rowLabels = ['OL', 'OL_V2', 'CWR', 'LWF', 'OL_batch', 'OL_V2_batch', 'LWF_batch', 'MY_ALGORITHM'], 
         rowColours =["cornflowerblue"] * 200,  
         colColours =["cornflowerblue"] * 200, 
         cellLoc ='center',  

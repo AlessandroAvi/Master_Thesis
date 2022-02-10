@@ -151,10 +151,10 @@ def save_STM_methodsPerformance(conf_matrix, avrgF, avrgOL, n_line):
     timeOL_val   = dataset.timeOL
     ram_val     = dataset.ram
 
-    dtensor = np.empty((7,4))
+    dtensor = np.empty((8,4))
 
     # Fill the dtensor
-    for i in range(0,7):
+    for i in range(0,8):
         dtensor[i,0] = accuracy_val[i]
         dtensor[i,1] = timeF_val[i]
         dtensor[i,2] = timeOL_val[i]
