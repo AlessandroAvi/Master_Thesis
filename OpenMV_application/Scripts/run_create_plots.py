@@ -42,8 +42,8 @@ SAVE_PLOTS__PATH = ROOT__PATH + '\\Results\\'
 
 confusion_matrix = np.zeros((10,10))
 method_used = 0
-methods = ["INFERENCE", "OL", "OLV2", "LWF", "CWR", "OL mini batches", "OLV2 mini batches", "LWF mini batches"]
-save_name = ["INFERENCE_", "1_OL_", "2_OLV2_", "3_LWF_", "4_CWR_", "5_OL_batches_", "6_OLV2_batches_", "7_LWF_batches_"]
+methods = ["INFERENCE", "OL", "OLV2", "LWF", "CWR", "OL mini batches", "OLV2 mini batches", "LWF mini batches", "MY ALGORITHM"]
+save_name = ["INFERENCE_", "1_OL_", "2_OLV2_", "3_LWF_", "4_CWR_", "5_OL_batches_", "6_OLV2_batches_", "7_LWF_batches_", "MY_ALGORITHM_"]
 openmv_labels = []
 openmv_times = []
 real_labels = ['0','1','2','3','4','5','6','7','8','9']

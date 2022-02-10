@@ -25,6 +25,7 @@ OL_names = ['1_OL', '5_OL batch', '5_OL_batch_16', '5_OL_batch_32', '5_OL_batch_
 OLV2_names = ['2_OL V2', '6_OLV2_batch', '6_OLV2_batch_16', '6_OLV2_batch_32', '6_OLV2_batch_64', '6_OLV2_batch_128', '6_OLV2_batch_256']
 LWF_names = ['3_LWF', '7_LWF_batch', '7_LWF_batch_16', '7_LWF_batch_32', '7_LWF_batch_64', '7_LWF_batch_128', '7_LWF_batch_256']
 CWR_names = ['4_CWR', '4_CWR', '4_CWR_batch_16', '4_CWR_batch_32', '4_CWR_batch_64', '4_CWR_batch_128', '4_CWR_batch_256']
+MYALG_names  = ['8_MY_ALGORITHM', '8_MY_ALGORITHM', '8_MY_ALGORITHM_16', '8_MY_ALGORITHM_32', '8_MY_ALGORITHM_64', '8_MY_ALGORITHM_128', '8_MY_ALGORITHM_256']
 
 
 
@@ -45,13 +46,14 @@ OL_data  = MethodInfo('')
 OLV2_data  = MethodInfo('')
 LWF_data = MethodInfo('')
 CWR_data = MethodInfo('')
+MYALG_data = MethodInfo('')
 
 
 
 
 
 # -------- Read and save the data from the txt files
-for k in range(0,4):
+for k in range(0,5):
 
     if(k==0):
         strategy = OL_data
@@ -65,6 +67,9 @@ for k in range(0,4):
     elif(k==3):
         strategy = CWR_data
         save_name = CWR_names
+    elif(k==4):
+        strategy = MYALG_data
+        save_name = MYALG_names
     else:
         break
 
@@ -120,44 +125,18 @@ for k in range(0,4):
 # --- CREATE BAR PLOT
 
 
-def create_plot(method1, method2, method3, method4):
+def create_plot(methods):
 
-    # Compute accuracy for each batch group - method 1
-    for n in range(0,7):
-        tot_pred     = 0
-        correct_pred = 0
-        for i in range(0, method1.conf_matr.shape[0]):
-            tot_pred += sum(method1.conf_matr[i,:, n])
-            correct_pred += method1.conf_matr[i,i, n]
-        method1.accuracy[n] = round(round(correct_pred/tot_pred, 4)*100,2)   # Overall accuracy of the model
 
-    # Compute accuracy for each batch group - method 2
-    for n in range(0,7):
-        tot_pred     = 0
-        correct_pred = 0
-        for i in range(0, method2.conf_matr.shape[0]):
-            tot_pred += sum(method2.conf_matr[i,:, n])
-            correct_pred += method2.conf_matr[i,i, n]
-        method2.accuracy[n] = round(round(correct_pred/tot_pred, 4)*100,2)   # Overall accuracy of the model
-
-    # Compute accuracy for each batch group - method 3
-    for n in range(0,7):
-        tot_pred     = 0
-        correct_pred = 0
-        for i in range(0, method3.conf_matr.shape[0]):
-            tot_pred += sum(method3.conf_matr[i,:, n])
-            correct_pred += method3.conf_matr[i,i, n]
-        method3.accuracy[n] = round(round(correct_pred/tot_pred, 4)*100,2)   # Overall accuracy of the model
-
-    # Compute accuracy for each batch group - method 4
-    for n in range(0,7):
-        tot_pred     = 0
-        correct_pred = 0
-        for i in range(0, method4.conf_matr.shape[0]):
-            tot_pred += sum(method4.conf_matr[i,:, n])
-            correct_pred += method4.conf_matr[i,i, n]
-        method4.accuracy[n] = round(round(correct_pred/tot_pred, 4)*100,2)   # Overall accuracy of the model
-
+    for method in methods:
+        # Compute accuracy for each batch group - method 1
+        for n in range(0,7):
+            tot_pred     = 0
+            correct_pred = 0
+            for i in range(0, method.conf_matr.shape[0]):
+                tot_pred += sum(method.conf_matr[i,:, n])
+                correct_pred += method.conf_matr[i,i, n]
+            method.accuracy[n] = round(round(correct_pred/tot_pred, 4)*100,2)   # Overall accuracy of the model
    
 
     # Create bar plot
@@ -173,17 +152,20 @@ def create_plot(method1, method2, method3, method4):
     lw = 7
     ms = 250
 
-    plt.plot(batches, method1.accuracy, label='OL method', color='royalblue', linewidth=lw)
-    plt.scatter(batches, method1.accuracy, color='royalblue', s=ms) 
+    plt.plot(batches, methods[0].accuracy, label='OL method', color='royalblue', linewidth=lw)
+    plt.scatter(batches, methods[0].accuracy, color='royalblue', s=ms) 
 
-    plt.plot(batches, method2.accuracy, label='OL V2 method', color='green', linewidth=lw)
-    plt.scatter(batches, method2.accuracy, color='green', s=ms) 
+    plt.plot(batches, methods[1].accuracy, label='OL V2 method', color='green', linewidth=lw)
+    plt.scatter(batches, methods[1].accuracy, color='green', s=ms) 
 
-    plt.plot(batches, method3.accuracy, label='LWF method', color='darkorange', linewidth=lw)
-    plt.scatter(batches, method3.accuracy, color='darkorange', s=ms) 
+    plt.plot(batches, methods[2].accuracy, label='LWF method', color='darkorange', linewidth=lw)
+    plt.scatter(batches, methods[2].accuracy, color='darkorange', s=ms) 
 
-    plt.plot(batches_v2, method4.accuracy[1:7], label='CWR method', color='darkviolet', linewidth=lw)
-    plt.scatter(batches_v2, method4.accuracy[1:7], color='darkviolet', s=ms) 
+    plt.plot(batches_v2, methods[3].accuracy[1:7], label='CWR method', color='darkviolet', linewidth=lw)
+    plt.scatter(batches_v2, methods[3].accuracy[1:7], color='darkviolet', s=ms) 
+
+    plt.plot(batches_v2, methods[4].accuracy[1:7], label='YM ALG method', color='red', linewidth=lw)
+    plt.scatter(batches_v2, methods[4].accuracy[1:7], color='red', s=ms) 
 
     
     # Actually plot everything
@@ -191,7 +173,7 @@ def create_plot(method1, method2, method3, method4):
     plt.ylabel('Accuracy %', fontsize = label_size)
     plt.yticks(fontsize = label_size)
     plt.xlabel('Batch size', fontsize = label_size)
-    plt.xticks([r for r in range(len(method1.batch_label))], method1.batch_label, fontsize = label_size) # Write on x axis the letter name
+    plt.xticks([r for r in range(len(methods[0].batch_label))], methods[0].batch_label, fontsize = label_size) # Write on x axis the letter name
     #plt.title('Method accuracy with batch size variation', fontweight ='bold', fontsize = title_size)
     plt.legend(loc='lower left', prop={'size': label_size})
     plt.savefig(SAVE_PLOT_PATH + 'results_batch.png')
@@ -200,5 +182,5 @@ def create_plot(method1, method2, method3, method4):
 
 
 
-
-create_plot(OL_data, OLV2_data, LWF_data, CWR_data)
+methods = [OL_data, OLV2_data, LWF_data, CWR_data, MYALG_data]
+create_plot(methods)

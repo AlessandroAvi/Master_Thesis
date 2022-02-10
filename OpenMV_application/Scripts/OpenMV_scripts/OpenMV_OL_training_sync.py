@@ -54,7 +54,7 @@ myLib.allocateMemory(OL_layer)
 label = 'X'
 
 # DEFINE TRAINING PARAMS
-OL_layer.l_rate      = 0.005
+OL_layer.l_rate      = 0.005 #  0.00001  per MY ALG
 OL_layer.batch_size  = 256
 OL_layer.train_limit = 4000     # after how many prediction start testing
 OL_layer.counter     = 0        # just a reset
