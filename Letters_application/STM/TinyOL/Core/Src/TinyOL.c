@@ -54,7 +54,7 @@ void OL_allocateMemory(OL_LAYER_STRUCT * layer){
 			}
 		}
 
-		if(layer->ALGORITHM == MODE_LWF || layer->ALGORITHM == MODE_LWF_batch || layer->ALGORITHM == MODE_CWR){
+		if(layer->ALGORITHM != MODE_OL_batch && layer->ALGORITHM != MODE_OL_V2_batch){
 			layer->y_pred_2 = calloc(layer->WIDTH, sizeof(float));
 			if(layer->y_pred_2==NULL){
 				layer->OL_ERROR = CALLOC_Y_PRED_2;
@@ -81,8 +81,7 @@ void OL_increaseWeightDim(OL_LAYER_STRUCT * layer){
 		layer->weights[i] = 0;
 	}
 
-	if(layer->ALGORITHM == MODE_CWR || layer->ALGORITHM == MODE_LWF || layer->ALGORITHM == MODE_OL_batch ||
-	   layer->ALGORITHM == MODE_OL_V2_batch || layer->ALGORITHM == MODE_LWF_batch){
+	if(layer->ALGORITHM != MODE_OL && layer->ALGORITHM != MODE_OL_V2){
 
 		layer->weights_2 = realloc(layer->weights_2, h*w*sizeof(float));
 		if(layer->weights_2== NULL){
@@ -113,8 +112,7 @@ void OL_increaseBiasDim(OL_LAYER_STRUCT * layer){
 
 	layer->biases[w-1] = 0;				// set to 0 new biases
 
-	if(layer->ALGORITHM==MODE_CWR || layer->ALGORITHM==MODE_LWF || layer->ALGORITHM==MODE_OL_batch  ||
-	   layer->ALGORITHM==MODE_OL_V2_batch || layer->ALGORITHM==MODE_LWF_batch){
+	if(layer->ALGORITHM!=MODE_OL && layer->ALGORITHM!=MODE_OL_V2){
 
 		layer->biases_2 = realloc(layer->biases_2, w*sizeof(float));
 		if(layer->biases_2==NULL){
@@ -164,7 +162,9 @@ void OL_increaseYpredDim(OL_LAYER_STRUCT * layer){
 		layer->OL_ERROR = REALLOC_Y_PRED;
 	}
 
-	if(layer->ALGORITHM == MODE_LWF || layer->ALGORITHM == MODE_LWF_batch || layer->ALGORITHM == MODE_CWR){
+	if(layer->ALGORITHM == MODE_LWF || layer->ALGORITHM == MODE_LWF_batch || layer->ALGORITHM == MODE_CWR ||
+	   layer->ALGORITHM == MODE_MY_ALG)
+	{
 		layer->y_pred_2 = realloc(layer->y_pred_2, layer->WIDTH*sizeof(float));
 		if(layer->y_pred_2==NULL){
 			layer->OL_ERROR = REALLOC_Y_PRED_2;
@@ -349,7 +349,7 @@ void OL_compareLabels(OL_LAYER_STRUCT * layer){
 
 /* This function is the most important part of the TinyOL script. Inside here an IF decides which algorithm
  * to apply, thus changing the update of the weights.  */
-void OL_train(OL_LAYER_STRUCT * layer, float * input, char *letter){
+void OL_train(OL_LAYER_STRUCT * layer, float * input){
 
 	// Values in common between all algorithms
 	int w = layer->WIDTH;
@@ -603,6 +603,84 @@ void OL_train(OL_LAYER_STRUCT * layer, float * input, char *letter){
 		OL_updateRAMcounter(layer);
 #endif
 
+
+	// *************************************
+	// ***** MY ALGORITHM
+	}else if(layer->ALGORITHM == MODE_MY_ALG){
+
+
+		float cost_tl[w];
+		float cost_cl[w];
+
+
+		// Find max of both prediction and true label
+		uint8_t true_label_index;
+		uint8_t true_label_max = 0;
+		for(int j=0; j<w; j++){
+			if(true_label_max < layer->y_true[j]){
+				true_label_index = j;
+				true_label_max = layer->y_true[j];
+			}
+		}
+
+
+		// Inference TL
+		OL_feedForward(layer, layer->weights, input, layer->biases, layer->y_pred);
+		OL_softmax(layer, layer->y_pred);
+
+		// Inference CL
+		OL_feedForward(layer, layer->weights_2, input, layer->biases_2, layer->y_pred_2);
+		OL_softmax(layer, layer->y_pred_2);
+
+
+		for(int j=0; j<w; j++){
+			cost_tl[j] = layer->y_pred[j]  -layer->y_true[j];	// compute cost of TL layer
+			cost_cl[j] = layer->y_pred_2[j]-layer->y_true[j];	// compute cost of CL layer
+
+			// Backpropagation
+			for(int i=0; i<h; i++){
+				layer->weights[j*h+i] -= layer->l_rate*input[i]*cost_tl[j];	// Update weights TL
+				if(true_label_index < 5){
+					layer->weights_2[j*h+i] -= layer->l_rate*input[i]*cost_cl[j];	// Update weights CL
+				}
+			}
+			layer->biases[j] -= layer->l_rate*cost_tl[j];					// Update biases TL
+			if(true_label_index < 5){
+				layer->biases_2[j] -= layer->l_rate*cost_tl[j];					// Update biases CL
+			}
+		}
+
+		OL_compareLabels(layer);			// Check if prediction is correct or not
+
+
+		// When batch ends
+		if( (layer->counter != 0) && ((layer->counter % layer->batch_size) == 0) ){
+
+			float lambda = layer->batch_size / layer->counter;
+
+			// Update CW
+			for(int j=0; j<w; j++){
+				for(int i=0; i<h; i++){
+					layer->weights[j*h+i] = layer->weights_2[j*h+i]*lambda + layer->weights[j*h+i]*(1-lambda);
+				}
+				layer->biases[j] = layer->biases_2[j]*lambda + layer->biases[j]*(1-lambda);
+			}
+
+			// Reset TW
+			for(int j=0; j<w; j++){
+				for(int i=0; i<h; i++){
+					layer->weights_2[j*h+i] = layer->weights[j*h+i];	// reset
+				}
+				layer->biases_2[j] = layer->biases[j];					// reset
+			}
+		}
+
+		layer->counter +=1;
+
+
+#if READ_FREE_RAM==1
+		OL_updateRAMcounter(layer);
+#endif
 	}
 };
 
@@ -616,7 +694,9 @@ void OL_train(OL_LAYER_STRUCT * layer, float * input, char *letter){
 
 
 
-
+// #############################################
+//       SEND HISTORY OF TRAINING FUNCTIONS
+// #############################################
 
 
 

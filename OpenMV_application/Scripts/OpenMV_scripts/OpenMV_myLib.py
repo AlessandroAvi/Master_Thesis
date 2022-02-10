@@ -186,16 +186,16 @@ def check_label(OL_layer, current_label):
             tmp = np.zeros((1,OL_layer.H))
             OL_layer.weights_new   = np.concatenate((OL_layer.weights_new, tmp))
 
-            # expand weights new 2
-            if(OL_layer.method==4 or OL_layer.method==5 or OL_layer.method==6 or OL_layer.method==7):
-                OL_layer.weights_new_2 = np.concatenate((OL_layer.weights_new_2, tmp))
-
             # expand biases new
             tmp = np.zeros((1,1))
             OL_layer.biases_new    = np.concatenate((OL_layer.biases_new, tmp), axis=0)
 
+            # expand weights new 2
+            if(OL_layer.method==4 or OL_layer.method==5 or OL_layer.method==6 or OL_layer.method==7 or OL_layer.method==8):
+                OL_layer.weights_new_2 = np.concatenate((OL_layer.weights_new_2, tmp))
+
             # expand biases new 2
-            if(OL_layer.method==4 or OL_layer.method==5 or OL_layer.method==6 or OL_layer.method==7):
+            if(OL_layer.method==4 or OL_layer.method==5 or OL_layer.method==6 or OL_layer.method==7 or OL_layer.method==8):
                 OL_layer.biases_new_2  = np.concatenate((OL_layer.biases_new_2, tmp), axis=0)
 
         # expand found letters
@@ -672,6 +672,79 @@ def train_LWF_mini_batch(OL_layer, true_label, out_frozen):
 
 
 
+def train_MY_ALG(OL_layer, true_label, out_frozen):
+
+    # PREDICTION & SOFTMAX - TL
+    out_TL = feed_forward(out_frozen, OL_layer)
+    prediction_TL = softmax(out_TL)
+    # PREDICTION & SOFTMAX - CL
+    out_CL = feed_forward_V2(out_frozen, OL_layer)
+    prediction_CL = softmax(out_CL)
+
+    # BACKPROPAGATION
+    cost_TL = np.zeros((OL_layer.W,1)) # normal cost
+    cost_CL = np.zeros((OL_layer.W,1)) # LWF cost
+    tmp_CL = np.zeros((1,1))
+    tmp_TL = np.zeros((1,1))
+    offset = OL_layer.offset
+
+    out_frozen = np.array(out_frozen).reshape((1,OL_layer.H)) # Reshape
+
+    # Compute cost
+    for i in range(0, OL_layer.W):
+
+        cost_TL[i,0] = (prediction_TL[i,0]-true_label[i,0])*OL_layer.l_rate
+        cost_CL[i,0] = (prediction_CL[i,0]-true_label[i,0])*OL_layer.l_rate
+        tmp_TL[0,0] = cost_TL[i,0]
+        tmp_CL[0,0] = cost_CL[i,0]
+        dW_TL = np.linalg.dot(tmp_TL, out_frozen)
+        dW_CL = np.linalg.dot(tmp_CL, out_frozen)
+
+
+        if(i<6):
+            OL_layer.weights[i,:] = OL_layer.weights[i,:] - dW_TL[0,:]
+            OL_layer.biases[i,0]  = OL_layer.biases[i,0]  - cost_TL[i,0]
+
+            OL_layer.weights_2[i,:] = OL_layer.weights_2[i,:] - dW_CL[0,:]
+            OL_layer.biases_2[i,0]  = OL_layer.biases_2[i,0] - cost_CL[i,0]
+        else:
+            OL_layer.weights_new[i-OL_layer.offset,:] = OL_layer.weights_new[i-OL_layer.offset,:] - dW_TL[0,:]
+            OL_layer.biases_new[i-OL_layer.offset,0]  = OL_layer.biases_new[i-OL_layer.offset,0]  - cost_TL[i,0]
+
+            OL_layer.weights_new_2[i-offset,:] = OL_layer.weights_new_2[i-offset,:] - dW_CL[0,:]
+            OL_layer.biases_new_2[i-offset,0]  = OL_layer.biases_new_2[i-offset,0] - cost_CL[i,0]
+
+
+
+    # BATCH FINISHED
+    if((OL_layer.counter % OL_layer.batch_size == 0) and (OL_layer.counter != 0)):
+
+        my_lambda = OL_layer.batch_size / OL_layer.counter
+
+        # Reset the CL layer
+        for i in range(0, OL_layer.W):
+
+
+            if(i<6):
+                OL_layer.weights[i,:] = OL_layer.weights_2[i,:]*my_lambda + OL_layer.weights[i,:]*(1-my_lambda)
+                OL_layer.biases[i,0]  = OL_layer.biases_2[i,0]*my_lambda  + OL_layer.biases[i,0]*(1-my_lambda)
+
+                OL_layer.weights_2[i,:] = OL_layer.weights[i,:]
+                OL_layer.biases_2[i,0]  = OL_layer.biases[i,0]
+            else:
+                OL_layer.weights_new[i,:] = OL_layer.weights_new_2[i,:]*my_lambda + OL_layer.weights_new[i,:]*(1-my_lambda)
+                OL_layer.biases_new[i,0]  = OL_layer.biases_new_2[i,0]*my_lambda  + OL_layer.biases_new[i,0]*(1-my_lambda)
+
+                OL_layer.weights_new_2[i-offset,:] = OL_layer.weights_new[i-offset,:]
+                OL_layer.biases_new_2[i-offset,0]  = OL_layer.biases_new[i-offset,0]
+
+    return prediction
+
+
+
+
+
+
 """ Calls the correct function for hte back propagation """
 def train_layer(OL_layer, true_label, out_frozen):
 
@@ -691,6 +764,8 @@ def train_layer(OL_layer, true_label, out_frozen):
         prediction = train_OLV2_mini_batch(OL_layer, true_label, out_frozen)
     elif(OL_layer.method==7):
         prediction = train_LWF_mini_batch(OL_layer, true_label, out_frozen)
+    elif(OL_layer.method==8):
+        prediction = train_MY_ALG(OL_layer, true_label, out_frozen)
 
     return prediction
 

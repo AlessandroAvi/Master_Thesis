@@ -36,14 +36,15 @@ myLib.load_weights(OL_layer)            # Read from the txt file the biases and 
 
 # TRAINING METHOD SELECTION **********************************
 # 0 -> no training, just inference
-# 1 -> OL               WORKS - perfoms good
-# 2 -> OLV2             WORKS - perfoms good
-# 3 -> LWF              WORKS - perfoms good
-# 4 -> CWR              WORKS - performs not so good - l rate non ha cambiato molto la performance
-# 5 -> OL mini batch    WORKS - perfoms good
-# 6 -> OLV2 mini batch  WORKS - performs not so good - batch 32 a bit better
-# 7 -> LWF mini batch   WORKS - perfoms good - careful around label 30 camera reboots easily , dunno why
-OL_layer.method = 4
+# 1 -> OL               WORKS - performs good
+# 2 -> OLV2             WORKS - performs good
+# 3 -> LWF              WORKS - performs good
+# 4 -> CWR              WORKS - performs good
+# 5 -> OL mini batch    WORKS - performs good
+# 6 -> OLV2 mini batch  WORKS - performs good
+# 7 -> LWF mini batch   WORKS - performs good - careful around label 30 camera reboots easily , dunno why
+# 8 -> MY ALGORITHM
+OL_layer.method = 8
 
 
 

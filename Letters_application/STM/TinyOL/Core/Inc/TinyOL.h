@@ -14,9 +14,8 @@
 // ******************************
 
 
-// Enum in which the type of errors are encoded in numbers
+// Types of errors are encoded in numbers
 // Easy to use from the debugger, just check the value inside layer->OL_ERROR
-// and then compare here
 typedef enum{
 	CALLOC_WEIGHTS=0,
 	CALLOC_BIASES,
@@ -39,7 +38,7 @@ typedef enum{
 } ERROR_CODE;
 
 
-// Enum in which the algorithm used is encoded in numbers
+// Contains the type of algorithm used
 typedef enum{
 	MODE_OL=0,
 	MODE_OL_V2,
@@ -47,12 +46,13 @@ typedef enum{
 	MODE_LWF,
 	MODE_OL_batch,
 	MODE_OL_V2_batch,
-	MODE_LWF_batch
+	MODE_LWF_batch,
+	MODE_MY_ALG
 } OL_LAYER_ALGORITHM;
 
 
 
-// Struct of the OL layer in which all the important values are saved
+// Contains all the important data of the OL layer
 typedef struct {
 
 	// BASIC PARAMETERS OF THE NN
@@ -108,6 +108,7 @@ typedef struct {
 #define INFO_LEN           		     10
 #define READ_FREE_RAM                 0
 
+
 // UNCOMMENT THIS TO SEND TO PC THE HOSTORY OF THE TRAINING
 //#define DEBUG_SEND_HISTORY
 
@@ -155,7 +156,7 @@ void OL_feedForward(OL_LAYER_STRUCT * layer, float * weights, float * input, flo
 void OL_checkNewClass(OL_LAYER_STRUCT * layer, char * letter);
 
 /*   Function that performs the entire training of the OL layer. The training depends on the algorithm  */
-void OL_train(OL_LAYER_STRUCT * layer, float * input, char * letter);
+void OL_train(OL_LAYER_STRUCT * layer, float * input);
 
 /*   Function that increases the dimension of the weight and weight2 array  */
 void OL_increaseWeightDim(OL_LAYER_STRUCT * layer);

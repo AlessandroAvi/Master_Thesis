@@ -64,7 +64,7 @@ ai_float in_data[AI_NETWORK_IN_1_SIZE];
 ai_float out_data[AI_NETWORK_OUT_1_SIZE];
 
 // Flags for enabling/disabling the prediction
-int enable_inference = 0;
+int ENABLE_INFERENCE = 0;
 uint8_t BlueButton = 0;
 char letter[1];
 
@@ -148,7 +148,8 @@ int main(void)
   //	MODE_OL_batch
   //	MODE_OL_V2_batch
   //	MODE_LWF_batch
-  OL_layer.ALGORITHM = MODE_CWR;
+  // 	MODE_MY_ALG
+  OL_layer.ALGORITHM = MODE_MY_ALG;
 
   OL_layer.batch_size = 16;
 
@@ -168,6 +169,8 @@ int main(void)
 	  OL_layer.l_rate = 0.001;
   }else if(OL_layer.ALGORITHM == MODE_LWF_batch){
 	  OL_layer.l_rate = 0.0007;
+  }else if(OL_layer.ALGORITHM == MODE_MY_ALG){
+	  OL_layer.l_rate = 0.005;
   }
 
 
@@ -200,8 +203,8 @@ int main(void)
 	  OL_layer.biases[i] = saved_biases[i];
   }
 
-  // Fill up weights2 and biases2 only in the case of LWF
-  if(OL_layer.ALGORITHM == MODE_LWF || OL_layer.ALGORITHM == MODE_LWF_batch){
+  // Fill up weights2 and biases2 only in the case of LWF or MY_ALG
+  if(OL_layer.ALGORITHM == MODE_LWF || OL_layer.ALGORITHM == MODE_LWF_batch || OL_layer.ALGORITHM == MODE_MY_ALG){
 	  for(int i=0; i<OL_layer.WIDTH*OL_layer.HEIGHT; i++){
 	  	  OL_layer.weights_2[i] = saved_weights[i];
 	  }
@@ -220,8 +223,9 @@ int main(void)
   {
 
 
-	  // Enable_inference flag is raised at the end of the data communication between pc-STM (see interrupt callbacks at the end of the main)
-	  if(enable_inference == 1){
+	  // ENABLE_INFERENCE flag is raised at the end of the data communication between pc-STM
+	  // (see interrupt callbacks at the end of the main)
+	  if(ENABLE_INFERENCE == 1){
 
 
 		  // *************************
@@ -253,12 +257,12 @@ int main(void)
 
 		  ai_run_v2(&in_data, &out_data);							// Perform inference from frozen model
 
-		  inferenceTime_frozen = timer_counter;						// Measure frozen time
+		  inferenceTime_frozen = timer_counter;						// Measure frozen model inference time
 
 		  OL_checkNewClass(&OL_layer, letter);						// Check if the letter is known, otherwise increase dimensions of weight and biases
 		  OL_lettToSoft(&OL_layer, letter);							// Transform the letter char into a hot one encoded softmax array
 
-		  OL_train(&OL_layer, out_data, letter);					// Perform training on last captured sample
+		  OL_train(&OL_layer, out_data);							// Perform training on last captured sample
 
 		  inferenceTime_OL = timer_counter-inferenceTime_frozen;	// Measure OL time
 
@@ -309,7 +313,7 @@ int main(void)
 #endif
 
 		  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);	// LED toggle
-		  enable_inference = 0;						// Reset inference flag
+		  ENABLE_INFERENCE = 0;						// Reset inference flag
 
 		  if(((OL_layer.counter-1) % 10 == 0) && (OL_layer.counter >= 100)){
 			  OL_layer.batch_size = 8;
@@ -319,7 +323,7 @@ int main(void)
 	  HAL_Delay(5); 			// Helps the code to not get stuck
 
 	  // If the blue button has been pressed and the cycle inference cycle is finished enable again the interrupt for the infinite cycle
-	  if(BlueButton == 1 && enable_inference == 0){
+	  if(BlueButton == 1 && ENABLE_INFERENCE == 0){
 		  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_10, GPIO_PIN_SET);	// Set high the value for interrupt for infinity cycle
 	  }
 
@@ -408,7 +412,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 
 			letter[0] = msgRxLett[0];											// Store the received message in the label container
 
-			enable_inference = 1;												// Raise the flag that enables the inference at the next cyle in the while
+			ENABLE_INFERENCE = 1;												// Raise the flag that enables the inference at the next cyle in the while
 		}
 	}
 
@@ -434,7 +438,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 
 			letter[0] = msgRxLett[0];											// Store the received message in the label container
 
-			enable_inference = 1;												// Raise the flag that enables the inference at the next cyle in the while
+			ENABLE_INFERENCE = 1;												// Raise the flag that enables the inference at the next cyle in the while
 		}
 	}
 }
