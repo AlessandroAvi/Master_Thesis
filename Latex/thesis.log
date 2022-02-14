@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.11.13)  7 FEB 2022 12:05
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.11.13)  14 FEB 2022 11:57
 entering extended mode
 **./thesis.tex
 (thesis.tex
@@ -519,182 +519,179 @@ ex/config/pdftex.map}>] [2
 ] [8
 
 ]
-Overfull \hbox (3.67241pt too wide) in paragraph at lines 75--86
+Overfull \hbox (3.67241pt too wide) in paragraph at lines 75--85
 \OT1/cmr/m/n/12 The ap-pli-ca-tion of ma-chine learn-ing (ML) on small de-vices
 , in a word TinyML,
  []
 
-[1] [2] [3]
+[1] [2] [3] [4]
 Chapter 1.
-[4
+[5
 
 ]
 
-LaTeX Warning: Citation `lesort2020continual' on page 5 undefined on input line
- 119.
+LaTeX Warning: Citation `lesort2020continual' on page 6 undefined on input line
+ 130.
 
 
-LaTeX Warning: Citation `maltoni2019continuous' on page 5 undefined on input li
-ne 119.
+LaTeX Warning: Citation `maltoni2019continuous' on page 6 undefined on input li
+ne 130.
 
-[5] [6]
+[6] [7]
 Chapter 2.
 
-LaTeX Warning: Citation `shield_web_page' on page 7 undefined on input line 138
+LaTeX Warning: Citation `shield_web_page' on page 8 undefined on input line 149
 .
 
-<Figures/Chapter2/hardware.jpg, id=201, 1696.83937pt x 718.18312pt>
+<Figures/Chapter2/hardware.jpg, id=209, 1696.83937pt x 718.18312pt>
 File: Figures/Chapter2/hardware.jpg Graphic file (type jpg)
 <use Figures/Chapter2/hardware.jpg>
-Package pdftex.def Info: Figures/Chapter2/hardware.jpg  used on input line 142.
+Package pdftex.def Info: Figures/Chapter2/hardware.jpg  used on input line 153.
 
 (pdftex.def)             Requested size: 272.99881pt x 115.54724pt.
 
-LaTeX Warning: Citation `openmv_web_page' on page 7 undefined on input line 147
+LaTeX Warning: Citation `openmv_web_page' on page 8 undefined on input line 158
 .
 
 File: Figures/Chapter2/hardware.jpg Graphic file (type jpg)
 <use Figures/Chapter2/hardware.jpg>
-Package pdftex.def Info: Figures/Chapter2/hardware.jpg  used on input line 151.
+Package pdftex.def Info: Figures/Chapter2/hardware.jpg  used on input line 162.
 
 (pdftex.def)             Requested size: 272.99881pt x 115.54724pt.
-[7
+[8
 
- <./Figures/Chapter2/hardware.jpg>] [8]
+ <./Figures/Chapter2/hardware.jpg>] [9]
 Chapter 3.
-[9
+[10
 
-] [10]
-Underfull \hbox (badness 10000) in paragraph at lines 201--202
+] [11]
+Underfull \hbox (badness 10000) in paragraph at lines 212--213
 
  []
 
 
-LaTeX Warning: Citation `li2017learning' on page 11 undefined on input line 205
+LaTeX Warning: Citation `li2017learning' on page 12 undefined on input line 216
 .
 
 
-LaTeX Warning: Citation `lomonaco2017core50' on page 11 undefined on input line
- 205.
+LaTeX Warning: Citation `lomonaco2017core50' on page 12 undefined on input line
+ 216.
 
 
-LaTeX Warning: Citation `maltoni2019continuous' on page 11 undefined on input l
-ine 205.
+LaTeX Warning: Citation `maltoni2019continuous' on page 12 undefined on input l
+ine 216.
 
 
-LaTeX Warning: Citation `maltoni2019continuous' on page 11 undefined on input l
-ine 205.
-
-[11]
-
-LaTeX Warning: Citation `ren2021tinyol' on page 12 undefined on input line 210.
-
-
-
-LaTeX Warning: Citation `batch_size_medium' on page 12 undefined on input line 
-218.
+LaTeX Warning: Citation `maltoni2019continuous' on page 12 undefined on input l
+ine 216.
 
 [12]
-<Figures/Chapter3/OL.png, id=237, 963.6pt x 542.025pt>
+
+LaTeX Warning: Citation `ren2021tinyol' on page 13 undefined on input line 221.
+
+
+
+LaTeX Warning: Citation `batch_size_medium' on page 13 undefined on input line 
+229.
+
+[13]
+<Figures/Chapter3/OL.png, id=244, 963.6pt x 542.025pt>
 File: Figures/Chapter3/OL.png Graphic file (type png)
 <use Figures/Chapter3/OL.png>
-Package pdftex.def Info: Figures/Chapter3/OL.png  used on input line 230.
+Package pdftex.def Info: Figures/Chapter3/OL.png  used on input line 241.
 (pdftex.def)             Requested size: 272.99881pt x 153.56068pt.
- [13] [14 <./Figures/Chapter3/OL.png (PNG copy)>]
-<Figures/Chapter3/OLV2.png, id=247, 963.6pt x 542.025pt>
+ [14] [15 <./Figures/Chapter3/OL.png (PNG copy)>]
+<Figures/Chapter3/OLV2.png, id=254, 963.6pt x 542.025pt>
 File: Figures/Chapter3/OLV2.png Graphic file (type png)
 <use Figures/Chapter3/OLV2.png>
-Package pdftex.def Info: Figures/Chapter3/OLV2.png  used on input line 254.
+Package pdftex.def Info: Figures/Chapter3/OLV2.png  used on input line 265.
 (pdftex.def)             Requested size: 272.99881pt x 153.56068pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-LaTeX Warning: Citation `li2017learning' on page 15 undefined on input line 261
+LaTeX Warning: Citation `li2017learning' on page 16 undefined on input line 272
 .
 
 
-LaTeX Warning: Citation `maltoni2019continuous' on page 15 undefined on input l
-ine 261.
-
-[15]
-
 LaTeX Warning: Citation `maltoni2019continuous' on page 16 undefined on input l
-ine 270.
-
-[16 <./Figures/Chapter3/OLV2.png (PNG copy)>]
-
-LaTeX Warning: Citation `maltoni2019continuous' on page 17 undefined on input l
 ine 272.
 
-[17]
-<Figures/Chapter3/LWF.png, id=262, 963.6pt x 542.025pt>
+[16]
+
+LaTeX Warning: Citation `maltoni2019continuous' on page 17 undefined on input l
+ine 281.
+
+[17 <./Figures/Chapter3/OLV2.png (PNG copy)>]
+
+LaTeX Warning: Citation `maltoni2019continuous' on page 18 undefined on input l
+ine 283.
+
+[18]
+<Figures/Chapter3/LWF.png, id=269, 963.6pt x 542.025pt>
 File: Figures/Chapter3/LWF.png Graphic file (type png)
 <use Figures/Chapter3/LWF.png>
-Package pdftex.def Info: Figures/Chapter3/LWF.png  used on input line 296.
+Package pdftex.def Info: Figures/Chapter3/LWF.png  used on input line 307.
 (pdftex.def)             Requested size: 272.99881pt x 153.56068pt.
- [18 <./Figures/Chapter3/LWF.png (PNG copy)>]
-<Figures/Chapter3/CWR.png, id=270, 963.6pt x 542.025pt>
+ [19 <./Figures/Chapter3/LWF.png (PNG copy)>]
+<Figures/Chapter3/CWR.png, id=277, 963.6pt x 542.025pt>
 File: Figures/Chapter3/CWR.png Graphic file (type png)
 <use Figures/Chapter3/CWR.png>
-Package pdftex.def Info: Figures/Chapter3/CWR.png  used on input line 313.
+Package pdftex.def Info: Figures/Chapter3/CWR.png  used on input line 324.
 (pdftex.def)             Requested size: 272.99881pt x 153.56068pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[19] [20 <./Figures/Chapter3/CWR.png (PNG copy)>]
+[20] [21 <./Figures/Chapter3/CWR.png (PNG copy)>]
 Chapter 4.
 
-LaTeX Warning: Reference `' on page 21 undefined on input line 344.
+LaTeX Warning: Reference `' on page 22 undefined on input line 355.
 
 
-LaTeX Warning: Reference `introduction' on page 21 undefined on input line 347.
+LaTeX Warning: Reference `introduction' on page 22 undefined on input line 358.
 
 
-<Figures/Chapter4/letters_motion.jpg, id=281, 308.352pt x 154.4169pt>
+<Figures/Chapter4/letters_motion.jpg, id=288, 308.352pt x 154.4169pt>
 File: Figures/Chapter4/letters_motion.jpg Graphic file (type jpg)
 <use Figures/Chapter4/letters_motion.jpg>
 Package pdftex.def Info: Figures/Chapter4/letters_motion.jpg  used on input lin
-e 351.
+e 362.
 (pdftex.def)             Requested size: 284.52756pt x 142.48936pt.
 
-LaTeX Warning: Reference `' on page 21 undefined on input line 356.
+LaTeX Warning: Reference `' on page 22 undefined on input line 367.
 
-[21
+[22
 
-] [22] [23 <./Figures/Chapter4/letters_motion.jpg>]
+] [23] [24 <./Figures/Chapter4/letters_motion.jpg>]
 
-LaTeX Warning: Reference `]' on page 24 undefined on input line 364.
+LaTeX Warning: Reference `]' on page 25 undefined on input line 375.
 
-[24] [25] [26] [27] [28] [29] [30]
+[25] [26] [27] [28] [29] [30] [31]
 Chapter 5.
-[31
+[32
 
 ]
 Chapter 6.
 No file thesis.bbl.
-[32
+[33
 
 ] (thesis.aux)
 
 LaTeX Warning: There were undefined references.
 
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
 Package rerunfilecheck Info: File `thesis.out' has not changed.
 (rerunfilecheck)             Checksum: D60FA8BE40DA342C4C9A59E47E7A7037;2870.
  ) 
 Here is how much of TeX's memory you used:
- 11396 strings out of 478927
- 176451 string characters out of 2852534
- 491499 words of memory out of 3000000
+ 11397 strings out of 478927
+ 176458 string characters out of 2852534
+ 491622 words of memory out of 3000000
  29004 multiletter control sequences out of 15000+600000
  409270 words of font info for 47 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 62i,17n,75p,1950b,409s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 62i,17n,75p,1670b,409s stack positions out of 5000i,500n,10000p,200000b,80000s
 {C:/Users/massi/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/cm-super/cm-sup
 er-ts1.enc}<C:/Users/massi/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
 fonts/cm/cmbx12.pfb><C:/Users/massi/AppData/Local/Programs/MiKTeX/fonts/type1/p
@@ -708,9 +705,9 @@ pData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users
 <C:/Users/massi/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cm
 tt12.pfb><C:/Users/massi/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-su
 per/sfrm1200.pfb>
-Output written on thesis.pdf (40 pages, 904683 bytes).
+Output written on thesis.pdf (41 pages, 906775 bytes).
 PDF statistics:
- 392 PDF objects out of 1000 (max. 8388607)
- 80 named destinations out of 1000 (max. 500000)
+ 398 PDF objects out of 1000 (max. 8388607)
+ 81 named destinations out of 1000 (max. 500000)
  187 words of extra memory for PDF output out of 10000 (max. 10000000)
 
