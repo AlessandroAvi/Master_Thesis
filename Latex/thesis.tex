@@ -462,8 +462,112 @@ The communication is again based on the UART protocol. At first the COM port is 
 
 \chapter{Experimental results} 
 
+This section contains and explains the results obtained from the test performed. Initially a description about the comparison between simulation and real application is performed with the aim of understanding if the training on the nucleo evolves as the simulation on the laptop. Then the results obtained from the application from the Nucleo are discussed and finally the results from the OpenMV application are described.\\
+To understand if the Nucleo STM32 F401-RE is able to perform a real time ML training a study concerning the history of its parameters is done. The idea is to record the variation of the most important parameters from the OL layer at every training step and then compare its evolution to the same parameter evolutioin but recorded from the simulation carried out on the laptop. The parameters of interest are the biases of the OL layer, the predictions obtained from Softmax, the output of the frozen model, 10 weights picked randomically from the weight matrix. The evolution of the parameters is then displayed in a plot with the aim of observing how and if the history recorded from the laptop differs from the history recorded from the MCU. This is done qualitatively simply by looking at superimposition of the two lines. Figure \ref{fig:comparison_frozen} shows one example of comparison for the frozen model outpus, figure \ref{fig:comparison_bias} shows the comparison of the bias evolution, figure \ref{fig:comparison_weights} shows the comparison of the weights evolution, figure \ref{fig:comparison_softmax} shows the difference of the predictions obtained from Softmax.
+%
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=100mm]{Figures/Chapter5/bias_example.png} 
+    \caption{PLACEHOLDER}
+    \label{fig:comparison_bias}    
+\end{figure}
+%
+%
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=100mm]{Figures/Chapter5/weight_example.png} 
+    \caption{PLACEHOLDER}
+    \label{fig:comparison_weights}    
+\end{figure}
+%
+%
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=100mm]{Figures/Chapter5/frozen_example.png} 
+    \caption{PLACEHOLDER}
+    \label{fig:comparison_frozen}    
+\end{figure}
+%
+%
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=100mm]{Figures/Chapter5/softmax_example.png} 
+    \caption{PLACEHOLDER}
+    \label{fig:comparison_softmax}    
+\end{figure}
+%
+The plots displayed above are examples of the evolution performed, but they are rappresentative of the behaviour of all parameters. It's clear from the results how the two applications are very close, differencing from each other by just a small magnitude and for very few training step. Only one difference can be noted in figure x, where the dofference of the softmax prediction is dofferent from zero but still very little. This error in fact doesn't introduce any problem in the evolution since in the following steps the error goes back to 0. \\
+One of the main concerns was about the feature extraction performed by the frozen model. Because of the limited resources of the MCU usually models are compressed to be later loaded on the device. In this case no pruning or quantization have been applied, so the frozen model loaded on the MCU and laptop are exactly the same. The concern regards how the prediction is carried out by the X-CUBE-AI tool on the MCU compared with Tensorflow on the laptop. Figure \ref{fig:comparison_max} contains two examples of comparison of frozen model outputs. The x axis contains the iterator representing the i-th difference computed between the i-th value from the Tensorflow and STM output from the frozen model. On the left the difference that contains the biggest error is displayed, while on the right is displayed the sample that contains the second biggest error. It's clear how the plot on the left is not a correct representation of the MCU behaviour since it has a magnitude far too high when compared to the second biggest error.
+%
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=100mm]{Figures/Chapter5/comparison_difference.png} 
+    \caption{PLACEHOLDER}
+    \label{fig:comparison_max}    
+\end{figure}
+%
+Thanks to this study it is possible to conclude that a training performed on such a small device is actually possible and in terms of accuracy and precision it is as reliable as a training performed on a powerful device. Because of these plots it is then possible to conclude that the evolution of the model on the MCU is reliable and correct. A model trained on such device is subject to the same exact evolution that would affect the model in the case the training were to be carried on a laptop. From this point on all the experiment and results are obtained from MCUs.
+\bigskip
 
-
+Speaking about the gesture recognition experiment once the training have been carried out it's possible to display the accuracy of every single algorithm for every single class. As mentioned in section REFERENCE SECTION the testing is performed on the last 20 \% of the dataset, so on a total of XXX samples. The bar plots containing the accuracies from every strategy together with their confusion matrices are displayed in Figures \ref{fig:letter_res_OL} \ref{fig:letter_res_OL_batch} \ref{fig:letter_res_OL_v2} \ref{fig:letter_res_OL_v2_batch} \ref{fig:letter_res_LWF} \ref{fig:letter_res_LWF_batch} \ref{fig:letter_res_CWR}.  
+%
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=100mm]{Figures/Chapter5/STM_barPlot_OL.jpg} 
+    \caption{PLACEHOLDER}
+    \label{fig:letter_res_OL}    
+\end{figure}
+%
+%
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=100mm]{Figures/Chapter5/STM_barPlot_OL_batch.jpg} 
+    \caption{PLACEHOLDER}
+    \label{fig:letter_res_OL_batch}    
+\end{figure}
+%
+%
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=100mm]{Figures/Chapter5/STM_barPlot_OL_V2.jpg} 
+    \caption{PLACEHOLDER}
+    \label{fig:letter_res_OL_v2}    
+\end{figure}
+%
+%
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=100mm]{Figures/Chapter5/STM_barPlot_OL_V2_batch.jpg} 
+    \caption{PLACEHOLDER}
+    \label{fig:letter_res_OL_v2_batch}    
+\end{figure}
+%
+%
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=100mm]{Figures/Chapter5/STM_barPlot_LWF.jpg} 
+    \caption{PLACEHOLDER}
+    \label{fig:letter_res_LWF}    
+\end{figure}
+%
+%
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=100mm]{Figures/Chapter5/STM_barPlot_LWF_batch.jpg} 
+    \caption{PLACEHOLDER}
+    \label{fig:letter_res_LWF_batch}    
+\end{figure}
+%
+%
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=100mm]{Figures/Chapter5/STM_barPlot_CWR.jpg} 
+    \caption{PLACEHOLDER}
+    \label{fig:letter_res_CWR}    
+\end{figure}
+%
+From these plots it is clear how all methods are quite good in digesting new classes and completely fuse them in the classification layer. No method in fact shows a bad learning on a specific class exept for the letter B that in all methods sees a lower accuracy when compared to others. It' easy to see from the cofusion matrix that the letter is not learned in a wrong way but rather the letter is easily confused with the letter R. Most probably this is because the path that has been followed when the dataset has beenc reated differs for just the leg of letter R. \\
+Table x on the other hand contains other important results from the experiment. 
 
 
 

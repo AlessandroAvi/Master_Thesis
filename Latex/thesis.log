@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.11.13)  14 FEB 2022 11:57
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.11.13)  14 FEB 2022 15:04
 entering extended mode
 **./thesis.tex
 (thesis.tex
@@ -543,7 +543,7 @@ Chapter 2.
 LaTeX Warning: Citation `shield_web_page' on page 8 undefined on input line 149
 .
 
-<Figures/Chapter2/hardware.jpg, id=209, 1696.83937pt x 718.18312pt>
+<Figures/Chapter2/hardware.jpg, id=233, 1696.83937pt x 718.18312pt>
 File: Figures/Chapter2/hardware.jpg Graphic file (type jpg)
 <use Figures/Chapter2/hardware.jpg>
 Package pdftex.def Info: Figures/Chapter2/hardware.jpg  used on input line 153.
@@ -595,13 +595,13 @@ LaTeX Warning: Citation `batch_size_medium' on page 13 undefined on input line
 229.
 
 [13]
-<Figures/Chapter3/OL.png, id=244, 963.6pt x 542.025pt>
+<Figures/Chapter3/OL.png, id=268, 963.6pt x 542.025pt>
 File: Figures/Chapter3/OL.png Graphic file (type png)
 <use Figures/Chapter3/OL.png>
 Package pdftex.def Info: Figures/Chapter3/OL.png  used on input line 241.
 (pdftex.def)             Requested size: 272.99881pt x 153.56068pt.
  [14] [15 <./Figures/Chapter3/OL.png (PNG copy)>]
-<Figures/Chapter3/OLV2.png, id=254, 963.6pt x 542.025pt>
+<Figures/Chapter3/OLV2.png, id=278, 963.6pt x 542.025pt>
 File: Figures/Chapter3/OLV2.png Graphic file (type png)
 <use Figures/Chapter3/OLV2.png>
 Package pdftex.def Info: Figures/Chapter3/OLV2.png  used on input line 265.
@@ -629,13 +629,13 @@ LaTeX Warning: Citation `maltoni2019continuous' on page 18 undefined on input l
 ine 283.
 
 [18]
-<Figures/Chapter3/LWF.png, id=269, 963.6pt x 542.025pt>
+<Figures/Chapter3/LWF.png, id=293, 963.6pt x 542.025pt>
 File: Figures/Chapter3/LWF.png Graphic file (type png)
 <use Figures/Chapter3/LWF.png>
 Package pdftex.def Info: Figures/Chapter3/LWF.png  used on input line 307.
 (pdftex.def)             Requested size: 272.99881pt x 153.56068pt.
  [19 <./Figures/Chapter3/LWF.png (PNG copy)>]
-<Figures/Chapter3/CWR.png, id=277, 963.6pt x 542.025pt>
+<Figures/Chapter3/CWR.png, id=301, 963.6pt x 542.025pt>
 File: Figures/Chapter3/CWR.png Graphic file (type png)
 <use Figures/Chapter3/CWR.png>
 Package pdftex.def Info: Figures/Chapter3/CWR.png  used on input line 324.
@@ -653,7 +653,7 @@ LaTeX Warning: Reference `' on page 22 undefined on input line 355.
 LaTeX Warning: Reference `introduction' on page 22 undefined on input line 358.
 
 
-<Figures/Chapter4/letters_motion.jpg, id=288, 308.352pt x 154.4169pt>
+<Figures/Chapter4/letters_motion.jpg, id=312, 308.352pt x 154.4169pt>
 File: Figures/Chapter4/letters_motion.jpg Graphic file (type jpg)
 <use Figures/Chapter4/letters_motion.jpg>
 Package pdftex.def Info: Figures/Chapter4/letters_motion.jpg  used on input lin
@@ -670,25 +670,133 @@ LaTeX Warning: Reference `]' on page 25 undefined on input line 375.
 
 [25] [26] [27] [28] [29] [30] [31]
 Chapter 5.
+<Figures/Chapter5/bias_example.png, id=359, 414.8298pt x 279.32355pt>
+File: Figures/Chapter5/bias_example.png Graphic file (type png)
+<use Figures/Chapter5/bias_example.png>
+Package pdftex.def Info: Figures/Chapter5/bias_example.png  used on input line 
+470.
+(pdftex.def)             Requested size: 284.52756pt x 191.59119pt.
+<Figures/Chapter5/weight_example.png, id=361, 395.67825pt x 279.32355pt>
+File: Figures/Chapter5/weight_example.png Graphic file (type png)
+<use Figures/Chapter5/weight_example.png>
+Package pdftex.def Info: Figures/Chapter5/weight_example.png  used on input lin
+e 478.
+(pdftex.def)             Requested size: 284.52756pt x 200.86559pt.
+<Figures/Chapter5/frozen_example.png, id=362, 421.3341pt x 279.32355pt>
+File: Figures/Chapter5/frozen_example.png Graphic file (type png)
+<use Figures/Chapter5/frozen_example.png>
+Package pdftex.def Info: Figures/Chapter5/frozen_example.png  used on input lin
+e 486.
+(pdftex.def)             Requested size: 284.52756pt x 188.63327pt.
+<Figures/Chapter5/softmax_example.png, id=363, 395.67825pt x 279.32355pt>
+File: Figures/Chapter5/softmax_example.png Graphic file (type png)
+<use Figures/Chapter5/softmax_example.png>
+Package pdftex.def Info: Figures/Chapter5/softmax_example.png  used on input li
+ne 494.
+(pdftex.def)             Requested size: 284.52756pt x 200.86559pt.
+<Figures/Chapter5/comparison_difference.png, id=365, 395.67825pt x 279.32355pt>
+
+File: Figures/Chapter5/comparison_difference.png Graphic file (type png)
+<use Figures/Chapter5/comparison_difference.png>
+Package pdftex.def Info: Figures/Chapter5/comparison_difference.png  used on in
+put line 504.
+(pdftex.def)             Requested size: 284.52756pt x 200.86559pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
 [32
 
-]
+] [33 <./Figures/Chapter5/bias_example.png> <./Figures/Chapter5/weight_example.
+png>] [34 <./Figures/Chapter5/frozen_example.png> <./Figures/Chapter5/softmax_e
+xample.png>]
+<Figures/Chapter5/STM_barPlot_OL.jpg, id=389, 794.97pt x 505.89pt>
+File: Figures/Chapter5/STM_barPlot_OL.jpg Graphic file (type jpg)
+<use Figures/Chapter5/STM_barPlot_OL.jpg>
+Package pdftex.def Info: Figures/Chapter5/STM_barPlot_OL.jpg  used on input lin
+e 516.
+(pdftex.def)             Requested size: 284.52756pt x 181.06271pt.
+<Figures/Chapter5/STM_barPlot_OL_batch.jpg, id=390, 794.97pt x 505.89pt>
+File: Figures/Chapter5/STM_barPlot_OL_batch.jpg Graphic file (type jpg)
+<use Figures/Chapter5/STM_barPlot_OL_batch.jpg>
+Package pdftex.def Info: Figures/Chapter5/STM_barPlot_OL_batch.jpg  used on inp
+ut line 524.
+(pdftex.def)             Requested size: 284.52756pt x 181.06271pt.
+<Figures/Chapter5/STM_barPlot_OL_V2.jpg, id=391, 794.97pt x 505.89pt>
+File: Figures/Chapter5/STM_barPlot_OL_V2.jpg Graphic file (type jpg)
+<use Figures/Chapter5/STM_barPlot_OL_V2.jpg>
+Package pdftex.def Info: Figures/Chapter5/STM_barPlot_OL_V2.jpg  used on input 
+line 532.
+(pdftex.def)             Requested size: 284.52756pt x 181.06271pt.
+<Figures/Chapter5/STM_barPlot_OL_V2_batch.jpg, id=392, 794.97pt x 505.89pt>
+File: Figures/Chapter5/STM_barPlot_OL_V2_batch.jpg Graphic file (type jpg)
+<use Figures/Chapter5/STM_barPlot_OL_V2_batch.jpg>
+Package pdftex.def Info: Figures/Chapter5/STM_barPlot_OL_V2_batch.jpg  used on 
+input line 540.
+(pdftex.def)             Requested size: 284.52756pt x 181.06271pt.
+<Figures/Chapter5/STM_barPlot_LWF.jpg, id=393, 794.97pt x 505.89pt>
+File: Figures/Chapter5/STM_barPlot_LWF.jpg Graphic file (type jpg)
+<use Figures/Chapter5/STM_barPlot_LWF.jpg>
+Package pdftex.def Info: Figures/Chapter5/STM_barPlot_LWF.jpg  used on input li
+ne 548.
+(pdftex.def)             Requested size: 284.52756pt x 181.06271pt.
+<Figures/Chapter5/STM_barPlot_LWF_batch.jpg, id=394, 794.97pt x 505.89pt>
+File: Figures/Chapter5/STM_barPlot_LWF_batch.jpg Graphic file (type jpg)
+<use Figures/Chapter5/STM_barPlot_LWF_batch.jpg>
+Package pdftex.def Info: Figures/Chapter5/STM_barPlot_LWF_batch.jpg  used on in
+put line 556.
+(pdftex.def)             Requested size: 284.52756pt x 181.06271pt.
+<Figures/Chapter5/STM_barPlot_CWR.jpg, id=395, 794.97pt x 505.89pt>
+File: Figures/Chapter5/STM_barPlot_CWR.jpg Graphic file (type jpg)
+<use Figures/Chapter5/STM_barPlot_CWR.jpg>
+Package pdftex.def Info: Figures/Chapter5/STM_barPlot_CWR.jpg  used on input li
+ne 564.
+(pdftex.def)             Requested size: 284.52756pt x 181.06271pt.
+ [35 <./Figures/Chapter5/comparison_difference.png>]
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[36 <./Figures/Chapter5/STM_barPlot_OL.jpg> <./Figures/Chapter5/STM_barPlot_OL_
+batch.jpg>] [37 <./Figures/Chapter5/STM_barPlot_OL_V2.jpg> <./Figures/Chapter5/
+STM_barPlot_OL_V2_batch.jpg>] [38 <./Figures/Chapter5/STM_barPlot_LWF.jpg> <./F
+igures/Chapter5/STM_barPlot_LWF_batch.jpg>] [39 <./Figures/Chapter5/STM_barPlot
+_CWR.jpg>]
 Chapter 6.
 No file thesis.bbl.
-[33
+[40
 
 ] (thesis.aux)
 
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: D60FA8BE40DA342C4C9A59E47E7A7037;2870.
+(rerunfilecheck)             Checksum: 9B21292C19AA658C223DC5BB833C16BB;2870.
  ) 
 Here is how much of TeX's memory you used:
- 11397 strings out of 478927
- 176458 string characters out of 2852534
- 491622 words of memory out of 3000000
- 29004 multiletter control sequences out of 15000+600000
+ 11513 strings out of 478927
+ 180339 string characters out of 2852534
+ 492177 words of memory out of 3000000
+ 29088 multiletter control sequences out of 15000+600000
  409270 words of font info for 47 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  62i,17n,75p,1670b,409s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -705,9 +813,9 @@ pData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users
 <C:/Users/massi/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cm
 tt12.pfb><C:/Users/massi/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-su
 per/sfrm1200.pfb>
-Output written on thesis.pdf (41 pages, 906775 bytes).
+Output written on thesis.pdf (48 pages, 1811462 bytes).
 PDF statistics:
- 398 PDF objects out of 1000 (max. 8388607)
- 81 named destinations out of 1000 (max. 500000)
- 187 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 484 PDF objects out of 1000 (max. 8388607)
+ 100 named destinations out of 1000 (max. 500000)
+ 247 words of extra memory for PDF output out of 10000 (max. 10000000)
 
