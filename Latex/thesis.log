@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.11.13)  14 FEB 2022 15:04
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.11.13)  14 FEB 2022 16:55
 entering extended mode
 **./thesis.tex
 (thesis.tex
@@ -203,6 +203,13 @@ Package: afterpage 1995/10/27 v1.08 After-Page Package (DPC)
 \AP@partial=\box54
 \AP@footins=\box55
 )
+(C:\Users\massi\AppData\Local\Programs\MiKTeX\tex/latex/multirow\multirow.sty
+Package: multirow 2021/03/15 v2.8 Span multiple rows of a table
+\multirow@colwidth=\skip55
+\multirow@cntb=\count282
+\multirow@dima=\skip56
+\bigstrutjot=\dimen164
+)
 (C:\Users\massi\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hyperref.sty
 Package: hyperref 2021-06-07 v7.00m Hypertext links for LaTeX
 
@@ -249,9 +256,9 @@ Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
 (C:\Users\massi\AppData\Local\Programs\MiKTeX\tex/latex/kvoptions\kvoptions.sty
 Package: kvoptions 2020-10-07 v3.14 Key value format for package options (HO)
 )
-\@linkdim=\dimen164
-\Hy@linkcounter=\count282
-\Hy@pagecounter=\count283
+\@linkdim=\dimen165
+\Hy@linkcounter=\count283
+\Hy@pagecounter=\count284
  (C:\Users\massi\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\pd1enc.def
 File: pd1enc.def 2021-06-07 v7.00m Hyperref: PDFDocEncoding definition (HO)
 Now handling font encoding PD1 ...
@@ -268,7 +275,7 @@ Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
 (C:\Users\massi\AppData\Local\Programs\MiKTeX\tex/generic/etexcmds\etexcmds.sty
 Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
 )
-\Hy@SavedSpaceFactor=\count284
+\Hy@SavedSpaceFactor=\count285
  (C:\Users\massi\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\puenc.def
 File: puenc.def 2021-06-07 v7.00m Hyperref: PDF Unicode definition (HO)
 Now handling font encoding PU ...
@@ -281,14 +288,14 @@ Package hyperref Info: Plain pages OFF on input line 4207.
 Package hyperref Info: Backreferencing OFF on input line 4212.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4445.
-\c@Hy@tempcnt=\count285
+\c@Hy@tempcnt=\count286
 
 (C:\Users\massi\AppData\Local\Programs\MiKTeX\tex/latex/url\url.sty
 \Urlmuskip=\muskip17
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
 LaTeX Info: Redefining \url on input line 4804.
-\XeTeXLinkMargin=\dimen165
+\XeTeXLinkMargin=\dimen166
 
 (C:\Users\massi\AppData\Local\Programs\MiKTeX\tex/generic/bitset\bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
@@ -298,9 +305,9 @@ Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
 Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
 )
 ))
-\Fld@menulength=\count286
-\Field@Width=\dimen166
-\Fld@charsize=\dimen167
+\Fld@menulength=\count287
+\Field@Width=\dimen167
+\Fld@charsize=\dimen168
 Package hyperref Info: Hyper figures OFF on input line 6076.
 Package hyperref Info: Link nesting OFF on input line 6081.
 Package hyperref Info: Hyper index ON on input line 6084.
@@ -315,9 +322,9 @@ LaTeX Info: Redefining \pageref on input line 6150.
 Package: atbegshi-ltx 2021/01/10 v1.0c Emulation of the original atbegshi
 package with kernel methods
 )
-\Hy@abspage=\count287
-\c@Item=\count288
-\c@Hfootnote=\count289
+\Hy@abspage=\count288
+\c@Item=\count289
+\c@Hfootnote=\count290
 )
 Package hyperref Info: Driver (autodetected): hpdftex.
 (C:\Users\massi\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hpdftex.def
@@ -328,8 +335,8 @@ Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atvery packag
 e
 with kernel methods
 )
-\Fld@listcount=\count290
-\c@bookmark@seq@number=\count291
+\Fld@listcount=\count291
+\c@bookmark@seq@number=\count292
 
 (C:\Users\massi\AppData\Local\Programs\MiKTeX\tex/latex/rerunfilecheck\rerunfil
 echeck.sty
@@ -342,48 +349,48 @@ Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 86.
 )
-\Hy@SectionHShift=\skip55
+\Hy@SectionHShift=\skip57
 )
 (C:\Users\massi\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdf
 tex.def
 File: l3backend-pdftex.def 2021-08-04 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count292
+\l__color_backend_stack_int=\count293
 \l__pdf_internal_box=\box56
 ) (thesis.aux)
 \openout1 = `thesis.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
 
 (C:\Users\massi\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mk
 ii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count293
-\scratchdimen=\dimen168
+\scratchcounter=\count294
+\scratchdimen=\dimen169
 \scratchbox=\box57
-\nofMPsegments=\count294
-\nofMParguments=\count295
+\nofMPsegments=\count295
+\nofMParguments=\count296
 \everyMPshowfont=\toks27
-\MPscratchCnt=\count296
-\MPscratchDim=\dimen169
-\MPnumerator=\count297
-\makeMPintoPDFobject=\count298
+\MPscratchCnt=\count297
+\MPscratchDim=\dimen170
+\MPnumerator=\count298
+\makeMPintoPDFobject=\count299
 \everyMPtoPDFconversion=\toks28
 )
 (C:\Users\massi\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-b
@@ -396,15 +403,15 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 fg
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
-LaTeX Info: Redefining \celsius on input line 37.
-Package gensymb Info: Faking symbols for \degree and \celsius on input line 37.
+LaTeX Info: Redefining \celsius on input line 38.
+Package gensymb Info: Faking symbols for \degree and \celsius on input line 38.
 
 
 
 Package gensymb Warning: Not defining \perthousand.
 
-LaTeX Info: Redefining \ohm on input line 37.
-Package gensymb Info: Using \Omega for \ohm on input line 37.
+LaTeX Info: Redefining \ohm on input line 38.
+Package gensymb Info: Using \Omega for \ohm on input line 38.
 
 Package gensymb Warning: Not defining \micro.
 
@@ -419,7 +426,7 @@ Package: lscape 2020/05/28 v3.02 Landscape Pages (DPC)
 )
 Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
 )
-Package hyperref Info: Link coloring OFF on input line 37.
+Package hyperref Info: Link coloring OFF on input line 38.
 
 (C:\Users\massi\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
@@ -431,11 +438,11 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 lestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count299
+\c@section@level=\count300
 )
-LaTeX Info: Redefining \ref on input line 37.
-LaTeX Info: Redefining \pageref on input line 37.
-LaTeX Info: Redefining \nameref on input line 37.
+LaTeX Info: Redefining \ref on input line 38.
+LaTeX Info: Redefining \pageref on input line 38.
+LaTeX Info: Redefining \nameref on input line 38.
  (thesis.out) (thesis.out)
 \@outlinefile=\write4
 \openout4 = `thesis.out'.
@@ -448,7 +455,7 @@ on: found PDF version <1.6>, but at most version <1.5> allowed
 File: Figures/frontespizio_firmato.pdf Graphic file (type pdf)
 <use Figures/frontespizio_firmato.pdf>
 Package pdftex.def Info: Figures/frontespizio_firmato.pdf  used on input line 4
-2.
+3.
 (pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
 
 
@@ -457,7 +464,7 @@ on: found PDF version <1.6>, but at most version <1.5> allowed
 File: Figures/frontespizio_firmato.pdf Graphic file (type pdf)
 <use Figures/frontespizio_firmato.pdf>
 Package pdftex.def Info: Figures/frontespizio_firmato.pdf  used on input line 4
-2.
+3.
 (pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
 
 
@@ -471,27 +478,27 @@ on: found PDF version <1.6>, but at most version <1.5> allowed
 File: Figures/frontespizio_firmato.pdf Graphic file (type pdf)
 <use Figures/frontespizio_firmato.pdf, page 1>
 Package pdftex.def Info: Figures/frontespizio_firmato.pdf , page1 used on input
- line 42.
+ line 43.
 (pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
 File: Figures/frontespizio_firmato.pdf Graphic file (type pdf)
 <use Figures/frontespizio_firmato.pdf, page 1>
 Package pdftex.def Info: Figures/frontespizio_firmato.pdf , page1 used on input
- line 42.
+ line 43.
 (pdftex.def)             Requested size: 562.12285pt x 795.00201pt.
 File: Figures/frontespizio_firmato.pdf Graphic file (type pdf)
 <use Figures/frontespizio_firmato.pdf, page 1>
 Package pdftex.def Info: Figures/frontespizio_firmato.pdf , page1 used on input
- line 42.
+ line 43.
 (pdftex.def)             Requested size: 562.12285pt x 795.00201pt.
 File: Figures/frontespizio_firmato.pdf Graphic file (type pdf)
 <use Figures/frontespizio_firmato.pdf, page 1>
 Package pdftex.def Info: Figures/frontespizio_firmato.pdf , page1 used on input
- line 42.
+ line 43.
 (pdftex.def)             Requested size: 562.12285pt x 795.00201pt.
 File: Figures/frontespizio_firmato.pdf Graphic file (type pdf)
 <use Figures/frontespizio_firmato.pdf, page 1>
 Package pdftex.def Info: Figures/frontespizio_firmato.pdf , page1 used on input
- line 47.
+ line 48.
 (pdftex.def)             Requested size: 562.12285pt x 795.00201pt.
 [1 <./Figures/frontespizio_firmato.pdf{C:/Users/massi/AppData/Local/MiKTeX/pdft
 ex/config/pdftex.map}>] [2
@@ -519,7 +526,7 @@ ex/config/pdftex.map}>] [2
 ] [8
 
 ]
-Overfull \hbox (3.67241pt too wide) in paragraph at lines 75--85
+Overfull \hbox (3.67241pt too wide) in paragraph at lines 76--86
 \OT1/cmr/m/n/12 The ap-pli-ca-tion of ma-chine learn-ing (ML) on small de-vices
 , in a word TinyML,
  []
@@ -531,31 +538,31 @@ Chapter 1.
 ]
 
 LaTeX Warning: Citation `lesort2020continual' on page 6 undefined on input line
- 130.
+ 131.
 
 
 LaTeX Warning: Citation `maltoni2019continuous' on page 6 undefined on input li
-ne 130.
+ne 131.
 
 [6] [7]
 Chapter 2.
 
-LaTeX Warning: Citation `shield_web_page' on page 8 undefined on input line 149
+LaTeX Warning: Citation `shield_web_page' on page 8 undefined on input line 150
 .
 
 <Figures/Chapter2/hardware.jpg, id=233, 1696.83937pt x 718.18312pt>
 File: Figures/Chapter2/hardware.jpg Graphic file (type jpg)
 <use Figures/Chapter2/hardware.jpg>
-Package pdftex.def Info: Figures/Chapter2/hardware.jpg  used on input line 153.
+Package pdftex.def Info: Figures/Chapter2/hardware.jpg  used on input line 154.
 
 (pdftex.def)             Requested size: 272.99881pt x 115.54724pt.
 
-LaTeX Warning: Citation `openmv_web_page' on page 8 undefined on input line 158
+LaTeX Warning: Citation `openmv_web_page' on page 8 undefined on input line 159
 .
 
 File: Figures/Chapter2/hardware.jpg Graphic file (type jpg)
 <use Figures/Chapter2/hardware.jpg>
-Package pdftex.def Info: Figures/Chapter2/hardware.jpg  used on input line 162.
+Package pdftex.def Info: Figures/Chapter2/hardware.jpg  used on input line 163.
 
 (pdftex.def)             Requested size: 272.99881pt x 115.54724pt.
 [8
@@ -565,80 +572,80 @@ Chapter 3.
 [10
 
 ] [11]
-Underfull \hbox (badness 10000) in paragraph at lines 212--213
+Underfull \hbox (badness 10000) in paragraph at lines 213--214
 
  []
 
 
-LaTeX Warning: Citation `li2017learning' on page 12 undefined on input line 216
+LaTeX Warning: Citation `li2017learning' on page 12 undefined on input line 217
 .
 
 
 LaTeX Warning: Citation `lomonaco2017core50' on page 12 undefined on input line
- 216.
+ 217.
 
 
 LaTeX Warning: Citation `maltoni2019continuous' on page 12 undefined on input l
-ine 216.
+ine 217.
 
 
 LaTeX Warning: Citation `maltoni2019continuous' on page 12 undefined on input l
-ine 216.
+ine 217.
 
 [12]
 
-LaTeX Warning: Citation `ren2021tinyol' on page 13 undefined on input line 221.
+LaTeX Warning: Citation `ren2021tinyol' on page 13 undefined on input line 222.
 
 
 
 LaTeX Warning: Citation `batch_size_medium' on page 13 undefined on input line 
-229.
+230.
 
 [13]
 <Figures/Chapter3/OL.png, id=268, 963.6pt x 542.025pt>
 File: Figures/Chapter3/OL.png Graphic file (type png)
 <use Figures/Chapter3/OL.png>
-Package pdftex.def Info: Figures/Chapter3/OL.png  used on input line 241.
+Package pdftex.def Info: Figures/Chapter3/OL.png  used on input line 242.
 (pdftex.def)             Requested size: 272.99881pt x 153.56068pt.
  [14] [15 <./Figures/Chapter3/OL.png (PNG copy)>]
 <Figures/Chapter3/OLV2.png, id=278, 963.6pt x 542.025pt>
 File: Figures/Chapter3/OLV2.png Graphic file (type png)
 <use Figures/Chapter3/OLV2.png>
-Package pdftex.def Info: Figures/Chapter3/OLV2.png  used on input line 265.
+Package pdftex.def Info: Figures/Chapter3/OLV2.png  used on input line 266.
 (pdftex.def)             Requested size: 272.99881pt x 153.56068pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-LaTeX Warning: Citation `li2017learning' on page 16 undefined on input line 272
+LaTeX Warning: Citation `li2017learning' on page 16 undefined on input line 273
 .
 
 
 LaTeX Warning: Citation `maltoni2019continuous' on page 16 undefined on input l
-ine 272.
+ine 273.
 
 [16]
 
 LaTeX Warning: Citation `maltoni2019continuous' on page 17 undefined on input l
-ine 281.
+ine 282.
 
 [17 <./Figures/Chapter3/OLV2.png (PNG copy)>]
 
 LaTeX Warning: Citation `maltoni2019continuous' on page 18 undefined on input l
-ine 283.
+ine 284.
 
 [18]
 <Figures/Chapter3/LWF.png, id=293, 963.6pt x 542.025pt>
 File: Figures/Chapter3/LWF.png Graphic file (type png)
 <use Figures/Chapter3/LWF.png>
-Package pdftex.def Info: Figures/Chapter3/LWF.png  used on input line 307.
+Package pdftex.def Info: Figures/Chapter3/LWF.png  used on input line 308.
 (pdftex.def)             Requested size: 272.99881pt x 153.56068pt.
  [19 <./Figures/Chapter3/LWF.png (PNG copy)>]
 <Figures/Chapter3/CWR.png, id=301, 963.6pt x 542.025pt>
 File: Figures/Chapter3/CWR.png Graphic file (type png)
 <use Figures/Chapter3/CWR.png>
-Package pdftex.def Info: Figures/Chapter3/CWR.png  used on input line 324.
+Package pdftex.def Info: Figures/Chapter3/CWR.png  used on input line 325.
 (pdftex.def)             Requested size: 272.99881pt x 153.56068pt.
 
 
@@ -647,26 +654,26 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 [20] [21 <./Figures/Chapter3/CWR.png (PNG copy)>]
 Chapter 4.
 
-LaTeX Warning: Reference `' on page 22 undefined on input line 355.
+LaTeX Warning: Reference `' on page 22 undefined on input line 356.
 
 
-LaTeX Warning: Reference `introduction' on page 22 undefined on input line 358.
+LaTeX Warning: Reference `introduction' on page 22 undefined on input line 359.
 
 
 <Figures/Chapter4/letters_motion.jpg, id=312, 308.352pt x 154.4169pt>
 File: Figures/Chapter4/letters_motion.jpg Graphic file (type jpg)
 <use Figures/Chapter4/letters_motion.jpg>
 Package pdftex.def Info: Figures/Chapter4/letters_motion.jpg  used on input lin
-e 362.
+e 363.
 (pdftex.def)             Requested size: 284.52756pt x 142.48936pt.
 
-LaTeX Warning: Reference `' on page 22 undefined on input line 367.
+LaTeX Warning: Reference `' on page 22 undefined on input line 368.
 
 [22
 
 ] [23] [24 <./Figures/Chapter4/letters_motion.jpg>]
 
-LaTeX Warning: Reference `]' on page 25 undefined on input line 375.
+LaTeX Warning: Reference `]' on page 25 undefined on input line 376.
 
 [25] [26] [27] [28] [29] [30] [31]
 Chapter 5.
@@ -674,32 +681,32 @@ Chapter 5.
 File: Figures/Chapter5/bias_example.png Graphic file (type png)
 <use Figures/Chapter5/bias_example.png>
 Package pdftex.def Info: Figures/Chapter5/bias_example.png  used on input line 
-470.
+471.
 (pdftex.def)             Requested size: 284.52756pt x 191.59119pt.
 <Figures/Chapter5/weight_example.png, id=361, 395.67825pt x 279.32355pt>
 File: Figures/Chapter5/weight_example.png Graphic file (type png)
 <use Figures/Chapter5/weight_example.png>
 Package pdftex.def Info: Figures/Chapter5/weight_example.png  used on input lin
-e 478.
+e 479.
 (pdftex.def)             Requested size: 284.52756pt x 200.86559pt.
 <Figures/Chapter5/frozen_example.png, id=362, 421.3341pt x 279.32355pt>
 File: Figures/Chapter5/frozen_example.png Graphic file (type png)
 <use Figures/Chapter5/frozen_example.png>
 Package pdftex.def Info: Figures/Chapter5/frozen_example.png  used on input lin
-e 486.
+e 487.
 (pdftex.def)             Requested size: 284.52756pt x 188.63327pt.
 <Figures/Chapter5/softmax_example.png, id=363, 395.67825pt x 279.32355pt>
 File: Figures/Chapter5/softmax_example.png Graphic file (type png)
 <use Figures/Chapter5/softmax_example.png>
 Package pdftex.def Info: Figures/Chapter5/softmax_example.png  used on input li
-ne 494.
+ne 495.
 (pdftex.def)             Requested size: 284.52756pt x 200.86559pt.
 <Figures/Chapter5/comparison_difference.png, id=365, 395.67825pt x 279.32355pt>
 
 File: Figures/Chapter5/comparison_difference.png Graphic file (type png)
 <use Figures/Chapter5/comparison_difference.png>
 Package pdftex.def Info: Figures/Chapter5/comparison_difference.png  used on in
-put line 504.
+put line 505.
 (pdftex.def)             Requested size: 284.52756pt x 200.86559pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
@@ -722,45 +729,69 @@ xample.png>]
 File: Figures/Chapter5/STM_barPlot_OL.jpg Graphic file (type jpg)
 <use Figures/Chapter5/STM_barPlot_OL.jpg>
 Package pdftex.def Info: Figures/Chapter5/STM_barPlot_OL.jpg  used on input lin
-e 516.
+e 517.
 (pdftex.def)             Requested size: 284.52756pt x 181.06271pt.
 <Figures/Chapter5/STM_barPlot_OL_batch.jpg, id=390, 794.97pt x 505.89pt>
 File: Figures/Chapter5/STM_barPlot_OL_batch.jpg Graphic file (type jpg)
 <use Figures/Chapter5/STM_barPlot_OL_batch.jpg>
 Package pdftex.def Info: Figures/Chapter5/STM_barPlot_OL_batch.jpg  used on inp
-ut line 524.
+ut line 525.
 (pdftex.def)             Requested size: 284.52756pt x 181.06271pt.
 <Figures/Chapter5/STM_barPlot_OL_V2.jpg, id=391, 794.97pt x 505.89pt>
 File: Figures/Chapter5/STM_barPlot_OL_V2.jpg Graphic file (type jpg)
 <use Figures/Chapter5/STM_barPlot_OL_V2.jpg>
 Package pdftex.def Info: Figures/Chapter5/STM_barPlot_OL_V2.jpg  used on input 
-line 532.
+line 533.
 (pdftex.def)             Requested size: 284.52756pt x 181.06271pt.
 <Figures/Chapter5/STM_barPlot_OL_V2_batch.jpg, id=392, 794.97pt x 505.89pt>
 File: Figures/Chapter5/STM_barPlot_OL_V2_batch.jpg Graphic file (type jpg)
 <use Figures/Chapter5/STM_barPlot_OL_V2_batch.jpg>
 Package pdftex.def Info: Figures/Chapter5/STM_barPlot_OL_V2_batch.jpg  used on 
-input line 540.
+input line 541.
 (pdftex.def)             Requested size: 284.52756pt x 181.06271pt.
 <Figures/Chapter5/STM_barPlot_LWF.jpg, id=393, 794.97pt x 505.89pt>
 File: Figures/Chapter5/STM_barPlot_LWF.jpg Graphic file (type jpg)
 <use Figures/Chapter5/STM_barPlot_LWF.jpg>
 Package pdftex.def Info: Figures/Chapter5/STM_barPlot_LWF.jpg  used on input li
-ne 548.
+ne 549.
 (pdftex.def)             Requested size: 284.52756pt x 181.06271pt.
 <Figures/Chapter5/STM_barPlot_LWF_batch.jpg, id=394, 794.97pt x 505.89pt>
 File: Figures/Chapter5/STM_barPlot_LWF_batch.jpg Graphic file (type jpg)
 <use Figures/Chapter5/STM_barPlot_LWF_batch.jpg>
 Package pdftex.def Info: Figures/Chapter5/STM_barPlot_LWF_batch.jpg  used on in
-put line 556.
+put line 557.
 (pdftex.def)             Requested size: 284.52756pt x 181.06271pt.
 <Figures/Chapter5/STM_barPlot_CWR.jpg, id=395, 794.97pt x 505.89pt>
 File: Figures/Chapter5/STM_barPlot_CWR.jpg Graphic file (type jpg)
 <use Figures/Chapter5/STM_barPlot_CWR.jpg>
 Package pdftex.def Info: Figures/Chapter5/STM_barPlot_CWR.jpg  used on input li
-ne 564.
+ne 565.
 (pdftex.def)             Requested size: 284.52756pt x 181.06271pt.
- [35 <./Figures/Chapter5/comparison_difference.png>]
+
+
+LaTeX Warning: No positions in optional float specifier.
+               Default added (so using `tbp') on input line 573.
+
+
+Overfull \hbox (106.72232pt too wide) in paragraph at lines 575--586
+ [] 
+ []
+
+
+LaTeX Warning: No positions in optional float specifier.
+               Default added (so using `tbp') on input line 589.
+
+
+Overfull \hbox (96.53555pt too wide) in paragraph at lines 590--600
+[][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 513--602
+
+ []
+
+[35 <./Figures/Chapter5/comparison_difference.png>]
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
@@ -778,12 +809,12 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [36 <./Figures/Chapter5/STM_barPlot_OL.jpg> <./Figures/Chapter5/STM_barPlot_OL_
 batch.jpg>] [37 <./Figures/Chapter5/STM_barPlot_OL_V2.jpg> <./Figures/Chapter5/
-STM_barPlot_OL_V2_batch.jpg>] [38 <./Figures/Chapter5/STM_barPlot_LWF.jpg> <./F
-igures/Chapter5/STM_barPlot_LWF_batch.jpg>] [39 <./Figures/Chapter5/STM_barPlot
-_CWR.jpg>]
+STM_barPlot_OL_V2_batch.jpg>] [38] [39 <./Figures/Chapter5/STM_barPlot_LWF.jpg>
+ <./Figures/Chapter5/STM_barPlot_LWF_batch.jpg>] [40 <./Figures/Chapter5/STM_ba
+rPlot_CWR.jpg>]
 Chapter 6.
 No file thesis.bbl.
-[40
+[41
 
 ] (thesis.aux)
 
@@ -793,13 +824,13 @@ Package rerunfilecheck Info: File `thesis.out' has not changed.
 (rerunfilecheck)             Checksum: 9B21292C19AA658C223DC5BB833C16BB;2870.
  ) 
 Here is how much of TeX's memory you used:
- 11513 strings out of 478927
- 180339 string characters out of 2852534
- 492177 words of memory out of 3000000
- 29088 multiletter control sequences out of 15000+600000
+ 11576 strings out of 478927
+ 181373 string characters out of 2852534
+ 500742 words of memory out of 3000000
+ 29144 multiletter control sequences out of 15000+600000
  409270 words of font info for 47 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 62i,17n,75p,1670b,409s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 62i,17n,75p,1724b,409s stack positions out of 5000i,500n,10000p,200000b,80000s
 {C:/Users/massi/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/cm-super/cm-sup
 er-ts1.enc}<C:/Users/massi/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
 fonts/cm/cmbx12.pfb><C:/Users/massi/AppData/Local/Programs/MiKTeX/fonts/type1/p
@@ -813,9 +844,9 @@ pData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users
 <C:/Users/massi/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cm
 tt12.pfb><C:/Users/massi/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-su
 per/sfrm1200.pfb>
-Output written on thesis.pdf (48 pages, 1811462 bytes).
+Output written on thesis.pdf (49 pages, 1817048 bytes).
 PDF statistics:
- 484 PDF objects out of 1000 (max. 8388607)
- 100 named destinations out of 1000 (max. 500000)
+ 492 PDF objects out of 1000 (max. 8388607)
+ 103 named destinations out of 1000 (max. 500000)
  247 words of extra memory for PDF output out of 10000 (max. 10000000)
 

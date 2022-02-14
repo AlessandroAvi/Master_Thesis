@@ -22,6 +22,7 @@
 \usepackage{pdfpages}
 \usepackage[toc,page]{appendix}
 \usepackage{afterpage}
+\usepackage{multirow}
 
 
 
@@ -567,9 +568,46 @@ Speaking about the gesture recognition experiment once the training have been ca
 \end{figure}
 %
 From these plots it is clear how all methods are quite good in digesting new classes and completely fuse them in the classification layer. No method in fact shows a bad learning on a specific class exept for the letter B that in all methods sees a lower accuracy when compared to others. It' easy to see from the cofusion matrix that the letter is not learned in a wrong way but rather the letter is easily confused with the letter R. Most probably this is because the path that has been followed when the dataset has beenc reated differs for just the leg of letter R. \\
-Table x on the other hand contains other important results from the experiment. 
-
-
+Table x and table x contain other important results from the experiment. 
+%
+\begin{table}[]
+\begin{center}
+\begin{tabular}{l|cccc}
+                     & \multicolumn{1}{c|}{\textbf{Accuracy \%}} & \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Average time\\ inference frozen\\  model in ms\end{tabular}}} & \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Average time \\ inference OL\\ layer in ms\end{tabular}}} & \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Maximum allocated \\ RAM in kB\end{tabular}}} \\ \hline
+\textbf{OL}          & 86.13                                     & 10.65                                                                                                                & 0.99                                                                                                             & 26.1                                                                                                 \\ \cline{1-1}
+\textbf{OL batch}    & 86.26                                     & 10.65                                                                                                                & 1.54                                                                                                             & 29.8                                                                                                 \\ \cline{1-1}
+\textbf{OL V2}       & 87.98                                     & 10.65                                                                                                                & 1.03                                                                                                             & 26.1                                                                                                 \\ \cline{1-1}
+\textbf{OL V2 batch} & 87.98                                     & 10.65                                                                                                                & 1.11                                                                                                             & 29.8                                                                                                 \\ \cline{1-1}
+\textbf{LWF}         & 87.61                                     & 10.65                                                                                                                & 3.45                                                                                                             & 29.9                                                                                                 \\ \cline{1-1}
+\textbf{LWF batch}   & 86.5                                      & 10.65                                                                                                                & 3.26                                                                                                             & 29.9                                                                                                 \\ \cline{1-1}
+\textbf{CWR}         & 88.47                                     & 10.65                                                                                                                & 2.11                                                                                                             & 29.9                                                                                                 \\ \cline{1-1}
+\textbf{MY ALG}      & 86.87                                     & 10.65                                                                                                                & 3.54                                                                                                             & 29.9                                                                                                 \\ \cline{1-1}
+\end{tabular}
+\end{center}
+\end{table}
+%
+\begin{table}[]
+\begin{tabular}{cc|cccccccccc}
+\multicolumn{1}{c|}{\multirow{2}{*}{Algorithm}} & \multirow{2}{*}{Parameter} & \multicolumn{8}{c|}{Class}                                                                                                                                                                            & \multicolumn{1}{c|}{\multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}batch\\ size\end{tabular}}} & \multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}learning\\ rate\end{tabular}} \\
+\multicolumn{1}{c|}{}                           &                            & \multicolumn{1}{c|}{A} & \multicolumn{1}{c|}{E} & \multicolumn{1}{c|}{I} & \multicolumn{1}{c|}{O} & \multicolumn{1}{c|}{U} & \multicolumn{1}{c|}{B} & \multicolumn{1}{c|}{R} & \multicolumn{1}{c|}{M} & \multicolumn{1}{c|}{}                                                                      &                                                                          \\ \hline
+\multirow{3}{*}{OL}                             & Accuracy                   & 0.92                   & 0.93                   & 0.83                   & 0.87                   & 0.86                   & 0.78                   & 0.83                   & 0.93                   & \multirow{3}{*}{16}                                                                        & \multirow{3}{*}{16}                                                      \\ \cline{2-2}
+                                                & Precision                  & 0.92                   & 0.93                   & 0.85                   & 0.87                   & 0.86                   & 0.78                   & 0.83                   & 0.92                   &                                                                                            &                                                                          \\ \cline{2-2}
+                                                & F1 score                   & 0.92                   & 0.93                   & 0.84                   & 0.87                   & 0.86                   & 0.78                   & 0.83                   & 0.92                   &                                                                                            &                                                                          \\ \cline{1-2}
+\multirow{3}{*}{OL batch}                       & Accuracy                   & 0.89                   & 0.96                   & 0.88                   & 0.90                   & 0.89                   & 0.76                   & 0.79                   & 0.93                   & \multirow{3}{*}{16}                                                                        & \multirow{3}{*}{16}                                                      \\ \cline{2-2}
+                                                & Precision                  & 0.93                   & 0.97                   & 0.89                   & 0.91                   & 0.85                   & 0.75                   & 0.78                   & 0.93                   &                                                                                            &                                                                          \\ \cline{2-2}
+                                                & F1 score                   & 0.91                   & 0.96                   & 0.88                   & 0.90                   & 0.87                   & 0.75                   & 0.78                   & 0.93                   &                                                                                            &                                                                          \\ \cline{1-2}
+\end{tabular}
+\end{table}
+In table x the overall accuracy of the model with specific strategies is displayed. From here it's clear how the algorithm CWR performs the best with an accuracy of xx \%. All methods perform quite good with the lowest accuracy being xx \& from the method OL, which is just a drop of xx \% with respect to the accuracy obtained from the training of the frozen model performed with Tensorflow. Speaking about the time required for a training step the total time can be split in two portions. The first concerns the inference obtainde by the frozen model, which is of course constant for all strategies and takes 10.65 ms. The other part of the training step time is the time taken by the OL layer which contains the time required for the inference of the OL layer and the following computation of the back propagation and update of the layer's weights. From the table is clear how the faster methods are TinyOL and TinyOL v2, which are the only methods that do require only one OL layer, thus reducing the amount of computations require. On the other hand the slowest methods are LWF, LWF batch and MY ALG, which all require a double inference from the two classification layer. The time is in fact more than double the time required by all the other strategies. The last column concerns the amount of RAM allocated by the strategies. This value shows that the TinyOL and TinyOL v2 are the lightest methods since they require only the allocation of 1 weights matrix and 1 bias array. All the other methods require a very similar amount of RAM since they all work with double memories. A little difference of just 100 bytes is due to the allocation of some additional values particular for some strategies.  \\
+Another important study that has been carried out is the study of variation of the accuracy while changing the batch size. This study was of particular interest thanks to \ref{}, a blog post that studies in detail the impact that the batch size has on a ML training. The results are show in figure \ref{fig:batch_size_letter}. Here is clear how the only methods that drop their accuracy quite a bit are TinyOL and TinyOL v2, while all the other are able to mantain their accuracy quite constant.
+%
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=100mm]{Figures/Chapter5/batch_size_letters.png} 
+    \caption{PLACEHOLDER}
+    \label{fig:batch_size_letter}    
+\end{figure}
+%
 
 \chapter{Conclusion}
 
