@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.11.13)  16 FEB 2022 11:23
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.11.13)  16 FEB 2022 18:00
 entering extended mode
 **./thesis.tex
 (thesis.tex
@@ -314,7 +314,7 @@ Package biblatex Info: ... file 'blx-dm.def' found.
 File: blx-dm.def 2020/12/31 v3.16 biblatex localization (PK/MW)
 )
 Package biblatex Info: Trying to load biblatex style data model...
-Package biblatex Info: ... file 'verbose-trad2.dbx' not found.
+Package biblatex Info: ... file 'ieee.dbx' not found.
 Package biblatex Info: Trying to load biblatex custom data model...
 Package biblatex Info: ... file 'biblatex-dm.cfg' not found.
 \c@afterword=\count330
@@ -405,16 +405,6 @@ Package biblatex Info: ... file 'blx-compat.def' found.
 (C:\Users\massi\AppData\Local\Programs\MiKTeX\tex/latex/biblatex\blx-compat.def
 File: blx-compat.def 2020/12/31 v3.16 biblatex compatibility (PK/MW)
 )
-Package biblatex Info: Trying to load BibTeX backend compatibility...
-Package biblatex Info: ... file 'blx-bibtex.def' found.
-
-(C:\Users\massi\AppData\Local\Programs\MiKTeX\tex/latex/biblatex\blx-bibtex.def
-File: blx-bibtex.def 2020/12/31 v3.16 biblatex compatibility (PK/MW)
-
-Package biblatex Warning: Using fall-back BibTeX(8) backend:
-(biblatex)                functionality may be reduced/unavailable.
-
-)
 Package biblatex Info: Trying to load generic definitions...
 Package biblatex Info: ... file 'biblatex.def' found.
  (C:\Users\massi\AppData\Local\Programs\MiKTeX\tex/latex/biblatex\biblatex.def
@@ -433,18 +423,23 @@ File: biblatex.def 2020/12/31 v3.16 biblatex compatibility (PK/MW)
 \biburllcskip=\muskip21
 \c@smartand=\count406
 )
-Package biblatex Info: Trying to load bibliography style 'verbose-trad2'...
-Package biblatex Info: ... file 'verbose-trad2.bbx' found.
+Package biblatex Info: Trying to load bibliography style 'ieee'...
+Package biblatex Info: ... file 'ieee.bbx' found.
 
-(C:\Users\massi\AppData\Local\Programs\MiKTeX\tex/latex/biblatex/bbx\verbose-tr
-ad2.bbx
-File: verbose-trad2.bbx 2020/12/31 v3.16 biblatex bibliography style (PK/MW)
-Package biblatex Info: Trying to load bibliography style 'authortitle'...
-Package biblatex Info: ... file 'authortitle.bbx' found.
+(C:\Users\massi\AppData\Local\Programs\MiKTeX\tex/latex/biblatex-ieee\ieee.bbx
+File: ieee.bbx 2021/12/06 v1.3f biblatex bibliography style
+Package biblatex Info: Trying to load bibliography style 'numeric-comp'...
+Package biblatex Info: ... file 'numeric-comp.bbx' found.
 
-(C:\Users\massi\AppData\Local\Programs\MiKTeX\tex/latex/biblatex/bbx\authortitl
-e.bbx
-File: authortitle.bbx 2020/12/31 v3.16 biblatex bibliography style (PK/MW)
+(C:\Users\massi\AppData\Local\Programs\MiKTeX\tex/latex/biblatex/bbx\numeric-co
+mp.bbx
+File: numeric-comp.bbx 2020/12/31 v3.16 biblatex bibliography style (PK/MW)
+Package biblatex Info: Trying to load bibliography style 'numeric'...
+Package biblatex Info: ... file 'numeric.bbx' found.
+
+(C:\Users\massi\AppData\Local\Programs\MiKTeX\tex/latex/biblatex/bbx\numeric.bb
+x
+File: numeric.bbx 2020/12/31 v3.16 biblatex bibliography style (PK/MW)
 Package biblatex Info: Trying to load bibliography style 'standard'...
 Package biblatex Info: ... file 'standard.bbx' found.
 
@@ -453,20 +448,37 @@ bx
 File: standard.bbx 2020/12/31 v3.16 biblatex bibliography style (PK/MW)
 \c@bbx:relatedcount=\count407
 \c@bbx:relatedtotal=\count408
-)))
-Package biblatex Info: Trying to load citation style 'verbose-trad2'...
-Package biblatex Info: ... file 'verbose-trad2.cbx' found.
+))))
+Package biblatex Info: Trying to load citation style 'ieee'...
+Package biblatex Info: ... file 'ieee.cbx' found.
 
-(C:\Users\massi\AppData\Local\Programs\MiKTeX\tex/latex/biblatex/cbx\verbose-tr
-ad2.cbx
-File: verbose-trad2.cbx 2020/12/31 v3.16 biblatex citation style (PK/MW)
+(C:\Users\massi\AppData\Local\Programs\MiKTeX\tex/latex/biblatex-ieee\ieee.cbx
+File: ieee.cbx 2021/12/06 v1.3f biblatex citation style
+Package biblatex Info: Trying to load citation style 'numeric-comp'...
+Package biblatex Info: ... file 'numeric-comp.cbx' found.
+
+(C:\Users\massi\AppData\Local\Programs\MiKTeX\tex/latex/biblatex/cbx\numeric-co
+mp.cbx
+File: numeric-comp.cbx 2020/12/31 v3.16 biblatex citation style (PK/MW)
+\c@cbx@tempcnta=\count409
+\c@cbx@tempcntb=\count410
+\c@cbx@tempcntc=\count411
+\c@cbx@tempcntd=\count412
 Package biblatex Info: Redefining '\cite'.
 Package biblatex Info: Redefining '\parencite'.
 Package biblatex Info: Redefining '\footcite'.
 Package biblatex Info: Redefining '\footcitetext'.
 Package biblatex Info: Redefining '\smartcite'.
+Package biblatex Info: Redefining '\supercite'.
 Package biblatex Info: Redefining '\textcite'.
 Package biblatex Info: Redefining '\textcites'.
+Package biblatex Info: Redefining '\cites'.
+Package biblatex Info: Redefining '\parencites'.
+Package biblatex Info: Redefining '\smartcites'.
+)
+Package biblatex Info: Redefining '\cite'.
+Package biblatex Info: Redefining '\supercite'.
+Package biblatex Info: Redefining '\cites'.
 )
 Package biblatex Info: Trying to load configuration file...
 Package biblatex Info: ... file 'biblatex.cfg' found.
@@ -495,8 +507,8 @@ Package: letltxmacro 2019/12/03 v1.6 Let assignment for LaTeX macros (HO)
 Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
 )
 \@linkdim=\dimen165
-\Hy@linkcounter=\count409
-\Hy@pagecounter=\count410
+\Hy@linkcounter=\count413
+\Hy@pagecounter=\count414
 
 (C:\Users\massi\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\pd1enc.def
 File: pd1enc.def 2021-06-07 v7.00m Hyperref: PDFDocEncoding definition (HO)
@@ -514,7 +526,7 @@ Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
 (C:\Users\massi\AppData\Local\Programs\MiKTeX\tex/generic/etexcmds\etexcmds.sty
 Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
 )
-\Hy@SavedSpaceFactor=\count411
+\Hy@SavedSpaceFactor=\count415
  (C:\Users\massi\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\puenc.def
 File: puenc.def 2021-06-07 v7.00m Hyperref: PDF Unicode definition (HO)
 Now handling font encoding PU ...
@@ -527,7 +539,7 @@ Package hyperref Info: Plain pages OFF on input line 4207.
 Package hyperref Info: Backreferencing OFF on input line 4212.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4445.
-\c@Hy@tempcnt=\count412
+\c@Hy@tempcnt=\count416
 LaTeX Info: Redefining \url on input line 4804.
 \XeTeXLinkMargin=\dimen166
 
@@ -539,7 +551,7 @@ Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
 Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
 )
 ))
-\Fld@menulength=\count413
+\Fld@menulength=\count417
 \Field@Width=\dimen167
 \Fld@charsize=\dimen168
 Package hyperref Info: Hyper figures OFF on input line 6076.
@@ -556,9 +568,9 @@ LaTeX Info: Redefining \pageref on input line 6150.
 Package: atbegshi-ltx 2021/01/10 v1.0c Emulation of the original atbegshi
 package with kernel methods
 )
-\Hy@abspage=\count414
-\c@Item=\count415
-\c@Hfootnote=\count416
+\Hy@abspage=\count418
+\c@Item=\count419
+\c@Hfootnote=\count420
 )
 Package hyperref Info: Driver (autodetected): hpdftex.
 (C:\Users\massi\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hpdftex.def
@@ -569,8 +581,8 @@ Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atvery packag
 e
 with kernel methods
 )
-\Fld@listcount=\count417
-\c@bookmark@seq@number=\count418
+\Fld@listcount=\count421
+\c@bookmark@seq@number=\count422
 
 (C:\Users\massi\AppData\Local\Programs\MiKTeX\tex/latex/rerunfilecheck\rerunfil
 echeck.sty
@@ -585,13 +597,13 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 \Hy@SectionHShift=\skip79
 )
-\@quotelevel=\count419
-\@quotereset=\count420
+\@quotelevel=\count423
+\@quotereset=\count424
 
 (C:\Users\massi\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdf
 tex.def
 File: l3backend-pdftex.def 2021-08-04 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count421
+\l__color_backend_stack_int=\count425
 \l__pdf_internal_box=\box56
 ) (thesis.aux
 
@@ -622,16 +634,16 @@ LaTeX Font Info:    ... okay on input line 43.
 (C:\Users\massi\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mk
 ii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count422
+\scratchcounter=\count426
 \scratchdimen=\dimen169
 \scratchbox=\box57
-\nofMPsegments=\count423
-\nofMParguments=\count424
+\nofMPsegments=\count427
+\nofMParguments=\count428
 \everyMPshowfont=\toks27
-\MPscratchCnt=\count425
+\MPscratchCnt=\count429
 \MPscratchDim=\dimen170
-\MPnumerator=\count426
-\makeMPintoPDFobject=\count427
+\MPnumerator=\count430
+\makeMPintoPDFobject=\count431
 \everyMPtoPDFconversion=\toks28
 )
 (C:\Users\massi\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-b
@@ -677,9 +689,6 @@ File: english.lbx 2020/12/31 v3.16 biblatex localization (PK/MW)
 Package biblatex Info: Input encoding 'utf8' detected.
 Package biblatex Info: Automatic encoding selection.
 (biblatex)             Assuming data encoding 'utf8'.
-Package biblatex Info: Input encoding 'utf8' specified.
-Package biblatex Info: Data encoding 'utf8' specified.
-(biblatex)             No need to reencode data.
 Package biblatex Info: Document encoding is UTF8 ....
  (C:\Users\massi\AppData\Local\Programs\MiKTeX\tex/latex/l3kernel\expl3.sty
 Package: expl3 2021-08-27 L3 programming layer (loader) 
@@ -697,7 +706,7 @@ Package: xparse 2021-08-27 L3 Experimental document command parser
 )
 Package: blx-case-expl3 2020/12/31 v3.16 expl3 case changing code for biblatex
 )
-\openout4 = `thesis-blx.bib'.
+\openout4 = `thesis.bcf'.
 
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'thesis.bbl' found.
@@ -716,7 +725,7 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 lestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count428
+\c@section@level=\count432
 )
 LaTeX Info: Redefining \ref on input line 43.
 LaTeX Info: Redefining \pageref on input line 43.
@@ -725,7 +734,7 @@ LaTeX Info: Redefining \nameref on input line 43.
 \@outlinefile=\write5
 \openout5 = `thesis.out'.
 
-<Figures/frontespizio.pdf, id=99, 597.50829pt x 845.0471pt>
+<Figures/frontespizio.pdf, id=119, 597.50829pt x 845.0471pt>
 File: Figures/frontespizio.pdf Graphic file (type pdf)
 <use Figures/frontespizio.pdf>
 Package pdftex.def Info: Figures/frontespizio.pdf  used on input line 48.
@@ -734,7 +743,7 @@ File: Figures/frontespizio.pdf Graphic file (type pdf)
 <use Figures/frontespizio.pdf>
 Package pdftex.def Info: Figures/frontespizio.pdf  used on input line 48.
 (pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
-<Figures/frontespizio.pdf, id=102, page=1, 597.50829pt x 845.0471pt>
+<Figures/frontespizio.pdf, id=122, page=1, 597.50829pt x 845.0471pt>
 File: Figures/frontespizio.pdf Graphic file (type pdf)
 <use Figures/frontespizio.pdf, page 1>
 Package pdftex.def Info: Figures/frontespizio.pdf , page1 used on input line 48
@@ -777,254 +786,313 @@ ig/pdftex.map}>] [2
 
  [7
 
-] (thesis.lot)
+] [8] (thesis.lot)
 \tf@lot=\write8
 \openout8 = `thesis.lot'.
 
- [8
+ [9
 
-] [9
+] [10
 
-]
-Overfull \hbox (3.67241pt too wide) in paragraph at lines 81--91
-\OT1/cmr/m/n/12 The ap-pli-ca-tion of ma-chine learn-ing (ML) on small de-vices
-, in a word TinyML,
- []
-
-[1] [2] [3] [4]
+] [1] [2]
+[3] [4]
 Chapter 1.
 
-LaTeX Warning: Reference `' on page 5 undefined on input line 123.
+LaTeX Warning: Reference `' on page 5 undefined on input line 125.
 
 
-LaTeX Warning: Reference `' on page 5 undefined on input line 123.
+LaTeX Warning: Reference `' on page 5 undefined on input line 125.
 
 
-LaTeX Warning: Reference `' on page 5 undefined on input line 123.
+LaTeX Warning: Reference `' on page 5 undefined on input line 125.
 
 [5
 
 ] [6]
 
 LaTeX Warning: Citation 'lesort2020continual' on page 7 undefined on input line
- 145.
+ 146.
 
 
 LaTeX Warning: Citation 'maltoni2019continuous' on page 7 undefined on input li
-ne 145.
+ne 146.
 
 [7] [8] [9]
 Chapter 2.
 
-LaTeX Warning: Citation 'shield_web_page' on page 10 undefined on input line 17
-0.
+LaTeX Warning: Reference `hardware_all' on page 10 undefined on input line 166.
 
-<Figures/Chapter2/hardware.jpg, id=294, 1696.83937pt x 718.18312pt>
+
+<Figures/Chapter2/hardware.jpg, id=323, 1696.83937pt x 718.18312pt>
 File: Figures/Chapter2/hardware.jpg Graphic file (type jpg)
 <use Figures/Chapter2/hardware.jpg>
-Package pdftex.def Info: Figures/Chapter2/hardware.jpg  used on input line 174.
-
-(pdftex.def)             Requested size: 272.99881pt x 115.54724pt.
-
-LaTeX Warning: Citation 'openmv_web_page' on page 10 undefined on input line 17
-9.
-
-File: Figures/Chapter2/hardware.jpg Graphic file (type jpg)
-<use Figures/Chapter2/hardware.jpg>
-Package pdftex.def Info: Figures/Chapter2/hardware.jpg  used on input line 183.
+Package pdftex.def Info: Figures/Chapter2/hardware.jpg  used on input line 170.
 
 (pdftex.def)             Requested size: 272.99881pt x 115.54724pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-LaTeX Warning: `!h' float specifier changed to `!ht'.
+LaTeX Warning: Citation 'stm_cube_ai' on page 10 undefined on input line 177.
+
+
+Package caption Warning: \label without proper reference on input line 207.
+See the caption package documentation for explanation.
+
+
+LaTeX Warning: Reference `tab:specifications_openmv' on page 10 undefined on in
+put line 178.
 
 [10
 
-] [11 <./Figures/Chapter2/hardware.jpg>]
+]
+
+LaTeX Warning: Citation 'shield_web_page' on page 11 undefined on input line 18
+2.
+
+
+LaTeX Warning: Reference `hardware_stm' on page 11 undefined on input line 182.
+
+
+<Figures/Chapter2/hardware_stm.jpg, id=329, 2589.675pt x 927.465pt>
+File: Figures/Chapter2/hardware_stm.jpg Graphic file (type jpg)
+<use Figures/Chapter2/hardware_stm.jpg>
+Package pdftex.def Info: Figures/Chapter2/hardware_stm.jpg  used on input line 
+186.
+(pdftex.def)             Requested size: 272.99881pt x 97.76172pt.
+
+LaTeX Warning: Reference `openmv_web_page' on page 11 undefined on input line 1
+94.
+
+
+Package caption Warning: \label without proper reference on input line 207.
+See the caption package documentation for explanation.
+
+
+LaTeX Warning: Reference `tab:specifications_openmv' on page 11 undefined on in
+put line 195.
+
+[11 <./Figures/Chapter2/hardware.jpg> <./Figures/Chapter2/hardware_stm.jpg>]
+
+LaTeX Warning: No positions in optional float specifier.
+               Default added (so using `tbp') on input line 197.
+
+
+LaTeX Warning: Citation 'tripod_link' on page 12 undefined on input line 211.
+
+
+LaTeX Warning: Citation 'github_repo' on page 12 undefined on input line 211.
+
+<Figures/Chapter2/hardware_openmv.jpg, id=336, 1165.35374pt x 426.09187pt>
+File: Figures/Chapter2/hardware_openmv.jpg Graphic file (type jpg)
+<use Figures/Chapter2/hardware_openmv.jpg>
+Package pdftex.def Info: Figures/Chapter2/hardware_openmv.jpg  used on input li
+ne 215.
+(pdftex.def)             Requested size: 272.99881pt x 99.81302pt.
+[12 <./Figures/Chapter2/hardware_openmv.jpg>] [13]
 Chapter 3.
-[12
+[14
 
 ]
-Overfull \hbox (566.3567pt too wide) detected at line 217
+Overfull \hbox (566.3567pt too wide) detected at line 248
 []\OML/cmm/m/it/12 z[] \OT1/cmr/m/n/12 = [] \OML/cmm/m/it/12 w[]x[] \OT1/cmr/m/
 n/12 + \OML/cmm/m/it/12 b[][] y[] \OT1/cmr/m/n/12 = \OML/cmm/m/it/12 softmax\OT
 1/cmr/m/n/12 (\OML/cmm/m/it/12 z[]\OT1/cmr/m/n/12 ) = [][] [][] [][] [][] 
  []
 
-[13]
-Overfull \hbox (474.73656pt too wide) detected at line 240
+[15]
+Overfull \hbox (474.73656pt too wide) detected at line 271
 []
  []
 
-[14]
-Underfull \hbox (badness 10000) in paragraph at lines 248--249
+[16]
+Underfull \hbox (badness 10000) in paragraph at lines 279--280
 
  []
 
 
-LaTeX Warning: Citation 'li2017learning' on page 15 undefined on input line 252
+LaTeX Warning: Citation 'li2017learning' on page 17 undefined on input line 283
 .
 
 
-LaTeX Warning: Citation 'lomonaco2017core50' on page 15 undefined on input line
- 252.
+LaTeX Warning: Citation 'lomonaco2017core50' on page 17 undefined on input line
+ 283.
 
 
-LaTeX Warning: Citation 'maltoni2019continuous' on page 15 undefined on input l
-ine 252.
+LaTeX Warning: Citation 'maltoni2019continuous' on page 17 undefined on input l
+ine 283.
 
 
-LaTeX Warning: Citation 'maltoni2019continuous' on page 15 undefined on input l
-ine 252.
+LaTeX Warning: Citation 'maltoni2019continuous' on page 17 undefined on input l
+ine 283.
 
-[15]
+[17]
 
-LaTeX Warning: Citation 'ren2021tinyol' on page 16 undefined on input line 257.
+LaTeX Warning: Citation 'ren2021tinyol' on page 18 undefined on input line 288.
 
 
 
-LaTeX Warning: Citation 'batch_size_medium' on page 16 undefined on input line 
-265.
+LaTeX Warning: Citation 'batch_size_medium' on page 18 undefined on input line 
+296.
 
-[16]
-<Figures/Chapter3/OL.png, id=355, 963.6pt x 542.025pt>
+[18]
+<Figures/Chapter3/OL.png, id=383, 963.6pt x 542.025pt>
 File: Figures/Chapter3/OL.png Graphic file (type png)
 <use Figures/Chapter3/OL.png>
-Package pdftex.def Info: Figures/Chapter3/OL.png  used on input line 277.
+Package pdftex.def Info: Figures/Chapter3/OL.png  used on input line 308.
 (pdftex.def)             Requested size: 272.99881pt x 153.56068pt.
- [17] [18 <./Figures/Chapter3/OL.png (PNG copy)>]
-<Figures/Chapter3/OLV2.png, id=366, 963.6pt x 542.025pt>
+ [19] [20 <./Figures/Chapter3/OL.png (PNG copy)>]
+<Figures/Chapter3/OLV2.png, id=393, 963.6pt x 542.025pt>
 File: Figures/Chapter3/OLV2.png Graphic file (type png)
 <use Figures/Chapter3/OLV2.png>
-Package pdftex.def Info: Figures/Chapter3/OLV2.png  used on input line 301.
-(pdftex.def)             Requested size: 272.99881pt x 153.56068pt.
- [19]
-
-LaTeX Warning: Citation 'li2017learning' on page 20 undefined on input line 308
-.
-
-
-LaTeX Warning: Citation 'maltoni2019continuous' on page 20 undefined on input l
-ine 308.
-
-[20 <./Figures/Chapter3/OLV2.png (PNG copy)>]
-
-LaTeX Warning: Citation 'maltoni2019continuous' on page 21 undefined on input l
-ine 317.
-
-
-LaTeX Warning: Citation 'maltoni2019continuous' on page 21 undefined on input l
-ine 319.
-
-[21]
-<Figures/Chapter3/LWF.png, id=388, 963.6pt x 542.025pt>
-File: Figures/Chapter3/LWF.png Graphic file (type png)
-<use Figures/Chapter3/LWF.png>
-Package pdftex.def Info: Figures/Chapter3/LWF.png  used on input line 343.
+Package pdftex.def Info: Figures/Chapter3/OLV2.png  used on input line 332.
 (pdftex.def)             Requested size: 272.99881pt x 153.56068pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[22]
-<Figures/Chapter3/CWR.png, id=396, 963.6pt x 542.025pt>
+
+LaTeX Warning: Citation 'li2017learning' on page 21 undefined on input line 339
+.
+
+
+LaTeX Warning: Citation 'maltoni2019continuous' on page 21 undefined on input l
+ine 339.
+
+
+Overfull \hbox (5.11075pt too wide) in paragraph at lines 339--342
+\OT1/cmr/m/n/12 The LWF strat-egy is a reg-u-lar-iza-tion ap-proach in-tro-duce
+d in [[]]
+ []
+
+[21] [22 <./Figures/Chapter3/OLV2.png (PNG copy)>]
+
+LaTeX Warning: Citation 'maltoni2019continuous' on page 23 undefined on input l
+ine 348.
+
+
+LaTeX Warning: Citation 'maltoni2019continuous' on page 23 undefined on input l
+ine 350.
+
+[23]
+<Figures/Chapter3/LWF.png, id=408, 963.6pt x 542.025pt>
+File: Figures/Chapter3/LWF.png Graphic file (type png)
+<use Figures/Chapter3/LWF.png>
+Package pdftex.def Info: Figures/Chapter3/LWF.png  used on input line 374.
+(pdftex.def)             Requested size: 272.99881pt x 153.56068pt.
+ [24 <./Figures/Chapter3/LWF.png (PNG copy)>]
+<Figures/Chapter3/CWR.png, id=414, 963.6pt x 542.025pt>
 File: Figures/Chapter3/CWR.png Graphic file (type png)
 <use Figures/Chapter3/CWR.png>
-Package pdftex.def Info: Figures/Chapter3/CWR.png  used on input line 360.
+Package pdftex.def Info: Figures/Chapter3/CWR.png  used on input line 391.
 (pdftex.def)             Requested size: 272.99881pt x 153.56068pt.
- [23 <./Figures/Chapter3/LWF.png (PNG copy)>] [24 <./Figures/Chapter3/CWR.png (
-PNG copy)>]
+ [25] [26 <./Figures/Chapter3/CWR.png (PNG copy)>]
 Chapter 4.
 
-LaTeX Warning: Reference `' on page 25 undefined on input line 394.
+Underfull \hbox (badness 10000) in paragraph at lines 420--421
 
+ []
 
-LaTeX Warning: Reference `introduction' on page 25 undefined on input line 397.
-
-
-<Figures/Chapter4/letters_motion.jpg, id=407, 308.352pt x 154.4169pt>
+<Figures/Chapter4/letters_motion.jpg, id=427, 308.352pt x 154.4169pt>
 File: Figures/Chapter4/letters_motion.jpg Graphic file (type jpg)
 <use Figures/Chapter4/letters_motion.jpg>
 Package pdftex.def Info: Figures/Chapter4/letters_motion.jpg  used on input lin
-e 401.
+e 432.
 (pdftex.def)             Requested size: 284.52756pt x 142.48936pt.
+<Figures/Chapter4/flow_dataset.png, id=429, 2409.0pt x 803.0pt>
+File: Figures/Chapter4/flow_dataset.png Graphic file (type png)
+<use Figures/Chapter4/flow_dataset.png>
+Package pdftex.def Info: Figures/Chapter4/flow_dataset.png  used on input line 
+443.
+(pdftex.def)             Requested size: 284.52756pt x 94.83649pt.
 
-LaTeX Warning: Reference `' on page 25 undefined on input line 406.
+Overfull \hbox (1.34596pt too wide) in paragraph at lines 423--448
+\OT1/cmr/m/n/12 The dataset is com-posed of 8 dif-fer-ent let-ters, which are A
+/E/I/O/U/B/R/M.
+ []
 
-[25
+[27
 
-] [26] [27 <./Figures/Chapter4/letters_motion.jpg>]
-
-LaTeX Warning: Reference `]' on page 28 undefined on input line 414.
-
-<Figures/Chapter4/structure.png, id=420, 804.75656pt x 408.77719pt>
-File: Figures/Chapter4/structure.png Graphic file (type png)
-<use Figures/Chapter4/structure.png>
-Package pdftex.def Info: Figures/Chapter4/structure.png  used on input line 418
-.
-(pdftex.def)             Requested size: 284.52756pt x 144.52124pt.
+]
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [28]
-<Figures/Chapter4/training_letters.jpg, id=427, 983.92593pt x 328.97906pt>
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+File: Figures/Chapter4/flow_dataset.png Graphic file (type png)
+<use Figures/Chapter4/flow_dataset.png>
+Package pdftex.def Info: Figures/Chapter4/flow_dataset.png  used on input line 
+456.
+(pdftex.def)             Requested size: 284.52756pt x 94.83649pt.
+[29 <./Figures/Chapter4/letters_motion.jpg>] [30 <./Figures/Chapter4/flow_datas
+et.png>]
+
+LaTeX Warning: Reference `]' on page 31 undefined on input line 466.
+
+<Figures/Chapter4/structure.png, id=451, 804.75656pt x 408.77719pt>
+File: Figures/Chapter4/structure.png Graphic file (type png)
+<use Figures/Chapter4/structure.png>
+Package pdftex.def Info: Figures/Chapter4/structure.png  used on input line 470
+.
+(pdftex.def)             Requested size: 284.52756pt x 144.52124pt.
+[31 <./Figures/Chapter4/structure.png>]
+<Figures/Chapter4/training_letters.jpg, id=457, 983.92593pt x 328.97906pt>
 File: Figures/Chapter4/training_letters.jpg Graphic file (type jpg)
 <use Figures/Chapter4/training_letters.jpg>
 Package pdftex.def Info: Figures/Chapter4/training_letters.jpg  used on input l
-ine 438.
+ine 490.
 (pdftex.def)             Requested size: 284.52756pt x 95.1304pt.
 File: Figures/Chapter4/structure.png Graphic file (type png)
 <use Figures/Chapter4/structure.png>
-Package pdftex.def Info: Figures/Chapter4/structure.png  used on input line 447
+Package pdftex.def Info: Figures/Chapter4/structure.png  used on input line 499
 .
 (pdftex.def)             Requested size: 284.52756pt x 144.52124pt.
- [29 <./Figures/Chapter4/structure.png> <./Figures/Chapter4/training_letters.jp
-g>]
-File: Figures/Chapter4/training_letters.jpg Graphic file (type jpg)
-<use Figures/Chapter4/training_letters.jpg>
-Package pdftex.def Info: Figures/Chapter4/training_letters.jpg  used on input l
-ine 467.
-(pdftex.def)             Requested size: 284.52756pt x 95.1304pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[30] [31] [32] [33] [34] [35]
+[32 <./Figures/Chapter4/training_letters.jpg>]
+File: Figures/Chapter4/training_letters.jpg Graphic file (type jpg)
+<use Figures/Chapter4/training_letters.jpg>
+Package pdftex.def Info: Figures/Chapter4/training_letters.jpg  used on input l
+ine 519.
+(pdftex.def)             Requested size: 284.52756pt x 95.1304pt.
+ [33] [34] [35] [36] [37]
 Chapter 5.
-<Figures/Chapter5/bias_example.png, id=462, 414.8298pt x 279.32355pt>
+<Figures/Chapter5/bias_example.png, id=487, 414.8298pt x 279.32355pt>
 File: Figures/Chapter5/bias_example.png Graphic file (type png)
 <use Figures/Chapter5/bias_example.png>
 Package pdftex.def Info: Figures/Chapter5/bias_example.png  used on input line 
-533.
+587.
 (pdftex.def)             Requested size: 284.52756pt x 191.59119pt.
-<Figures/Chapter5/weight_example.png, id=463, 395.67825pt x 279.32355pt>
+<Figures/Chapter5/weight_example.png, id=488, 395.67825pt x 279.32355pt>
 File: Figures/Chapter5/weight_example.png Graphic file (type png)
 <use Figures/Chapter5/weight_example.png>
 Package pdftex.def Info: Figures/Chapter5/weight_example.png  used on input lin
-e 541.
+e 595.
 (pdftex.def)             Requested size: 284.52756pt x 200.86559pt.
-<Figures/Chapter5/frozen_example.png, id=464, 421.3341pt x 279.32355pt>
+<Figures/Chapter5/frozen_example.png, id=489, 421.3341pt x 279.32355pt>
 File: Figures/Chapter5/frozen_example.png Graphic file (type png)
 <use Figures/Chapter5/frozen_example.png>
 Package pdftex.def Info: Figures/Chapter5/frozen_example.png  used on input lin
-e 549.
+e 603.
 (pdftex.def)             Requested size: 284.52756pt x 188.63327pt.
-<Figures/Chapter5/softmax_example.png, id=465, 395.67825pt x 279.32355pt>
+<Figures/Chapter5/softmax_example.png, id=490, 395.67825pt x 279.32355pt>
 File: Figures/Chapter5/softmax_example.png Graphic file (type png)
 <use Figures/Chapter5/softmax_example.png>
 Package pdftex.def Info: Figures/Chapter5/softmax_example.png  used on input li
-ne 557.
+ne 611.
 (pdftex.def)             Requested size: 284.52756pt x 200.86559pt.
-<Figures/Chapter5/comparison_difference.png, id=467, 395.67825pt x 279.32355pt>
+<Figures/Chapter5/comparison_difference.png, id=492, 395.67825pt x 279.32355pt>
 
 File: Figures/Chapter5/comparison_difference.png Graphic file (type png)
 <use Figures/Chapter5/comparison_difference.png>
 Package pdftex.def Info: Figures/Chapter5/comparison_difference.png  used on in
-put line 567.
+put line 621.
 (pdftex.def)             Requested size: 284.52756pt x 200.86559pt.
-[36
+[38
 
 ]
 
@@ -1033,80 +1101,80 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[37 <./Figures/Chapter5/bias_example.png> <./Figures/Chapter5/weight_example.pn
-g>] [38 <./Figures/Chapter5/frozen_example.png> <./Figures/Chapter5/softmax_exa
+[39 <./Figures/Chapter5/bias_example.png> <./Figures/Chapter5/weight_example.pn
+g>] [40 <./Figures/Chapter5/frozen_example.png> <./Figures/Chapter5/softmax_exa
 mple.png>]
-<Figures/Chapter5/STM_barPlot_OL.jpg, id=491, 794.97pt x 505.89pt>
+<Figures/Chapter5/STM_barPlot_OL.jpg, id=517, 794.97pt x 505.89pt>
 File: Figures/Chapter5/STM_barPlot_OL.jpg Graphic file (type jpg)
 <use Figures/Chapter5/STM_barPlot_OL.jpg>
 Package pdftex.def Info: Figures/Chapter5/STM_barPlot_OL.jpg  used on input lin
-e 579.
+e 633.
 (pdftex.def)             Requested size: 284.52756pt x 181.06271pt.
-<Figures/Chapter5/STM_barPlot_OL_batch.jpg, id=492, 794.97pt x 505.89pt>
+<Figures/Chapter5/STM_barPlot_OL_batch.jpg, id=518, 794.97pt x 505.89pt>
 File: Figures/Chapter5/STM_barPlot_OL_batch.jpg Graphic file (type jpg)
 <use Figures/Chapter5/STM_barPlot_OL_batch.jpg>
 Package pdftex.def Info: Figures/Chapter5/STM_barPlot_OL_batch.jpg  used on inp
-ut line 587.
+ut line 641.
 (pdftex.def)             Requested size: 284.52756pt x 181.06271pt.
-<Figures/Chapter5/STM_barPlot_OL_V2.jpg, id=493, 794.97pt x 505.89pt>
+<Figures/Chapter5/STM_barPlot_OL_V2.jpg, id=519, 794.97pt x 505.89pt>
 File: Figures/Chapter5/STM_barPlot_OL_V2.jpg Graphic file (type jpg)
 <use Figures/Chapter5/STM_barPlot_OL_V2.jpg>
 Package pdftex.def Info: Figures/Chapter5/STM_barPlot_OL_V2.jpg  used on input 
-line 595.
+line 649.
 (pdftex.def)             Requested size: 284.52756pt x 181.06271pt.
-<Figures/Chapter5/STM_barPlot_OL_V2_batch.jpg, id=494, 794.97pt x 505.89pt>
+<Figures/Chapter5/STM_barPlot_OL_V2_batch.jpg, id=520, 794.97pt x 505.89pt>
 File: Figures/Chapter5/STM_barPlot_OL_V2_batch.jpg Graphic file (type jpg)
 <use Figures/Chapter5/STM_barPlot_OL_V2_batch.jpg>
 Package pdftex.def Info: Figures/Chapter5/STM_barPlot_OL_V2_batch.jpg  used on 
-input line 603.
+input line 657.
 (pdftex.def)             Requested size: 284.52756pt x 181.06271pt.
-<Figures/Chapter5/STM_barPlot_LWF.jpg, id=495, 794.97pt x 505.89pt>
+<Figures/Chapter5/STM_barPlot_LWF.jpg, id=521, 794.97pt x 505.89pt>
 File: Figures/Chapter5/STM_barPlot_LWF.jpg Graphic file (type jpg)
 <use Figures/Chapter5/STM_barPlot_LWF.jpg>
 Package pdftex.def Info: Figures/Chapter5/STM_barPlot_LWF.jpg  used on input li
-ne 611.
+ne 665.
 (pdftex.def)             Requested size: 284.52756pt x 181.06271pt.
-<Figures/Chapter5/STM_barPlot_LWF_batch.jpg, id=496, 794.97pt x 505.89pt>
+<Figures/Chapter5/STM_barPlot_LWF_batch.jpg, id=522, 794.97pt x 505.89pt>
 File: Figures/Chapter5/STM_barPlot_LWF_batch.jpg Graphic file (type jpg)
 <use Figures/Chapter5/STM_barPlot_LWF_batch.jpg>
 Package pdftex.def Info: Figures/Chapter5/STM_barPlot_LWF_batch.jpg  used on in
-put line 619.
+put line 673.
 (pdftex.def)             Requested size: 284.52756pt x 181.06271pt.
-<Figures/Chapter5/STM_barPlot_CWR.jpg, id=497, 794.97pt x 505.89pt>
+<Figures/Chapter5/STM_barPlot_CWR.jpg, id=523, 794.97pt x 505.89pt>
 File: Figures/Chapter5/STM_barPlot_CWR.jpg Graphic file (type jpg)
 <use Figures/Chapter5/STM_barPlot_CWR.jpg>
 Package pdftex.def Info: Figures/Chapter5/STM_barPlot_CWR.jpg  used on input li
-ne 627.
+ne 681.
 (pdftex.def)             Requested size: 284.52756pt x 181.06271pt.
 
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 635.
+               Default added (so using `tbp') on input line 689.
 
 
-Overfull \hbox (106.72232pt too wide) in paragraph at lines 637--648
+Overfull \hbox (106.72232pt too wide) in paragraph at lines 691--702
  [] 
  []
 
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 651.
+               Default added (so using `tbp') on input line 705.
 
 
-Overfull \hbox (96.53555pt too wide) in paragraph at lines 652--662
+Overfull \hbox (96.53555pt too wide) in paragraph at lines 706--716
 [][] 
  []
 
 
-LaTeX Warning: Reference `' on page 39 undefined on input line 664.
+LaTeX Warning: Reference `' on page 41 undefined on input line 718.
 
-<Figures/Chapter5/batch_size_letters.png, id=499, 1300.86pt x 578.16pt>
+<Figures/Chapter5/batch_size_letters.png, id=525, 1300.86pt x 578.16pt>
 File: Figures/Chapter5/batch_size_letters.png Graphic file (type png)
 <use Figures/Chapter5/batch_size_letters.png>
 Package pdftex.def Info: Figures/Chapter5/batch_size_letters.png  used on input
- line 668.
+ line 722.
 (pdftex.def)             Requested size: 284.52756pt x 126.45454pt.
-[39 <./Figures/Chapter5/comparison_difference.png>]
+[41 <./Figures/Chapter5/comparison_difference.png>]
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
@@ -1125,16 +1193,16 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[40 <./Figures/Chapter5/STM_barPlot_OL.jpg>] [41] [42 <./Figures/Chapter5/STM_b
-arPlot_OL_batch.jpg> <./Figures/Chapter5/STM_barPlot_OL_V2.jpg>] [43 <./Figures
+[42 <./Figures/Chapter5/STM_barPlot_OL.jpg>] [43] [44 <./Figures/Chapter5/STM_b
+arPlot_OL_batch.jpg> <./Figures/Chapter5/STM_barPlot_OL_V2.jpg>] [45 <./Figures
 /Chapter5/STM_barPlot_OL_V2_batch.jpg> <./Figures/Chapter5/STM_barPlot_LWF.jpg>
-] [44 <./Figures/Chapter5/STM_barPlot_LWF_batch.jpg> <./Figures/Chapter5/STM_ba
-rPlot_CWR.jpg>] [45 <./Figures/Chapter5/batch_size_letters.png>]
+] [46 <./Figures/Chapter5/STM_barPlot_LWF_batch.jpg> <./Figures/Chapter5/STM_ba
+rPlot_CWR.jpg>] [47 <./Figures/Chapter5/batch_size_letters.png>]
 Chapter 6.
 
-LaTeX Warning: Empty bibliography on input line 683.
+LaTeX Warning: Empty bibliography on input line 736.
 
-[46
+[48
 
 ] (thesis.aux)
 
@@ -1144,9 +1212,9 @@ LaTeX Warning: There were undefined references.
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: 98E8CC02508D22142AF052E8276D1F57;4277.
+(rerunfilecheck)             Checksum: BEC132780854240C5F67B891C8359850;5235.
 
-Package biblatex Warning: Please (re)run BibTeX on the file(s):
+Package biblatex Warning: Please (re)run Biber on the file:
 (biblatex)                thesis
 (biblatex)                and rerun LaTeX afterwards.
 
@@ -1155,34 +1223,31 @@ Package logreq Info: Writing requests to 'thesis.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 18871 strings out of 478927
- 326106 string characters out of 2852534
- 848123 words of memory out of 3000000
- 36334 multiletter control sequences out of 15000+600000
- 409805 words of font info for 49 fonts, out of 8000000 for 9000
+ 18913 strings out of 478927
+ 327781 string characters out of 2852534
+ 1059422 words of memory out of 3000000
+ 36374 multiletter control sequences out of 15000+600000
+ 409875 words of font info for 49 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 62i,17n,75p,1822b,1726s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 62i,17n,75p,1724b,1585s stack positions out of 5000i,500n,10000p,200000b,80000s
 {C:/Users/massi/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/cm-super/cm-sup
 er-ts1.enc}<C:/Users/massi/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
-fonts/cm/cmbx10.pfb><C:/Users/massi/AppData/Local/Programs/MiKTeX/fonts/type1/p
-ublic/amsfonts/cm/cmbx12.pfb><C:/Users/massi/AppData/Local/Programs/MiKTeX/font
-s/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/massi/AppData/Local/Programs/Mi
-KTeX/fonts/type1/public/amsfonts/cmextra/cmex8.pfb><C:/Users/massi/AppData/Loca
-l/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/massi/App
-Data/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Users/m
-assi/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:
-/Users/massi/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10
-.pfb><C:/Users/massi/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/
-cm/cmr12.pfb><C:/Users/massi/AppData/Local/Programs/MiKTeX/fonts/type1/public/a
-msfonts/cm/cmr7.pfb><C:/Users/massi/AppData/Local/Programs/MiKTeX/fonts/type1/p
-ublic/amsfonts/cm/cmr8.pfb><C:/Users/massi/AppData/Local/Programs/MiKTeX/fonts/
-type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/massi/AppData/Local/Programs/MiKT
-eX/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/massi/AppData/Local/Prog
-rams/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt12.pfb><C:/Users/massi/AppData/L
-ocal/Programs/MiKTeX/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on thesis.pdf (55 pages, 2038415 bytes).
+fonts/cm/cmbx12.pfb><C:/Users/massi/AppData/Local/Programs/MiKTeX/fonts/type1/p
+ublic/amsfonts/cm/cmex10.pfb><C:/Users/massi/AppData/Local/Programs/MiKTeX/font
+s/type1/public/amsfonts/cmextra/cmex8.pfb><C:/Users/massi/AppData/Local/Program
+s/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/massi/AppData/Loca
+l/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Users/massi/AppD
+ata/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/ma
+ssi/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/
+Users/massi/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.p
+fb><C:/Users/massi/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm
+/cmsy10.pfb><C:/Users/massi/AppData/Local/Programs/MiKTeX/fonts/type1/public/am
+sfonts/cm/cmti12.pfb><C:/Users/massi/AppData/Local/Programs/MiKTeX/fonts/type1/
+public/amsfonts/cm/cmtt12.pfb><C:/Users/massi/AppData/Local/Programs/MiKTeX/fon
+ts/type1/public/cm-super/sfrm1200.pfb>
+Output written on thesis.pdf (58 pages, 2751170 bytes).
 PDF statistics:
- 628 PDF objects out of 1000 (max. 8388607)
- 140 named destinations out of 1000 (max. 500000)
- 318 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 640 PDF objects out of 1000 (max. 8388607)
+ 138 named destinations out of 1000 (max. 500000)
+ 373 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -23,7 +23,7 @@
 \usepackage[toc,page]{appendix}
 \usepackage{afterpage}
 \usepackage{multirow}
-\usepackage[backend=bibtex,style=verbose-trad2]{biblatex}
+\usepackage[style=ieee,backend=biber,citetracker=true]{biblatex}
 
 
 
@@ -37,9 +37,9 @@
 \pagenumbering{roman}
 
 
-\bibliography{thesis}
-
-
+%\bibliography{thesis}
+\addbibresource{mydocument.bib}
+\renewcommand{\footcite}[1]{\cite{#1}\hypercite{#1}}
 \begin{document}
 
 
@@ -78,27 +78,27 @@ Mario Rossi
 \mychapter{0}{Introduction}
 \pagenumbering{arabic}
 
-The application of machine learning (ML) on small devices, in a word TinyML, is becoming more and more popular as technologies advances. The usage of this type of technology on micro controllers (MCU) is proving to be more indispensable and helpful in several fields like industrial applications, agricultural automation, autonomous driving, human-machine interaction. One of the main fields in which TinyML shines and is well suited, is the world of Internet of Things (IoT). Here machine learning applied on small devices finds its sweet spot since it can be exploited to revolutionize the basics of IoT networks.\\
-The ability of embedded systems to perform high level and smart data elaboration makes it possible for the IoT pipeline to change from cloud computing to edge computing. This transformation comes with great benefits and additional challenges. 
-First of all the traffic on IoT networks is drastically reduced. In fact by performing inferences and predictions directly on the edge the raw data gets compressed into smaller sequences that are dense of information, reducing the quantity of data moving in the IoT networks. This allows to also diminish the energy consumption dedicated to the entire system. 
-Not only edge computing lowers the traffic but also it reduces the computational weight given to the central point of the entire network, the cloud's server. This results in reduced times of computation and communication between edge and cloud which, if combined with the ability of the MCU to perform autonomous decision, reduces the latency of real time applications improving the overall experience. 
-Another benefit is the improved privacy of the network, which is a direct consequence of the reduction of data transmitted. Of course by having less data moving on the network also the possibility to have unwanted interceptions is reduced. 
-At last the usage of ML on small devices allows for better customization of the device itself, which can make the devices better suited for specific jobs. \\
-Of course the application of such a technology comes with a cost, in this case increased complexity and higher amount of vulnerabilities. It's in fact necessary to set up robust systems that are able to ensure the security of the system (due to the high number of vulnerable nodes) and ensure high performances, no matter the limitation of the device. It's in fact known that the main downsides of embedded systems and small MCUs are their limited hardware, mainly small memories and batteries. Another important aspect concerning TinyML is the training and deployment of the model, which is typically performed on a powerful device and later loaded on the MCU using compression strategies. The main challenge here is how the compression of big and well performing models is performed, especially because the model needs to maintain high accuracy with low memory requirements. The creation of efficient and optimized compression strategies has been one of the main focus of recent research in the TinyML world. \\
-Another relevant challenge for the application of ML in the world of IoT comes directly from the environment in which these are deployed. Depending on the specific application it's usually the case that the context in which an IoT device lives is not characterized by static behaviour. Meaning that the phenomenon to be monitored is able to change or evolve over time and so does the data recorded. This can make difficult the use of ML models because they only perform inference and lack the ability to adapt to the changing scenarios. It's clear how the devices, set up in this way, are vulnerable to the context drift aforementioned. 
-By training ML models for a specific context and later deploying them in the real world it is to be expected a drop in accuracy which would make the application itself non reliable. It's then obvious how an application of simple ML inference on such problems is not the best solution. In order to contrast the issue it's necessary to implement what is called Continual Learning (CL). A machine learning approach that allows ML models to perform training in real time and continually keep up to date the weights of the model. The implementation of this method comes of course with new challenges and limitations which are mainly related to memory management and strategies for the implementation of real time training which also keep in consideration the optimization of resources.
+Machine learning (ML) applications on small devices, known as TinyML, is becoming more and more popular. The usage of this type of technology on micro controllers (MCU) is becoming more and more indispensable and helpful in several fields such as industrial applications, agricultural automation, autonomous driving and human-machine interaction. One of the main fields in which TinyML is well suited is Internet of Things (IoT). Here, machine learning is applied on small devices and it can be exploited to revolutionize the basics of IoT networks.\\
+The ability of embedded systems to perform high-level and smart data elaboration makes it possible for the IoT pipeline to change from cloud computing to edge computing. This transformation comes with great benefits and additional challenges. 
+First of all, the traffic on IoT networks is drastically reduced. In fact, by performing inferences and predictions directly on the edge the raw data gets compressed into smaller sequences that are dense of information, reducing the quantity of data moving in the IoT networks. This allows to diminish the energy consumption dedicated to the entire system as well as the system responsiveness and efficiency. 
+Edge computing lowers the traffic in IoT systems but also reduces the computational weight in the cloud servers. This results in reduced times of computation and communication between edge and cloud which, if combined with the ability of the MCU to perform autonomous decision, reduces the latency of real time applications improving the overall experience. 
+Moreover, IoT network privacy issues can be addressed by reducing transmitted data, and consequently reducing the possibility to have unwanted interceptions. 
+At last the usage of ML on small devices allows to better customize the device, and make the devices better suited for specific jobs. \\
+Of course, the application of such a technology comes with a cost, which is the increased complexity and higher amount of vulnerabilities. Thus it is necessary to set up robust systems that are able to ensure the system security (due to the high number of vulnerable nodes), and high performances, no matter the limitation of the device. It is in fact known that the main downsides of embedded systems and small MCUs are their limited hardware, small memories, and low-capacity batteries. Another important aspect concerning TinyML is the training and deployment of the model, which is typically performed on a powerful device and later loaded on the MCU using compression strategies. The main challenge is how the compression of big and well performing models is performed, especially because the model needs to maintain high accuracy with a low memory footprint. The creation of efficient and optimized compression strategies has been one of the main focus of recent research in the TinyML. \\
+Another relevant challenge for the application of ML in IoT systems comes directly from the environment in which IoT smart nodes are deployed. Depending on the specific application, it is usually the case that the context in which an IoT device works is not characterized by a static behaviour. Meaning that the phenomenon to be monitored is able to change or evolve over time, thus recorded data can consequently evolve and change its main features. This can make difficult using ML models because they only perform inference and lack the ability to adapt to changing scenarios. It is clear how devices, set up in this way, are vulnerable to the context drift aforementioned. 
+By training ML models for a specific context and later deploying them in the real world, it is expected a drop in accuracy which can make the application itself not reliable. It is then obvious how an application of simple ML inference on such environments is not the best solution. To contrast this issue, it is necessary to implement the so called Continual Learning (CL) algorithms. CL is a machine learning approach that allows ML models to perform training in real time and continually keep up-to-date the model weights. The implementation of this method comes with new challenges and limitations which are mainly related to memory management and strategies for the implementation of real time training which also keep in consideration the optimization of resources.
 \bigskip
 
-Continual learning methods implement a real time training based on the data incoming. This allows the model to change and fine tune its weights and structure to better contrast the context drift. 
-An additional feature that can be easily added to CL is the ability to recognize new and never seen classes. This, if paired with the model's ability to extend its structure, allows for the creation of a flexible model that is able to allocate new weights and biases for better predictions.  
-An important problem that tackles basics applications of CL is catastrophic forgetting. Catastrophic forgetting is a phenomenon that occurs when model trained in real time overfits the new data. This makes the knowledge related to past tasks be replaced by new knowledge, thus forgetting the initial scenario which leads the model to poor performances over time. This aspect can be reduced by applying preventive mechanism inside the back propagation that control the parameters update. \\
-The implementation of CL in industrial applications is not a new topic in the research world, but its implementation on tiny devices is just starting to become more and more popular. One of the common applications is CL in industrial scenarios, mainly for monitoring purposes on heavy machines.
-The main contributions of this study concern the application of CL in two interesting applications. The objective is to understand if CL is a feasible solution for TinyML and if its use is actually effective for the generation of autonomous and self adapting models. In this study a light framework that is easy to connect to a pre trained classification model has been developed. The system substitutes the last layer and continually performs updates on the weights and biases also extending its shape for flexible adaptation to new classes. The system is able to use different state-of-the-art strategies that are tested and compared in two experiments with the aim of understanding if it is possible to: i) maintain or improve the accuracy of the model; ii)contrast catastrophic forgetting; iii) digest and learn classes of never seen data. Both experiments concern the application of ML for the classification of data coming from different sensors. \\
-The first application regards the analysis of accelerometer data. In this experiment the user holds the accelerometer sensor in its hand and records a time series of accelerations while drawing letters in the air. The idea is to be able to apply ML to classify the data and recognize the letters written. The model created is initially trained for the recognition of the pattern that characterize the five vowels. Later CL is applied to the experiment and the model is exposed to new data representing three new consonants. The aim of the experiment is to let the ML model learn the new patterns by performing a real time training.
-The experiment can be considered a simplification of a real world applications, but it is a clear example of how a CL model could and should behave in these scenarios. A popular application of CL in the research is in fact the monitoring of vibration patterns of heavy industrial machinery. \\
-The second application concerns the experimentation of CL on a CNN model applied on an OpenMV camera for the visual recognition of digits from the MNIST dataset. The idea this time is to initially train the model to recognize only the digits from 0 to 5 and later use the CL framework developed for applying a real time training on the remaining digits. This second experiment could be considered similar to an application, once again in the industry field, where a camera is used for visual control of defects on products in a production pipeline.  \\
-The work done in this study shows that the application of CL on tiny devices is possible. Even if the strategies are applied only on the last layer the results are satisfying and in both examples all the classes have been correctly digested by the model. These tests show that a model equipped with a CL system is able to expand its knowledge and learn more classes, specifically 3 for the letters example and 4 for the digits example. The devices are able to maintain a reasonable accuracy at the end of the trainings that drop from the original frozen model accuracy by only 10\%. 
-The study performed is a good example that shows the capabilities of these tiny devices. It proves that machine learning applied on MCUs is a technology that has huge potential and deserves more attention. CL could lead to smarter, more efficient, better performing systems in the fields of IoT and applications in the industrial world.
+Continual learning methods lead to a real time training based on the data incoming. This allows the model to change and fine tune its weights and structure to better contrast the context drift. 
+An additional feature that can be easily added to CL is the ability to recognize never seen classes. This, if paired with the model's ability to extend its structure, allows to create a flexible model that is able to allocate new weights and biases for better predictions.  
+An important problem that tackles basic applications of CL is catastrophic forgetting. Catastrophic forgetting is a phenomenon that occurs when model trained in real time overfits new data. This makes the knowledge related to past tasks be replaced by new knowledge, thus forgetting the initial scenario which leads to a reduction of the model performances over time. This aspect can be reduced by applying preventive mechanism inside the back propagation that control the parameters update. \\
+The implementation of CL in industrial applications is not a new topic in the research world, but its implementation on tiny devices is just started to become more and more popular. One common application is CL in industrial scenarios, mainly for monitoring purposes on heavy machines.
+The main contributions of this study concern the application of CL in two different applications. The objective is to understand if CL is a feasible solution for TinyML and if its use is actually effective for the generation of autonomous and self adapting models. In this study, a light framework that is easy to connect to a pre trained classification model was developed. The system substitutes the last layer and continually performs updates on weights and biases, and also extends its shape for flexible adaptation to new classes. The system is able to use different state-of-the-art strategies that are tested and compared in two experiments with the aim of understanding if it is possible to: i) maintain or improve the accuracy of the model; ii)contrast catastrophic forgetting; iii) digest and learn classes of never seen data. Both experiments concern the application of ML for the classification of data coming from different sensors. \\
+The first application regards the analysis of accelerometer data. In this experiment the user holds the accelerometer sensor in its hand and records a time series of accelerations while drawing letters in the air. The idea is to apply ML to classify the data and recognize the letters written. The model created is initially trained for the recognition of the pattern that characterize the five vowels. Later CL is applied to the experiment and the model is exposed to new data representing three new consonants. The aim of the experiment is to let the ML model learn new patterns by performing a real time training.
+The experiment can be considered a simplification of a real world applications, but it is a clear example of how a CL model can behave in these scenarios. This application can be extended in a real-life scenario such as the monitoring of vibration patterns of heavy industrial machinery. \\
+The second application concerns the experimentation of CL on a CNN model applied on an OpenMV camera for the visual recognition of digits from the MNIST dataset. The idea consists of initially train the model to recognize only the digits from 0 to 5 and later use the CL framework developed for applying a real time training on the remaining digits. This second experiment can be extended to applications where a camera is used for a visual control of defects on products in a production pipeline.  \\
+The work carried out in this study shows that the application of CL on tiny devices is possible. Even though the CL strategies are applied only on the last layer the results are satisfying and in both examples all the classes were correctly digested by the model. These tests show that a model equipped with a CL system is able to expand its knowledge and learn more classes, specifically 3 for the letters example and 4 for the digits example. The devices are able to maintain a reasonable accuracy at the end of the trainings that drop from the original frozen model accuracy by only 10\%. 
+The study performed is a good example that shows the capabilities of these tiny devices. It proves that machine learning applied on MCUs is a technology that has a huge potential and deserves more attention. CL can lead to smarter, more efficient, better performing systems in the IoT field and in industrial applications.
 \bigskip
 
 UNA VOLTA DEFINITA UNA STRUTTURA CHIARA E PRECISA PER IL RESTO DELLA TESI SCRIVERE 4/5 RIGHE PER OGNI CAPITOLO/SEZIONE
@@ -143,7 +143,7 @@ The application of ML on MCUs, mobile devices or in general on the edge of IoT s
 
 Until recent times the application of ML on MCUs has always been focused on the creation of intelligent small system that maintain good performance with reasonable consumption, limited time of inference and long lifetimes. A major negative aspect of the TinyML solutions is their focus on the inference of streams of data. Which almost always requires the usage of powerful machines for the training of NN models that are later deployed on the MCU. This results in the creation of a static network which is not able to adapt to the data and adjust to different scenarios. The solution to this problem is the creation of a Continual Learning system. \\
 CL systems are a variation of the tipical pipeline of ML. The main focus of CL systems is to be able to continuously update the model in order to adapt its structure and parameters to overcome context drift, be able to recognize appearance of new patterns and to avoid catastrophic forgetting. The latter is a problem that is directly introduced by the nature of the paradigm itself. By having a model that is continuously updated with a feedback loop that is directly dependent on the current erross i'ts clear how it's immediate to update the model in such a way that the old tasks are forgetten for the sake of learning the new ones. This could be seen also as a over fitting of the model on the new tasks and if oc course to be avoided. Different algorithms have different ways for contrasting this phenomenon. \\
-In todays literature several CL algoprithms and strategies have been already proposed. A well organized summary is proposed in \autocite{lesort2020continual}, where the most relevant methods are briefly classified in 4 categories, originally proposed by \autocite{maltoni2019continuous}.
+In todays literature several CL algoprithms and strategies have been already proposed. A well organized summary is proposed in \cite{lesort2020continual}, where the most relevant methods are briefly classified in 4 categories, originally proposed by \autocite{maltoni2019continuous}.
 \begin{itemize}
 \item Architectural: these algorithms are based on the usage of particular types of structures and architectures. Some common methods are weight-freezing, layer activation or dual-memories-models that try to imitate logn term memory and short term memory.
 \item Regularization: this group contains all those approaches that base their ability to retain past memories on the application of particular loss functions. In these loss functions usually a term is added with the aim of performing a feedback that considers both the old knowledge and tries to learn the new data.
@@ -162,35 +162,61 @@ The type of strategies that better suits an application on MCU are for sure the 
 
 
 \chapter{Hardware} 
-In this chapter the hardware used to carry out the experiments is described. The application of machine learning on MCU requires specific types of tiny devices. The devices need to be equipped with some components that make the deployment feasible. Forst of all the flash and RAM memory need to be bog enough for containing the model's weights and biases and all the computations and values that are generated during run time. The the device should be equipped with a suitable CPU that allows for efficient computation that take short times. An important feature is that the device should be able to run off the shelf tools for the inference. For this purpose it has been decided to use two distinct microcontrollers for the two specific applications, both relying on the use of STM32 MCU. The first is a STM32 Nucelo F401-RE, a well performing development board. The second is a OpenMV camera, a device equipped with a camera sensor that uses an STM32 H7 MCU and is programmable in MicroPython. 
+\label{chap:hardware}
+In this chapter the hardware used to carry out the experiments is described. The application of ML on MCU does not require a specific type of device or specific peripherals. The devices should be equipped with memories (RAM and flash) big enough for containing the pre-trained model and for performing inference.  Then the device should be equipped with a CPU capable of sustaining ML computations, even if optimized, in short periods of time. In today's market lots of off the shelf devices with ML capabilities are already available. The most common are from Arduino, Raspberry or STM32, which only feature devices powerful enough for performing inference. For this study it has been decided to use two MCUs for the two applications, where both devices are based on STM32 components. The first experiment uses an STM32 Nucleo F401-RE, a well performing and easy to use development board. The second application uses an OpenMV camera, a device equipped with a camera sensor that uses an STM32 H7 MCU and is programmable in MicroPython. Figure \ref{hardware_all} shows both devices, on the left the Nucleo F401-RE, on the left the OpenMV camera.
 %
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.7\textwidth]{Figures/Chapter2/hardware.jpg} 
-    \caption{Place holder - nucleo shield}
-    \label{fig:hardware_stm}    
+    \caption{PLACEHOLDER}
+    \label{fig:hardware_all}    
 \end{figure}
 %
 
 \section{Gesture recognition hardware}
-The experiment is carried out with a Nucelo STM32-F401 RE. This type of device is an easy to use development board that can be programmed in C or C++.  
+The experiment is carried out with a Nucleo STM32 F401-RE. This type of device is an easy to use development board that can be programmed in C or C++. It fully supports the extension pack STM-CUBE-AI \autocite{stm_cube_ai} developed by STM used for loading, compressing and performing inference in real time. \\
+The main features of the development board are summaryzed in Table \ref{tab:specifications_openmv}.
 
-\section{Image classification hardware}
+INSERIRE TABELLA CON DATAI DEL NUCLEO
 
-
-The hardware used for this study is composed of just a couple of micro controller with their relative sensors. For the gesture recognition application the MCU of choice is a Nucleo STM32 F401-RE paired with a shield IKS01A2. The Nucleo is a development board easy to use and code with a lot of useful GPIOs and communication protocols like I2C, UART, SPI. The shield \autocite{shield_web_page} used in this experiment is a motion MEMS and environmental sensor expansion board for the STM32 Nucleo which mounts a 3D accelerometer, a pressure sensor, capacitive digital relative humidity and temperature. The shield communicates to the Nucelo with I2C protocol and is totally supported by the Nucelo libraries. 
-
-For the image classification application an OpenMV camera is used. This device is equipped with an STMH7 MCU and it has been developed specifically for applications of ML and elaboration of images. The OpenMV \autocite{openmv_web_page} can be programmed in micro-python and is still supported and in continuous development from both the software and hardware point of view. 
+The application for gesture recognition is based on the analysis of accelerometer data recorded while drawing letters in the air. To acquire that kind of data the Nucelo needs to be equipped with an accelerometer sensor. For doing that it has been decided to use a Nucelo shield, also developed by STM called IKS01A2 \autocite{shield_web_page}, which can be easily mounted on the Nucleo board simply by aligning the pins. The shield is equipped with a 3D accelerometer, a pressure sensor and a capacitive digital relative humidity and temperature sensor. The shield communicates with the Nucleo through I2C protocol and its use is completely supported by STM libraries, which make its use simple and fast. Figure \ref{hardware_stm} shows the two devices separately on the left and mounted on the right.
 %
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.7\textwidth]{Figures/Chapter2/hardware.jpg} 
-    \caption{Place holder - OpenMV camera}
+    \includegraphics[width=0.7\textwidth]{Figures/Chapter2/hardware_stm.jpg} 
+    \caption{PLACEHOLDER}
+    \label{fig:hardware_stm}    
+\end{figure}
+%
+\subsection{STM-CUBE-AI}
+
+\section{Image classification hardware}
+For the second experiment an OpenMV 	\ref{openmv_web_page} camera is used. This device is a small board equipped with an STM H7 MCU and a camera sensor with interchangeable lens. The board mounts also some GPIO pins thanks to which is possible to use interrupts, I2C, UART, SPI an many other peripherals. The OpenMV camera is a project developed from a kickstarter which got increasing attention and became to be a well performing piece of hardware. The device is thought to be deployed specifically in computer vision scenarios, with the possibility to drive external motors, robots, drones or use machine learning. It has been decided to use this hardware because of its relatively low cost, its high computational power, ease of use thanks to MicroPython and the support and continuous updates that are developed. Additionally the camera is supported also by external hardware modules such as Wi-fi modules, interhcangable lens (IR, fisheye, different focal length), screen shield, CAN shield.\\
+Table \ref{tab:specifications_openmv} summarizes the specifications of the device.
+
+\begin{table}[]
+\begin{tabular}{|l|c|}
+\hline
+Processor           & \begin{tabular}[c]{@{}c@{}}ARM 32-bit Cortex-M7 CPU\\ w/ Double Precision FPU 480 MHz (1027 DMIPS)\end{tabular}                               \\ \hline
+Memory              & \begin{tabular}[c]{@{}c@{}}SDRAM: 32 MBs\\ SRAM: 1 MB\\ Flash: ext 32 MB, int 2 MB\\ Expandable with SD cart\end{tabular}                     \\ \hline
+Resolution          & \begin{tabular}[c]{@{}c@{}}Grayscale: 640x480 max\\ RGB565: 320x240 max\\ Grayscale JPEG: 640x640 max\\ RGB565 JPEG: 640x480 max\end{tabular} \\ \hline
+Phisical attributes & \begin{tabular}[c]{@{}c@{}}Weight: 19g\\ Length, Width, Height: 45x36x30 mm\end{tabular}                                                      \\ \hline
+Lens                & \begin{tabular}[c]{@{}c@{}}Focal length: 2.8mm\\ Aperture: F2.0\\ Format: 1/3"\\ HFOV: 70.8°, VFOV:55.6°\end{tabular}                         \\ \hline
+Peripherals         & \begin{tabular}[c]{@{}c@{}}GPIOs, interrupts, SPI, UART, I2C, DAC/ADC,\\ PWM, LEDs, removable camera module\end{tabular}                      \\ \hline
+\end{tabular}
+\label{tab:specifications_openmv}
+\caption{OpenMV H7+ specifications}
+\end{table}
+
+To be able to use correctly the device for the application of CL on digits recognition a 3D printed support has been created. Since the continual training is carried out by pointing the camera to the computer screen while frames of the MNIST digits are shown it was necessary to maintain the camera in a still position. A small 3D printed tripod found on Thingiverse \autocite{tripod_link} has been edited to be able to support the camera with minimal modifications. The $stl$ file can be found in the repository of this project \autocite{github_repo}. Figure\ref{fig:hardware_openmv} shows the OpenMV mounted on the 3D printed tripod while pointing t the computer screen during a CL session.
+%
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Figures/Chapter2/hardware_openmv.jpg} 
+    \caption{PLACEHOLDER}
     \label{fig:hardware_openmv}    
 \end{figure}
 %
-
-
 
 
 \chapter{System implementation}
@@ -203,6 +229,7 @@ For the image classification application an OpenMV camera is used. This device i
 Machine learning is a branch of artificial intelligence (AI) and computer science that focuses on the usage of algorithms and huge quantities of data to generate models that are able to perform regression of grey mox models. 
 
 \section{Basic pipeline of the CL system developed}
+\label{basic_system}
 % spiegare idea di base del CL in questo caso, training fatto in real time
 % spiegare come si ottiene la back propagation, far vedere formule, applicate a softmax
 % spiegare il sistema fatto a frozen model + OL layer
@@ -386,19 +413,19 @@ And
 
 \chapter{Experimental setup}
 
-In this chapter the practical aspects of the experiments are explained. Initially the study has been developed entirely on the laptop with Python code with the aim of understanding the theoretical behaviour of the method and the capabilities of CL. Later the same principle and basic pipeline of the framework has been ported to the SMT Nucleo application and to the OpenMV cam. In all applications the idea is to initially train the base model for the recognition of the first few classes. The training is done with Tensorflow and Keras on the laptop and later the model is loaded on the MCU of interest. The CL system which is composed of the OL layer and all the necessary is then attached to work on the output of the frozen model. The idea is to apply different strategies of training only on the last layer in order to be able to perform augmented classifications.  \\
-In the next sections all the steps for the correct set up of the entire study are well explained. Starting from the creation and collection of the dataset, then going to the training of the frozen model, implementation of the CL system on the MCUs and finally the actual implementation of the CL system on the devices. 
+In this chapter the practical aspects of the experiments are described. Initially the study has been developed entirely on the laptop using Python code with the aim of understanding the theoretical behaviour of the method and the capabilities of CL. Later the same principle and basic pipeline have been ported to the STM Nucleo and to the OpenMV camera. All applications use the same general work flow, which is: i) train the base model on a powerful device for the classification of the basic classes using Tensorflow; ii) manipulate and compress the model if necessary, then load it on the MCU of interest; iii) attach the OL system to the frozen by preparing the weights, biases, basic training parameters and the CL strategy required. \\
+In this chapter all the most important steps for a good setup of the experiments are described. Starting from the dataset collection, then the training of the frozen models, then the implementation of the OL system on the MCUs and finally the application of everything on the device.
 
 \section{Dataset collection}
+In order to be able to create and train ML models it is necessary to have big datasets. In this study the two applications explored elaborate two types of data. The Nucleo F410-RE application uses time series of data recorded from and accelerometer, while the OpenMV application uses images containing the digits from the MNIST dataset. \\
 
-In order to be able to create and train ML models it is necessary to have large quantities of data. In this study the two application explored are applied on two different types of data: time series of accelerometer data and images of hand written digits. \\
-The MNIST dataset is a large collection of hand written digits that is publicly available and well known in the academic and research world. It was created in 1998 as a combination of other two smaller databases. Today the dataset is composed of 2 groups of 60000 images for training and 10000 images for testing. The images are gray scaled and have a size of $28 \times 28$ pixels. In today's research world this dataset is used a lot for ML trainings. Its popularity is thanks to its ease of use and its high quality of images which can bring easily to well trained models with high performances.\\
-For the purpose of this application the dataset requires some pre processing. Since the goal of the base model is to be able to correctly recognize the digits from 0 to 6 it's necessary to separate the dataset in $low\_digits$ and $high\_digits$. Once this is done two dataset are obtained, the $low\_digits$ dataset contains 36017 samples while the $high\_digits$ dataset contains 23983 samples. After this the separation of the dataset in train, test and validate portions is requested. It has been decided to use the common rule 70-20-10. 
-\bigskip
-For the accelerometer application the dataset had to be created from zero. To my knowledge there are no publicly available datasets of accelerometer data and in particular no dataset containing examples of hand written letters in the air. The decision that brought to this particular application was simply because of an academic example already seen in class during the lab session of the course of Embedded Systems. In that lab session the aim was the same as this application, classify letters from accelerometer data by applying ML on an MCU. The collection of the dataset has been done with the hardware described in chapter \ref{}, which again is a Nucelo STM32 F401-RE equipped with a Nucleo shield IKS01A2 that mounts a 3D accelerometer sensor. \\
-The dataset is composed of 8 different letters, which are A, E, I, O, U, B, R, M. The vowels are the classes that are learned by the base model while the 3 consonants are the letters that are added and learned by the CL system. During the collection of the dataset the MCU is connected via USB to a laptop which has the role of power supplier and live data recorder. In order to collect the data the Nucelo has to run a small script that exploits the usage of some GPIO, timers, interrupts, UART and I2C communication protocols. The idea is that by specifying the letter that is drawn and by pressing the blue button the STM starts to catch data from the accelerometer with the I2C protocol while sending it to the laptop with UART protocol. The data sampling is done at a frequency of 100 Hz and the data stream lasts for 2 seconds, so a total of 200 samples is recorded. Note that a software for serial communication should be used at the same time on the laptop. This is required in order to see in real time the data stream on the laptop and for storing the data somewhere. In this application the software of choice is MobaXTerm which is able to save the entire session communication in a txt file by using the UI. 
-Note that a single letter sample is composed of different information. The sample contains the label of the letter drawn, the number of sample saved in the current session and three arrays of 200 values each containing the time series data from the 3 axis of the accelerometer. The final dataset is composed of 5130 samples total, where each vowel counts to an average of xxx samples while the consonants have an average count of 760 samples each. \\
-Another important detail is directly connected to the type of context in which the model will be trained and tested. As mentioned in \ref{introduction} the scenarios in which a CL system can live are three, NIC, NC and NI. In order to make the example as close ass possible to real world scenario the dataset was collected keeping in mind a NIC context. This means that the ML model should be exposed to data containing new classes and new patterns of old classes. In order to simulate the new patters of old classes while generating the dataset it has been decided to accentuate some patterns of the hand drawing motion. For example an accentuation of the angles in the letter R, or the velocity at which the letter I is drawn, or the oval shape of the letter O. Keep in mind that all the letters were drawn with the same general motion as shown in Figure[\ref{fig:letters_motion}].\\
+\subsection{Accelerometer dataset}
+For the gesture recognition study the dataset had to be created from zero. Datasets of this type, containing accelerometer data representing gestures are not very common, so it was necessary to create it. The reason that brought to this type of accelerometer data came from an example already seen during a lecture of the course Embedded Systems, where a very small dataset was used to train a ML model for the classification of vowels on an STM MCU.
+The generation of the dataset has been done with the hardware described in chapter \ref{chap:hardware}, which again is a Nucelo STM32 F401-RE equipped with a shield IKS01A2 that mounts a 3D accelerometer sensor. \\
+The dataset is composed of 8 different letters, which are A/E/I/O/U/B/R/M. The vowels compose the original classes that are initially learned only by the frozen model, while the three consonants are the additional classes that are learned later by the CL system. The collection of the dataset is performed by connecting the MCU to a laptop via UART protocol (USB cable). The laptop behaves as the provider of power and real time storage for the stream of data. 
+For the collection of the dataset a small script that controls UART and I2C communication together with some timers and GPIOs is used. Once that a GPIO interrupt is given to the MCU and the letter is specified, the MCU starts to record the data from the accelerometer with a frequency of 100 Hz for 2 seconds. Meanwhile the data is also streamed via USB to the laptop, which stores all the data thanks to a serial communication software. In this case the software MobaXTerm was used. \\
+An important note should be clarified about how the letters were drawn. To make the dataset be composed of samples that better resemble real life applications it has been decided to artificially impose an NIC scenario. This means that the samples recorded contain both new classes (the consonants) and new pattern of known classes. The latter was introduced by performing motion paths with accentuated characteristics. Some examples are the more or less oval shape of the letter O, the speed at which the sensor moves for the letter I and the general size/width/height of all letters. \\
+Figure \ref{fig:letters_motion} shows the general path that was followed while drawing the letters in the air.
 %
 \begin{figure}[h!]
     \centering
@@ -407,21 +434,49 @@ Another important detail is directly connected to the type of context in which t
     \label{fig:letters_motion}    
 \end{figure}
 %
-Once the entire dataset is collected the post processing is performed. This consists in a simple reshaping of all samples. In order to perform a consistent training it has been decided to define the input shape of the model as a simple array. This means that each letter sample has to be reshaped from a matrix  $3 \times 200$ to an array $1 \times 600$. This is performed simply by stacking horizontally the rows of the sample of interest. After this the final separation of the dataset is done. Since the application requires the usage of the dataset in two different trainings it's necessary to create the setwo in the correct manner. The first portion of the dataset is called Frozen model dataset, the second portion is called OL dataset. The first one is used for the training of the frozen model performed on the laptop with Tensorflow and it contains only vowels, since these are the classes of interest for the base model. The second portion contains all the remaining samples of vowels and all the samples for the three consonants, this because the CL system want to teach to the model the new classes. These two dataset are then also separated in train-test-validation parts. The final composition of the dataset is showed in Figure[\ref{}].
+All the samples received by the MCU are saved in a table format in a text file. The columns of the table contain: the number of samples recorded, the label of the sample and three columns for the accelerations recorded from X/Y/Z axis. Since the MCU was set to work at a sampling frequency of 100 Hz for 2 seconds a single sample is composed of 600 values (200 for each axis). 
+The final shape of the dataset is of 5130 samples, where the vowels have on average 560 samples each, while the consonants have circa 760 samples each. \\
+Once the dataset is collected the last step of post processing is performed. This consists in a simple reshaping, shuffling and subdivision. In order to perform the training on the ML model all samples are reshaped from a matrix $3 \times 300$ to an array $1 \times 600$, which is done by stacking all the columns into a single array. After this a subdivision of the dataset is performed. Since the dataset is needed for two trainings (frozen model training and CL training), it is required to separate it correctly. The frozen model can recognize only vowels, for this reason its dataset is composed only from vowels with 176 samples from each one. The OL model is trained on all letters, so its dataset contains all the remaining vowels and all the consonants. After this, both datasets are divided in training and testing portions, which is done with the usual 80-20\% rule. Figure \ref{fig:flow_dataset_letters} shows how the dataset are divided and balanced for the two trainings.
+%
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=100mm]{Figures/Chapter4/flow_dataset.png} 
+    \caption{PLACEHOLDER}
+    \label{fig:flow_dataset_letters}    
+\end{figure}
+%
 
-% AGGIUNGERE GRAFICO CHE MOSTRA COME è DIVISO IL DATASET
+\subsection{Digits recognition dataset}
+For the application regarding image classification no dataset was actually required. This because it has been decided to use the well known MNIST dataset. The MNIST dataset is a publicly available large collection of photos of hand written digits. The dataset is well known in the academic and reasearch world for its small size of images and large quantity of samples. It is composed of 60000 images for training and 10000 images for testing. The images are gray scaled and have a size of $28 \times 28$ pixels. In today's research world this dataset is used a lot for training of machine learning models, especially for examples of classification or for application of generative ML models.\\
+%
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=100mm]{Figures/Chapter4/mnist_dataset.png} 
+    \caption{PLACEHOLDER}
+    \label{fig:mnist_dataset}    
+\end{figure}
+%
+For the purpose of this application the dataset requires some pre processing. Since the goal of the frozen model is to correctly recognize the digits from 0 to 6 it is necessary to separate the dataset in two groups, $low\_digits$ and $high\_digits$. By doing this the $low\_digits$ group is composed of 36017 samples, while $high\_digits$ digits is composed of 23989 samples. For the training of the frozen model the entire $low\_digits$ is used in a Tensorflow training, which also requires to separate it in train, test and validate groups. For this reason the common 70-20-10 rule has been used. On the other hand for the training of the OL model only 5000 samples from the $high\_digits$ group have been used. This because from experience previously obtained from the latter application, it was demonstrated that 500 samples for each class are more than enough for a correct CL session. This dataset is then separated in training and testing with the rule 80-20\% for the CL application. \\
+Figure \ref{fig:flow_dataset_openmv} shows how the dataset is divided for the training of the frozen model and OL model.
+%
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=100mm]{Figures/Chapter4/flow_dataset.png} 
+    \caption{PLACEHOLDER}
+    \label{fig:flow_dataset_openmv}    
+\end{figure}
+%
+
 
 \section{Frozen model training and evaluation}
-
-Once the data is ready to be used it's then possible to train the basic models. AS previously explained in both applications the models have to perform classification. This requires the ML models to elaborate the input data and then generate an output array where each cell contains the probability of one class to represent the data received. This is done simply by applying on the last layer a Softmax activation function, which is able to normalize all the output values and remap them to be contained in between 0 and 1 while maintaining their sum equal to 1. \\
-The trainings for the basic models are all performed on a laptop with Python code averaging the Tensorflow library. Thanks to these powerful tools the generation of models and their training is very fast and easy to do.  \bigskip
-The first application is the one concerning the analysis of accelerometer data. For this type fo task the model doesn't require to be very complex and it's always important to keep in mind the application on the MCU, where memory and computational power are limited. It has been decided to use a simple fully connected Neural Network (NN) with just 3 layers of changing size. The summary and plot of the model is shown in Figure[\ref]. 
+Once the dataset are created and post processed the training of the frozen models can be performed. Both models require to have an efficient structure but small in size that ensures good performances. Both performances require the use of a classification ML model, which can be achieved simply by using a Softmax activation function on the last layer. The rest of the model structure depends mainly on the elaboration required on the data. All the frozen model training was carried out with Python and Tensorflow, two very powerful and easy to use tools for machine learning. \\
+The first application requires a model for the elaboration of a time series of values containing accelerometer data. Even if LSTM layers are well suited for the elaboration of data that depends on the time evolution of the signal, it has been decided to use a very simple model composed of only fully connected layer. The results brought from this simple model was satisfying enough for this application. The model is composed of 3 layers woth changing size, all characterized by ReLU as activation function execpt for the last one that uses Softmax. Figure \ref{fig:letter_structure} contains a graphic plot that shows the structure of the model.
 %
 \begin{figure}[h!]
     \centering
     \includegraphics[width=100mm]{Figures/Chapter4/structure.png} 
     \caption{PLACEHOLDER}
-    \label{fig:structure}    
+    \label{fig:letter_structure}    
 \end{figure}
 %
 The output prediction shape is of 5 classes since the classes to be predicted are just the 5 vowels.
@@ -516,7 +571,9 @@ The communication is again based on the UART protocol. At first the COM port is 
 
 
 
+\section{Gesture recognition setup}
 
+\section{Image classification setup}
 
 
 
@@ -682,9 +739,8 @@ Another important study that has been carried out is the study of variation of t
 
 
 
-
-
-\printbibliography
+LA BIBLIOGRAFIA NON FUZNIONA
+\printbibliography[heading=bibintoc]
 
 
 \end{document}

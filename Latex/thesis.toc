@@ -16,44 +16,54 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\numberline {2}Hardware}{10}{chapter.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2.1}Gesture recognition}{10}{section.2.1}%
+\contentsline {section}{\numberline {2.1}Gesture recognition hardware}{10}{section.2.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2.2}Image calssification}{10}{section.2.2}%
+\contentsline {subsection}{\numberline {2.1.1}STM-CUBE-AI}{12}{subsection.2.1.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {3}System implementation}{12}{chapter.3}%
+\contentsline {section}{\numberline {2.2}Image classification hardware}{12}{section.2.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.1}Basic pipeline of the CL system developed}{12}{section.3.1}%
+\contentsline {chapter}{\numberline {3}System implementation}{14}{chapter.3}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.2}Algorithms implemented}{15}{section.3.2}%
+\contentsline {section}{\numberline {3.1}Basic pipeline of the CL system developed}{14}{section.3.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{TinyOL}{16}{section*.9}%
+\contentsline {section}{\numberline {3.2}Algorithms implemented}{17}{section.3.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{TinyOL V2}{18}{section*.11}%
+\contentsline {subsubsection}{TinyOL}{18}{section*.11}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{LWF}{20}{section*.13}%
+\contentsline {subsubsection}{TinyOL V2}{20}{section*.13}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{CWR}{22}{section*.15}%
+\contentsline {subsubsection}{LWF}{22}{section*.15}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{My algorithm}{24}{section*.17}%
+\contentsline {subsubsection}{CWR}{25}{section*.17}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.3}Gesture recognition application}{24}{section.3.3}%
+\contentsline {subsubsection}{My algorithm}{26}{section*.19}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.4}Image classification application}{24}{section.3.4}%
+\contentsline {section}{\numberline {3.3}Gesture recognition application}{26}{section.3.3}%
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {4}Experimental setup}{25}{chapter.4}%
+\contentsline {section}{\numberline {3.4}Image classification application}{26}{section.3.4}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.1}Dataset collection}{25}{section.4.1}%
+\contentsline {chapter}{\numberline {4}Experimental setup}{27}{chapter.4}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.2}Frozen model training and evaluation}{28}{section.4.2}%
+\contentsline {section}{\numberline {4.1}Dataset collection}{27}{section.4.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.3}Implementation of the algorithms}{32}{section.4.3}%
+\contentsline {subsection}{\numberline {4.1.1}Accelerometer dataset}{28}{subsection.4.1.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.4}Deployment and experiment on the MCU}{32}{section.4.4}%
+\contentsline {subsection}{\numberline {4.1.2}Digits recognition dataset}{29}{subsection.4.1.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {5}Experimental results}{36}{chapter.5}%
+\contentsline {section}{\numberline {4.2}Frozen model training and evaluation}{31}{section.4.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.1}Experiment A: Gesture recognition}{36}{section.5.1}%
+\contentsline {section}{\numberline {4.3}Implementation of the algorithms}{35}{section.4.3}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.2}Experiment B: Image classification}{36}{section.5.2}%
+\contentsline {section}{\numberline {4.4}Deployment and experiment on the MCU}{35}{section.4.4}%
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {6}Conclusion}{46}{chapter.6}%
+\contentsline {section}{\numberline {4.5}Gesture recognition setup}{37}{section.4.5}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.6}Image classification setup}{37}{section.4.6}%
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {5}Experimental results}{38}{chapter.5}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {5.1}Experiment A: Gesture recognition}{38}{section.5.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {5.2}Experiment B: Image classification}{38}{section.5.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {6}Conclusion}{48}{chapter.6}%
