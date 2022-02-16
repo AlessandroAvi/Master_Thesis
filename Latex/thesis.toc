@@ -1,22 +1,59 @@
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\defcounter {refsection}{0}\relax 
 \contentsline {chapter}{Introduction}{1}{chapter*.6}%
+\defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\numberline {1}Related Works}{5}{chapter.1}%
+\defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {1.1}Machine learning in general}{5}{section.1.1}%
-\contentsline {section}{\numberline {1.2}Machine Learning on MCU}{5}{section.1.2}%
-\contentsline {section}{\numberline {1.3}Continual-on line learning}{6}{section.1.3}%
-\contentsline {section}{\numberline {1.4}Pruning and quantization}{7}{section.1.4}%
-\contentsline {chapter}{\numberline {2}Hardware}{8}{chapter.2}%
-\contentsline {chapter}{\numberline {3}Machine Learning}{10}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Basic pipeline of the CL system developed}{10}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Algorithms implemented}{12}{section.3.2}%
-\contentsline {subsubsection}{TinyOL}{13}{section*.9}%
-\contentsline {subsubsection}{TinyOL V2}{15}{section*.11}%
-\contentsline {subsubsection}{LWF}{16}{section*.13}%
-\contentsline {subsubsection}{CWR}{19}{section*.15}%
-\contentsline {subsubsection}{AviLearning}{20}{section*.17}%
-\contentsline {chapter}{\numberline {4}Experimental set up}{22}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Dataset collection}{22}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Frozen model training and evaluation}{25}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Implementation of the algorithms}{28}{section.4.3}%
-\contentsline {section}{\numberline {4.4}Deployment and experiment on the MCU}{28}{section.4.4}%
-\contentsline {chapter}{\numberline {5}Experimental results}{32}{chapter.5}%
-\contentsline {chapter}{\numberline {6}Conclusion}{41}{chapter.6}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {1.2}Cloud vs edge inference}{5}{section.1.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {1.3}Machine Learning on MCU}{5}{section.1.3}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {1.4}Continual-on line learning}{7}{section.1.4}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {1.5}Pruning and quantization}{9}{section.1.5}%
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {2}Hardware}{10}{chapter.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.1}Gesture recognition}{10}{section.2.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.2}Image calssification}{10}{section.2.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {3}System implementation}{12}{chapter.3}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.1}Basic pipeline of the CL system developed}{12}{section.3.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.2}Algorithms implemented}{15}{section.3.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{TinyOL}{16}{section*.9}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{TinyOL V2}{18}{section*.11}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{LWF}{20}{section*.13}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{CWR}{22}{section*.15}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{My algorithm}{24}{section*.17}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.3}Gesture recognition application}{24}{section.3.3}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.4}Image classification application}{24}{section.3.4}%
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {4}Experimental setup}{25}{chapter.4}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.1}Dataset collection}{25}{section.4.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.2}Frozen model training and evaluation}{28}{section.4.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.3}Implementation of the algorithms}{32}{section.4.3}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.4}Deployment and experiment on the MCU}{32}{section.4.4}%
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {5}Experimental results}{36}{chapter.5}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {5.1}Experiment A: Gesture recognition}{36}{section.5.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {5.2}Experiment B: Image classification}{36}{section.5.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {6}Conclusion}{46}{chapter.6}%
