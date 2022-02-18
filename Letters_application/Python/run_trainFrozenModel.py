@@ -132,20 +132,18 @@ def plot_TestAccuracy(data, label_lett, model, letters):
 
     for p in bar_plot:
         height = p.get_height()
-        xy_pos = (p.get_x() + p.get_width() / 2, height)
-        xy_txt = (0, -20)
+        xy_pos = (p.get_x() + p.get_width() / 2, 105)
 
-        # Avoid the text to be outside the image if bar is too low
-        if(height>10):
-            plt.annotate(str(height) + '%', xy=xy_pos, xytext=xy_txt, textcoords="offset points", ha='center', va='bottom', fontsize=12)
-        else:
-            plt.annotate(str(height) + '%', xy=xy_pos, xytext=(0, 3), textcoords="offset points", ha='center', va='bottom', fontsize=12)
+        plt.annotate(str(height) + '%', xy=xy_pos, xytext=(0, 0), textcoords="offset points", ha='center', va='bottom', fontsize=15,  fontweight ='bold')
 
+    plt.axhline(y = 100, color = 'gray', linestyle = (0, (5, 10)) ) # Grey line at 100 %
 
-    plt.ylim([0, 100])
-    plt.ylabel('Accuracy %', fontsize = 15)
-    plt.xticks([r for r in range(len(letter_labels))], letter_labels, fontweight ='bold', fontsize = 12) # Write on x axis the letter name
-    plt.title('Training KERAS - Test performance', fontweight ='bold', fontsize = 15)
+    # Text and labels
+    plt.ylim([0, 119])
+    plt.ylabel('Accuracy %', fontsize = 20)
+    plt.yticks(fontsize = 15)
+    plt.xticks([r for r in range(len(letter_labels))], letter_labels, fontweight ='bold', fontsize = 15) # Write on x axis the letter name
+    #plt.title('Training KERAS - Test performance', fontweight ='bold', fontsize = 15)
     plt.savefig(PLOT_PATH + 'training_Test.jpg')
     plt.show()
 
@@ -164,17 +162,22 @@ def plot_History(train_hist):
         A container in which the parameters are saved from keras when training the model
     """
 
-    hist_loss = train_hist.history['loss']
+    hist_loss     = train_hist.history['loss']
     hist_val_loss = train_hist.history['val_loss']
-    epoch_list = list(range(epochs))
+    epoch_list    = list(range(epochs))
 
     fig = plt.subplots()
 
     plt.plot(epoch_list, hist_loss, 'bo', label='Training loss')
     plt.plot(epoch_list, hist_val_loss, 'r', label='Validation loss')
 
-    plt.title('Training and validation loss')
-    plt.legend()
+
+    #plt.title('Training and validation loss')
+    label_size = 20
+    plt.legend(prop={'size': label_size})
+    plt.xlabel('Epochs',  fontsize = label_size)
+    plt.xticks(fontsize = 15)
+    plt.yticks(fontsize = 15)
 
     plt.savefig(PLOT_PATH + 'training_History.jpg')
 
@@ -189,6 +192,8 @@ def plot_History(train_hist):
 #  | |  | |/ ___ \ | || |\  |
 #  |_|  |_/_/   \_\___|_| \_|
 
+
+SAVE_FLAG = False
 
 
 ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
@@ -242,8 +247,9 @@ plot_TestAccuracy(TF_data_test, TF_label_test, model, vowels)
 
 
 # SAVE THE KERAS MODEL
-model.save(SAVE_MODEL_PATH + "Original_model\\model.h5")
-myWrite.save_KerasModelParams(SAVE_MODEL_PATH + "Original_model\\", model, batch_size, epochs, metrics, optimizer, loss)
+if(SAVE_FLAG):
+    model.save(SAVE_MODEL_PATH + "Original_model\\model.h5")
+    myWrite.save_KerasModelParams(SAVE_MODEL_PATH + "Original_model\\", model, batch_size, epochs, metrics, optimizer, loss)
 
 
 
@@ -254,9 +260,10 @@ ML_model = keras.models.Sequential(model.layers[:-1])
 ML_model.summary()
 ML_model.compile()
 
-ML_model.save(SAVE_MODEL_PATH + "Frozen_model\\model.h5")
-myWrite.save_KerasModelParams(SAVE_MODEL_PATH + "Frozen_model\\", ML_model, batch_size, epochs, metrics, optimizer, loss)
+if(SAVE_FLAG):
+    ML_model.save(SAVE_MODEL_PATH + "Frozen_model\\model.h5")
+    myWrite.save_KerasModelParams(SAVE_MODEL_PATH + "Frozen_model\\", ML_model, batch_size, epochs, metrics, optimizer, loss)
 
-# ALSO WRITE IN A file.h THE LAST LAYER W AND B AS A MATRIX AND AN ARRAY
-myWrite.save_lastLayer(model)
+    # ALSO WRITE IN A file.h THE LAST LAYER W AND B AS A MATRIX AND AN ARRAY
+    myWrite.save_lastLayer(model)
 
