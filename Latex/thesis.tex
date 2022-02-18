@@ -80,6 +80,7 @@ Mario Rossi
 %\mainmatter
 
 \mychapter{0}{Introduction}
+\label{Intro}
 \pagenumbering{arabic}
 
 Machine learning (ML) applications on small devices, known as TinyML, is becoming more and more popular. The usage of this type of technology on micro controllers (MCU) is becoming more and more indispensable and helpful in several fields such as industrial applications, agricultural automation, autonomous driving, and human-machine interaction. One of the main fields in which TinyML is well suited is Internet of Things (IoT). Here, machine learning is applied on small devices and it can be exploited to revolutionize the basics of IoT networks.\\
@@ -110,6 +111,7 @@ UNA VOLTA DEFINITA UNA STRUTTURA CHIARA E PRECISA PER IL RESTO DELLA TESI SCRIVE
 
 
 \chapter{Related Works}
+\label{relworks}
 
 In this chapter some information about the application of machine learning on tiny devices are given. Then a brief introduction to continual learnin is done with a following explanation of the most relevant state-of-the-art studies regarding continual learning in TinyML world. 
 
@@ -167,38 +169,53 @@ The type of strategies that better suits an application on MCU are for sure the 
 
 \chapter{Hardware} 
 \label{chap:hardware}
-In this chapter the hardware used to carry out the experiments is described. The application of ML on MCU does not require a specific type of device or specific peripherals. The devices should be equipped with memories (RAM and flash) big enough for containing the pre-trained model and for performing inference.  Then the device should be equipped with a CPU capable of sustaining ML computations, even if optimized, in short periods of time. In today's market lots of off the shelf devices with ML capabilities are already available. The most common are from Arduino, Raspberry or STM32, which only feature devices powerful enough for performing inference. For this study it has been decided to use two MCUs for the two applications, where both devices are based on STM32 components. The first experiment uses an STM32 Nucleo F401-RE, a well performing and easy to use development board. The second application uses an OpenMV camera, a device equipped with a camera sensor that uses an STM32 H7 MCU and is programmable in MicroPython. Figure \ref{hardware_all} shows both devices, on the left the Nucleo F401-RE, on the left the OpenMV camera.
-%
+In this chapter the hardware used to carry out the experiments is described. The application of ML on MCU does not require specific types of hardware. In today's market lots of off-the-shelf microcontrollers are already capable of performing this type of computations, so it is quite easy to select a suitable device for this application. Machine learning on microcontrollers is known to be resource heavy, especially from the point of view of memories and computational power. Most big companies that propose their product have different families of devices that are designed for different purposes. In this study, for both applications, STM devices have been used. The gesture recognition application uses an STM32 Nucleo F401-RE, a well performing and easy to use development board. The image classification application uses an OpenMV camera, a device equipped with a camera sensor that uses an STM32 H7 MCU and is programmable in MicroPython. Figure \ref{fig:hardware_all} shows both devices: on the left the Nucleo F401-RE; on the right the OpenMV camera. The reasons that brought to the selection of these two devices depends mainly on the on the quick availability and ease of use for the Nucleo development board, and the uniqueness of characteristics for the OpenMV camera.
+
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.7\textwidth]{Figures/Chapter2/hardware.jpg} 
-    \caption{PLACEHOLDER}
+    \caption{PLACEHOLDER - da cambiare}
     \label{fig:hardware_all}    
 \end{figure}
-%
+
 
 \section{Gesture recognition hardware}
-The experiment is carried out with a Nucleo STM32 F401-RE. This type of device is an easy to use development board that can be programmed in C or C++. It fully supports the extension pack STM-CUBE-AI \autocite{stm_cube_ai} developed by STM used for loading, compressing and performing inference in real time. \\
-The main features of the development board are summaryzed in Table \ref{tab:specifications_openmv}.
+The experiment is carried out with a Nucleo STM32 F401-RE. This type of device is an easy to use development board that can be programmed in C or C++. It fully supports the extension pack STM-CUBE-AI \autocite{stm_cube_ai} developed by STM used for loading and compressing models and performing machine learning inference in real time. \\
+The main features of the development board are summarized in Table \ref{table:specifications_stm}.\\
 
-INSERIRE TABELLA CON DATAI DEL NUCLEO
+\begin{table}[]
+\centering
+\begin{tabular}{|l|c|}
+\hline
+Processor           & \begin{tabular}[c]{@{}c@{}}ARM 32-bit Cortex-M4 CPU\\ 84 MHz\end{tabular}                 \\ \hline
+Memory              & \begin{tabular}[c]{@{}c@{}}SRAM: 96 kB\\ \\ Flash: 512 kB\end{tabular}                    \\ \hline
+Phisical attributes & \begin{tabular}[c]{@{}c@{}}Weight: ??g\\ Length, Width, Height: ??x??x3??mm\end{tabular}  \\ \hline
+Peripherals         & \begin{tabular}[c]{@{}c@{}}50 GPIOs, SPI, UART, I2C, DAC/ADC,\\ PWM, Timers,\end{tabular} \\ \hline
+\end{tabular}
+\label{table:specifications_stm}
+\caption{PLACEHOLDER - da cambiare}
+\end{table}
 
-The application for gesture recognition is based on the analysis of accelerometer data recorded while drawing letters in the air. To acquire that kind of data the Nucelo needs to be equipped with an accelerometer sensor. For doing that it has been decided to use a Nucelo shield, also developed by STM called IKS01A2 \autocite{shield_web_page}, which can be easily mounted on the Nucleo board simply by aligning the pins. The shield is equipped with a 3D accelerometer, a pressure sensor and a capacitive digital relative humidity and temperature sensor. The shield communicates with the Nucleo through I2C protocol and its use is completely supported by STM libraries, which make its use simple and fast. Figure \ref{hardware_stm} shows the two devices separately on the left and mounted on the right.
-%
+The application for gesture recognition is based on the analysis of times-series arrays. The time series represent the accelerations recorded while a sensor is moved around by a user that writes letters in the air. To acquire that kind of data, the Nucleo needs to be equipped with an accelerometer sensor. For doing that, it has been decided to use the Nucleo shield IKS01A2 \autocite{shield_web_page}, which is a device that can be mounted easily on the board simply by aligning the GPIO pins. The shield is equipped with a 3D accelerometer, a pressure sensor and a capacitive digital humidity and temperature sensor. The shield communicates with the Nucleo through I2C protocol and it is fully supported by additional STM libraries that make its use quick and easy. Figure \ref{fig:hardware_stm} shows the two devices separately on the left and mounted on the right.\\
+
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.7\textwidth]{Figures/Chapter2/hardware_stm.jpg} 
-    \caption{PLACEHOLDER}
+    \caption{PLACEHOLDER - da cambiare}
     \label{fig:hardware_stm}    
 \end{figure}
-%
-\subsection{STM-CUBE-AI}
+
+
 
 \section{Image classification hardware}
-For the second experiment an OpenMV 	\ref{openmv_web_page} camera is used. This device is a small board equipped with an STM H7 MCU and a camera sensor with interchangeable lens. The board mounts also some GPIO pins thanks to which is possible to use interrupts, I2C, UART, SPI an many other peripherals. The OpenMV camera is a project developed from a kickstarter which got increasing attention and became to be a well performing piece of hardware. The device is thought to be deployed specifically in computer vision scenarios, with the possibility to drive external motors, robots, drones or use machine learning. It has been decided to use this hardware because of its relatively low cost, its high computational power, ease of use thanks to MicroPython and the support and continuous updates that are developed. Additionally the camera is supported also by external hardware modules such as Wi-fi modules, interhcangable lens (IR, fisheye, different focal length), screen shield, CAN shield.\\
-Table \ref{tab:specifications_openmv} summarizes the specifications of the device.
+For the second experiment an OpenMV cam H7 plus \autocite{abdelkader2017openmv} \autocite{openmv_web_page} is used. This device is an affordable and expandable small board equipped with an STM MCU and a camera sensor with interchangeable lens. The OpenMV camera started as a project \autocite{openmv_project} back in 2013 due to a lack of affordable, small, powerful and easy to use breakout board with cameras. The idea then developed into a kickstarter that gained popularity until reaching what is today, an established product that aims at becoming the standard device for machine vision applications. \\
+The device mounts the camera sensor OV5640 and an STM32 H7 MCU and it can be programmed easily with MicroPython through the dedicated OpenMV IDE. The board is equipped with 16 GPIOs thanks to which it can interact with external devices like servo motors, sensors or other MCUs. The GPIOs can be exploited for controlling robots, drones or for machine learning purposes. Some examples of successful applications of OpenMV cameras in robotic systems are: the design of a control system for rolling a ball \autocite{zhou2019design} and the design of a tracking system \autocite{wei2020design}.\\
+The camera comes also with the possibility to mount different lenses, sensors and additional modular components. From the official website a complete list is available, some examples are: IR lenses or sensors, telephoto lens, super telephoto lens, ultra wide lens, WI-fi shield, LCD shield, motor shield, ecc.. 
+The possibility to add all these different components or modification make the device a very well suited solution for many problems, application and especially for prototipation.\\
+Table \ref{table:specifications_openmv} summarizes the specifications of the device used in this study.\\
 
 \begin{table}[]
+\centering	
 \begin{tabular}{|l|c|}
 \hline
 Processor           & \begin{tabular}[c]{@{}c@{}}ARM 32-bit Cortex-M7 CPU\\ w/ Double Precision FPU 480 MHz (1027 DMIPS)\end{tabular}                               \\ \hline
@@ -208,19 +225,25 @@ Phisical attributes & \begin{tabular}[c]{@{}c@{}}Weight: 19g\\ Length, Width, He
 Lens                & \begin{tabular}[c]{@{}c@{}}Focal length: 2.8mm\\ Aperture: F2.0\\ Format: 1/3"\\ HFOV: 70.8°, VFOV:55.6°\end{tabular}                         \\ \hline
 Peripherals         & \begin{tabular}[c]{@{}c@{}}GPIOs, interrupts, SPI, UART, I2C, DAC/ADC,\\ PWM, LEDs, removable camera module\end{tabular}                      \\ \hline
 \end{tabular}
-\label{tab:specifications_openmv}
+\label{table:specifications_openmv}
 \caption{OpenMV H7+ specifications}
 \end{table}
 
-To be able to use correctly the device for the application of CL on digits recognition a 3D printed support has been created. Since the continual training is carried out by pointing the camera to the computer screen while frames of the MNIST digits are shown it was necessary to maintain the camera in a still position. A small 3D printed tripod found on Thingiverse \autocite{tripod_link} has been edited to be able to support the camera with minimal modifications. The $stl$ file can be found in the repository of this project \autocite{github_repo}. Figure\ref{fig:hardware_openmv} shows the OpenMV mounted on the 3D printed tripod while pointing t the computer screen during a CL session.
-%
+Since the application of this study sees the use of a camera that points to a screen, a small 3D printed support was created. An already available project \autocite{tripod_link} have been modified to make it possible to mount the OpenMV camera on the support itself. The $stl$ files can be found in the GitHub repository of this project \autocite{github_repo}. Figure \ref{fig:hardware_openmv} shows the OpenMV mounted on the 3D printed tripod while pointing to the computer screen during a CL session.\\
+
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.7\textwidth]{Figures/Chapter2/hardware_openmv.jpg} 
-    \caption{PLACEHOLDER}
+    \caption{PLACEHOLDER - da cambiare}
     \label{fig:hardware_openmv}    
 \end{figure}
-%
+
+\section{Machine learning support}
+In this study applications it is requires to apply machine learning on the MCUs. Even if both examples use microcontrollers developed by ST, the procedure for implementing ML capabilities is not the same. \\
+For the Nucleo application it is required to use ST-CUBE-AI \autocite{stm_cube_ai}, an extension pack developed and supported by ST itself. This toolkit can be added quite easily from the CubeMX, a software developed by ST that helps with automatic generation of chunks of code. In this case the addition of the AI pack allows the user to not be bothered by the generation of routines and other tools required for optimized machine learning inference. By using this pack it is possible to compress, load and run ML models in an easy and immediate way with just some function calls.
+
+
+
 
 
 \chapter{System implementation}
@@ -238,8 +261,8 @@ Machine learning is a branch of artificial intelligence (AI) and computer scienc
 % spiegare come si ottiene la back propagation, far vedere formule, applicate a softmax
 % spiegare il sistema fatto a frozen model + OL layer
 % spiegare nel dettaglio i metodi implementati + grafici a blocchi che mostrano come va
-Continual learning is the application of real time training on a model with the aim of generating self adjusting systems that are able to learn from the incoming data and modify their properties to adapt changes. As well explianed before continual learning in today's technology finds its best application in IoT edge nodes, where ML is applied on small devices to distribute the computation weight over a large number of devices and reduce the traffic over the network. The main advantage brought by CL or OL is that models are then able to autonomosly update their parameters, ability that improves the easo of use of these devices which can then be ddeployed in environemnt with minimal effort for maintainance. \\
-In order to apply such a technology on embedded devices is necessary to develop or use the avilabel software and hardware on the market. For this study the hardware uses are just commercially available MCU that are specifically developed for supporting big quantities of computations. The software used by the microcontrollers on the other hand is only partially developed. In both applications it has been possible to use already developed tools specifically built for inference, which is just one of the steps required for a continual learning application. \\
+Continual learning is the application of real time training on a model with the aim of generating self adjusting systems that are able to learn from incoming data streams. As already mentioned in Chapter \ref{Intro}, continual learning can lead many improvements if exploited in IoT applications. The main feature of Continual Learning (CL) is the ability of ML models to adapt weights and biases to learn the environment and continue to be relevant in the application. \\
+In order to apply such a technology on embedded devices, it is necessary to develop a framework that permits the implementation of these kind of algorithms and strategies. For this study, two off-the-shelf hardware are used and a small framework is developed. The framework should always be paired with other toolkits that allow to perform machine learning inference easily. The framework developed should be attached to the last portion of a pre trained model. So it is necessary to use some built in tools for performing efficiently the inference and later apply the continual learning on the last portion of the model.\\
 In this study the main idea was to develop something similar to paper TinyOL. The idea is to attach the OL system to the last layer of the pre trained model in order to enhance just the classification aspect of the ML model. The base functions required by the system are basically two: be able to update the weights of the classification layer each time the model shows an error in the prediction array and be able to enlarge the size of the last layer at will, specifically when new classes are detected that should require a new label. The applications seen here are supervised machine learning trainings. This means that at every training step the griund truth label is known and is provided to the algorithm, which will then use these info to compute the error and back propagate this for updating the layer. In fact the feature that allows the model to recognize new classes is performed simply by checking if the label recieved is inside the pool of already known classes. \\
 The basic idea of continual learning consists in being able to continually refresh and update the weights and biases of the layer or layers of interest. This is performed as in standard trainings by computing the error performed by the inference and by propagating its error back in the weights themselves. In orrder to do this it's necessary to know the basic structire of the model wich gives informatiosn about the math used by the nodes. If the entire path of computation from the weight of interest to the final prediction is known then it's possible to back propagate the error to the parameter. In this specific study the idea has always been to use CL in classification problems. By havinsuch a specifica field of application it's possil e to simply the CL ide to a restricted group of models. Since the problems regard only classification and this specifica application want sto update only the lsat layer the problem becomes a simple study of the back propagation over softmx layers and nodes. Let's consider a simple model composed of few layer, and asume that the last layer brings 100 nodes of the hidden layer 2 to just 5 nodes with softmax application function. It's then possible to comnsider everythin that happens before the softmax layer a grey box that simply gives us 100 output values. The basic formulas used ina  softmax layer are the following:
 
@@ -284,7 +307,8 @@ This is the rule to be followd for the application a basic training step in real
 
 
 \section{Algorithms implemented}
-In this study not only the basic training strategy has been implemented and tested but also other regularization approaches have been used. As explained in the related work section regularization approaches are strategies that exploit the addition of a loss term to the update. Thanks to this it's possible to have some sort of control over the weight update. In today's research the most efficient and common strategies for CL are Elastic Weight Consolidation (EWC), Synaptic Intelligence (SI), Learn Without Forgetting (LWF) \autocite{li2017learning} and in a recent paper also Copy Weight with Reinit (CWR) \autocite{lomonaco2017core50}, Copy Weight with Reinit+ (CWR+) \autocite{maltoni2019continuous} and AR1 \autocite{maltoni2019continuous} have been presented. In this study it has been considered opportune to implement and compare the simpler ones which are LWF and CWR, together with the basic TinyOL and a small variations of them. \\
+In this study not only the basic training strategy has been implemented and tested but also other regularization approaches have been used. As explained in Chapter \ref{relworks}, regularization approaches are strategies that exploit the addition of loss term to the update, thanks to which it is possible to have some sort of control over the weight update. In today's research some well known state-of-the-art strategies for CL are Elastic Weight Consolidation (EWC), Synaptic Intelligence (SI) and Learn Without Forgetting (LWF) \autocite{li2017learning}. In a recent paper Copy Weight with Reinit (CWR) \autocite{lomonaco2017core50} has been proposed and later upgraded with some improvements under the name CWR+ \autocite{maltoni2019continuous}. In the same paper the authors propose a new strategy called AR1 \autocite{maltoni2019continuous}, which exploits more layers of a model for performing the CL training.
+In this study only some of the aforementioned were implemented, namely LWF, CWR and TinyOL, together with small variations for the implementation of CL with batches. \\
 In the applications for this study all methods are applied in the same OL general block system, which simply is attached to a pre trained model, called frozen model. The frozen model is treated as a grey box which simply performs feature extraction on the input array and provides the last layer with useful elaborated data. The OL training is then applied on the weights of the classification layer following the update rule imposed by the algorithm of choice.
 
 \subsubsection{TinyOL}
@@ -416,18 +440,18 @@ And
 
 \chapter{Experimental setup}
 
-In this chapter the practical aspects of the experiments are described. Initially the study has been developed entirely on the laptop using Python code with the aim of understanding the theoretical behaviour of the methods and the capabilities of CL. Later the same principle and basic pipeline have been ported to the STM Nucleo and to the OpenMV camera. All applications use the same general work flow, which is: i) train the base model on a powerful device for the classification of the basic classes using Tensorflow; ii) manipulate and compress the model if necessary, then load it on the MCU of interest; iii) attach the OL system to the frozen model, then define the basic training parameters and the CL strategy used. \\
-In this chapter all the most important steps for a good setup of the experiments are described. Starting from the dataset collection, then the training of the frozen models, then the implementation of the OL system on the MCUs and finally the application of everything on the device with a short explanation of how the CL trainings are performed.
+In this chapter, the practical aspects of the experiments are described. Initially, the study was developed entirely on the laptop using Python code with the aim of understanding the theoretical behaviour of the methods and the capabilities of CL. Later, the same principle and basic pipeline were ported to the STM Nucleo and the OpenMV camera, respectively. All applications use the same general workflow: i) train the base model on a powerful device for the classification of the basic classes using Tensorflow; ii) manipulate and compress the model if necessary, then load it on the MCU of interest; iii) attach the OL system to the frozen model, then define the basic training parameters and the desired CL strategy. \\
+In this chapter, all the most important steps for a good setup of the experiments are described. Specifically, these steps are: the dataset collection, the training of the frozen models, the implementation of the OL system on the MCUs, and the application of the entire system on the device with a short explanation of how the CL trainings are performed.
 
 \section{Dataset collection}
-In order to be able to create and train ML models it is necessary to have big datasets. In this study the two applications explored elaborate two types of data. The Nucleo F410-RE application uses time series of data recorded from an accelerometer, while the OpenMV application uses images containing digits from the MNIST dataset. \\
+To create and train ML models, it is necessary to have big datasets. In this study, the two applications explored elaborate two types of data. The Nucleo F410-RE application uses time series of data recorded from an accelerometer, while the OpenMV application uses images containing digits from the MNIST dataset \ref{deng2012mnist}. \\
 
 \subsection{Accelerometer dataset}
-For the gesture recognition study the dataset had to be created from zero. Datasets of this type, containing accelerometer data representing gestures are not very common, so it was necessary to create it. The reason that brought to the recording of letters written in the air came from an example already seen during a lecture of the course Embedded Systems, where a very small dataset was used to train a ML model for the classification of vowels on an STM32.
-The collection of the dataset was carried out with the hardware described in Chapter \ref{chap:hardware}, which again is a Nucelo STM32 F401-RE equipped with a shield IKS01A2 that mounts a 3D accelerometer sensor. \\
-The dataset is composed of 8 different letters, which are A,E,I,O,U and B,R,M. The vowels compose the original classes that are, at first, learned only by the frozen model, while the three consonants are the additional classes that are learned later by the CL system. The collection of the dataset is performed by connecting the MCU to a laptop via UART protocol (USB cable). The laptop behaves as power provider and real time storage for the stream of data. 
-To collect the sensor data a small script that controls UART and I2C communication together with some timers and GPIOs is used. When the Nucleo detects a GPIO interrupt and a label is specified, the code starts the routine that records data from the sensors with a frequency of 100 Hz for 2 seconds. Meanwhile the values are also streamed via USB to the laptop, which stores everything thanks to a serial communication software (MobaXTerm). \\
-An important note should be clarified about how the letters were drawn. To make the dataset be composed of samples that better resemble real life applications it has been decided to artificially impose an NIC scenario. This means that the samples recorded contain both new classes (the consonants) and new pattern of known classes. The latter was introduced by performing motion paths with accentuated characteristics. Some examples are the more or less accentuated oval shape of the letter O, the speed at which the sensor moves for the letter I, the general size/width/height of all letters or the radius of the curves for letter R and B.
+For the gesture recognition application the dataset was created from scratch. Datasets of this type, containing accelerometer data representing gestures are not very common, so it was necessary to collect it. It was decided to collect time series of 3D accelerometer data of letters written in the air from the user as a proof of concept of a gesture recognition system.
+The dataset collection was carried out with the hardware described in Chapter \ref{chap:hardware}. \\
+The dataset is composed of 8 different letters, which are A,E,I,O,U and B,R,M. The vowels compose the original classes that are first learned by the frozen model, while the three consonants are the additional classes that are learned later by the CL system. The collection of the dataset is performed by connecting the MCU to a laptop via UART protocol (USB cable). The laptop behaves as a power provider and real-time storage for the data stream. 
+To collect the sensor data, it is used a small script that controls UART and I2C communication with some timers and GPIOs. When the Nucleo detects a GPIO interrupt, the user specifies the label. Then the code records data from the sensors with a frequency of 100 Hz for 2 seconds. Meanwhile, the values are also streamed via USB to the laptop which stores data using a serial communication software (MobaXTerm). \\
+To make the dataset be composed of samples that better resemble real-life applications, a NIC scenario was artificially imposed. This means that the recorded samples contain both new classes (the consonants) and new pattern of known classes. The latter was introduced by performing motion paths with accentuated characteristics. Some examples are: the accentuated oval shape of the letter O, the speed at which the sensor moves for the letter I, the general size/width/height of all letters, and the radius of the curves for letter R and B.
 Figure \ref{fig:letters_motion} shows the general path that was followed while drawing the letters in the air.\\
 
 \begin{figure}[h!]
@@ -437,9 +461,9 @@ Figure \ref{fig:letters_motion} shows the general path that was followed while d
     \label{fig:letters_motion}    
 \end{figure}
 
-All the samples received by the MCU are saved in a table format in a text file. The columns of the table contain: the number of samples recorded, the label of the sample and three columns for the accelerations recorded from X, Y, Z axis. Since the MCU was set to work at a sampling frequency of 100 Hz for 2 seconds a single sample is composed of 600 values (200 for each axis). 
-The final shape of the dataset is of 5130 samples, where the vowels have on average 560 samples each, while the consonants have around 760 samples each. \\
-Once the dataset is collected the last step of post processing is performed. This consists in a simple reshaping, shuffling and subdivision. In order to perform the training on the ML model all samples are reshaped from a matrix $3 \times 300$ to an array $1 \times 600$, which is done by stacking all the rows into a single array. After this a subdivision of the dataset is performed. Since the dataset is needed for two trainings (frozen model training and CL training), it is required to separate it correctly. The frozen model can recognize only vowels, for this reason its dataset is composed only from vowels. This dataset counts a total of 881 samples with 176 samples from each vowel. The OL model, on the other hand, is trained on all letters, so its dataset contains all the remaining vowels and all the consonants. \\
+All the samples received by the MCU are saved in a table format in a text file. The columns of the table contain: the number of samples recorded, the label of the sample and three columns for the accelerations recorded from X, Y, Z axis. Considering that the MCU was set to work at a sampling frequency of 100 Hz for 2 seconds a single sample is composed of 600 values (200 for each axis). 
+The final shape of the dataset is 5130 samples, where the vowels have on average 560 samples each, while the consonants have around 760 samples each. \\
+Once the dataset is collected, post-processing is performed. This consists of a simple reshape, shuffle and subdivision. To perform the training on the ML architecture, all samples are reshaped by stacking all the rows into a single array from a matrix $3 \times 300$ to an array $1 \times 600$. Then, a subdivision of the dataset is performed. Given that the dataset is needed for two trainings (frozen model training and CL training), it is required to separate it correctly. The frozen model can recognize only vowels, thus its dataset is composed only of vowels. This dataset counts a total of 881 samples with 176 samples from each vowel. The OL model, on the other hand, is trained on all letters, so its dataset contains the remaining vowels and all the consonants. \\
 After this, both datasets are divided in training and testing portions, which is done with the usual 80-20\% rule. Figure \ref{fig:flow_dataset_letters} shows how the dataset are divided and balanced for the two trainings regarding the gesture recognition application.
 
 \begin{figure}[h!]
@@ -450,7 +474,7 @@ After this, both datasets are divided in training and testing portions, which is
 \end{figure}
 
 \subsection{Digits recognition dataset}
-For the application regarding image classification no dataset was actually required to be collected because the well known MNIST dataset was used. The MNIST dataset is a publicly available large collection of images of hand written digits. The dataset is well known in the academic and reasearch world for its small size of images and large quantity of samples. It is composed of 60000 images for training and 10000 images for testing. The images are gray scaled and have a size of $28 \times 28$ pixels. In today's research the dataset is commonly used for benchmarking ML trainings, and in the academic world it is used for basic trainings of classification and generative models. Figure \ref{fig:mnist_dataset} contains some sample images that can be found in the MNIST digit dataset.\\
+For the image classification application the well-known MNIST dataset was used. The MNIST dataset is a publicly available large collection of images of handwritten digits. The dataset is well known in academic and research for its small size of images and large quantity of samples. It is composed of 60000 images for training and 10000 images for testing. The images are gray scaled and have a size of $28 \times 28$ pixels. In today's research, the dataset is commonly used for benchmarking ML training, while in academic it is used for basic training of classification and generative models. Figure \ref{fig:mnist_dataset} contains some sample images that of the MNIST dataset.\\
 
 \begin{figure}[h!]
     \centering
@@ -459,7 +483,7 @@ For the application regarding image classification no dataset was actually requi
     \label{fig:mnist_dataset}    
 \end{figure}
 
-For the purpose of this application the dataset requires some pre processing. Since the goal of the frozen model is to correctly recognize the digits from 0 to 5 it is necessary to separate the dataset in two groups, $low\_digits$ and $high\_digits$. By doing this the $low\_digits$ group is composed of 36017 samples, while $high\_digits$ digits is composed of 23989 samples. For the training of the frozen model the entire $low\_digits$ is used in a Tensorflow training, which also requires to separate it in train, test and validate groups. For this reason the common 70-20-10 rule has been used. On the other hand for the training of the CL model only 5000 samples from the $high\_digits$ group have been used. This because from experience previously obtained from the latter application, it was demonstrated that 500 samples for each class are more than enough for a correct CL session. The CL dataset is then separated in training and testing with the rule 80-20\% for the CL application. \\
+For this application purpose, the dataset requires pre-processing. Considering that the goal of the frozen model is to correctly recognize the digits from 0 to 5 it is necessary to separate the dataset into two groups, $low\_digits$ and $high\_digits$. By doing this, the $low\_digits$ group is composed of 36017 samples, while the $high\_digits$ group is composed of 23989 samples. For the training of the frozen model, the entire $low\_digits$ group is used for a Tensorflow training, which is further also separated in train, test, and validation. For this reason, the common 70-20-10 rule was used. On the other hand, for the training of the CL model only 5000 samples from the $high\_digits$ group were used. This because from the experience previously obtained from the latter application, it was demonstrated that 500 samples for each class are more than enough for a correct CL session. The CL dataset is then separated in training and testing with the rule 80-20\% for the CL application. \\
 Figure \ref{fig:flow_dataset_openmv} shows how the dataset is divided for the training of the frozen model and CL model.
 
 \begin{figure}[h!]
@@ -470,11 +494,11 @@ Figure \ref{fig:flow_dataset_openmv} shows how the dataset is divided for the tr
 \end{figure}
 
 \section{Frozen model training and evaluation}
-Once the datasets are created and post processed, the training of the frozen models can be performed. Both models require to have small structures in order to be loaded on small MCUs. In both applications the models have to perform a classification, which can be achieved simply by imposing the last layer's activation function as a Softmax. All the other layers are used only for feature extraction and their structure and characteristics depend on the type of data to elaborate.
-The trainings of the frozen models and their manipulation was carried out with Tensorflow and Python.\\
+Once the datasets are created and post-processed, the training of the frozen models can be performed. Both models require small structures in order to be loaded on small MCUs. In both applications the models perform a classification, which can be achieved simply by imposing the last layer's activation function as a Softmax. All the other layers are used only for feature extraction and their structure and characteristics depend on the type of data to elaborate.
+The trainings of the frozen models and their manipulation was carried out with Tensorflow library and Python.\\
 
 \subsection{Gesture recognition model}
-In the gesture recognition application the model elaborates a time series of accelerometer data. The model's structure is composed of only fully connected layers, which makes the structure very simple. Typical applications of ML on time series use LSTM types of models, which are structures well suited for the elaboration of time dependent signals. In this case the results obtained from a structure composed of only fully connected layers brought to satisfying results, so the model's structure was kept as is. The layer sizes are: 600 for the input, 128 for the hidden layers and 5 for the classification layers. The activations functions are, Softmax for the classification layer, and ReLu for all the other layers. Figure \ref{fig:letter_structure} contains a plot that shows the basic structure of the model used.\\
+In the gesture recognition application, the model elaborates a time series of accelerometer data. The model's structure is composed of only fully connected layers, which makes the structure very simple. Typical applications of ML on time series use LSTM types of models, which are structures well suited for the elaboration of time dependent signals. In this case, the results obtained from a structure composed of only fully connected layers brought to satisfying results, so the model's structure was kept as is. The layer sizes are 600 for the input, 128 for the hidden layers, and 5 for the classification layers. The activations functions are, Softmax for the classification layer, and ReLu for all the other layers. Figure \ref{fig:letter_structure} shows a plot that contains the basic structure of the model used.\\
 
 \begin{figure}[h!]
     \centering
@@ -483,23 +507,24 @@ In the gesture recognition application the model elaborates a time series of acc
     \label{fig:letter_structure}    
 \end{figure}
 
-The output layers shape is of 5 nodes because the model is required to predict 5 classes (the vowels). The number of layers and total parameters is quite low (94,085) for typical machine learning models, this makes it very suited for applications on MCUs. \\
-The main training parameters are: $Adam$ optimizer, $categorical$ $cross$ $entropy$ as loss function, 20 epochs and a batch size of 16. 
-The accuracy obtained from the testing of 96.83\%. Figure \ref{fig:training_letters} contains two plots: on the left the variation of the accuracy and loss during training; on the right the accuracy of each class at the end of the Tensorflow training.\\
+The output layer's shape consists of 5 nodes because the model predicts 5 classes (the vowels). The number of layers and total parameters is quite low (94,085) respect to typical machine learning models; this makes it very suited for applications on MCUs. \\
+The main training parameters are: $Adam$ optimizer, $categorical$ $cross$ $entropy$ as loss function, 20 epochs, and a batch size of 16. 
+The accuracy obtained from the testing is 96.83\%. Figure \ref{fig:training_letters} contains two plots. On the left is shown the variation of the accuracy and loss during training, while on the right is shown the accuracy of each class at the end of the Tensorflow training.\\
 
 \begin{figure}[h!]
     \centering
     \includegraphics[width=130mm]{Figures/Chapter4/training_letters.jpg} 
     \caption{Letter recognition training: on the left the variation of loss and validation; on the right the accuracy for each class}
+    % Qui il grafico di destra va bene, magari puoi mettere dentro anche i plot di accuratezza e validation accuracy durante il trainin. Mentre il grafico di sinistra potrebbe essere sostituito con il risultato del test, quindi utilizzando il dataset specifico di test e non il risultato alla fine del training. In questo caso si potrebbe mostrare anche la confusion matrix e calcolare le metriche come precision, recall e fscore.
     \label{fig:training_letters}    
 \end{figure}
 
-The last step required for the preparation of the frozen models is the exportation of the model itself. This is necessary because of the particular actions that are performed on the last layer by the OL system. Since it is required to have total control over the weights and biases of the classification layer it is necessary to have the model separated in two parts. The first one is called frozen model, and is just a $model.h5$ file, which contains the truncated version of the model trained (classification model is removed). This portion of the model, once loaded on the MCU, is manipulated by the inference tools and it can be used as a grey box. The output of this grey box is just the results from the feature extraction and it can be forwarded in the classification layer for the prediction.
-The second part of the model exportation is the classification layer. The weights and biases of this layer are not exported as before, but are saved in a text file in matrix form. By doing this is possible to later load them in the MCU's RAM, which allows the OL system to edit and manipulate the parameters and the dimension of the layer. 
-Figure \ref{fig:letter_structure} shows how the base model has been divided in the two main parts.
+The last step consists of the preparation of the frozen models and the exportation of the model itself. This is necessary because of the particular actions that are performed on the last layer by the OL system. Because it is required to have total control over the weights and biases of the classification layer, it is necessary to have the model separated into two parts. The first one is called the frozen model and is just a $model.h5$ file which contains the truncated version of the trained model (classification model is removed). This portion of the model, once loaded on the MCU, is manipulated by the inference tools and can be used as a grey box. The output of this grey box is just the results from the feature extraction and it can be forwarded in the classification layer for the prediction.
+The second part of the model exportation is the classification layer. The weights and biases of this layer are not exported as before, but are saved in a text file in matrix form. By doing this, it is possible to later load them in the MCU's RAM, which allows the OL system to edit and manipulate parameters and the layer shape. 
+Figure \ref{fig:letter_structure} shows how the base model was divided into two main parts.
 
 \subsection{Image classification model}
-In the image classification application the model needs to me a bit more complex. Since feature extraction is performed on images, it was decided to use a CNN model. These types of model are specifically created for the elaboration of images and their main feature is the presence of convolutional layers for the feature extraction followed by NN layers for the classification. Figure \ref{fig:openmv_structure} contains a plot that shows the structure of the model.\\
+In the image classification application, a Convolutional Neural Network (CNN) architecture was used. These model types are specifically created for the elaboration of images and their main feature is the presence of convolutional layers for the feature extraction followed by NN layers for the classification. Figure \ref{fig:openmv_structure} contains a plot that shows the structure of the model.\\
 
 \begin{figure}[h!]
     \centering
@@ -508,22 +533,23 @@ In the image classification application the model needs to me a bit more complex
     \label{fig:openmv_structure}    
 \end{figure}
 
-The model contains two subsequent blocks of 2 convolutional layers followed by Max Pooling. This type of structure allows the ML model to perform initially a feature extraction over the image, then the output matrix is flattened and made into an array which is passed through the NN portion of the model. The fully connected layers are used to elaborate the array and later feed the data to the classification layer, where Softmax is used for the prediction.\\
-The output prediction shape this time is of 6 classes, this because the frozen model is trained for the recognition of the $low\_ digits$ group of images, which contains the digits 0,1,2,3,4,5. Note also how despite having a more complex structure the number of parameters in the model is not much higher when compared to the previous application. This allows to have again a small model that is easy to deploy and is capable of fast inference even on constrained MCUs. \\
-The relevant training characteristics are: $Adam$ as optimizer, $categorical$ $cross$ $entropy$ as loss function, 30 epochs and 64 as batch size. The final accuracy obtained from the testing of the model is of $99.35\%$. Figure \ref{fig:training_mnist} shows: on the right how the accuracy and loss change during training; on the left the accuracy of the model for each class of the starting dataset.
+The model contains two sequential blocks of two convolutional layers followed by Max Pooling. This type of structure allows the ML model to perform initially a feature extraction over the image and to flatten the output matrix to an array. The fully connected layer is used to elaborate the array and later feed the data to the classification layer, where the Softmax activation function is used for providing the probability of each class.\\
+The output consists of 6 classes because the frozen model is trained for the recognition of the $low\_ digits$ group of images (i.e. digits from 0 to 5). Note also how despite having a more complex structure the number of parameters in the model is not much higher when compared to the previous application. This allows to have a small model that can be easily deployed on constrained MCUs for enabling fast inference. \\
+The relevant training characteristics are: $Adam$ as optimizer, $categorical$ $cross$ $entropy$ as loss function, 30 epochs, and batch size of 64. The final accuracy obtained from the testing of the model is of $99.35\%$. Figure \ref{fig:training_mnist} shows on the right the behaviour of the accuracy and loss during training, and on the left the accuracy of the model for each class of the starting dataset.
 
 \begin{figure}[h!]
     \centering
     \includegraphics[width=100mm]{Figures/Chapter4/training_letters.jpg} 
+    %Anche qui come prima sarebbe meglio mettere l'accuratezza calcolata con il dataset per il test
     \caption{PLACEHOLDER}
     \label{fig:training_mnist}    
 \end{figure}
 
-Another important step that was performed for the OpenMV application is the pruning and quantization of the model. Usually, to deploy big models, or state of the art models that are not thought to be used on MCUs, it is necessary to apply some sort of compression. The most common method for doing so is a combination of pruning and quantization. 
-Pruning is a method that tries to reduce the amount of connections in a NN model simply by putting to 0 redundant or non relevant weights. This helps in reducing the memory occupied by the model, and if done strategically, can reduce the amount of computations required for inference. By injecting forced sparsity inside the weight matrix it is possible to reduce the computations needed, thus improving the inference efficiency. \\
-Note that the Flash memory of the OpenMV is capable of storing models with bigger sizes that the one created, so pruning and quantization are not actually required. However, with the aim of demonstrating the capabilities of these models, it has been decided to apply compression anyway. The pruning and quantization procedure was carried out, again, with Tensorflow, which makes the process as easy as a training setup. The main characteristics of the pruning are: $Adam$ as optimizer, $categorical$ $cross$ $entropy$ as loss function, 5 epochs, batch size of 32, initial sparsity of 0.5 and final sparsity of 0.8. After pruning the model shows an accuracy of $99.6\%$.\\
-After this step it is also possible to introduce the quantization operation. This is carried out almost automatically by Tensorflow simply by calling the correct functions. The sizes of the model at the different steps of the compression are: 230 kB after the first Tensorflow training, 86 kB after pruning and 64 kB after quantization. \\
-As in the previous application the last step required for the preparation of the frozen models is the exportation of the model. Again the frozen model is exported as $model.h5$, while the classification layer parameters are exported in text file and later loaded in the MCU. 
+Another important step that was performed for the OpenMV application is the pruning and quantization of the model. Usually, to deploy models with a high memory footprint it is necessary to apply compression techniques such ass combination of pruning and quantization.
+Pruning is a method that reduces the number of connections in a NN model by setting to 0 redundant or non-relevant weights. This helps to reduce the memory occupied by the model, and if done strategically, can reduce the number of computations required for inference. By injecting forced sparsity inside the weight matrix, it is possible to reduce the computations needed, thus improving the inference efficiency. \\
+Note that the Flash memory of the OpenMV is capable of storing models with bigger sizes than the one created, so pruning and quantization are not actually required. However, to demonstrate these model capabilities, it was decided to apply compression techniques anyway. The pruning and quantization procedure was carried out with Tensorflow, which makes the process as easy as a training setup. The main characteristics of the pruning are: $Adam$ as optimizer, $categorical$ $cross$ $entropy$ as loss function, 5 epochs, batch size of 32, initial sparsity of 0.5 and final sparsity of 0.8. After pruning the model shows an accuracy of $99.6\%$.\\
+After this step, it is also possible to introduce the quantization operation. This is carried out almost automatically by Tensorflow simply by calling the correct functions. The model size along the different steps of the compression are: 230 kB after the first Tensorflow training, 86 kB after pruning and 64 kB after quantization. \\
+As in the previous application, the last step consists of the exportation of the model. The frozen model is exported as $model.h5$, while the classification layer parameters are exported in text file and later loaded in the MCU. 
 
 \section{Implementation of the algorithms}
 % spiegare come funziona il codice sui MCU, step principali
@@ -699,6 +725,7 @@ Table x and table x contain other important results from the experiment.
                                                 & F1 score                   & 0.91                   & 0.96                   & 0.88                   & 0.90                   & 0.87                   & 0.75                   & 0.78                   & 0.93                   &                                                                                            &                                                                          \\ \cline{1-2}
 \end{tabular}
 \end{table}
+
 In table x the overall accuracy of the model with specific strategies is displayed. From here it's clear how the algorithm CWR performs the best with an accuracy of xx \%. All methods perform quite good with the lowest accuracy being xx \& from the method OL, which is just a drop of xx \% with respect to the accuracy obtained from the training of the frozen model performed with Tensorflow. Speaking about the time required for a training step the total time can be split in two portions. The first concerns the inference obtainde by the frozen model, which is of course constant for all strategies and takes 10.65 ms. The other part of the training step time is the time taken by the OL layer which contains the time required for the inference of the OL layer and the following computation of the back propagation and update of the layer's weights. From the table is clear how the faster methods are TinyOL and TinyOL v2, which are the only methods that do require only one OL layer, thus reducing the amount of computations require. On the other hand the slowest methods are LWF, LWF batch and MY ALG, which all require a double inference from the two classification layer. The time is in fact more than double the time required by all the other strategies. The last column concerns the amount of RAM allocated by the strategies. This value shows that the TinyOL and TinyOL v2 are the lightest methods since they require only the allocation of 1 weights matrix and 1 bias array. All the other methods require a very similar amount of RAM since they all work with double memories. A little difference of just 100 bytes is due to the allocation of some additional values particular for some strategies.  \\
 Another important study that has been carried out is the study of variation of the accuracy while changing the batch size. This study was of particular interest thanks to \ref{}, a blog post that studies in detail the impact that the batch size has on a ML training. The results are show in figure \ref{fig:batch_size_letter}. Here is clear how the only methods that drop their accuracy quite a bit are TinyOL and TinyOL v2, while all the other are able to mantain their accuracy quite constant.
 %
