@@ -5,7 +5,7 @@
 \contentsline {figure}{\numberline {2.3}{\ignorespaces PLACEHOLDER - da cambiare\relax }}{14}{figure.caption.11}%
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {3.1}{\ignorespaces Place holder - OL\relax }}{21}{figure.caption.13}%
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Place holder - OLV2\relax }}{23}{figure.caption.15}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Place holder - OLV2\relax }}{22}{figure.caption.15}%
 \contentsline {figure}{\numberline {3.3}{\ignorespaces Place holder - LWF\relax }}{25}{figure.caption.17}%
 \contentsline {figure}{\numberline {3.4}{\ignorespaces Place holder - CWR\relax }}{27}{figure.caption.19}%
 \addvspace {10\p@ }
@@ -17,18 +17,22 @@
 \contentsline {figure}{\numberline {4.6}{\ignorespaces Letter recognition training: on the left the variation of loss and validation; on the right the accuracy for each class\relax }}{34}{figure.caption.26}%
 \contentsline {figure}{\numberline {4.7}{\ignorespaces Image classification model: basic structure and its separation in frozen model and OL classification layer\relax }}{35}{figure.caption.27}%
 \contentsline {figure}{\numberline {4.8}{\ignorespaces PLACEHOLDER\relax }}{36}{figure.caption.28}%
+\contentsline {figure}{\numberline {4.9}{\ignorespaces PLACEHOLDER\relax }}{39}{figure.caption.29}%
+\contentsline {figure}{\numberline {4.10}{\ignorespaces PLACEHOLDER\relax }}{41}{figure.caption.30}%
+\contentsline {figure}{\numberline {4.11}{\ignorespaces OpenMV camera pointing to a screen while in different states of the training. Top left is $idle$ mode, top right is $snap$ mode, bottom left is $elab$ mode, bottom right is $trai$ mode\relax }}{42}{figure.caption.31}%
+\contentsline {figure}{\numberline {4.12}{\ignorespaces Point of view of the OpenMV camera. On the left the original image taken with no compression and no elaboration, in the center an image taken in $snap$ mode, on the right an image taken in $elab$ mode.\relax }}{42}{figure.caption.32}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces PLACEHOLDER\relax }}{42}{figure.caption.29}%
-\contentsline {figure}{\numberline {5.2}{\ignorespaces PLACEHOLDER\relax }}{42}{figure.caption.30}%
-\contentsline {figure}{\numberline {5.3}{\ignorespaces PLACEHOLDER\relax }}{43}{figure.caption.31}%
-\contentsline {figure}{\numberline {5.4}{\ignorespaces PLACEHOLDER\relax }}{43}{figure.caption.32}%
-\contentsline {figure}{\numberline {5.5}{\ignorespaces PLACEHOLDER\relax }}{44}{figure.caption.33}%
-\contentsline {figure}{\numberline {5.6}{\ignorespaces PLACEHOLDER\relax }}{45}{figure.caption.34}%
-\contentsline {figure}{\numberline {5.7}{\ignorespaces PLACEHOLDER\relax }}{47}{figure.caption.35}%
-\contentsline {figure}{\numberline {5.8}{\ignorespaces PLACEHOLDER\relax }}{47}{figure.caption.36}%
-\contentsline {figure}{\numberline {5.9}{\ignorespaces PLACEHOLDER\relax }}{48}{figure.caption.37}%
-\contentsline {figure}{\numberline {5.10}{\ignorespaces PLACEHOLDER\relax }}{48}{figure.caption.38}%
-\contentsline {figure}{\numberline {5.11}{\ignorespaces PLACEHOLDER\relax }}{49}{figure.caption.39}%
-\contentsline {figure}{\numberline {5.12}{\ignorespaces PLACEHOLDER\relax }}{49}{figure.caption.40}%
-\contentsline {figure}{\numberline {5.13}{\ignorespaces PLACEHOLDER\relax }}{50}{figure.caption.43}%
+\contentsline {figure}{\numberline {5.1}{\ignorespaces PLACEHOLDER\relax }}{44}{figure.caption.33}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces PLACEHOLDER\relax }}{44}{figure.caption.34}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces PLACEHOLDER\relax }}{45}{figure.caption.35}%
+\contentsline {figure}{\numberline {5.4}{\ignorespaces PLACEHOLDER\relax }}{45}{figure.caption.36}%
+\contentsline {figure}{\numberline {5.5}{\ignorespaces PLACEHOLDER\relax }}{46}{figure.caption.37}%
+\contentsline {figure}{\numberline {5.6}{\ignorespaces PLACEHOLDER\relax }}{47}{figure.caption.38}%
+\contentsline {figure}{\numberline {5.7}{\ignorespaces PLACEHOLDER\relax }}{49}{figure.caption.39}%
+\contentsline {figure}{\numberline {5.8}{\ignorespaces PLACEHOLDER\relax }}{49}{figure.caption.40}%
+\contentsline {figure}{\numberline {5.9}{\ignorespaces PLACEHOLDER\relax }}{50}{figure.caption.41}%
+\contentsline {figure}{\numberline {5.10}{\ignorespaces PLACEHOLDER\relax }}{50}{figure.caption.42}%
+\contentsline {figure}{\numberline {5.11}{\ignorespaces PLACEHOLDER\relax }}{51}{figure.caption.43}%
+\contentsline {figure}{\numberline {5.12}{\ignorespaces PLACEHOLDER\relax }}{51}{figure.caption.44}%
+\contentsline {figure}{\numberline {5.13}{\ignorespaces PLACEHOLDER\relax }}{52}{figure.caption.47}%
 \addvspace {10\p@ }
