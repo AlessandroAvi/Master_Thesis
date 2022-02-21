@@ -423,29 +423,42 @@ The method TinyOL V2 requires the same amount of memory used by TinyOL, which me
 \end{figure}
 
 \subsubsection{LWF}
-The LWF strategy is a regularization approach introduced in \autocite{li2017learning} and later applied with small variation in \autocite{maltoni2019continuous}. The main idea of the method is to contrast catastrophic forgetting by applying a smart loss function and double architecture that is able to combine old and new knowledge in the back propagation of the parameters. The double architecture models refers to the fact that two models are required in order to use this method. In this case the entire OL system has been applied only on the last layer of the model so the double architecture in this case is composed only of a double classification layer. The first is called $tl$, training layer while the second is called $cl$, copy layer. The role of $tl$ is to be continuously updated at each training step with the LWF back propagation rule, while $cl$ is a layer that contains a copy of all the original weights computed in the Tensorflow training, thus it represents the original knowledge of the model. The back propagation rule is based on the idea of fusing the weight updates that the two layer would apply. The fusion of these two updates is done with a weighted average that changes dynamically as the training continues. This of course implies that both layers produce a prediction, which means double computation for the OL system.\\
-At this point the only major difference with respect to the TinyOL method is the double inference and the computation of the weighted back propagation. The update to be applied can be computed quite easily again by using SGD which turn out to be a simple weighted sum of two back propagation:
-%
-\[    \mathcal{L}_{LWF} ( y_i, z_i, t_i) =  (1-\lambda) \cdot{L}_{cross}(y_i, t_i) + \lambda \cdot{L}_{cross}(y_i, z_i) \]
-\[ w_{i,j} = w_{i,j} - \alpha \cdot x_i \cdot [ (y_i - t_i)(1-\lambda) + (y_i - z_i)\lambda]  \]
-\[ b_i = b_i - \alpha \cdot [ (y_i - t_i)(1-\lambda) + (y_i - z_i)\lambda] \]
-\[ \text{where i=0,1..,n  and  j=0,1,..,m } \]
-%
+The LWF strategy is a regularization approach introduced in \autocite{li2017learning} and later applied with small variation in \autocite{maltoni2019continuous}. The main idea of the method is to contrast catastrophic forgetting by applying a smart loss function paired with a double architecture for combining old and new knowledge in the back propagations. The double architecture models refers to the fact that two ML model are required. Differently from the application in \ref{maltoni2019continuous}, this study applies the OL system only on the classification layer. This means that the double architectures is composed of only two classification layers and not two entire models. The first one is called training layer, $tl$, while the second is called copy layer, $cl$. The role of $tl$ is to be continuously updated at each training step with the particular $LWF$ back propagation rule, while $cl$ is just a copy of the original frozen model's classification layer (computed by Tensorflow on the laptop training session). So the two layers represent opposite behaviours, $tl$ is the up to date model that evolves accordingly to the $LWF$ update rule while $cl$ represents the original model that has no knowledge about new classes. \\
+The back propagation rule can be easily obtained by performing SGD on the LWF loss function expressed in Equation \ref{lwfcost}. The function aims at generating an update that depends on a dynamic average computed between the errors committed by both classification layers. Note that the LWF strategy requires two predictions, which means also twice the computation. The final update rule can be easily obtained by computing the derivative of the loss function with respect to the weights and biases. The result turn out to be just the average of the back propagations.
+
+\begin{align}
+	\mathcal{L}_{LWF} ( y_i, z_i, t_i) &=  (1-\lambda) \cdot{L}_{cross}(y_i, t_i) + \lambda \cdot{L}_{cross}(y_i, z_i) \label{lwfcost}\\
+	w_{i,j} &= w_{i,j} - \alpha \cdot x_i \cdot [\ (y_i - t_i)(1-\lambda) + (y_i - z_i)\lambda ]\  \\
+	b_i     &= b_i - \alpha \cdot [\ (y_i - t_i)(1-\lambda) + (y_i - z_i)\lambda ]\ \\
+    where   & \: \: i= 0,1,..,n  \: \: and \: \:  j=0,1,..,m \nonumber  
+\end{align}
+
 Where $y_i$ is the prediction array obtained from the layer $tl$, $z_i$is the prediction array obtained from the layer $cl$, $t_i$ is the ground truth label, $\lambda$ is the variable weight that defines which prediction has more decisional power. \\
-The back propagation is composed of two parts, the first defined by $tl$ and the second defined by $cl$. The value $\lambda$ plays a very important role in this update. As explained in \autocite{maltoni2019continuous} its value cannot stay constant because it would be suboptimal. In their application the value follows a discrete function linear with the number of batches encountered, while in oiur case its value needed to be dependant on the only value known in a OL application, the amount of samples elaborated. The update of the loss function weight is the following:
-\[ \lambda = \frac{100}{100+ \text{prediction$\_$counter}} \]
-Another important note to be said is that in the update rule the implementation follows the variation proposed in \autocite{maltoni2019continuous}, where the loss functions ${L}_{LWF}$ used in the weighted average are not a balance between categorical cross entropy and knowledge distillation but a balance between two categorical cross entropy. This is a little modification that allows for an easier implementation without ruining the performance. \\
-Also in this case a version that integrates batches is proposed. This time the method simply updates the values of $cl$ every time a batch is finished. The  algorithm this time simply becomes a fusion between old and knew knowledge where the old knowledge is refresh once in a while. In this way the model can be seen as a model that performs a weighted average in between a fast learning memory and a memory that stops in time. The size of a batch is defined by the value $k$. 
-%
-\[    \mathcal{L}_{LWF} ( y_i, z_i, t_i) =  (1-\lambda) \cdot{L}_{cross}(y_i, t_i) + \lambda \cdot{L}_{cross}(y_i, z_i) \]
-\[ w^{TL}_{i,j} = w^{TL}_{i,j} - \alpha \cdot x_i \cdot [ (y_i - t_i)(1-\lambda) + (y_i - z_i)\lambda]  \]
-\[ b^{TL}_i = b^{TL}_i - \alpha \cdot [ (y_i - t_i)(1-\lambda) + (y_i - z_i)\lambda] \]
-\[ \text{where i=0,1..,n  and  j=0,1,..,m } \]
-%
-And at the end of a batch (once every $k$ values are elaborated):
-\[ w^{CL}_{i,j} = w^{TL}_{i,j}  \]
-\[ b^{CL}_i = b^{TL}_i  \]
-This method, being different from the previous, requires also a different $\lambda$ rule. Experimentally it has been found to be well working an update rule defines as follows:
+The back propagation is composed of two parts, the first defined by $tl$ and the second defined by $cl$. The value $\lambda$ plays a very important role in this update. As explained in \autocite{maltoni2019continuous} its value cannot stay constant because it would be suboptimal. Their application used a value that followed a discrete function proportional to the number of batches encountered. In this case, the value needs to be dependent on the number of samples encountered. The update of the loss function weight was found experimentally and is the following:
+
+\begin{equation}
+	\lambda = \frac{100}{100+ \text{prediction$\_$counter}}
+\end{equation}
+
+Another important note to be said is that Equation \ref{lwfcost} follows the variation proposed in \autocite{maltoni2019continuous}, where the loss functions $\mathcal{L}_{LWF}$ is not a sum between categorical cross entropy and knowledge distillation but a balance between two categorical cross entropy. This is a little modification that allows for an easier implementation without dropping in performance. \\
+Also in this case a version for integrating upgrades depending on batches is proposed. This time the method does not maintain $cl$ constant for the entire training, but rather updates its values every time a batch is finished. At this point, the algorithm becomes a fusion between new knowledge and knowledge coming from an old layer. In this way the model can be seen as a model that performs a weighted average in between a fast learning memory and a an old version of the same. The size of a batch is defined by the value $k$ and this value defines how old $cl$ is. The update rules in this case are:
+
+\begin{align}
+	w^{TL}_{i,j} &= w^{TL}_{i,j} - \alpha \cdot x_i \cdot [\ (y_i - t_i)(1-\lambda) + (y_i - z_i)\lambda ]\ \\
+	b^{TL}_i     &= b^{TL}_i - \alpha \cdot [\ (y_i - t_i)(1-\lambda) + (y_i - z_i)\lambda ]\ \\
+	where        & \: \: i= 0,1,..,n  \: \: and \: \:  j=0,1,..,m \nonumber  
+\end{align} 
+
+And at the end of one batch (once every $k$ values are elaborated) the parameters of $cl$ are updated in the following way:
+
+\begin{align}
+	w^{CL}_{i,j} &= w^{TL}_{i,j}  \\
+	b^{CL}_i     &= b^{TL}_i  
+\end{align}
+
+Where $w^{CL}_{i,j}$ and $b^{CL}_i$ are respectively the weights and biases of $cl$, while $w^{TL}_{i,j}$ and $b^{TL}_i$ are the weights and biases of $tl$.\\
+This method, being different from the previous, requires also a different $\lambda$ rule. Experimentally it has been found the following rule to be well working:
+
 \begin{equation}
 \lambda = \left\{
         		\begin{array}{ll}
@@ -454,7 +467,8 @@ This method, being different from the previous, requires also a different $\lamb
         		\end{array}
     		  \right.
 \end{equation}
-Both the LWF methods require the same amount of memory, which is a double prediction layer of size  $n \times m$ and $n \times 1$. Both methods are quite easy to implement and their strength is defined in the value $\lambda$ and in their update rule. They differ only from the weight updated applied on the matrix $cl$. A negative aspect that characterizes these two methods is the amount of computation required, which can be a problem for tiny devices. By having two layers and the need of two prediction is of course needed the double of computation. 
+
+Both LWF methods require the same amount of memory, which is a two times the amount required for a classification layer, so $(\ n \times m )\ \times 2$ and $(\ n \times 1 )\ \times 2$. Both methods are quite easy to implement and their strength is defined in the value $\lambda$ and in the particular update rule. They differ from each other only because of the update on $cl$. A negative aspect that characterizes these two methods is the amount of computation required, which can be a problem for tiny devices. By having two layers and the need of two prediction is of course needed double the computation. Figure \ref{} contains a block diagram that explains the pipeline of the LWF method.
 
 \begin{figure}[h!]
     \centering
