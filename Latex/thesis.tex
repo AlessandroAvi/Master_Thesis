@@ -478,13 +478,26 @@ Both LWF methods require the same amount of memory, which is a two times the amo
 \end{figure}
 
 \subsubsection{CWR}
-CWR is an architectural approach that exploits the usage of two classification layers and a weighted back propagation rule for performing OL. Again the two classification layers are called $tl$, training layer and $cl$, consolidated layer. The idea is to perform training at each step on $tl$ with the same method as TonyOL and at the end of each batch update $cl$ with a particular rule. The back propagations for the $cl$ at the end of a batch are tge same for biases and weights and are the following:
-    \[     cw_{i,j} =  \frac{cw_{i,j} \cdot updates_{i} + tl_{i,j}}{updates_{i} + 1} \] 
-    \[     tw_{i,j} =  cw_{i,j}\] 
-Where $tw_{i,j}$ are the weights and biases of the training layer, $cw_{i,j}$ are the weights and biases of the consolidated layer, and $updates_{i}$ is an array that behaves as a counter of labels encountered.\\
-By using two classification layer that update differently the method tries to replicate the short term memory and long term memory architecture that characterizes biological brains ??? ESSERE SICURO. The layer $tl$ behaves as the short term memory since it gets updated at every single training step, and at each batch it gets reset to the correct values. The layer $cl$ behaves as a long term memory since it never gets reset or cleaned and it gets updated only once every batch with a weighted average. This weighting method depends on the number of times that a specific label appeared in the training batch.\\
-Another important aspect of this method is how the prediction is computed and used. While performing only training the method requires only a prediction performed by $tl$ since this needs to get updated by its error. However if an actual prediction is requested to the model also the $cl$ layer should perform the computation and provide an inference. In fact the inference obtained by the consolidated layer is to be considered more relevant and reliable since it is produced by the long term memory. In the case a prediction is required the method needs a double prediction, one from $tl$ and the other from $cl$. Again as said for LWF this is not optimal because of the limits of tiny devices. \\
-CWR is a method easy to implement. Its strength are hidden in the double architecture and the update rule that make it possible to merge short term memories and long term memories and also contrast catastrophic forgetting. The memory required for this algorithm is: to weight matrices of size $n \times m$, 2 bias arrays of size $n \times 1$, one array that keeps track of the labels encountered of size $n \times 1$. The amount of computations can change depending if a simple training step is performed or if an inference is required.
+CWR is an architectural approach that exploits the usage of two classification layers and a weighted back propagation rule for performing OL. Again the two classification layers are called training layer $tl$ and consolidated layer $cl$. The idea for this algorithm is to train the two layers in two different ways. The same training performd in TinYOL is used for updating $tl$, while$cl$ is updated once every batch with a particular update rule. The back propagations for $tl$, that happens at every step is:
+
+\begin{align}
+	w^{TL}_{ij} &= w^{TL}_{ij} + \alpha (y^{TL}_i - t_i) \cdot x_i \\
+    b^{TL}_i    &= b^{TL}_i + \alpha  (y^{TL}_i - t_i) 
+\end{align}
+
+While the back propagation for $cl$, that happens once every batch, is the following:
+
+\begin{align}
+	w^{CL}_{ij} &= \frac{w^{CL}_{ij} \cdot updates_{i} + w^{TL}_{ij}}{updates_{i} + 1} \label{cwrweight}\\ 
+	b^{CL}_{i}  &= \frac{b^{CL}_{i} \cdot updates_{i} + b^{TL}_{i}}{updates_{i} + 1} \\ 
+    w^{TL}_{ij} &=  w^{CL}_{ij} \\
+    b^{TL}_{i}  &=  b^{CL}_{i} 
+\end{align}
+
+Where $w^{TL}_{ij}$ and$b^{TL}_i$  are the weights and biases of the training layer, $w^{CL}_{ij}$ and$b^{CL}_i$ are the weights and biases of the consolidated layer,  $updates_{i}$ is an array that behaves as a counter of labels encountered, $y^{TL}$ is the prediction obtained from $tl$, and $\alpha$ is the learning rate.\\
+The use of two classification layers that update in this way, the method behaves as a system composed of a short term memory and a long term memory. In particular $tl$ is the one representing the short term memory because it gets updated at every single training step, thus it learns everything from every samples and at the end of a batch it gets re corrected from $cl$. On the other hand, $cl$ behaves as the long term memory. This because it never gets reset or cleaned and it gets updated only once every batch with information coming from the short term memory. Note that the weighted average method depends on the number of times that a specific label appeared in the training batch.\\
+Another important aspect of this method regards the amount of prediction required at each step. While training, the methods requires only to perform one inference from $tl$. In fact no prediction from $cl$ are actually required at any point during training. The inference obtained from $cl$ should be performed only when actively requested. Since $tl$ represents the long term memory, its prediction is to be considered the more reliable and generally more accurate between the two. Is to be noted that, for this study case, inferences from $cl$ are required only during the testing that is performed at the end of a training. In real life scenarios these predictions should be performed only when actively requested. This because the amount of computation required for once step are doubled and no positive improvement is brought by the $cl$ prediction if not the info given to the user.\\
+CWR is an easy to implement method. Its strengths are hidden in the double architecture and the update rule that make possible the merging of short term memories and long term memories. The amount of memory required for this algorithm is: two weight matrices of size $n \times m$, 2 bias arrays of size $n \times 1$, one array that keeps track of the labels encountered of size $n \times 1$ (is called updates in equation \ref{cwrweight}). The amount of computations can change if an inference is required, making it double. Figure \ref{fig:block_diag_CWR} contains a block diagram that shows the pipeline of the CWR algorithm.
 
 \begin{figure}[h!]
     \centering
