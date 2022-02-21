@@ -1,34 +1,34 @@
 \contentsline {chapter}{Introduction}{1}{chapter*.6}%
-\contentsline {chapter}{\numberline {1}Related Works}{5}{chapter.1}%
-\contentsline {section}{\numberline {1.1}Machine learning in general}{5}{section.1.1}%
-\contentsline {section}{\numberline {1.2}Cloud vs edge inference}{5}{section.1.2}%
-\contentsline {section}{\numberline {1.3}Machine Learning on MCU}{5}{section.1.3}%
-\contentsline {section}{\numberline {1.4}Continual-on line learning}{7}{section.1.4}%
-\contentsline {section}{\numberline {1.5}Pruning and quantization}{9}{section.1.5}%
-\contentsline {chapter}{\numberline {2}Hardware}{10}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Gesture recognition hardware}{10}{section.2.1}%
-\contentsline {section}{\numberline {2.2}Image classification hardware}{12}{section.2.2}%
-\contentsline {section}{\numberline {2.3}Machine learning support}{13}{section.2.3}%
-\contentsline {chapter}{\numberline {3}System implementation}{15}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Basic pipeline of the CL system developed}{15}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Algorithms implemented}{18}{section.3.2}%
-\contentsline {subsubsection}{TinyOL}{19}{section*.12}%
-\contentsline {subsubsection}{TinyOL V2}{21}{section*.14}%
-\contentsline {subsubsection}{LWF}{23}{section*.16}%
-\contentsline {subsubsection}{CWR}{25}{section*.18}%
-\contentsline {subsubsection}{My algorithm}{26}{section*.20}%
-\contentsline {section}{\numberline {3.3}Gesture recognition application}{26}{section.3.3}%
-\contentsline {section}{\numberline {3.4}Image classification application}{26}{section.3.4}%
-\contentsline {chapter}{\numberline {4}Experimental setup}{28}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Dataset collection}{28}{section.4.1}%
-\contentsline {subsection}{\numberline {4.1.1}Accelerometer dataset}{29}{subsection.4.1.1}%
-\contentsline {subsection}{\numberline {4.1.2}Digits recognition dataset}{30}{subsection.4.1.2}%
-\contentsline {section}{\numberline {4.2}Frozen model training and evaluation}{32}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Gesture recognition model}{32}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}Image classification model}{34}{subsection.4.2.2}%
-\contentsline {section}{\numberline {4.3}STM F401-RE setup for gesture recognition}{37}{section.4.3}%
-\contentsline {section}{\numberline {4.4}OpenMV setup for image classification}{39}{section.4.4}%
-\contentsline {chapter}{\numberline {5}Experimental results}{43}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Experiment A: Gesture recognition}{43}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Experiment B: Image classification}{43}{section.5.2}%
-\contentsline {chapter}{\numberline {6}Conclusion}{53}{chapter.6}%
+\contentsline {chapter}{\numberline {1}Related Works}{6}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Machine learning in general}{6}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Cloud vs edge inference}{6}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Machine Learning on MCU}{6}{section.1.3}%
+\contentsline {section}{\numberline {1.4}Continual-on line learning}{8}{section.1.4}%
+\contentsline {section}{\numberline {1.5}Pruning and quantization}{10}{section.1.5}%
+\contentsline {chapter}{\numberline {2}Hardware}{11}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Gesture recognition hardware}{11}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Image classification hardware}{13}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Machine learning support}{16}{section.2.3}%
+\contentsline {chapter}{\numberline {3}System implementation}{17}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Basic pipeline of the CL system developed}{18}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Algorithms implemented}{22}{section.3.2}%
+\contentsline {subsubsection}{TinyOL}{23}{section*.13}%
+\contentsline {subsubsection}{TinyOL V2}{25}{section*.16}%
+\contentsline {subsubsection}{LWF}{27}{section*.18}%
+\contentsline {subsubsection}{CWR}{30}{section*.20}%
+\contentsline {subsubsection}{My algorithm}{31}{section*.22}%
+\contentsline {section}{\numberline {3.3}Gesture recognition application}{31}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Image classification application}{31}{section.3.4}%
+\contentsline {chapter}{\numberline {4}Experimental setup}{33}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Dataset collection}{33}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Accelerometer dataset}{34}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}Digits recognition dataset}{35}{subsection.4.1.2}%
+\contentsline {section}{\numberline {4.2}Frozen model training and evaluation}{37}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Gesture recognition model}{37}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Image classification model}{39}{subsection.4.2.2}%
+\contentsline {section}{\numberline {4.3}STM F401-RE setup for gesture recognition}{42}{section.4.3}%
+\contentsline {section}{\numberline {4.4}OpenMV setup for image classification}{44}{section.4.4}%
+\contentsline {chapter}{\numberline {5}Experimental results}{48}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Experiment A: Gesture recognition}{48}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Experiment B: Image classification}{48}{section.5.2}%
+\contentsline {chapter}{\numberline {6}Conclusion}{58}{chapter.6}%

@@ -106,8 +106,7 @@ The work carried out in this study shows that the application of CL on tiny devi
 The study performed is a good example that shows the capabilities of these tiny devices. It proves that machine learning applied on MCUs is a technology that has a huge potential and deserves more attention. CL can lead to smarter, more efficient, better performing systems in the IoT field and in industrial applications.
 \bigskip
 
-UNA VOLTA DEFINITA UNA STRUTTURA CHIARA E PRECISA PER IL RESTO DELLA TESI SCRIVERE 4/5 RIGHE PER OGNI CAPITOLO/SEZIONE
-% struttura tesi/Come organizzata. faccio spiegazione di contenuto su ogni capitolo (4/5 righe a capitolo). 
+The Thesis is organized as follows. The first chapter contains an introduction to the theoretical aspects about Machine Learning (ML) and Continual Learning (CL). At first the basic concept of Machine Learning are described, then the focus moves towards Continual Learning (CL) where also some state of the art papers are discussed. The chapter then describes some applications of ML on microcontrollers (MCUs) with also a brief explanation of advantages and disadvantages of cloud computing and edge computing. The second chapter briefly explains the hardware used in this study. The study uses two different hardware for two different applications, So the chapter initially describes the STM32 Nucleo MCU, and later it focuses on the OpenMV camera. The chapter concludes with a short explanation of how ML can be applied on tiny devices. In chapter three the system implementation is described. Here initially the steps performed for implementing CL training on MCUs is described, followed by an explanation of the basic structure of the TinyOL system. Then all the algorithms implemented are illustrated in detail with also some considerations about memory and computational power. At last the general idea of the two applications is demonstrated. The fourth chapter shows in detail the experimental setup. Here can be found all the information needed for replicating in detail the tests. The chapter in order describes: i) the collection of the dataset; ii) the training and evaluation of the frozen models; iii) the a detailed execution of the tests using the MCU and a laptop. Chapter five contains the results obtained from the training. At first the detail about the comparison between training performed on a laptop and training performed on an MCU can be found. The the results from all algorithms applied in the experiments of gesture recognition and image classification are explained. The results contain information about accuracy, precision, F1 score, memory used and time of inference. In the last chapter the conclusions about the work done and possible future implementations can be found.
 
 
 \chapter{Related Works}
@@ -128,7 +127,8 @@ In this chapter some information about the application of machine learning on ti
 TinyML is a fast growing research area that aims at applying ML on limited devices like micro controllers. This technology has found a rapid grow in the last years especially thanks to the potential demonstrated by its application in several fields like industrial application, agricultural automation, human-computer interactions, autonomous driving. The use of TinyML in all these fields allows to introduce the concept of edge computing, where computations are brought closer to the origin of the data, to devices that up until now have been used only as collector and transmitters of data. Edge computing bring to lots of advantages like low-latency , better privacy, security and reliability to the network end-user. It allows to move the computations from the cloud to the device itself, which brings to higher throughput and improved responsiveness in applications. Speaking about responsiveness, which is a huge deal for real time applications, edge computing permits to decrease the network traffic. This feature comes from the fact that the use of machine learning directly on the device allows to lift a big portion of computation weight given to the central server, thus reducing the amount of data that has to be exchanged on the network, which is also compressed in size and dense in information. \\
 One of the main fields in which TinyML is particularly fit and can be exploited with all its potential is for sure the world of IoT. Here the application of edge computing brings to lots of advantages already described before. Of course the implementation of such systems comes with a cost, which in this case is related to the increased complexity on which the MCU works and its limited resources. Machine learning is a field of computer science that is known to be energy and resource demanding. Using such a technology on these tiny devices is a real challenge which already has seen interesting applications and improvements in the research world. The main characteristic of MCU is for sure their limited dimensions and power consumption. This is usually a nice feature that allows to develop small systems that can live for very long period of times in harsh environments without the need of maintenance. 
 Lot of focus has also given to the implementation of energy harvesting systems that, not only use very low quantities of energy but also are able to extract energy from the environment in which they live. Limited dimensions has also drawbacks, which are limited memories and limited computational power, all features that do not really match with the application of machine learning. 
-In the last decade (??) the research around TinyML revolved around the implementation of efficient framework from both point of view of memory use and power consumption. Some well known systems for deployment of ML models on tiny devices developed by big companies are Tensorflow Lite \ref{}, STM32 CUBE AI \ref{}, PyTorch mobile \ref{}. All these frameworks are used for training a model on a powerful system and later load a compressed version of the model on the MCU. The main concerns is the compression of the model in such a way that it doesn't drop in accuracy even with reduced weights or quatnized values. The second aspect that concerns the use of these tools is the inferenfce performed on the device. Being that procedure computationally heavy it's necessary to be able to optimize the computations. Some research studies focused soecifically on this.
+In the last decade (??) the research around TinyML revolved around the implementation of efficient framework from both point of view of memory use and power consumption. Some well known systems for deployment of ML models on tiny devices developed by big companies are Tensorflow Lite \ref{}, STM32 CUBE AI \ref{}, PyTorch mobile \ref{}. All these frameworks are used for training a model on a powerful system and later load a compressed version of the model on the MCU. The main concerns is the compression of the model in such a way that it doesn't drop in accuracy even with reduced weights or quatnized values. The second aspect that concerns the use of these tools is the inferenfce performed on the device. Being that procedure computationally heavy it's necessary to be able to optimize the computations. Some research studies focused soecifically on this.\\
+
 
 
 
@@ -169,7 +169,7 @@ The type of strategies that better suits an application on MCU are for sure the 
 
 \chapter{Hardware} 
 \label{chap:hardware}
-In this chapter the hardware used to carry out the experiments is described. The application of ML on MCU does not require specific types of hardware. In today's market lots of off-the-shelf microcontrollers are already capable of performing this type of computations, so it is quite easy to select a suitable device for this application. Machine learning on microcontrollers is known to be resource heavy, especially from the point of view of memories and computational power. Most big companies that propose their product have different families of devices that are designed for different purposes. In this study, for both applications, devices based on ST microcontrollers have been used. The gesture recognition application uses an STM32 Nucleo F401-RE, a well performing and easy to use development board. The image classification application uses an OpenMV camera, a device equipped with a camera sensor that uses an STM32 H7 MCU and is programmable in MicroPython. Figure \ref{fig:hardware_all} shows both devices: on the left the Nucleo F401-RE; on the right the OpenMV camera. The reasons that brought to the selection of these two devices depends mainly on the on the quick availability and ease of use for the Nucleo development board and the uniqueness of characteristics for the OpenMV camera.
+In this chapter the hardware used to carry out the experiments is described. The application of ML on MCU soes not require specific types of hardware, but it requires devices that are capable of sustaining those kind of computations. In today's market, lots of off-the-shelf MCUs are already equipped with hardware components that make the device suitable for the job. These microcontroller only need to be quipped correctly with framework and tools that make ML computations more efficient and optimized. Most big companies that propose their product have different families of devices that are specifically built for different purposes, so it is just a matter of choosing the most suitable one. In this study, for both applications, devices based on STM microcontrollers have been used. The gesture recognition application uses an STM32 Nucleo F401-RE, a well performing and easy to use development board. The image classification application uses an OpenMV camera, a device equipped with a camera sensor that uses an STM32 H7 MCU and is programmable in MicroPython. Figure \ref{fig:hardware_all} shows both devices: on the left the Nucleo F401-RE; on the right the OpenMV camera. The reasons that brought to the selection of these two MCUs depends mainly on the on the quick availability for the Nucleo development board and the uniqueness of characteristics for the OpenMV camera.
 
 \begin{figure}[h!]
     \centering
@@ -180,8 +180,8 @@ In this chapter the hardware used to carry out the experiments is described. The
 
 
 \section{Gesture recognition hardware}
-The experiment is carried out with a Nucleo STM32 F401-RE. This type of device is an easy to use development board that can be programmed in C or C++. It fully supports the extension pack STM-CUBE-AI \autocite{stm_cube_ai} developed by STM used for loading and compressing models and performing machine learning inference in real time. \\
-The main features of the development board are summarized in Table \ref{table:specifications_stm}.\\
+The gesture recognition experiment is carried out with a Nucleo STM32 F401-RE. This device is a 64 bit microcontroller produced by STMicroelectronics that belongs to the $high-performance$ product line. This product is thought to be a flexible and easy to use development board for fast prototyping, which is also compatible with Arduino Uno shields (the internal GPIOs pin scheme is the same as Arduino Uno). Differently from other devices produced by STMicroelectronics, this MCU does not require the additional debugger/programmer ST-LINK. This component is in fact included in the first part of the device, separated from the rest with visible gaps in the board. The Nucleo can be easily programmed in C or C++ with the all the libraries and tools available in the STM32Cube package. This is a powerful software that can be exploited to perform an initial setup of any STM device, like the definition of all the peripherals and basic microcontroller parameters. The STM32Cube package also includes, for free, libraries for any device produced by STM. Moreover, thanks to STM32Cube, the Nucleo board STM32 F401-RE fully supports the machine learning extension, STM-CUBE-AI \autocite{stm_cube_ai}. This toolkit can be used for compressing and loading ML models on the device and later perform optimized and efficient inference in real time. \\
+The main features of the Nucleo development board are summarized in Table \ref{table:specifications_stm}.\\
 
 \begin{table}[]
 \centering
@@ -196,7 +196,7 @@ Peripherals         & \begin{tabular}[c]{@{}c@{}}50 GPIOs, SPI, UART, I2C, DAC/A
 \caption{PLACEHOLDER - da cambiare}
 \end{table}
 
-The application for gesture recognition is based on the analysis of times-series arrays. The time series represent the accelerations recorded while a sensor is moved around by a user that writes letters in the air. To acquire that kind of data, the Nucleo needs to be equipped with an accelerometer sensor. For doing that, it has been decided to use the Nucleo shield IKS01A2 \autocite{shield_web_page}, which is a device that can be mounted easily on the board simply by aligning the GPIO pins. The shield is equipped with a 3D accelerometer, a pressure sensor and a capacitive digital humidity and temperature sensor. The shield communicates with the Nucleo through I2C protocol and it is fully supported by additional STM libraries that make its use quick and easy. Figure \ref{fig:hardware_stm} shows the two devices separately on the left and mounted on the right.\\
+The gesture recognition application is based on the use of ML for the analysis of time series data. The time series array contains the values recorded from an accelerometer sensor while an user is moving said sensor to write letters in the air. To acquire that kind of data, the Nucleo needs to be equipped with an accelerometer sensor. For doing that, it has been decided to use the Nucleo shield IKS01A2 \autocite{shield_web_page}, which is a device that can be mounted easily on the board simply by aligning the GPIO pins. The shield is equipped with a 3D accelerometer, a pressure sensor and a capacitive digital humidity and temperature sensor. The device communicates with the Nucleo through I2C protocol and it is fully supported by the libraries available on STMCube, that make its use quick and easy. Figure \ref{fig:hardware_stm} shows the two devices separately on the left and mounted on the right.\\
 
 \begin{figure}[h!]
     \centering
@@ -208,9 +208,9 @@ The application for gesture recognition is based on the analysis of times-series
 
 
 \section{Image classification hardware}
-For the second experiment an OpenMV cam H7 plus \autocite{abdelkader2017openmv} \autocite{openmv_web_page} is used. This device is an affordable and expandable small board equipped with an STM MCU and a camera sensor with interchangeable lens. The OpenMV camera started as a project \autocite{openmv_project} back in 2013 due to a lack of affordable, small, powerful and easy to use breakout board with cameras. The idea then developed into a kickstarter that gained popularity until reaching what is today, an established product that aims at becoming the standard device for machine vision applications. \\
+For the image classification experiment, an OpenMV cam H7 plus \autocite{abdelkader2017openmv} \autocite{openmv_web_page} is used. This device is an affordable and expandable small board equipped with an STM MCU and a camera sensor with interchangeable lens. The OpenMV camera started as a project \autocite{openmv_project} back in 2013 due to a lack of affordable, small, powerful and easy to use breakout board with cameras. The idea then developed into a kickstarter that gained popularity until reaching what is today, an established product that aims at becoming the standard device for machine vision applications. \\
 The device mounts the camera sensor OV5640 and an STM32 H7 MCU and it can be programmed easily with MicroPython through the dedicated OpenMV IDE. The board is equipped with 16 GPIOs thanks to which it can interact with external devices like servo motors, sensors or other MCUs. The GPIOs can be exploited for controlling robots, drones or for machine learning purposes. Some examples of successful applications of OpenMV cameras in robotic systems are: the design of a control system for rolling a ball \autocite{zhou2019design} and the design of a tracking system \autocite{wei2020design}.\\
-The camera comes also with the possibility to mount different lenses, sensors and additional modular components. From the official website a complete list is available, some examples are: IR lenses or sensors, telephoto lens, super telephoto lens, ultra wide lens, WI-fi shield, LCD shield, motor shield, ecc.. 
+The camera comes also with the possibility to mount different lenses, sensors and additional modular components. From the official website a complete list is available, some examples are: IR lenses and sensors, telephoto lens, super telephoto lens, ultra wide lens, WI-fi shield, LCD shield, motor shield, ecc.. .
 The possibility to add all these different components or modification make the device a very well suited solution for many problems, application and especially for prototipation.\\
 Table \ref{table:specifications_openmv} summarizes the specifications of the device used in this study.\\
 
@@ -229,7 +229,7 @@ Peripherals         & \begin{tabular}[c]{@{}c@{}}GPIOs, interrupts, SPI, UART, I
 \caption{OpenMV H7+ specifications}
 \end{table}
 
-Since the application of this study sees the use of a camera that points to a screen, a small 3D printed support was created. An already available project \autocite{tripod_link} have been modified to make it possible to mount the OpenMV camera on the support itself. The $stl$ files can be found in the GitHub repository of this project \autocite{github_repo}. Figure \ref{fig:hardware_openmv} shows the OpenMV mounted on the 3D printed tripod while pointing to the computer screen during a CL session.\\
+Since the application of this study requires the use of a camera pointing to a screen, a small 3D printed support was created. An already available project from Tingiverse \autocite{tripod_link} was modified to make the mounting of the OpenMV camera possible. The $stl$ files can be found in the GitHub repository of this project \autocite{github_repo}. Figure \ref{fig:hardware_openmv} shows the OpenMV mounted on the 3D printed tripod while pointing to the computer screen during a CL session.\\
 
 \begin{figure}[h!]
     \centering
@@ -252,8 +252,12 @@ For the Nucleo application it is required to use ST-CUBE-AI \autocite{stm_cube_a
 % CNN, NN fully connected, a cosa servono, quali sono gli obbiettivi specifici
 % back propagation, sgd, l rate, batch size
 % pruning, quantization
+Continual learning is the application of real time training on a model with the aim of generating self adjusting systems that are able to learn from incoming data streams. As already mentioned in Chapter \ref{Intro}, continual learning can lead to many improvements if exploited in IoT applications. The main feature of Continual Learning (CL) is the ability of ML models to adapt weights and biases to learn the environment and continue to be relevant in the application. \\
 
-Machine learning is a branch of artificial intelligence (AI) and computer science that focuses on the usage of algorithms and huge quantities of data to generate models that are able to perform regression of grey mox models. 
+In this chapter the idea behind the system implemented is described. Then the basic structure of the system developed is explained by following the steps performed for reaching the final implementation. After that all the algorithms ideas are explained together with the modification that have been added. Also short block diagrams have been created for better showing the basic workflow of each algorithm.\\
+The application of CL on MCU is still a quite new idea that gained some popularity in recent years. Applications regarding CL have already been explored before, but their applications on tiny devices is still pretty new. Some relevant studies that applied CL on MCU are \autocite{} and \autocite{}. In my study, the idea started from the basics developed and explained in the TinyOL application. TinyOL is a simple implementation of a ML training but applied on a device in real time. Their goal is to be able to train in real time a ML model on samples of data containing information about the vibrational pattern of a PC fan. The model should be able to classify the vibration pattern and understand if the fan is in normal, tilted or stuck mode.\\
+The TinyOL system is quite easy but it showed good results in real applications. The basic system structure in this case is based on the addition of a layer at the end of the ML model, this should behave as the classification layer. The layer takes the output elaborated from an autoencoder model and elaborates the output to obtain a classification of the input sample. The idea is that every time a sample is received, the sample is elaborated by the autoencoder model (which is frozen and does not change) and then is passed throught the TinyOL layer. This layer is trained in real time in order to be able to correctly fine tune to new pattersn and learn from scratch new classes.\\
+The system implemented in this thesis started from the same idea but applies it on different problems, classification applied on NN and CNN model. In this study the TinyOL layer substitutes the classification layer and at each input samples it performs a supervised learning which allows to perform fine tuning and expansion of known classes. In the following section the creation, application and basic pipeline of my version of TinyOL is explained. 
 
 \section{Basic pipeline of the CL system developed}
 \label{basic_system}
@@ -261,109 +265,164 @@ Machine learning is a branch of artificial intelligence (AI) and computer scienc
 % spiegare come si ottiene la back propagation, far vedere formule, applicate a softmax
 % spiegare il sistema fatto a frozen model + OL layer
 % spiegare nel dettaglio i metodi implementati + grafici a blocchi che mostrano come va
-Continual learning is the application of real time training on a model with the aim of generating self adjusting systems that are able to learn from incoming data streams. As already mentioned in Chapter \ref{Intro}, continual learning can lead many improvements if exploited in IoT applications. The main feature of Continual Learning (CL) is the ability of ML models to adapt weights and biases to learn the environment and continue to be relevant in the application. \\
-In order to apply such a technology on embedded devices, it is necessary to develop a framework that permits the implementation of these kind of algorithms and strategies. For this study, two off-the-shelf hardware are used and a small framework is developed. The framework should always be paired with other toolkits that allow to perform machine learning inference easily. The framework developed should be attached to the last portion of a pre trained model. So it is necessary to use some built in tools for performing efficiently the inference and later apply the continual learning on the last portion of the model.\\
-In this study the main idea was to develop something similar to paper TinyOL. The idea is to attach the OL system to the last layer of the pre trained model in order to enhance just the classification aspect of the ML model. The base functions required by the system are basically two: be able to update the weights of the classification layer each time the model shows an error in the prediction array and be able to enlarge the size of the last layer at will, specifically when new classes are detected that should require a new label. The applications seen here are supervised machine learning trainings. This means that at every training step the griund truth label is known and is provided to the algorithm, which will then use these info to compute the error and back propagate this for updating the layer. In fact the feature that allows the model to recognize new classes is performed simply by checking if the label recieved is inside the pool of already known classes. \\
-The basic idea of continual learning consists in being able to continually refresh and update the weights and biases of the layer or layers of interest. This is performed as in standard trainings by computing the error performed by the inference and by propagating its error back in the weights themselves. In orrder to do this it's necessary to know the basic structire of the model wich gives informatiosn about the math used by the nodes. If the entire path of computation from the weight of interest to the final prediction is known then it's possible to back propagate the error to the parameter. In this specific study the idea has always been to use CL in classification problems. By havinsuch a specifica field of application it's possil e to simply the CL ide to a restricted group of models. Since the problems regard only classification and this specifica application want sto update only the lsat layer the problem becomes a simple study of the back propagation over softmx layers and nodes. Let's consider a simple model composed of few layer, and asume that the last layer brings 100 nodes of the hidden layer 2 to just 5 nodes with softmax application function. It's then possible to comnsider everythin that happens before the softmax layer a grey box that simply gives us 100 output values. The basic formulas used ina  softmax layer are the following:
+% frase di introduzione alle basi del sistema
+Machine learning applied on MCUs always featured only application of inference on data inputs. So, to apply CL on embedded devices, it is necessary to develop from scratch a framework that permits the implementation CL strategies. For this study, two off-the-shelf hardware are used and one framework is initially developed on a powerful device and later adapted to the two MCUs. The framework requires to be attached as the last layer of a pre trained model, so it should always be paired with hardware that support toolkits for ML inference in real time.\\
+% cosa introduce CL al modello che fino ad ora faceva solo inference
+As mentioned before, the main idea was to develop a system starting from the the system developed in the TinyOL study \ref{}. The idea, applied for this study experiments, was too attach an OL system as the last layer of the pre trained model. This aims at enhancing the classification abilities of the model, allowing to: i) fine tune and update the classification weights and biases, which, over time, lead to better performing models that better follow the context drift; ii) enlarge the size of the classification layer, adding the ability of the model to recognize new classes, thus improving the flexibility of the model and reducing the necessity to perform maintenance. The applications seen here are always in supervised settings. This means that at every training step the ground truth label is known and is provided to the algorithm, which then uses it to compute the error and perform back propagation for the parameters update.\\
+% iniziare a spiegare come funziona un training step in real time
+So the basic idea of the TinyOL system developed is to refresh and update the weights every time a new samples is received. This can be performed simply by implementing the standard ML training strategy. This consists in computing the error committed by the prediction and then propagate the same error back to the weights. The correction on the weights and biases depends directly on how the importance that the parameter has on the prediction and thus the error. To apply a real time training step on a model it is then necessary to know the structure of the model, which allows to understand how the prediction depends on every single weight, allowing then to compute a general formula for the back propagation. In the applications seen in this study, the idea was always to apply CL on classification problems, where the classification is performed in the last layer of a NN model. By having such specific applications, it is possible to compute the rules required for the application of CL on such models. In fact, by having classification on NN models, it is then immediate to compute the update rules for classification layer based on the use of Softmax activation functions.\\
+Now consider a simple and short model composed of few layers, where all are fully connected nodes. Consider that the classification layer (the last one) is composed of 5 nodes and the activation function is Softmax and the previous layer has 10 nodes. Since the application of CL in this study wants to train only the last layer, the entire model before the classification layer can be considered as a grey box (or frozen model) that outputs an array of 10 values. It can be said at this point that the update rule required for the real time training depends on: the Softmax function, the output of the grey box, the loss function, and the error between prediction and label. Figure \ref{} contains a block diagram showing the model situation just described. \\
 
-\begin{equation}
-z_i = \sum_i w_{ij} x_j + b_i\\ 
-y_i = softmax(z_i) = \frac{e^{z_j}}{\sum_j=1^k e^{z_j}}\\
-\text{where  i = 1, 2, ..., k     j = 1, 2, ..., n}\\
-\text{where  k = number of classes known by the model}\\
-\text{where  n = number of outputs from the frozen model}\\
-\end{equation}
-
-Where equation x is the formula that describes the the basic computation of a node of a ML layer, equation 2 is the softmax function directly applied on the ouput computed by the node.
-The complete computation for the output of the OL layer then becomes:
-\begin{equation}
-	y_i =  softmax(z_i) = \frac{e^{\sum_j=1^n w_{ij} x_j+b_i}}{\sum_j=1^k  e^{\sum_j=1^n w_{ij} x_j+b_i}}
-\end{equation}
-
-Once the prediction is computed with the softmax function applied on the output of the nodes, it is possible to use the loss function and compute the error. In common machine learning application the list of possible loss fuicntion that can be used is long and the different costs can be selected for different reasons and applications. In this case it has been decided to use a $categorical$ $cross$ $entropy$, which has the following definition:
-
-\begin{align}
-	cost = - \frac{1}{n} \sum_k [ y ln(y_i)+(1-t_i)ln(1-y_i) ]
-\end{align}
-
-Where $n$ is the total number of training data, $y_i$ is the output obtained from the softmax function, $t_i$ is the true label. \\
-At this point the entire path of computations from the output of the frozen model to the error committed by the prediction is known. This allows for the computation of the derivatives iof such error which are necessary for the back propagation, where the weights and biases of previous layers are updated with a proportional dependancy on the derivativo of the error with respect to every single weight. The computations performed for the final update rule are the following:
-
-
-\begin{align}
-	\text{Given that the error E is computed as: } E = cross(y_i) = cross(soft(z_i))  \\
-	\frac{\partial  E}{\partial  w_{ij}} & = \frac{\partial  E}{\partial  S_i} \cdot \frac{\partial  S_i}{\partial  z_i} \cdot 	\frac{\partial  z_i}{\partial  w_{ij}}\\
-	\frac{\partial  z_i}{\partial  w_{ij}} & = X_j \\
-	\frac{\partial  S_i}{\partial  z_i} & = \frac{}{} = \frac{e^{z_i}}{(\sum e^{z_i})^2} - \frac{(e^{z_i})^2}{(\sum e^{z_i})^2} = softmax(z_i) - (softmax(z_i))^2 = softmax(z_i) - (1-softmax(z_i))\\
-\end{align}
-
-Then it's immediate to apply this on the weifht in order to apply an actual training step. The final formula that defines the back proapgation on weights and biases of a softmax layer with the usage of a categorical cross entrioyp loss function is:
-
-\begin{equation}
-w = w- l rate
-\end{equation}
-
-This is the rule to be followd for the application a basic training step in real time. This is also the same idea explored by TinyOL, which simply applies this rule to an autoencoder model for the recognition of patterns. \\
-
-
-\section{Algorithms implemented}
-In this study not only the basic training strategy has been implemented and tested but also other regularization approaches have been used. As explained in Chapter \ref{relworks}, regularization approaches are strategies that exploit the addition of loss term to the update, thanks to which it is possible to have some sort of control over the weight update. In today's research some well known state-of-the-art strategies for CL are Elastic Weight Consolidation (EWC), Synaptic Intelligence (SI) and Learn Without Forgetting (LWF) \autocite{li2017learning}. In a recent paper Copy Weight with Reinit (CWR) \autocite{lomonaco2017core50} has been proposed and later upgraded with some improvements under the name CWR+ \autocite{maltoni2019continuous}. In the same paper the authors propose a new strategy called AR1 \autocite{maltoni2019continuous}, which exploits more layers of a model for performing the CL training.
-In this study only some of the aforementioned were implemented, namely LWF, CWR and TinyOL, together with small variations for the implementation of CL with batches. \\
-In the applications for this study all methods are applied in the same OL general block system, which simply is attached to a pre trained model, called frozen model. The frozen model is treated as a grey box which simply performs feature extraction on the input array and provides the last layer with useful elaborated data. The OL training is then applied on the weights of the classification layer following the update rule imposed by the algorithm of choice.
-
-\subsubsection{TinyOL}
-
-The TinyOL method applied on MCU has been initially implemented in paper \autocite{ren2021tinyol}. Its implementation is quite easy since it consists in just some for loops applied correctly on the weights and biases. As explained before, this method uses the basic rule of the training step which consists of propagating the error committed at inference to the weight of interest by using SGD. Keep in mind that the activation function of the last layer is Softmax and the loss function is always Categorical Cross Entropy. This said the weights update rule for this algorithm are:
-%
-\[ \mathcal{L}_{cross}(y_i, t_i)= - \sum_i t_i log(y_i) + (1-t_i)\cdot log(1-y_i)  \]
-\[    w_{i,j} = w_{i,j} - \alpha (y_i - t_i) \cdot x_i \]
-\[    b_i = b_i - \alpha (y_i - t_i) \]
-\[    \text{where i=0,1..,n  and  j=0,1,..,m} \]
-%
-Where $y_i$ is the prediction obtained from the OL layer, $t_i$ is the true label, $\alpha$ is the learning rate (tuned by the user), $w_{i,j}$ are the weights of the OL layer, $b_i$ are the biases of the OL layer, $n$ is the max amount of classes known by the OL system and $m$ is the height of the last layer of the frozen model. Note that in this entire study the number $n$ can change dynamically since the maximum amount of possible classes is not known a priori, or at least it ism not known in a real life scenario. \\
-Also a variation of this method has been implemented. The variation takes into consideration the possibility to use batches of data for computing the back propagation and not simply the last sample received. The idea for implementing such a variation came thanks to the article \autocite{batch_size_medium}, where the author explores the impact that batch size has on the training dynamics. The base idea of the variation is that by using a batch of samples bigger than 1 the back propagation computed should not relay on just the last sample but on the average computed on the group. This should help the model to be less vulnerable to noisy data and outliers. In order to apply the algorithm with this variation it's necessary to store the data generated from the previous samples. This requires the allocation of double the amount of memory required for the standard version, which is done with the creation of the matrix W and B. In order to reduce the amount of computation at each training step at first the inference is performed, after this the back propagation for each single weight and bias is computed and its value is added inside the matrices W and B. When the batch finishes the average on each weight and bias is computed and applied on the actual parameter that was kept constant during the entire inference of the batch. This time the update rule at each inference step becomes:
-    \[     W_{i,j} = W_{i,j} + \alpha (y_i - t_i) \cdot x_i\]
-    \[     B_i = B_i + \alpha  (y_i - t_i) \]
-And at the end of every batch the update applied on the real weights is:
-    \[     w_{i,j} = w_{i,j} - \frac{1}{batch\_size} \cdot W_{i,j} \] 
-    \[     b_i = b_i - \frac{1}{batch\_size} \cdot B_i \]
-    
-Said this both methods are quite simple and are based on the same basic principle. The method TinyOL requires the usage of only one weight matrix and one bias array. their dimension depend on two parameters, the number of classes known by the OL system represented by the value $n$ and the size of the last layer of the frozen layer, represented by the value $m$. This makes the memory allocated from the method be equal to a total of (nxm+nx1)*4 bytes. The method is able to change the layer parameters each time a new sample is received with no constraints. This feature is the main problem that concerns this strategy. In fact it allows for a lot of flexibility but it doesn't provide a protection from catastrophic forgetting catastrophic forgetting. By allowing any possible modification it's immediate for the model to follow what the stream of data is imposing to it, thus it's quite easy to train on noisy or outliers data or even be guided towards context drift.  \\
-On the other hand the method TinyOL with mini batches exploits the same approach seen by the standard TinyOL method but receives a back propagation update that is dictated by the average computed from a group of $k$ samples. Depending on the value of $k$ the group can be considered to be a more or less good representation of the data received. In any case this method should be able to better contrast catastrophic forgetting, noisy data and outliers. 
-%
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.7\textwidth]{Figures/Chapter3/OL.png} 
+    \includegraphics[width=0.7\textwidth]{Figures/Chapter3/PLACEHOLDER.jpg} 
+    \caption{Place holder}
+    \label{fig:placeholder}    
+\end{figure}
+
+The basic formulas used in the propagation of a classification layer are the following:
+
+\begin{align} 
+	z_i &= \sum_i w_{ij} \: x_j + b_i \label{zi} \\ 
+	y_i &= Softmax(z_i) = \frac{e^{z_j}}{\sum_j=1^k e^{z_j}} 	\label{yi} \\
+	L^{cross}_i &= - \frac{1}{n} \sum_k [\ y \: ln(y_i) \: +\: (1-t_i) \: ln(1-y_i) ]\ \label{cost_cross} \\
+	i   &= 1, 2, ...,k \nonumber \\
+	j   &= 1, 2, ...,n \nonumber
+\end{align}
+
+Where equation \ref{zi} is the formula that describes the propagation of inputs though a ML node, equation \ref{yi} is the definition of the Softmax function, equation \ref{cost_cross} is the definition of the categorical cross entropy loss function, $k$ is the number of classes known by the mode and $n$ is the number of outputs of the grey box (or number of nodes of the frozen model's last layer).\\
+The application of these function to obtain a single formula for the output then becomes:
+
+\begin{align}
+	y_i         &=  Softmax(z_i) = \frac{e^{\sum_j=1^n w_{ij} x_j+b_i}}{\sum_j=1^k  e^{\sum_j=1^n w_{ij} x_j+b_i}} \\
+	L^{cross}_i &= - \frac{1}{n} \sum_k [\ y \: ln(y_i) \: +\: (1-t_i) \: ln(1-y_i) ]\ 
+\end{align}
+
+At this point it is possible to compute the relation between every weight and the error committed by the model. To do so it is necessary to just compute the derivative of the error with respect to the weight of interest. 
+
+
+\begin{equation}
+	E = L^{cross}(y_i) = L^{cross}(Softmax(z_i)) = L^{cross}(Softmax(\sum_i w_{ij} \: x_j + b_i))  
+\end{equation}
+
+Where it is immediate to compute the derivative of the error with respect to the weights as a product of derivatives.
+
+\begin{equation}
+	\frac{\partial E}{\partial w_{ij}} = \frac{\partial E}{\partial S_i} \cdot \frac{\partial S_i}{\partial z_i} \cdot \frac{\partial z_i}{\partial w_{ij}}  
+\end{equation}
+
+Each block is then computes as:
+
+\begin{align}
+	\frac{\partial z_i}{\partial w_{ij}} &= \frac{ \partial (\ \sum_i w_{ij} \: x_j + b_i )\ }{ \partial w_{ij}} = x_i \\[10pt]
+	%
+	\frac{\partial S_i}{\partial z_i} &= \frac{\partial INSERIRE}{\partial z_i} \nonumber \\
+	&= \frac{e^{z_i}}{(\sum e^{z_i})^2}- \frac{(e^{z_i})^2}{(\sum e^{z_i})^2} \nonumber \\
+	&= Softmax(z_i) - (Softmax(z_i))^2 \nonumber \\
+	&= Softmax(z_i) - (1-Softmax(z_i)) \\[10pt]
+	%
+	ES &= \frac{1}{1} 
+\end{align}
+
+Then it is immediate to apply the derivative to a simple feedback loop. The final formula that defines the back propagation on weights and biases of a classification layer that uses Softmax as activation function and categorical cross entropy as loss function is:
+
+\begin{align}
+w_{ij} &= w_{ij} - l_{rate} \cdot (\ y_i-t_i )\ \cdot x_j \label{w_update} \\
+b_i    &= b_i    - l_{rate} \cdot (\ y_i-t_i )\ \label{b_update} 
+\end{align}
+
+Equation \ref{w_update} and \ref{b_update} represent the most simple way for updating a weight and a bias based on the prediction performed by the model, the true label and the output of the frozen model. This formula is the simplest way for training weights, which updates parameters at every sample received.
+
+\section{Algorithms implemented}
+This study started from the implementation of this strategy for performing CL learning and later expanded by applying other methods already proposed in the research. As explained in Chapter \ref{relworks}, regularization approaches are strategies that exploit the addition of loss term to the update rule. Thanks to this, it is possible to have some control over the weight update. In today's research some strategies for CL training have been proposed mainly with the aim of contrasting catastrophic forgetting, but these were never applied to small devices. The best performing state-of-the-art regularization strategies are Elastic Weight Consolidation (EWC), Synaptic Intelligence (SI) and Learn Without Forgetting (LWF) \autocite{li2017learning}. In another paper the authors propose another method called Copy Weight with Reinit (CWR) \autocite{lomonaco2017core50}, which has been later improved with the CWR+ version in paper \autocite{maltoni2019continuous}, where also the new method AR1 have been presented. In this study only some of the aforementioned strategies were implemented, namely LWF, CWR and TinyOL, together with small variations used for the implementation of CL trainings that use batches of data and not single samples. \\
+In these applications, the algorithms are all applied in the same OL system. The system substitutes the classification layer of a pre trained model, called frozen model. The frozen model is used only as a feature extraction block which provides an array as output which already contains the elaborated data which is ready to be fed through the classification layer. Of course the entire strategy adopted is inside the last layer, which, depending on the strategy adopted, manipulated the weight and biases with different rules.
+
+\subsubsection{TinyOL}
+The TinyOL method applied on MCU, as already mentioned, has been initially implemented in paper \autocite{ren2021tinyol}. The strategy is straight forward and it follows the basic ML training step, which consists in computing the error from the prediction and propagating it on the weights and biases through stochastic gradients descend (SGD). Its implementation consists in a couple of $for$ loops for updating the biases and the weights. This said, the weights update rule for this algorithm are:
+
+\begin{align}
+    w_{i,j} &= w_{i,j} - \alpha (y_i - t_i) \cdot x_i \\
+    b_i     &= b_i - \alpha (y_i - t_i) \\
+    where & \: \: i= 0,1..,n  \: \: and \: \:  j=0,1,..,m \nonumber 
+\end{align}
+
+Where $y_i$ is the prediction obtained from the OL layer, $t_i$ is the true label, $\alpha$ is the learning rate (tuned by the user), $w_{i,j}$ are the weights of the OL layer, $b_i$ are the biases of the OL layer, $n$ is the max amount of classes known by the OL system and $m$ is the height of the last layer of the frozen model. Note that in all strategies implemented, the value $n$ can change dynamically since the maximum amount of possible classes is not known a priori, or at least it is not known in a real life application. \\
+Also a variation of this method has been implemented. The variation takes into consideration the possibility to apply a back propagation that depends on a group of samples (a batch) and not just from the last sample received. The idea for implementing such a variation came thanks to the article \autocite{batch_size_medium}, where the author explores the impact that batch size has on ML training dynamics. The base strategy of the variation is to compute a back propagation that depends on a batch of inputs and not just from the last sample recorded. This helps the model to be less vulnerable to noisy data and outliers. To implement an algorithm with this variation, it is required to maintain memory of all the samples from the batch. This requires the allocation of double the amount of memory necessary for the standard version. This is done by allocating two additional matrices, one called W, which contains the data of old samples related to the weights, the other is called B, which contains the data of old samples related to the biases. These matrices are used as a cumulative memory of the back propagation applied by each training step. Every time a new sample is received and elaborated, the upgrade for each weight and bias is computed and added in the correct spot inside matrices B and W. When a batch is finished, the average back propagation update is computed and applied on the actual matrices of weights and biases. Note that during a batch the OL system performs an inference with the frozen model's output by using matrices w and b, computes the error, computes the back propagations to be applied on W and B, adds the updates in matrices W and B. During an entire batch the weights used for inference are kept constant. When a batch is finished the average is computed and the update rule is applied. Then contents of W and B are deleted and restored to 0. \\
+So the update rule at each inference step becomes:
+
+\begin{align}
+	W_{i,j} &= W_{i,j} + \alpha (y_i - t_i) \cdot x_i \\
+    B_i     &= B_i + \alpha  (y_i - t_i) 
+\end{align}
+
+And at the end of every batch the update applied on the real weights is:
+
+\begin{align}
+	w_{i,j} &= w_{i,j} - \frac{1}{batch\_size} \cdot W_{i,j} \\
+	b_i     &= b_i - \frac{1}{batch\_size} \cdot B_i
+\end{align}
+
+Both methods are based on the same basic principle which is quite simple. The method TinyOL requires the use of only one weight matrix and one bias array and their dimension depend on two parameters: the number of classes known by the OL system represented by the value $n$ and the size of the frozen model's last layer, represented by the value $m$. This makes the memory allocated from the method be equal to a total of $(n \times m+n \times 1)\times 4 \: bytes$. The method changes the layer parameters each time a new sample is received, with no constraints. This aspect is the main problem that concerns the TinyOL strategy and makes it vulnerable to catastrophic forgetting. By allowing such a high flexibility to adapt to any kind of data, the model is not protected at all from catastrophic forgetting. The model learns from every single sample that it receives, no matter if the sample is noisy, an outlier or wrongly labelled.\\
+On the other hand the method TinyOL with mini batches exploits the same approach but applies a back propagation that is dictated by the average update computed from a group of $k$ samples. Depending on the value of $k$ the group can be considered to be a more or less good representation of the data received. In any case this method should be able to better contrast catastrophic forgetting, noisy data and outliers. \\
+Figures \ref{fig:block_diag_OL} and \ref{fig:block_diag_OLwb} contain block diagram showing how the two methods behave.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Figures/Chapter3/PLACEHOLDER.jpg} 
     \caption{Place holder - OL}
     \label{fig:block_diag_OL}    
 \end{figure}
-%
-\subsubsection{TinyOL V2}
 
-The TinyOL V2 algorithms is based on the same idea of the original TinyOL. A little intuible modification is applied in the method with the aim of contrasting catastrophic forgetting. The idea is to remove the possibility to have a drift over the original weights by removing completely this possibility. This algorithm in fact applies the same exact update rule on its parameters but it applies it only on the weights that represent the new classes. Which simply means that the rule now becomes:
-    \[ w_{i,j} = w_{i,j} - \alpha (y_i - t_i) \cdot x_i \]
-    \[ b_i = b_i - \alpha (y_i - t_i) \]
-    \[ \text{where i=p,p+1..,n  and  j=0,1,..,m} \]
-The only difference is in fact the iterator $i$, which goes from p to n, where $p$ represents the position of the first unknown class. \\
-Also in thsi case the variation of the method for working on batches has been implemented. Again the algorithm is the same as TinyOL with batches but with the iterator $i$ that goes from $p$ to $n$.
-    \[     W_{i,j} = W_{i,j} + \alpha (y_i - t_i) \cdot x_i\]
-    \[     B_i = B_i + \alpha  (y_i - t_i) \]
-And at the end of every batch the update applied on the real weights is:
-    \[     w_{i,j} = w_{i,j} - \frac{1}{batch\_size} \cdot W_{i,j} \] 
-    \[     b_i = b_i - \frac{1}{batch\_size} \cdot B_i \]
-    \[ \text{where i=p,p+1..,n  and  j=0,1,..,m} \]
-In conclusion TinyOL V2 is a simple method that differs from the original only because of a small difference in the update rule. By forcing the update on only a portion of the weight and biases the behaviour of the catastrophic forgetting that tries to modify the original knowledge and make the model drift from that context is completely removed. This helps the algorithm by contrasting catastrophic forgetting but also reduces the ability of the model to perform fine tuning on those specific classes. Another negative aspect regards the general behaviour of the final mode. By having a training strategy that updates only a portion of weights it's clear how the model itself cannot be optimized to reduce the loss function. This means that at the end of the training the model will be composed of two parts that will not work together to find the best prediction. Like before the TinyOL V2 with mini batches allows the model to learn from a bigger group of samples, this should help the model to avoid over fitting, outliers and noisy data. \\
-The method TinyOL V2 requires the same amount of memory that was used by TinyOL, which means a matrix of size $n \times m$ and an array of size $n \times 1$. On the other hand the method TinyOL V2 with batches requires an additional matrix and array but this time with a reduced size of $(n-p) \times m$ and $(n-p) \times m$ since only the weight of the new classes require an update. 
-%
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Figures/Chapter3/PLACEHOLDER.jpg} 
+    \caption{Place holder - OL with batches}
+    \label{fig:block_diag_OLwb}    
+\end{figure}
+
+\subsubsection{TinyOL V2}
+The TinyOL V2 algorithms is based on the same idea of the original TinyOL. A little intuitable modification was applied in the method with the aim of contrasting catastrophic forgetting. The idea is to contrast the drift that affects the original weights by completely removing the possibility to update those weights. The algorithm applies the same update rule seen before but only on the parameters that represent new classes. The update rules become:
+
+\begin{align}
+	w_{i,j} &= w_{i,j} - \alpha (y_i - t_i) \cdot x_i \\
+    b_i     &= b_i - \alpha (y_i - t_i) \\
+    where   & \: \: i= p,p+1..,n  \: \: and \: \:  j=0,1,..,m \nonumber  
+\end{align}
+
+The only difference with respect to the TinyOL method is the iterator $i$, which goes from p to n, where $p$ represents the position of the first unknown class. \\
+Also in this case the strategy variation that uses batches of samples was implemented. Again the method requires the use of two additional matrices called W and B, which contain the cumulative back propagation computed at each step. As before, the algorithm follows the same rules as TinyOL with batches, but with the iterator $i$ going from $p$ to $n$. The rule that defines the standard behaviour during training is:
+
+\begin{align}
+    W_{i,j} &= W_{i,j} + \alpha (y_i - t_i) \cdot x_i \\
+    B_i     &= B_i + \alpha  (y_i - t_i) 
+\end{align}
+
+And at the end of every batch the usual update rule is applied on the matrices of weights and biases used for inference.
+
+\begin{align}
+    w_{i,j} &= w_{i,j} - \frac{1}{batch\_size} \cdot W_{i,j} \\
+    b_i 	    &= b_i - \frac{1}{batch\_size} \cdot B_i \\
+    where   & \: \: i= p,p+1..,n  \: \: and \: \:  j=0,1,..,m \nonumber  
+\end{align}
+As seen for the TinyOL woth batches, the TinyOL V2 with batches allows the model to learn from a bigger group of samples. This ability should help the model to avoid over fitting, outliers and noisy data. \\
+In conclusion TinyOL V2 is a simple method that differs from the original strategy only because the update is restricted to the new parameters. By forcing the update on just a portion of the weight and biases, the context drift that would irreversibly modify the original weights, thus forgetting the original knowledge, is completely removed. This helps the algorithm in contrasting catastrophic forgetting but also reduces the ability of the model to perform fine tuning on those classes. Another negative aspect regards the general behaviour of the model. By having a training strategy that updates only a portion of weights, it is not possible to create a model that behaves as optimizer of the loss function. This means that at the end of the training the model is composed of two parts that behave differently at every iteration. One portion of the weights behaves as the original model, while another part of the weights behaves as the most recent version of the model. These two part, when computing a prediction, cannot make the model converge towards an optimized prediction. \\
+The method TinyOL V2 requires the same amount of memory used by TinyOL, which means a matrix of size $n \times m$ and an array of size $n \times 1$. On the other hand the method TinyOL V2 with batches requires an additional matrix and array but this time with a reduced size of $(n-p) \times m$ and $(n-p) \times m$. Figures \ref{fig:block_diag_OLV2} and \ref{fig:block_diag_OLV2wb} contain block diagram showing the pipeline of the two methods.
+
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.7\textwidth]{Figures/Chapter3/OLV2.png} 
     \caption{Place holder - OLV2}
     \label{fig:block_diag_OLV2}    
 \end{figure}
-%
-\subsubsection{LWF}
 
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Figures/Chapter3/OLV2.png} 
+    \caption{Place holder - OLV2}
+    \label{fig:block_diag_OLV2wb}    
+\end{figure}
+
+\subsubsection{LWF}
 The LWF strategy is a regularization approach introduced in \autocite{li2017learning} and later applied with small variation in \autocite{maltoni2019continuous}. The main idea of the method is to contrast catastrophic forgetting by applying a smart loss function and double architecture that is able to combine old and new knowledge in the back propagation of the parameters. The double architecture models refers to the fact that two models are required in order to use this method. In this case the entire OL system has been applied only on the last layer of the model so the double architecture in this case is composed only of a double classification layer. The first is called $tl$, training layer while the second is called $cl$, copy layer. The role of $tl$ is to be continuously updated at each training step with the LWF back propagation rule, while $cl$ is a layer that contains a copy of all the original weights computed in the Tensorflow training, thus it represents the original knowledge of the model. The back propagation rule is based on the idea of fusing the weight updates that the two layer would apply. The fusion of these two updates is done with a weighted average that changes dynamically as the training continues. This of course implies that both layers produce a prediction, which means double computation for the OL system.\\
 At this point the only major difference with respect to the TinyOL method is the double inference and the computation of the weighted back propagation. The update to be applied can be computed quite easily again by using SGD which turn out to be a simple weighted sum of two back propagation:
 %
