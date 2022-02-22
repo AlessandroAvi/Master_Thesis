@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.1) (preloaded format=pdflatex 2022.2.17)  21 FEB 2022 20:42
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.1) (preloaded format=pdflatex 2022.2.17)  22 FEB 2022 09:35
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -734,7 +734,7 @@ LaTeX Info: Redefining \nameref on input line 47.
 \@outlinefile=\write5
 \openout5 = `thesis.out'.
 
-<Figures/frontespizio.pdf, id=119, 597.50829pt x 845.0471pt>
+<Figures/frontespizio.pdf, id=139, 597.50829pt x 845.0471pt>
 File: Figures/frontespizio.pdf Graphic file (type pdf)
 <use Figures/frontespizio.pdf>
 Package pdftex.def Info: Figures/frontespizio.pdf  used on input line 52.
@@ -743,7 +743,7 @@ File: Figures/frontespizio.pdf Graphic file (type pdf)
 <use Figures/frontespizio.pdf>
 Package pdftex.def Info: Figures/frontespizio.pdf  used on input line 52.
 (pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
-<Figures/frontespizio.pdf, id=122, page=1, 597.50829pt x 845.0471pt>
+<Figures/frontespizio.pdf, id=142, page=1, 597.50829pt x 845.0471pt>
 File: Figures/frontespizio.pdf Graphic file (type pdf)
 <use Figures/frontespizio.pdf, page 1>
 Package pdftex.def Info: Figures/frontespizio.pdf , page1 used on input line 52
@@ -832,7 +832,7 @@ LaTeX Warning: Citation 'nucleo_datasheet' on page 11 undefined on input line 1
 LaTeX Warning: Citation 'openmv_datasheet' on page 11 undefined on input line 1
 68.
 
-<Figures/Chapter2/hardware.jpg, id=356, 1696.83937pt x 718.18312pt>
+<Figures/Chapter2/hardware.jpg, id=381, 1696.83937pt x 718.18312pt>
 File: Figures/Chapter2/hardware.jpg Graphic file (type jpg)
 <use Figures/Chapter2/hardware.jpg>
 Package pdftex.def Info: Figures/Chapter2/hardware.jpg  used on input line 172.
@@ -866,7 +866,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 195--196
  []
 
 [12 <./Figures/Chapter2/hardware.jpg>]
-<Figures/Chapter2/hardware_stm.jpg, id=368, 2589.675pt x 927.465pt>
+<Figures/Chapter2/hardware_stm.jpg, id=393, 2589.675pt x 927.465pt>
 File: Figures/Chapter2/hardware_stm.jpg Graphic file (type jpg)
 <use Figures/Chapter2/hardware_stm.jpg>
 Package pdftex.def Info: Figures/Chapter2/hardware_stm.jpg  used on input line 
@@ -925,7 +925,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 228--229
 
  []
 
-<Figures/Chapter2/hardware_openmv.jpg, id=375, 1165.35374pt x 426.09187pt>
+<Figures/Chapter2/hardware_openmv.jpg, id=400, 1165.35374pt x 426.09187pt>
 File: Figures/Chapter2/hardware_openmv.jpg Graphic file (type jpg)
 <use Figures/Chapter2/hardware_openmv.jpg>
 Package pdftex.def Info: Figures/Chapter2/hardware_openmv.jpg  used on input li
@@ -937,175 +937,183 @@ LaTeX Warning: Citation 'stm_cube_ai' on page 14 undefined on input line 239.
 [14 <./Figures/Chapter2/hardware_openmv.jpg>] [15] [16]
 Chapter 3.
 
-LaTeX Warning: Citation 'ren2021tinyol' on page 17 undefined on input line 253.
+LaTeX Warning: Citation 'ren2021tinyol' on page 17 undefined on input line 246.
 
 
 
-LaTeX Warning: Citation 'ren2021synergy' on page 17 undefined on input line 253
+LaTeX Warning: Citation 'ren2021synergy' on page 17 undefined on input line 246
 .
 
 
 LaTeX Warning: Citation 'sudharsan2021train++' on page 17 undefined on input li
-ne 253.
+ne 246.
+
+
+LaTeX Warning: Citation 'ren2021tinyol' on page 17 undefined on input line 247.
+
 
 [17
 
 ]
 
-LaTeX Warning: Reference `' on page 18 undefined on input line 262.
+LaTeX Warning: Reference `fig:block_diag_esempio' on page 18 undefined on input
+ line 256.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 259--263
+Underfull \hbox (badness 10000) in paragraph at lines 252--257
 
  []
 
 [18]
-<Figures/Chapter3/PLACEHOLDER.jpg, id=397, 490.08093pt x 361.35pt>
+<Figures/Chapter3/PLACEHOLDER.jpg, id=422, 490.08093pt x 361.35pt>
 File: Figures/Chapter3/PLACEHOLDER.jpg Graphic file (type jpg)
 <use Figures/Chapter3/PLACEHOLDER.jpg>
 Package pdftex.def Info: Figures/Chapter3/PLACEHOLDER.jpg  used on input line 2
-66.
+60.
 (pdftex.def)             Requested size: 272.99881pt x 201.29597pt.
+ [19 <./Figures/Chapter3/PLACEHOLDER.jpg>] [20]
 
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[19] [20 <./Figures/Chapter3/PLACEHOLDER.jpg>]
-
-LaTeX Warning: Citation 'li2017learning' on page 21 undefined on input line 310
+LaTeX Warning: Citation 'li2017learning' on page 21 undefined on input line 304
 .
 
 
 LaTeX Warning: Citation 'lomonaco2017core50' on page 21 undefined on input line
- 310.
+ 304.
 
 
 LaTeX Warning: Citation 'maltoni2019continuous' on page 21 undefined on input l
-ine 310.
+ine 304.
 
 [21]
 
-LaTeX Warning: Citation 'ren2021tinyol' on page 22 undefined on input line 313.
+LaTeX Warning: Citation 'ren2021tinyol' on page 22 undefined on input line 308.
 
 
 
 LaTeX Warning: Citation 'batch_size_medium' on page 22 undefined on input line 
-322.
+317.
 
 [22] [23]
 File: Figures/Chapter3/PLACEHOLDER.jpg Graphic file (type jpg)
 <use Figures/Chapter3/PLACEHOLDER.jpg>
 Package pdftex.def Info: Figures/Chapter3/PLACEHOLDER.jpg  used on input line 3
-43.
+38.
 (pdftex.def)             Requested size: 272.99881pt x 201.29597pt.
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
 File: Figures/Chapter3/PLACEHOLDER.jpg Graphic file (type jpg)
 <use Figures/Chapter3/PLACEHOLDER.jpg>
 Package pdftex.def Info: Figures/Chapter3/PLACEHOLDER.jpg  used on input line 3
-50.
+45.
 (pdftex.def)             Requested size: 272.99881pt x 201.29597pt.
+
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[24] [25] [26]
-<Figures/Chapter3/OLV2.png, id=466, 963.6pt x 542.025pt>
+[24] [25]
+<Figures/Chapter3/OLV2.png, id=483, 963.6pt x 542.025pt>
 File: Figures/Chapter3/OLV2.png Graphic file (type png)
 <use Figures/Chapter3/OLV2.png>
-Package pdftex.def Info: Figures/Chapter3/OLV2.png  used on input line 385.
-(pdftex.def)             Requested size: 272.99881pt x 153.56068pt.
-File: Figures/Chapter3/OLV2.png Graphic file (type png)
-<use Figures/Chapter3/OLV2.png>
-Package pdftex.def Info: Figures/Chapter3/OLV2.png  used on input line 392.
+Package pdftex.def Info: Figures/Chapter3/OLV2.png  used on input line 380.
 (pdftex.def)             Requested size: 272.99881pt x 153.56068pt.
 
 
-LaTeX Warning: Citation 'li2017learning' on page 27 undefined on input line 398
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+File: Figures/Chapter3/OLV2.png Graphic file (type png)
+<use Figures/Chapter3/OLV2.png>
+Package pdftex.def Info: Figures/Chapter3/OLV2.png  used on input line 387.
+(pdftex.def)             Requested size: 272.99881pt x 153.56068pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+LaTeX Warning: Citation 'li2017learning' on page 26 undefined on input line 393
 .
 
 
-LaTeX Warning: Citation 'maltoni2019continuous' on page 27 undefined on input l
-ine 398.
+LaTeX Warning: Citation 'maltoni2019continuous' on page 26 undefined on input l
+ine 393.
 
 
-LaTeX Warning: Reference `maltoni2019continuous' on page 27 undefined on input 
-line 398.
+LaTeX Warning: Reference `maltoni2019continuous' on page 26 undefined on input 
+line 393.
 
 
-Overfull \hbox (5.11075pt too wide) in paragraph at lines 398--400
+Overfull \hbox (5.11075pt too wide) in paragraph at lines 393--395
 \OT1/cmr/m/n/12 The LWF strat-egy is a reg-u-lar-iza-tion ap-proach in-tro-duce
 d in [[]]
  []
 
-[27 <./Figures/Chapter3/OLV2.png (PNG copy)>]
+[26] [27 <./Figures/Chapter3/OLV2.png (PNG copy)>]
 
 LaTeX Warning: Citation 'maltoni2019continuous' on page 28 undefined on input l
-ine 409.
+ine 404.
+
+
+LaTeX Warning: Citation 'maltoni2019continuous' on page 28 undefined on input l
+ine 410.
 
 [28]
-
-LaTeX Warning: Citation 'maltoni2019continuous' on page 29 undefined on input l
-ine 415.
-
-[29]
-
-LaTeX Warning: Reference `' on page 30 undefined on input line 443.
-
-<Figures/Chapter3/LWF.png, id=491, 963.6pt x 542.025pt>
+<Figures/Chapter3/LWF.png, id=506, 963.6pt x 542.025pt>
 File: Figures/Chapter3/LWF.png Graphic file (type png)
 <use Figures/Chapter3/LWF.png>
-Package pdftex.def Info: Figures/Chapter3/LWF.png  used on input line 447.
+Package pdftex.def Info: Figures/Chapter3/LWF.png  used on input line 442.
 (pdftex.def)             Requested size: 272.99881pt x 153.56068pt.
-[30 <./Figures/Chapter3/LWF.png (PNG copy)>] [31]
-<Figures/Chapter3/CWR.png, id=510, 963.6pt x 542.025pt>
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[29] [30 <./Figures/Chapter3/LWF.png (PNG copy)>]
+<Figures/Chapter3/CWR.png, id=528, 963.6pt x 542.025pt>
 File: Figures/Chapter3/CWR.png Graphic file (type png)
 <use Figures/Chapter3/CWR.png>
-Package pdftex.def Info: Figures/Chapter3/CWR.png  used on input line 476.
+Package pdftex.def Info: Figures/Chapter3/CWR.png  used on input line 471.
 (pdftex.def)             Requested size: 272.99881pt x 153.56068pt.
- [32 <./Figures/Chapter3/CWR.png (PNG copy)>]
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[31] [32 <./Figures/Chapter3/CWR.png (PNG copy)>]
 Chapter 4.
 
-LaTeX Warning: Reference `deng2012mnist' on page 33 undefined on input line 505
+LaTeX Warning: Reference `deng2012mnist' on page 33 undefined on input line 500
 .
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 505--506
+Underfull \hbox (badness 10000) in paragraph at lines 500--501
 
  []
 
 
-LaTeX Warning: Reference `chap:hardware' on page 33 undefined on input line 509
+LaTeX Warning: Reference `chap:hardware' on page 33 undefined on input line 504
 .
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 508--514
+Underfull \hbox (badness 10000) in paragraph at lines 503--509
 
  []
 
 [33
 
 ]
-<Figures/Chapter4/letters_motion.jpg, id=522, 308.352pt x 154.4169pt>
+<Figures/Chapter4/letters_motion.jpg, id=543, 308.352pt x 154.4169pt>
 File: Figures/Chapter4/letters_motion.jpg Graphic file (type jpg)
 <use Figures/Chapter4/letters_motion.jpg>
 Package pdftex.def Info: Figures/Chapter4/letters_motion.jpg  used on input lin
-e 517.
+e 512.
 (pdftex.def)             Requested size: 227.62204pt x 113.99103pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [34]
-<Figures/Chapter4/flow_dataset_letters.png, id=528, 2208.25pt x 803.0pt>
+<Figures/Chapter4/flow_dataset_letters.png, id=549, 2208.25pt x 803.0pt>
 File: Figures/Chapter4/flow_dataset_letters.png Graphic file (type png)
 <use Figures/Chapter4/flow_dataset_letters.png>
 Package pdftex.def Info: Figures/Chapter4/flow_dataset_letters.png  used on inp
-ut line 529.
+ut line 524.
 (pdftex.def)             Requested size: 398.33858pt x 144.84007pt.
 
-Overfull \hbox (8.33858pt too wide) in paragraph at lines 529--530
+Overfull \hbox (8.33858pt too wide) in paragraph at lines 524--525
  [][] 
  []
 
@@ -1113,25 +1121,25 @@ Overfull \hbox (8.33858pt too wide) in paragraph at lines 529--530
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 535--536
+Underfull \hbox (badness 10000) in paragraph at lines 530--531
 
  []
 
-<Figures/Chapter4/mnist_dataset.png, id=531, 566.115pt x 103.13531pt>
+<Figures/Chapter4/mnist_dataset.png, id=552, 566.115pt x 103.13531pt>
 File: Figures/Chapter4/mnist_dataset.png Graphic file (type png)
 <use Figures/Chapter4/mnist_dataset.png>
 Package pdftex.def Info: Figures/Chapter4/mnist_dataset.png  used on input line
- 539.
+ 534.
 (pdftex.def)             Requested size: 284.52756pt x 51.83662pt.
 [35 <./Figures/Chapter4/letters_motion.jpg>]
-<Figures/Chapter4/flow_dataset_openmv.png, id=537, 2208.25pt x 803.0pt>
+<Figures/Chapter4/flow_dataset_openmv.png, id=558, 2208.25pt x 803.0pt>
 File: Figures/Chapter4/flow_dataset_openmv.png Graphic file (type png)
 <use Figures/Chapter4/flow_dataset_openmv.png>
 Package pdftex.def Info: Figures/Chapter4/flow_dataset_openmv.png  used on inpu
-t line 549.
+t line 544.
 (pdftex.def)             Requested size: 398.33858pt x 144.84007pt.
 
-Overfull \hbox (8.33858pt too wide) in paragraph at lines 549--550
+Overfull \hbox (8.33858pt too wide) in paragraph at lines 544--545
  [][] 
  []
 
@@ -1139,58 +1147,58 @@ Overfull \hbox (8.33858pt too wide) in paragraph at lines 549--550
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 555--557
+Underfull \hbox (badness 10000) in paragraph at lines 550--552
 
  []
 
 [36 <./Figures/Chapter4/flow_dataset_letters.png> <./Figures/Chapter4/mnist_dat
 aset.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 559--560
+Underfull \hbox (badness 10000) in paragraph at lines 554--555
 
  []
 
-<Figures/Chapter4/letter_structure.png, id=544, 532.99126pt x 351.56343pt>
+<Figures/Chapter4/letter_structure.png, id=565, 532.99126pt x 351.56343pt>
 File: Figures/Chapter4/letter_structure.png Graphic file (type png)
 <use Figures/Chapter4/letter_structure.png>
 Package pdftex.def Info: Figures/Chapter4/letter_structure.png  used on input l
-ine 563.
+ine 558.
 (pdftex.def)             Requested size: 284.52756pt x 187.67955pt.
 [37 <./Figures/Chapter4/flow_dataset_openmv.png>]
-Overfull \hbox (5.2633pt too wide) in paragraph at lines 568--571
+Overfull \hbox (5.2633pt too wide) in paragraph at lines 563--566
 \OT1/cmr/m/n/12 The main train-ing pa-ram-e-ters are: $\OML/cmm/m/it/12 Adam$ \
 OT1/cmr/m/n/12 op-ti-mizer, $\OML/cmm/m/it/12 categorical$ $cross$ $entropy$
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 568--571
+Underfull \hbox (badness 10000) in paragraph at lines 563--566
 
  []
 
-<Figures/Chapter4/training_letters.jpg, id=551, 1011.78pt x 361.35pt>
+<Figures/Chapter4/training_letters.jpg, id=572, 1011.78pt x 361.35pt>
 File: Figures/Chapter4/training_letters.jpg Graphic file (type jpg)
 <use Figures/Chapter4/training_letters.jpg>
 Package pdftex.def Info: Figures/Chapter4/training_letters.jpg  used on input l
-ine 574.
+ine 569.
 (pdftex.def)             Requested size: 369.88582pt x 132.10393pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [38 <./Figures/Chapter4/letter_structure.png>]
-Overfull \hbox (5.62367pt too wide) in paragraph at lines 585--586
+Overfull \hbox (5.62367pt too wide) in paragraph at lines 580--581
 \OT1/cmr/m/n/12 In the im-age clas-si-fi-ca-tion ap-pli-ca-tion, a Con-vo-lu-ti
 onal Neu-ral Net-work (CNN)
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 585--586
+Underfull \hbox (badness 10000) in paragraph at lines 580--581
 
  []
 
-<Figures/Chapter4/openmv_structure.png, id=558, 800.9925pt x 862.72313pt>
+<Figures/Chapter4/openmv_structure.png, id=579, 800.9925pt x 862.72313pt>
 File: Figures/Chapter4/openmv_structure.png Graphic file (type png)
 <use Figures/Chapter4/openmv_structure.png>
 Package pdftex.def Info: Figures/Chapter4/openmv_structure.png  used on input l
-ine 589.
+ine 584.
 (pdftex.def)             Requested size: 284.52756pt x 306.45973pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
@@ -1199,7 +1207,7 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 File: Figures/Chapter4/training_letters.jpg Graphic file (type jpg)
 <use Figures/Chapter4/training_letters.jpg>
 Package pdftex.def Info: Figures/Chapter4/training_letters.jpg  used on input l
-ine 600.
+ine 595.
 (pdftex.def)             Requested size: 284.52756pt x 101.61841pt.
 
 
@@ -1207,14 +1215,14 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [40 <./Figures/Chapter4/openmv_structure.png>]
 
-LaTeX Warning: Citation 'github_repo' on page 41 undefined on input line 615.
+LaTeX Warning: Citation 'github_repo' on page 41 undefined on input line 610.
 
 [41] [42]
-<Figures/Chapter4/PLACEHOLDER.jpg, id=579, 490.08093pt x 361.35pt>
+<Figures/Chapter4/PLACEHOLDER.jpg, id=600, 490.08093pt x 361.35pt>
 File: Figures/Chapter4/PLACEHOLDER.jpg Graphic file (type jpg)
 <use Figures/Chapter4/PLACEHOLDER.jpg>
 Package pdftex.def Info: Figures/Chapter4/PLACEHOLDER.jpg  used on input line 6
-23.
+18.
 (pdftex.def)             Requested size: 284.52756pt x 209.79266pt.
 
 
@@ -1224,27 +1232,27 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 File: Figures/Chapter4/PLACEHOLDER.jpg Graphic file (type jpg)
 <use Figures/Chapter4/PLACEHOLDER.jpg>
 Package pdftex.def Info: Figures/Chapter4/PLACEHOLDER.jpg  used on input line 6
-46.
+41.
 (pdftex.def)             Requested size: 142.26378pt x 104.89357pt.
-<Figures/Chapter4/openmv_training.jpg, id=595, 1945.2675pt x 1443.89438pt>
+<Figures/Chapter4/openmv_training.jpg, id=616, 1945.2675pt x 1443.89438pt>
 File: Figures/Chapter4/openmv_training.jpg Graphic file (type jpg)
 <use Figures/Chapter4/openmv_training.jpg>
 Package pdftex.def Info: Figures/Chapter4/openmv_training.jpg  used on input li
-ne 655.
+ne 650.
 (pdftex.def)             Requested size: 369.88582pt x 274.54106pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [46]
-<Figures/Chapter4/openmv_pov.jpg, id=601, 2086.04344pt x 507.39563pt>
+<Figures/Chapter4/openmv_pov.jpg, id=622, 2086.04344pt x 507.39563pt>
 File: Figures/Chapter4/openmv_pov.jpg Graphic file (type jpg)
 <use Figures/Chapter4/openmv_pov.jpg>
-Package pdftex.def Info: Figures/Chapter4/openmv_pov.jpg  used on input line 66
-4.
+Package pdftex.def Info: Figures/Chapter4/openmv_pov.jpg  used on input line 65
+9.
 (pdftex.def)             Requested size: 398.33858pt x 96.88618pt.
 
-Overfull \hbox (8.33858pt too wide) in paragraph at lines 664--665
+Overfull \hbox (8.33858pt too wide) in paragraph at lines 659--660
  [][] 
  []
 
@@ -1254,36 +1262,36 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 [47 <./Figures/Chapter4/openmv_training.jpg>] [48 <./Figures/Chapter4/openmv_po
 v.jpg>]
 Chapter 5.
-<Figures/Chapter5/bias_example.png, id=614, 414.8298pt x 279.32355pt>
+<Figures/Chapter5/bias_example.png, id=635, 414.8298pt x 279.32355pt>
 File: Figures/Chapter5/bias_example.png Graphic file (type png)
 <use Figures/Chapter5/bias_example.png>
 Package pdftex.def Info: Figures/Chapter5/bias_example.png  used on input line 
-681.
+676.
 (pdftex.def)             Requested size: 284.52756pt x 191.59119pt.
-<Figures/Chapter5/weight_example.png, id=615, 395.67825pt x 279.32355pt>
+<Figures/Chapter5/weight_example.png, id=636, 395.67825pt x 279.32355pt>
 File: Figures/Chapter5/weight_example.png Graphic file (type png)
 <use Figures/Chapter5/weight_example.png>
 Package pdftex.def Info: Figures/Chapter5/weight_example.png  used on input lin
-e 689.
+e 684.
 (pdftex.def)             Requested size: 284.52756pt x 200.86559pt.
-<Figures/Chapter5/frozen_example.png, id=616, 421.3341pt x 279.32355pt>
+<Figures/Chapter5/frozen_example.png, id=637, 421.3341pt x 279.32355pt>
 File: Figures/Chapter5/frozen_example.png Graphic file (type png)
 <use Figures/Chapter5/frozen_example.png>
 Package pdftex.def Info: Figures/Chapter5/frozen_example.png  used on input lin
-e 697.
+e 692.
 (pdftex.def)             Requested size: 284.52756pt x 188.63327pt.
-<Figures/Chapter5/softmax_example.png, id=617, 395.67825pt x 279.32355pt>
+<Figures/Chapter5/softmax_example.png, id=638, 395.67825pt x 279.32355pt>
 File: Figures/Chapter5/softmax_example.png Graphic file (type png)
 <use Figures/Chapter5/softmax_example.png>
 Package pdftex.def Info: Figures/Chapter5/softmax_example.png  used on input li
-ne 705.
+ne 700.
 (pdftex.def)             Requested size: 284.52756pt x 200.86559pt.
-<Figures/Chapter5/comparison_difference.png, id=619, 395.67825pt x 279.32355pt>
+<Figures/Chapter5/comparison_difference.png, id=640, 395.67825pt x 279.32355pt>
 
 File: Figures/Chapter5/comparison_difference.png Graphic file (type png)
 <use Figures/Chapter5/comparison_difference.png>
 Package pdftex.def Info: Figures/Chapter5/comparison_difference.png  used on in
-put line 715.
+put line 710.
 (pdftex.def)             Requested size: 284.52756pt x 200.86559pt.
 [49
 
@@ -1297,64 +1305,64 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 [50 <./Figures/Chapter5/bias_example.png> <./Figures/Chapter5/weight_example.pn
 g>] [51 <./Figures/Chapter5/frozen_example.png> <./Figures/Chapter5/softmax_exa
 mple.png>]
-<Figures/Chapter5/STM_barPlot_OL.jpg, id=644, 794.97pt x 505.89pt>
+<Figures/Chapter5/STM_barPlot_OL.jpg, id=665, 794.97pt x 505.89pt>
 File: Figures/Chapter5/STM_barPlot_OL.jpg Graphic file (type jpg)
 <use Figures/Chapter5/STM_barPlot_OL.jpg>
 Package pdftex.def Info: Figures/Chapter5/STM_barPlot_OL.jpg  used on input lin
-e 727.
+e 722.
 (pdftex.def)             Requested size: 284.52756pt x 181.06271pt.
-<Figures/Chapter5/STM_barPlot_OL_batch.jpg, id=645, 794.97pt x 505.89pt>
+<Figures/Chapter5/STM_barPlot_OL_batch.jpg, id=666, 794.97pt x 505.89pt>
 File: Figures/Chapter5/STM_barPlot_OL_batch.jpg Graphic file (type jpg)
 <use Figures/Chapter5/STM_barPlot_OL_batch.jpg>
 Package pdftex.def Info: Figures/Chapter5/STM_barPlot_OL_batch.jpg  used on inp
-ut line 735.
+ut line 730.
 (pdftex.def)             Requested size: 284.52756pt x 181.06271pt.
-<Figures/Chapter5/STM_barPlot_OL_V2.jpg, id=646, 794.97pt x 505.89pt>
+<Figures/Chapter5/STM_barPlot_OL_V2.jpg, id=667, 794.97pt x 505.89pt>
 File: Figures/Chapter5/STM_barPlot_OL_V2.jpg Graphic file (type jpg)
 <use Figures/Chapter5/STM_barPlot_OL_V2.jpg>
 Package pdftex.def Info: Figures/Chapter5/STM_barPlot_OL_V2.jpg  used on input 
-line 743.
+line 738.
 (pdftex.def)             Requested size: 284.52756pt x 181.06271pt.
-<Figures/Chapter5/STM_barPlot_OL_V2_batch.jpg, id=647, 794.97pt x 505.89pt>
+<Figures/Chapter5/STM_barPlot_OL_V2_batch.jpg, id=668, 794.97pt x 505.89pt>
 File: Figures/Chapter5/STM_barPlot_OL_V2_batch.jpg Graphic file (type jpg)
 <use Figures/Chapter5/STM_barPlot_OL_V2_batch.jpg>
 Package pdftex.def Info: Figures/Chapter5/STM_barPlot_OL_V2_batch.jpg  used on 
-input line 751.
+input line 746.
 (pdftex.def)             Requested size: 284.52756pt x 181.06271pt.
-<Figures/Chapter5/STM_barPlot_LWF.jpg, id=648, 794.97pt x 505.89pt>
+<Figures/Chapter5/STM_barPlot_LWF.jpg, id=669, 794.97pt x 505.89pt>
 File: Figures/Chapter5/STM_barPlot_LWF.jpg Graphic file (type jpg)
 <use Figures/Chapter5/STM_barPlot_LWF.jpg>
 Package pdftex.def Info: Figures/Chapter5/STM_barPlot_LWF.jpg  used on input li
-ne 759.
+ne 754.
 (pdftex.def)             Requested size: 284.52756pt x 181.06271pt.
-<Figures/Chapter5/STM_barPlot_LWF_batch.jpg, id=649, 794.97pt x 505.89pt>
+<Figures/Chapter5/STM_barPlot_LWF_batch.jpg, id=670, 794.97pt x 505.89pt>
 File: Figures/Chapter5/STM_barPlot_LWF_batch.jpg Graphic file (type jpg)
 <use Figures/Chapter5/STM_barPlot_LWF_batch.jpg>
 Package pdftex.def Info: Figures/Chapter5/STM_barPlot_LWF_batch.jpg  used on in
-put line 767.
+put line 762.
 (pdftex.def)             Requested size: 284.52756pt x 181.06271pt.
-<Figures/Chapter5/STM_barPlot_CWR.jpg, id=650, 794.97pt x 505.89pt>
+<Figures/Chapter5/STM_barPlot_CWR.jpg, id=671, 794.97pt x 505.89pt>
 File: Figures/Chapter5/STM_barPlot_CWR.jpg Graphic file (type jpg)
 <use Figures/Chapter5/STM_barPlot_CWR.jpg>
 Package pdftex.def Info: Figures/Chapter5/STM_barPlot_CWR.jpg  used on input li
-ne 775.
+ne 770.
 (pdftex.def)             Requested size: 284.52756pt x 181.06271pt.
 
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 783.
+               Default added (so using `tbp') on input line 778.
 
 
-Overfull \hbox (106.72232pt too wide) in paragraph at lines 785--796
+Overfull \hbox (106.72232pt too wide) in paragraph at lines 780--791
  [] 
  []
 
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 799.
+               Default added (so using `tbp') on input line 794.
 
 
-Overfull \hbox (96.53555pt too wide) in paragraph at lines 800--810
+Overfull \hbox (96.53555pt too wide) in paragraph at lines 795--805
 [][] 
  []
 
@@ -1378,13 +1386,13 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-LaTeX Warning: Reference `' on page 53 undefined on input line 813.
+LaTeX Warning: Reference `' on page 53 undefined on input line 808.
 
-<Figures/Chapter5/batch_size_letters.png, id=657, 1300.86pt x 578.16pt>
+<Figures/Chapter5/batch_size_letters.png, id=678, 1300.86pt x 578.16pt>
 File: Figures/Chapter5/batch_size_letters.png Graphic file (type png)
 <use Figures/Chapter5/batch_size_letters.png>
 Package pdftex.def Info: Figures/Chapter5/batch_size_letters.png  used on input
- line 817.
+ line 812.
 (pdftex.def)             Requested size: 284.52756pt x 126.45454pt.
 [53 <./Figures/Chapter5/STM_barPlot_OL.jpg>] [54] [55 <./Figures/Chapter5/STM_b
 arPlot_OL_batch.jpg> <./Figures/Chapter5/STM_barPlot_OL_V2.jpg>] [56 <./Figures
@@ -1393,7 +1401,7 @@ arPlot_OL_batch.jpg> <./Figures/Chapter5/STM_barPlot_OL_V2.jpg>] [56 <./Figures
 rPlot_CWR.jpg>] [58 <./Figures/Chapter5/batch_size_letters.png>]
 Chapter 6.
 
-LaTeX Warning: Empty bibliography on input line 831.
+LaTeX Warning: Empty bibliography on input line 826.
 
 [59
 
@@ -1405,7 +1413,7 @@ LaTeX Warning: There were undefined references.
 LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: 7E3368F4A929D587D4B54F392D87EADB;5366.
+(rerunfilecheck)             Checksum: 4B8189EB88293C30D1B9F1F2B8F6CF3B;5847.
 
 Package biblatex Warning: Please (re)run Biber on the file:
 (biblatex)                thesis
@@ -1416,10 +1424,10 @@ Package logreq Info: Writing requests to 'thesis.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 19727 strings out of 478584
- 354351 string characters out of 2844401
- 1057917 words of memory out of 3000000
- 37462 multiletter control sequences out of 15000+600000
+ 19733 strings out of 478584
+ 354490 string characters out of 2844401
+ 1057967 words of memory out of 3000000
+ 37468 multiletter control sequences out of 15000+600000
  475704 words of font info for 50 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  61i,17n,75p,2131b,1591s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1437,9 +1445,9 @@ C:/Users/massi/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmt
 i12.pfb><C:/Users/massi/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfon
 ts/cm/cmtt12.pfb><C:/Users/massi/AppData/Local/Programs/MiKTeX/fonts/type1/publ
 ic/cm-super/sfrm1200.pfb>
-Output written on thesis.pdf (69 pages, 4175130 bytes).
+Output written on thesis.pdf (69 pages, 4177325 bytes).
 PDF statistics:
- 773 PDF objects out of 1000 (max. 8388607)
+ 794 PDF objects out of 1000 (max. 8388607)
  184 named destinations out of 1000 (max. 500000)
- 403 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 443 words of extra memory for PDF output out of 10000 (max. 10000000)
 
