@@ -110,9 +110,66 @@ The Thesis is organized as follows. The first chapter contains an introduction t
 
 
 \chapter{Related Works} \label{chap:relworks}
-In this chapter some information about the application of machine learning on tiny devices are given. Then a brief introduction to continual learnin is done with a following explanation of the most relevant state-of-the-art studies regarding continual learning in TinyML world. 
 
-\section{Machine learning in general}
+\section{Introduction to Machine Learning}
+% introduzione al concetto di machine learning - fatto
+% parlare delle diverse tipologie di trainigng (supervised, ecc) - fatto
+% parlare di come è fatto un modello - fatto
+% parlare delle varie tipologie di modelli per ML - fatto
+Machine learning is a branch of Artificial Intelligence (AI) that deals with the creation and training of models that have the ability to learn from data. This technology is a growing field of data science that is gaining popularity thanks to its flexibility to adapt to many problems. Machine learning models can be trained for different purposes such as regression of unknown systems, classification of data, predictions of data behaviour and artificial generation of data. One of the most relevant fields in which ML has a huge impact is computer vision.\\
+An ML models is a file generated from a training procedure with a specific setup. Training sessions are usually customized to make models learn specific tasks. The simplest ML model, called Deep Neural Network (DNN), is composed of neurons grouped inside layers that are connected in series as displayed in Figure \ref{fig:modelstructure}. The layers can be divided in: input layers, hidden layer and output layers. The input layer is the first of the model, and here the input data array is stored. Each neuron of this first layer contains a value from the input array or matrix that is fed to the model. The output layer is the last of the model. This contains the elaborated data which is usually an array of values. The hidden layers are all the layer in between the first and the last one. The types of hidden layer can change depending on the elaboration that is required for the application. Figure \ref{fig:modelstructure} shows a model with only fully connected layers. This type is characterized by the presence of neurons that are connected to every single neuron from the previous and next layer. Other types of layer can be: convolutional layer, which are able to apply a specific operation on images; max pooling layers, which are used for reducing the size of images maintaining the most relevant features; dropout layers.\\
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=140mm]{Figures/Chapter1/modelstructure.jpeg} 
+    \caption{On the right an example of layers inside a ML model. On the left a scheme explaining how a neuron behaves.}
+    \label{fig:modelstructure}    
+\end{figure}
+
+An important role is played by the smallest element in a model structure, the neuron. This component is the one responsible for the evolution of the network and for the learning abilities of the model. A neuron, or node, can be seen mathematically as a function that takes many inputs and generates one single output. A shown in Figure \ref{fig:modelstructure}, one neuron takes all the inputs, multiplies each of them for its weight, sums them together and adds to the result a biased value. Then the result of the addition is fed through an activation function which is used for introducing a non linearity in the model. The type of activation function is usually defined depending on the application of the model. Some well known functions are Softax, ReLu, Sigmoid, Linear, and Hyperbolic Tangent. Note that in a fully connected layers, every single node receives as input the outcome from every single node of the previous layer. \\
+The action of machine learning happens when a prediction is computed and a feedback is applied. An example of training step is the following. The model receives an input data sample, then it elaborates the sample by propagating it through all the layers. When the sample reaches the output layer it is transformed into a new array, which is dense of informations. In the case the model is used for classification, the prediction is compared with the true label, which is known since this is a training step. The error of the prediction is computed with a loss function which is then used for correcting the weights and biases from all the previous layers. If the training is performed on a big enough dataset, the model is then trained to recognize correctly data similar to the samples used for training.
+ML trainings can be categorized in several groups depending on how the training is performed. The main groups are:
+
+\begin{itemize}
+\item Supervised learning: a type of training where the model is provided with input data samples and desired output. The model is trained to yield the same outcome as the one provided by using a feedback applied on the weights that is based on the prediction error. Supervised learning is commonly used in classification problems (when a model is trained to categorize data in groups) and in regression problems (when a model is trained to find the relation between variables).
+\item Unsupervised learning: a type of training where the model is provided with only input data. During training the model learns to find patterns of the data and is able to categorize them in groups. This is commonly used in problems where the user is unsure about the properties of the dataset.
+\item Reinforcement learning: a type of training where the model is provided with input data and rewards. The goal of the model is to elaborate the input data and comoute an output, depending on the rewards obtained the model learns from its mistakes and tries to maximize the reward that it will get. This type of training is commonly used for minimization of problems such as industrial automation (minimization of robot paths), data processing, and playing chess games.
+\item Transfer learning: is not a real type of training, but more a technique that is used to transfer already gathered knowledge. This method takes an already trained model and fine-tunes just its last portion to train it on a new task that is still relevant to the application. 
+\end{itemize}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=140mm]{Figures/Chapter1/supervised.png} 
+    \caption{Summary of characteristics about supervised, unsupervised and reinforcement learning.}
+    \label{fig:supervised}    
+\end{figure}
+
+Depending on the types of layer used inside a ML model different types of structures can be defined. Different types of structures can be used for specific applications. Models that are composed of only fully connected layers, also called Neural Netowrks (NN) are well suited for regression and classification of data. Layers known as convolutional layers, are wellwell suited for the elaboration of images. They are based on the use of a filter that moves over an image and perform the operation of convolution with the values coming from the pixels. Usually these types of layers compose the initial layer of a CNN model. These models use at first convolutional layers for the extraction of data, then flatten the matrix of manipulated data into an array which is then fed to a NN which perform the classification on the image.
+Other types of models are the autoecnoders. These models can be seen as generative models since their role is to behave as constructor of lost data. An autoecnoder is composed of two groups of layers, the first is an encoder, which is a sequence of NN lauer with decreasing size, while the second is an encoder, which is a sequence of DNN layer with increasing size. The goal of an autoencoder is to take the input array, compress it into a smaller array and from there reconstruct the compressed array into its original array. If a trianing is done correctly, the decoder part of the model can be used for generating data from a very small quantity of data.\\
+Figure \ref{fig:structures} shows some examples of ML model structures aforementioned.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=140mm]{Figures/Chapter1/structures.png} 
+    \caption{Block diagram showing an example of ML model structure: DNN, CNN and autoencoder.}
+    \label{fig:structures}    
+\end{figure}  
+
+\section{Continual-on line learning}
+% spiegare cosa è ctastrophic forgetting, come mai serve, cosa va a risolvere, quali sono i problemi che iontroduce, 
+% parlare di cinme CL è trattato nella research, paralkre dlle tipologie di algoritmi, supervised training, frameworks gia sviluppatim metodi di valutazione?
+
+Until recent times the application of ML on MCUs has always been focused on the creation of intelligent small system that maintain good performance with reasonable consumption, limited time of inference and long lifetimes. A major negative aspect of the TinyML solutions is their focus on the inference of streams of data. Which almost always requires the usage of powerful machines for the training of NN models that are later deployed on the MCU. This results in the creation of a static network which is not able to adapt to the data and adjust to different scenarios. The solution to this problem is the creation of a Continual Learning system. \\
+CL systems are a variation of the tipical pipeline of ML. The main focus of CL systems is to be able to continuously update the model in order to adapt its structure and parameters to overcome context drift, be able to recognize appearance of new patterns and to avoid catastrophic forgetting. The latter is a problem that is directly introduced by the nature of the paradigm itself. By having a model that is continuously updated with a feedback loop that is directly dependent on the current erross i'ts clear how it's immediate to update the model in such a way that the old tasks are forgetten for the sake of learning the new ones. This could be seen also as a over fitting of the model on the new tasks and if oc course to be avoided. Different algorithms have different ways for contrasting this phenomenon. \\
+In todays literature several CL algoprithms and strategies have been already proposed. A well organized summary is proposed in \cite{lesort2020continual}, where the most relevant methods are briefly classified in 4 categories, originally proposed by \autocite{maltoni2019continuous}.
+\begin{itemize}
+\item Architectural: these algorithms are based on the usage of particular types of structures and architectures. Some common methods are weight-freezing, layer activation or dual-memories-models that try to imitate logn term memory and short term memory.
+\item Regularization: this group contains all those approaches that base their ability to retain past memories on the application of particular loss functions. In these loss functions usually a term is added with the aim of performing a feedback that considers both the old knowledge and tries to learn the new data.
+\item Rehearsal strategies: in these strategies past informations are periodically revisited by the model. This is done for strengthening the old knowledge and connections. Notice that this methods is not well suited for application on MCUs mainly because of the restricted memories. 
+\item Generative Replay: this methods implement similar strategies of the rehearsal. This time the data that is repeated in the models is not actually old data saved in the memory but it's actually data artificially generate by the model itself. 
+\end{itemize} 
+
+The type of strategies that better suits an application on MCU are for sure the regularization methods and the architectural methods. Both these groups require little to no extra computation with respect to a simple ML application, thus their strength is intrinsic in the update rules adopted. Some of the most important methods from the state of the art are, LWF, PNN, CWR, EWC, SI. 
 
 \section{Cloud vs edge inference}
 
@@ -138,49 +195,41 @@ The application of ML on MCUs, mobile devices or in general on the edge of IoT s
 \item energy efficiency: the transmission of huge quantities of data from the edge to the cloud takes a big portion of the energy consumption of an IoT system. Even if the application of NN is energy intensive it is an order of magnitude less, thus an improvement.
 \end{itemize}
 
-
-\section{Continual-on line learning}
-% spiegare cosa è ctastrophic forgetting, come mai serve, cosa va a risolvere, quali sono i problemi che iontroduce, 
-% parlare di cinme CL è trattato nella research, paralkre dlle tipologie di algoritmi, supervised training, frameworks gia sviluppatim metodi di valutazione?
-
-Until recent times the application of ML on MCUs has always been focused on the creation of intelligent small system that maintain good performance with reasonable consumption, limited time of inference and long lifetimes. A major negative aspect of the TinyML solutions is their focus on the inference of streams of data. Which almost always requires the usage of powerful machines for the training of NN models that are later deployed on the MCU. This results in the creation of a static network which is not able to adapt to the data and adjust to different scenarios. The solution to this problem is the creation of a Continual Learning system. \\
-CL systems are a variation of the tipical pipeline of ML. The main focus of CL systems is to be able to continuously update the model in order to adapt its structure and parameters to overcome context drift, be able to recognize appearance of new patterns and to avoid catastrophic forgetting. The latter is a problem that is directly introduced by the nature of the paradigm itself. By having a model that is continuously updated with a feedback loop that is directly dependent on the current erross i'ts clear how it's immediate to update the model in such a way that the old tasks are forgetten for the sake of learning the new ones. This could be seen also as a over fitting of the model on the new tasks and if oc course to be avoided. Different algorithms have different ways for contrasting this phenomenon. \\
-In todays literature several CL algoprithms and strategies have been already proposed. A well organized summary is proposed in \cite{lesort2020continual}, where the most relevant methods are briefly classified in 4 categories, originally proposed by \autocite{maltoni2019continuous}.
-\begin{itemize}
-\item Architectural: these algorithms are based on the usage of particular types of structures and architectures. Some common methods are weight-freezing, layer activation or dual-memories-models that try to imitate logn term memory and short term memory.
-\item Regularization: this group contains all those approaches that base their ability to retain past memories on the application of particular loss functions. In these loss functions usually a term is added with the aim of performing a feedback that considers both the old knowledge and tries to learn the new data.
-\item Rehearsal strategies: in these strategies past informations are periodically revisited by the model. This is done for strengthening the old knowledge and connections. Notice that this methods is not well suited for application on MCUs mainly because of the restricted memories. 
-\item Generative Replay: this methods implement similar strategies of the rehearsal. This time the data that is repeated in the models is not actually old data saved in the memory but it's actually data artificially generate by the model itself. 
-\end{itemize} 
-
-The type of strategies that better suits an application on MCU are for sure the regularization methods and the architectural methods. Both these groups require little to no extra computation with respect to a simple ML application, thus their strength is intrinsic in the update rules adopted. Some of the most important methods from the state of the art are, LWF, PNN, CWR, EWC, SI. 
-
-
-
 \section{Pruning and quantization}
+When deploying ML models on constrained device there are two main concerns, which are the available memory and the available computational power. To fight against these two limitations different techniques have been developed. Pruning and quantization are pre processing methods that can be employed on already trained model to reduce their memory footprint and the computation weight. \\
+Pruning is a strategy that is adopted after the training of a model. This is required because at each step of a pruning procedure, the model of interest is de gradated and so its performances. In most cases the model developed for the application is bigger than actually required. This is due to the initial allocation of the desired structure and the following training of all the parameters inside it. The pruning method relies on the fact, that ina a model a certain number of parameters are actually redundant, non relevant or useless for the application. In fact the strategy idea is to completely remove the less important connection between neurons with the aim of reducing the memory required for storing the model and also reduce the amount of computations for an inference. 
+A pruning step is composed of the following action: evaluate the importance of each weight based on their influence on the network output and performance, prune the less important weights (bring to 0 their value), re train the model that inevitably lost performance, check if the pruning is enough, if not perform another step. Figure \ref{fig:pruning} contains a block diagram showing the procedure of a pruning strategy.
 
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=110mm]{Figures/Chapter1/pruning.jpg} 
+    \caption{Block diagram showing the steps of a pruning procedure.}
+    \label{fig:pruning}    
+\end{figure}  
 
+An additional improvement brought by pruning is the reduced amount of computation. If done strategically, the pruning process can introduce sparsity (a localized population of zero values) in the matrices used for storing weights and biases. If the sparsity is injected with a structure it is then possible to also reduce the amount of computations, thus improving the efficiency of inference in terms of time, energy and complexity.\\
+
+Another method that is often used for compressing ML models is quantization. Quantization is a process, usually applied after pruning, that aims at reducing the bits per weight. The idea is to reduce the memory dedicated to each weight for example FP32 (floating point 32), to a smaller amount of memory, such as INT8 (integer 8 bit). The conversion of weights from floating point to integer is an operation that can quickly and easily introduce errors  and make the model's accuracy drop. 
 
 
 
 \chapter{Hardware} 
 \label{hardware}
-In this chapter, the hardware used to carry out the experiments is described. The application of ML on MCU does not require specific types of hardware, but it requires devices that are capable of sustaining those kinds of computations. In today's market, lots of off-the-shelf MCUs are already equipped with hardware components that make the device suitable for the job. These microcontrollers only need to be correctly equipped with framework and tools that optimize ML computations. In this study, for both applications, devices based on STM microcontrollers were used. The gesture recognition application uses an STM32 Nucleo F401-RE \autocite{nucleo_datasheet}, a well performing and easy to use development board. The image classification application uses an OpenMV camera \autocite{openmv_datasheet}, a device equipped with a camera sensor that features an STM32 H7 MCU and is programmable in MicroPython. Figure \ref{fig:hardware_all} shows both devices: on the left the Nucleo F401-R, and on the right the OpenMV camera. The reasons that brought to the selection of these two MCUs depends mainly on the quick availability for the Nucleo development board and the uniqueness of characteristics for the OpenMV camera.
+In this chapter, the hardware used to carry out the experiments is described. The application of ML on MCU does not require specific types of hardware, but it requires devices that are capable of sustaining those kinds of computations. In today's market, lots of off-the-shelf MCUs are already equipped with hardware components that make the device suitable for the job. These microcontrollers only need to be correctly equipped with framework and tools that optimize ML computations. In this study, for both applications, devices based on STM microcontrollers were used. The gesture recognition application uses an STM32 Nucleo F401-RE \autocite{nucleo_datasheet}, a well performing and easy to use development board. The image classification application uses an OpenMV camera \autocite{openmv_datasheet}, a device equipped with a camera sensor that features an STM32 H7 MCU and is programmable in MicroPython. Figure \ref{fig:hardware_all} shows both devices: on the left the Nucleo F401-RE, and on the right the OpenMV camera. The reasons that brought to the selection of these two MCUs depends mainly on the quick availability for the Nucleo development board and the uniqueness of characteristics for the OpenMV camera.
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.7\textwidth]{Figures/Chapter2/hardware.jpg} 
-    \caption{PLACEHOLDER - da cambiare}
+    \includegraphics[width=120mm]{Figures/Chapter2/hardware.jpg} 
+    \caption{Hardware used for the CL applications. On the left Nucelo ST32 F401-RE, on the left OpenMV camera.}
     \label{fig:hardware_all}    
 \end{figure}
-
 
 \section{Gesture recognition hardware}
 The gesture recognition experiment is carried out with a Nucleo STM32 F401-RE. This device is a 64 bit microcontroller produced by STMicroelectronics that belongs to the $high-performance$ product line. This product is thought to be a flexible and easy to use development board for fast prototyping, which is also compatible with Arduino Uno shields (the internal GPIOs pin scheme is the same as Arduino Uno). Differently from other devices produced by STMicroelectronics, this MCU does not require the additional debugger/programmer ST-LINK. This component is included in the first part of the device, separated from the rest with visible gaps in the board. The Nucleo can be easily programmed in C or C++ with the the libraries and tools available in the STM32Cube package. This is a powerful software that can be exploited to perform an initial setup of any STM device, such as the definition of all peripherals and basic microcontroller parameters. The STM32Cube package also includes libraries for any device produced by STM. Moreover, using STM32Cube, the Nucleo board STM32 F401-RE fully supports the machine learning extension, namely STM-CUBE-AI \autocite{stm_cube_ai}. This toolkit can be used for compressing and loading ML models on the device and later perform optimized and efficient inference in real time. \\
 The main features of the Nucleo development board are summarized in Table \ref{table:specifications_stm}.\\
 
 \begin{table}[]
-\caption{PLACEHOLDER - da cambiare}
+\caption{Nucleo STM F401-RE specifications}
 \centering
 \begin{tabular}{|l|c|}
 \hline
@@ -196,8 +245,8 @@ The gesture recognition application uses ML algorithms for the analysis of time 
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.7\textwidth]{Figures/Chapter2/hardware_stm.jpg} 
-    \caption{PLACEHOLDER - da cambiare}
+    \includegraphics[width=120mm]{Figures/Chapter2/hardware_stm.jpg} 
+    \caption{Hardware used in the gesture recognition application. On the left the sensor shield IKS01A2, on the right the sensor shield mounted on the Nucleo STM32 F401-RE.}
     \label{fig:hardware_stm}    
 \end{figure}
 
@@ -229,8 +278,8 @@ Because the application of this study requires a camera pointing to a screen, a 
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.7\textwidth]{Figures/Chapter2/hardware_openmv.jpg} 
-    \caption{PLACEHOLDER - da cambiare}
+    \includegraphics[width=120mm]{Figures/Chapter2/hardware_openmv.jpg} 
+    \caption{Hardware used in the image classification application. On the left the 3D printed tripod, on the right the OpenMV camera mounted on the 3D printed tripod.}
     \label{fig:hardware_openmv}    
 \end{figure}
 
@@ -257,8 +306,8 @@ Now consider a simple and short model composed of few fully connected layers, al
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.7\textwidth]{Figures/Chapter3/PLACEHOLDER.jpg} 
-    \caption{Place holder}
+    \includegraphics[width=120mm]{Figures/Chapter3/basicsystem.png} 
+    \caption{Block diagram showing an example of model training}
     \label{fig:block_diag_esempio}    
 \end{figure}
 
@@ -275,7 +324,7 @@ Where equation \ref{zi} is the formula that describes the propagation of inputs 
 Knowing the entire mathematical description of the classification layer, it is possible to compute the relation between weights and prediction error. To do so, it is necessary to compute the derivative of the error with respect to the weight of interest. 
 
 \begin{equation}
-	\frac{\partial E}{\partial w_{ij}} = \frac{\partial E}{\partial S_i} \cdot \frac{\partial S_i}{\partial z_i} \cdot \frac{\partial z_i}{\partial w_{ij}}  
+	\frac{\partial L^{CROSS}_i}{\partial w_{ij}} = \frac{\partial L^{CROSS}_i}{\partial S_i} \cdot \frac{\partial S_i}{\partial z_i} \cdot \frac{\partial z_i}{\partial w_{ij}}  
 \end{equation}
 
 Each block is then computed as:
@@ -283,13 +332,21 @@ Each block is then computed as:
 \begin{align}
 	\frac{\partial z_i}{\partial w_{ij}} &= \frac{ \partial (\ \sum_i w_{ij} \: x_j + b_i )\ }{ \partial w_{ij}} = x_i \\[10pt]
 	%
-	\frac{\partial S_i}{\partial z_i} &= \frac{\partial INSERIRE}{\partial z_i} \nonumber \\
-	&= \frac{e^{z_i}}{(\sum e^{z_i})^2}- \frac{(e^{z_i})^2}{(\sum e^{z_i})^2} \nonumber \\
+	\frac{\partial S_i}{\partial z_i} &= \frac{e^{z_i} \sum e^{z_i} - e^{z_i} e^{z_i}}{ (\ \sum e^{z_i} )\ ^2} \nonumber \\
+	&= \frac{e^{z_i}}{\sum e^{z_i}}- \frac{(e^{z_i})^2}{(\sum e^{z_i})^2} \nonumber \\
 	&= Softmax(z_i) - (Softmax(z_i))^2 \nonumber \\
 	&= Softmax(z_i) - (1-Softmax(z_i)) \\[10pt]
-	%
-	ES &= \frac{1}{1} 
 \end{align}
+
+The steps required for the computations of the last block are a bit more complex:
+
+%\begin{align}
+%	S_i &= \frac{e^{z_i}}{\sum_i e^{z_i}} = \frac{e^{z_i}}{\omega} \qquad log(S_i) = z_i - log(\omega)\\
+%	\frac{\partial L^{CROSS}_i}{\partial S_i} &= \frac{\partial (\ - \frac{1}{n} \sum_k [\ y \: ln(y_i) \: +\: (1-t_i) \: ln(1-y_i) ]\ )\ }{\partial S_i} \\
+%	&= - \sum_j t_j \frac{\partial log(S_i)}{\partial S_i} \\
+	
+%	where & \frac{\partial log(S_i)}{\partial z_i}
+%\end{align}
 
 Then it is immediate to apply the relation weight-error inside a feedback loop for the correction of the parameters. The final formula that defines the back propagation on weights and biases of a classification layer that uses Softmax as activation function and categorical cross entropy as loss function is:
 
@@ -335,15 +392,15 @@ Figures \ref{fig:block_diag_OL} and \ref{fig:block_diag_OLwb} contain block diag
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.7\textwidth]{Figures/Chapter3/PLACEHOLDER.jpg} 
-    \caption{Place holder - OL}
+    \includegraphics[width=120mm]{Figures/Chapter3/OL_.png} 
+    \caption{Block diagram describing the algorithm TinyOL.}
     \label{fig:block_diag_OL}    
 \end{figure}
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.7\textwidth]{Figures/Chapter3/PLACEHOLDER.jpg} 
-    \caption{Place holder - OL with batches}
+    \includegraphics[width=120mm]{Figures/Chapter3/PLACEHOLDER.jpg} 
+    \caption{Block diagram describing the algorithm TinyOL with batches.}
     \label{fig:block_diag_OLwb}    
 \end{figure}
 
@@ -378,15 +435,15 @@ The method TinyOL V2 requires the same amount of memory used by TinyOL, which me
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.7\textwidth]{Figures/Chapter3/OLV2.png} 
-    \caption{Place holder - OLV2}
+    \includegraphics[width=120mm]{Figures/Chapter3/OLV2_.png} 
+    \caption{Block diagram describing the algorithm TinyOL V2.}
     \label{fig:block_diag_OLV2}    
 \end{figure}
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.7\textwidth]{Figures/Chapter3/OLV2.png} 
-    \caption{Place holder - OLV2}
+    \includegraphics[width=120mm]{Figures/Chapter3/OLV2.png} 
+    \caption{Block diagram describing the algorithm TinyOL V2 with batches.}
     \label{fig:block_diag_OLV2wb}    
 \end{figure}
 
@@ -440,8 +497,8 @@ Both LWF methods require the same amount of memory, which is two times the amoun
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.7\textwidth]{Figures/Chapter3/LWF.png} 
-    \caption{Place holder - LWF}
+    \includegraphics[width=120mm]{Figures/Chapter3/LWF_.png} 
+    \caption{Block diagram describing the algorithm LWF.}
     \label{fig:block_diag_LWF}    
 \end{figure}
 
@@ -469,8 +526,8 @@ CWR is an easy to implement method. Its strengths are hidden in the double archi
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.7\textwidth]{Figures/Chapter3/CWR.png} 
-    \caption{Place holder - CWR}
+    \includegraphics[width=120mm]{Figures/Chapter3/CWR_.png} 
+    \caption{Block diagram describing the algorithm CWR.}
     \label{fig:block_diag_CWR}    
 \end{figure}
 
@@ -510,8 +567,8 @@ Figure \ref{fig:letters_motion} shows the general path that was followed while d
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=80mm]{Figures/Chapter4/letters_motion.jpg} 
-    \caption{Motion of the accleerometer (NON SI VEDONO LE FRECCE ARANCIO)}
+    \includegraphics[width=90mm]{Figures/Chapter4/letters_motion.jpg} 
+    \caption{Motion followed with the sensor for writing letters in the air.}
     \label{fig:letters_motion}    
 \end{figure}
 
@@ -522,7 +579,7 @@ After this, both datasets are divided in training and testing portions, which is
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=140mm]{Figures/Chapter4/flow_dataset_letters.png} 
+    \includegraphics[width=120mm]{Figures/Chapter4/flow_dataset_letters.png} 
     \caption{Stankey diagram showing how the letter dataset is divided}
     \label{fig:flow_dataset_letters}    
 \end{figure}
@@ -533,7 +590,7 @@ For the image classification application the well-known MNIST dataset was used. 
 \begin{figure}[h!]
     \centering
     \includegraphics[width=100mm]{Figures/Chapter4/mnist_dataset.png} 
-    \caption{Example of images of digits in the MNIST dataset}
+    \caption{Example of images from the MNIST digits dataset}
     \label{fig:mnist_dataset}    
 \end{figure}
 
@@ -542,7 +599,7 @@ Figure \ref{fig:flow_dataset_openmv} shows how the dataset is divided for the tr
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=140mm]{Figures/Chapter4/flow_dataset_openmv.png} 
+    \includegraphics[width=120mm]{Figures/Chapter4/flow_dataset_openmv.png} 
     \caption{Stankey diagram showing how the MNIST dataset is divided}
     \label{fig:flow_dataset_openmv}    
 \end{figure}
@@ -556,7 +613,7 @@ In the gesture recognition application, the model elaborates a time series of ac
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=100mm]{Figures/Chapter4/letter_structure.png} 
+    \includegraphics[width=120mm]{Figures/Chapter4/letter_structure.png} 
     \caption{Letter recognition model: basic structure and its separation in frozen model and OL classification layer}
     \label{fig:letter_structure}    
 \end{figure}
@@ -567,7 +624,7 @@ The accuracy obtained from the testing is 96.83\%. Figure \ref{fig:training_lett
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=130mm]{Figures/Chapter4/training_letters.jpg} 
+    \includegraphics[width=120mm]{Figures/Chapter4/training_letters.jpg} 
     \caption{Letter recognition training: on the left the variation of loss and validation; on the right the accuracy for each class}
     % Qui il grafico di destra va bene, magari puoi mettere dentro anche i plot di accuratezza e validation accuracy durante il trainin. Mentre il grafico di sinistra potrebbe essere sostituito con il risultato del test, quindi utilizzando il dataset specifico di test e non il risultato alla fine del training. In questo caso si potrebbe mostrare anche la confusion matrix e calcolare le metriche come precision, recall e fscore.
     \label{fig:training_letters}    

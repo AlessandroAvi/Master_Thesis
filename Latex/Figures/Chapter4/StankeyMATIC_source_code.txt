@@ -1,0 +1,40 @@
+A [560] Dataset
+E [560] Dataset
+I [560] Dataset
+O [560] Dataset
+U [560] Dataset
+B [760] Dataset
+R [760] Dataset
+M [760] Dataset
+
+Dataset  [881] Tensorflow training
+Dataset  [4249] OL training
+
+Tensorflow training [616] TF_training 
+Tensorflow training [176] TF_testing
+Tensorflow training [88] TF_validation
+OL training [3400] OL_training
+OL training [849] OL_testing
+
+SIZE: 880,320
+MARGINS: 0,0,0,0
+####################################################
+
+
+MNIST dataset [60000]
+
+MNIST dataset [36017] low digits
+MNIST dataset [23983] high digits
+
+low digits [36017] Tensorflow training
+low digits [3000] CL training
+high digits [2000] CL training
+
+Tensorflow training [25211] TF_training
+Tensorflow training [7203] TF_testing
+Tensorflow training [3601] TF_validation
+CL training [4000] CL_training
+CL training [1000] CL_testing
+
+SIZE: 880,400
+MARGINS: 0,0,0,0
