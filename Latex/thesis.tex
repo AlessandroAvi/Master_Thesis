@@ -112,18 +112,22 @@ The Thesis is organized as follows. The first chapter contains an introduction t
 \chapter{Related Works} \label{chap:relworks}
 
 \section{Introduction to Machine Learning}
-Machine learning is a branch of Artificial Intelligence (AI) that deals with the creation and training of models that have the ability to learn from data. This technology is a growing field of data science that is gaining popularity thanks to its flexibility to adapt to many problems. Machine learning models can be trained for different purposes such as regression of unknown systems, classification of data, predictions of data behaviour and artificial data generation. One of the most relevant fields in which ML has a huge impact is computer vision.\\
-An ML models is a file generated from a training procedure set up with specific characteristics. Training sessions are usually customized to make models learn specific tasks. The simplest ML model, called Deep Neural Network (DNN), is composed of neurons grouped inside layers that are connected in series as displayed in Figure \ref{fig:modelstructure}. The layers can be divided in: input layers, hidden layer and output layers. The input layer is the first of the model, and here the input array is stored. Each neuron of this first layer contains a value from the input array (or matrix). The output layer is the last of the model. This contains the elaborated data which is usually an array of values. The hidden layers are all the layer in between the first and the last one. The type of hidden layer can change depending on the elaboration that is required for the application. Figure \ref{fig:modelstructure} shows a model with only fully connected layers. This type is characterized by the presence of neurons that are connected to every single neuron from the previous and next layer. Other types of layer can be: convolutional layer, which are able to apply a specific operation on images; max pooling layers, which are used for reducing the size of images maintaining the most relevant features; dropout layers.\\
+Machine learning is a branch of Artificial Intelligence (AI) that deals with the creation and training of models that have the ability to learn from data. This technology is a growing field of data science that is gaining popularity thanks to its flexibility to adapt to many problems. Machine learning models can be trained for different purposes such as regression of unknown systems, classification of data, predictions of data behaviour and artificial data generation.\\
+An ML models is a file generated from a training procedure set up with specific characteristics. Training sessions are usually customized to make models learn tasks that can be applied in real world scenarios on data that have characteristics relevant to the training dataset. The simplest ML model, called Deep Neural Network (DNN), is composed of neurons grouped inside layers that are connected in series as displayed in Figure \ref{fig:modelstructure}. The layers can be divided in: input layers, hidden layer and output layers. 
+The input layer is the first of the model. Here the input array (or matrix) is inserted and each neuron of the layer is composed of a value from the input sample. 
+The output layer is the last of the model, this contains the elaborated data. Depending on the use of the model and on its characteristics the output values can represent different types of information, such as bounding boxes positions, percentages representing classification, artificial generated data,... 
+The hidden layers are all the layer that can be found in between the first and the last one. The type of hidden layer can change depending on the application and the type of elaboration that is applied on the data. The model represented in  Figure \ref{fig:modelstructure} iscomposed of only fully connected layers. This type of layer is characterized by neurons that are connected to every single node from the previous and following layers. Some examples of types are: convolutional layer, which are used to apply the convolution operation on images; pooling layers, which are used for extracting the most relevant features from an image while reducing its size; dropout layers, which are used for randomly nullify input values for avoiding overfitting; normalization layer, which are used for scale the input data to suitable intervals with the aim of removing bias. \\
 
 \begin{figure}[h!]
     \centering
     \includegraphics[width=140mm]{Figures/Chapter1/modelstructure.jpeg} 
-    \caption{On the right an example of layers inside a ML model. On the left a scheme explaining how a neuron behaves.}
+    \caption{On the right an example of layers inside a ML model. On the left a scheme explaining how a neuron behaves. IMMAGINE NON DEFINITIVA}
     \label{fig:modelstructure}    
 \end{figure}
 
-An important role is played by the smallest element in a ML model, the neuron. This component is the one responsible for the evolution of the network and for its learning abilities. A neuron, or node, can be seen mathematically as a function that takes many inputs and generates one single output. As shown in Figure \ref{fig:modelstructure}, one neuron takes all the inputs, multiplies each one for a custom weight, sums them results together and adds to it a biased value. Then the result of the addition is fed through an activation function which is used for introducing a non linearity in the model. The type of activation function is usually defined depending on the application of the model. Some well known functions are Softax, ReLu, Sigmoid, Linear, and Hyperbolic Tangent. Note that in a fully connected layers, every single node receives as input the outcome from every node of the previous layer. \\
-The training of a ML model happens when after a prediction, the feedback is applied on the parameters. An example of training step is the following. The model receives an input sample and it gets propagated through all the layers of the model. When the sample reaches the output layer its value do not represent any more the input sample, but is transformed into an elaborated array dense of information. Suppose the model is trained for a classification application. In this case the prediction is compared with the true label, which is known a priori since this is a training step. A loss function is used for computing the error that is then used for correcting the weights and biases from all the previous layers. If the training is performed on a big enough dataset, the model is then trained to recognize correctly data similar to the training samples.
+An important role is played by the smallest element in a ML model, the neuron. This component is the one responsible for the evolution of the network and for its learning and adaptation abilities. A neuron, or node, can be seen mathematically as a function that takes many inputs and generates one single output. As shown in Figure \ref{fig:modelstructure}, one node takes all the inputs, multiplies each one for a custom weight, sums them together and adds to it a biased value. Then the result of the addition is fed through an activation function which is used for introducing a non linearity in the model. The type of activation function is usually defined depending on the application of the model. Some well known functions are Softax, ReLU, Sigmoid, Linear, and Hyperbolic Tangent. 
+The most common activation functions in CNN and DNN models are Softmax and ReLU. 
+The Softmax activation function is specifically used in classification layers because it has the ability to convert the values of an array into values that sum up to 1. This function is particularly useful in classification applications because it can be seen as a function that maps an array of values to an array of probabilities. Where each probability is a measure of how confident the model is in assigning an input to a class. The ReLU activation function, on the other hand, is used only on the hidden layers. Its use is typically preferred to Hyperbolic Tangent or Sigmoid because it introduces less complexity in the computation of the Stochastic Gradient Descend (SGD) and avoids a problem known as Vanishing Gradient \autocite{ReLU_explanation}.\\
 ML trainings can be categorized in several groups depending on how the training is performed. The main groups are:
 
 \begin{itemize}
@@ -133,23 +137,27 @@ ML trainings can be categorized in several groups depending on how the training 
 \item Transfer learning: is not a real type of training, but more a technique that is used to transfer already gathered knowledge. This method takes an already trained model and fine-tunes its last portion. The idea usually is t use state-of-the-art models that are trained for generic purposes and fine tune them to be applicable in more specific applications (example: use a state-of-the-art model for object identification and fine tune it to recognize humans in infra-red images)
 \end{itemize}
 
+Figure \ref{fig:supervised} shows the main characteristic of the different training types aforementioned.
+
 \begin{figure}[h!]
     \centering
     \includegraphics[width=140mm]{Figures/Chapter1/supervised.png} 
-    \caption{Summary of characteristics about supervised, unsupervised and reinforcement learning.}
+    \caption{Summary of characteristics about supervised, unsupervised and reinforcement learning. IMMAGINE NON DEFINITIVA}
     \label{fig:supervised}    
 \end{figure}
 
-Depending on the types of layer used inside a ML model, different structures can be defined. Different model structures can be exploited for different applications. Some examples of basic models are DNN, CNN and autoencoders. 
-Models that are composed of only fully connected layers, also called Deep Neural Networks (DNN) are well suited for regression and classification of data.
-Layers known as convolutional layers, are well suited for the elaboration of images. They are based on the use of filters that move over an image and perform the convolution operation. This is one of the basic procedure used in image processing ofr the extraction of data from matrices of data representing pixels from images. Usually these types of layers compose the initial layer of a Convolutional Neural Network (CNN) model. These models contain in the first portion some number of convolutional layers which are followed by flatten layers, that are used for transforming matrices in arrays, which is then fed to a DNN for the classification of the data.
-Other types of models are autoecnoders. These models can be seen as generative models since their role is to behave as constructor of lost data. An autoecnoder is composed of two groups. The first is an Encoder, which is just a sequence of NN layers with decreasing siz. The second groups is an Encoder, which is a sequence of NN layer with increasing size. The goal of an autoencoder is to take the input array, compress it into a smaller array, until reaching a bottleneck, and from there reconstruct the compressed array into the original values. If a training is done correctly, the decoder part of the model can be used for generating arrays from a very small quantity of data.\\
+A training step is the process that allows a model to change its weight and make them converge toward an optimal state where the error committed by the prediction is minimized. An example of training step is the following. The model receives an input sample and propagates it through all the hidden layers. Once the data reaches the output layer, a prediction is computed and later compared with the ground truth label (if the training is supervised). A loss function is used for computing the error performed by the prediction and then the back propagation is performed. This procedure consists in correcting all the weights and biases of all previous layers with the aim of minimizing the error of future predictions. If the training is performed on a big enough and variegated dataset, the parameters should be now in a condition that allows the model to consistently make predictions that satisfying predictions.\\
+
+Depending on the types of layer used inside a ML model, several model types can be defined. Different structures can be exploited for different applications, some examples of basic models are DNN, CNN and autoencoders. \\
+Models that are composed of only fully connected layers, also called Deep Neural Networks (DNN) are well suited for regression and classification of data. These layers are capable of performing elaboration of data simply by relying on the use of activation functions and correction over the weights and biases. 
+Layers known as convolutional layers, are well suited for the elaboration of images. They are based on the use of filters that move over an image and perform the convolution operation. This is one of the basic procedure used in image processing for the extraction of features from matrices of data (like pixel values inside an image). Usually these types of layers can be found int the initial portion of a Convolutional Neural Network (CNN) model. These models are usually divided in three part. The first is composed of multiple convolutional layers used for feature extraction. This is followed by flattening layers that are used for transforming matrices in arrays. The last portion is composed of fully connected layers, so basically the third part is a DNN that applies classification elaboration over the features extracted from the images.	\\
+Other types of models are autoencoders. These models can be seen as generative models, since their role is to behave as constructor of lost data. An autoencoder is composed of two groups called Encoder and Decoder. The Encoder is just a sequence of fully connected layers with decreasing size, while the Decoder is a sequence of fully connected layers with increasing size. The goal of these types of models is to take an input samples, compress it into a smaller size, in what is called bottleneck, and then reconstruct the compressed array into the original values. If a training is done correctly, the Encoder can be discarded, and the Decoder part can be used as an artificial generator of data.\\
 Figure \ref{fig:structures} shows some examples of ML model structures aforementioned.
 
 \begin{figure}[h!]
     \centering
     \includegraphics[width=140mm]{Figures/Chapter1/structures.png} 
-    \caption{Block diagram showing an example of ML model structure: DNN, CNN and autoencoder.}
+    \caption{Block diagram showing an example of ML model structure: DNN, CNN and autoencoder. IMMAGINE NON DEFINITIVA}
     \label{fig:structures}    
 \end{figure}  
 
@@ -159,8 +167,20 @@ Figure \ref{fig:structures} shows some examples of ML model structures aforement
 % spiegare i problemi che vengono introdotti, cosa deve aggirare
 % iniziare a parlade di CL nella research, tipologie di algoritmi, accennare a algoritmi gia sviluppati
 % apralre di altri studi relativi a CL
+Applications of machine learning are based on the use of model for the elaboration of data. An important aspect regarding standard ML approaches is the possibility of these models to perform only inference over the inputs. This limits the scenarios in which these applications can be deployed. The models are not capable of adapting to changing context, which are very common and compose the vast majority of applications that concern the use of MCUs. To overcome this problem an additional aspect can be introduced into standard ML methods, which is continual learning. \\
+Continual learning is a paradigm of machine learning where models are trained in real time with streams of data presented sequentially. The main concern of this technology is to introduce to these meodel the ability to adapt to changes and drift over the data and the context. It is often the case that ML models are trained in ideal scenarios that use dataset composed of static data. This is not an optimal situation because later, at deploy time, the model could encounter problems such as drop in accuracy, and sub optimal behaviour. The use of CL fixes the rigidity of ML models by introducing the ability to train ML model in real time over stream of data. \\
+CL is a type of technology that finds a well suited field of application in IoT and TinyML. The application of ML o the edge is a good example of stydu in which CL shines.  mainly because of the intrinsic characteristic of typical applications scenario. Tiny devices are usually deployed for extended periods of time in an environment and are not 
 
-Continual learning is paradigm of machine learning, where models are trained in real time over streams of data presented sequentially. The goal of CL is to able to learn in real time new skills without forgetting previous gathered knowledge. One of the main challenges in not the creation of models that can train on stream of data, but rather the implementation of autonomous systems that can integrate dynamically the information observed inside the model using smart algorithms. \\
+
+
+
+
+
+
+
+
+
+The goal of CL is to train model learn in real time new skills without forgetting previous gathered knowledge. One of the main challenges in not the creation of models that can train on stream of data, but rather the implementation of autonomous systems that can integrate dynamically the information observed inside the model using smart algorithms. \\
 Continual learning application are scenarios in which real time training is applied on ML models because of the lack of availability of entire dataset at once. CL aims at training a model on the sequences of data that are presented from time to time, with also all the problems implied, like catastrophic forgetting, data distribution shifts and scarce data problems. 
 
 
@@ -238,7 +258,7 @@ An additional improvement brought by pruning is the reduced amount of computatio
 \begin{figure}[h!]
     \centering
     \includegraphics[width=110mm]{Figures/Chapter1/pruning.jpg} 
-    \caption{Block diagram showing the steps of a pruning procedure.}
+    \caption{Block diagram showing the steps of a pruning procedure. IMMAGINE NON DEFINITIVA}
     \label{fig:pruning}    
 \end{figure}  
 
@@ -424,14 +444,14 @@ Figures \ref{fig:block_diag_OL} and \ref{fig:block_diag_OLwb} contain block diag
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=120mm]{Figures/Chapter3/OL_.png} 
+    \includegraphics[width=120mm]{Figures/Chapter3/OL.png} 
     \caption{Block diagram describing the algorithm TinyOL.}
     \label{fig:block_diag_OL}    
 \end{figure}
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=120mm]{Figures/Chapter3/PLACEHOLDER.jpg} 
+    \includegraphics[width=120mm]{Figures/Chapter3/OLwb.png} 
     \caption{Block diagram describing the algorithm TinyOL with batches.}
     \label{fig:block_diag_OLwb}    
 \end{figure}
@@ -467,14 +487,14 @@ The method TinyOL V2 requires the same amount of memory used by TinyOL, which me
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=120mm]{Figures/Chapter3/OLV2_.png} 
+    \includegraphics[width=120mm]{Figures/Chapter3/OLV2.png} 
     \caption{Block diagram describing the algorithm TinyOL V2.}
     \label{fig:block_diag_OLV2}    
 \end{figure}
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=120mm]{Figures/Chapter3/OLV2.png} 
+    \includegraphics[width=120mm]{Figures/Chapter3/OLv2wb.png} 
     \caption{Block diagram describing the algorithm TinyOL V2 with batches.}
     \label{fig:block_diag_OLV2wb}    
 \end{figure}
@@ -529,7 +549,7 @@ Both LWF methods require the same amount of memory, which is two times the amoun
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=120mm]{Figures/Chapter3/LWF_.png} 
+    \includegraphics[width=120mm]{Figures/Chapter3/LWF.png} 
     \caption{Block diagram describing the algorithm LWF.}
     \label{fig:block_diag_LWF}    
 \end{figure}
@@ -558,7 +578,7 @@ CWR is an easy to implement method. Its strengths are hidden in the double archi
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=120mm]{Figures/Chapter3/CWR_.png} 
+    \includegraphics[width=120mm]{Figures/Chapter3/CWR.png} 
     \caption{Block diagram describing the algorithm CWR.}
     \label{fig:block_diag_CWR}    
 \end{figure}
@@ -641,7 +661,7 @@ Once the datasets are created and post-processed, the training of the frozen mod
 The trainings of the frozen models and their manipulation was carried out with Tensorflow library and Python.\\
 
 \subsection{Gesture recognition model}
-In the gesture recognition application, the model elaborates a time series of accelerometer data. The model's structure is composed of only fully connected layers, which makes the structure very simple. Typical applications of ML on time series use LSTM types of models, which are structures well suited for the elaboration of time dependent signals. In this case, the results obtained from a structure composed of only fully connected layers brought to satisfying results, so the model's structure was kept as is. The layer sizes are 600 for the input, 128 for the hidden layers, and 5 for the classification layers. The activations functions are, Softmax for the classification layer, and ReLu for all the other layers. Figure \ref{fig:letter_structure} shows a plot that contains the basic structure of the model used.\\
+In the gesture recognition application, the model elaborates a time series of accelerometer data. The model's structure is composed of only fully connected layers, which makes the structure very simple. Typical applications of ML on time series use LSTM types of models, which are structures well suited for the elaboration of time dependent signals. In this case, the results obtained from a structure composed of only fully connected layers brought to satisfying results, so the model's structure was kept as is. The layer sizes are 600 for the input, 128 for the hidden layers, and 5 for the classification layers. The activations functions are, Softmax for the classification layer, and ReLU for all the other layers. Figure \ref{fig:letter_structure} shows a plot that contains the basic structure of the model used.\\
 
 \begin{figure}[h!]
     \centering
