@@ -66,41 +66,15 @@ The order of actions in this code is:
 
 
 
-def plot_TestAccuracy(data, label_lett, model, letters):
-    """ Plots a bar chart of the testing performed on the keras model.
+def testing(data, label_lett, model, letters):
 
-    Generates, saves and shows a bar chart plotof the correct and msitaked prediction performed by
-    the keras model. This is not a method from the keras library so it's slow and not optimized.
-
-    Parameters
-    ----------
-    data : array_like
-        Matrix containing the dataset that I want to test.
-
-    label_lett : array_like
-        Array containing the labels related to the data inside the matrix.
-
-    model : keras class
-        keras model trained with TF
-
-    letter : array_like
-        Array that contains the label known by the model
-    """
-    
-    corr_ary   = np.zeros(5)
-    tot_ary    = np.zeros(5)
-    bar_values = np.zeros(6) 
-        
-
-
-    total = data.shape[0]
+    conf_matrix = np.zeros((5,5))
     letter_labels = ['A','E','I','O','U','Model']
-    blue2 = 'cornflowerblue'
-    colors = [blue2, blue2, blue2, blue2, blue2, 'steelblue']
 
-    for i in range(0, total):
+    
+    for i in range(0, data.shape[0]):
         current_label = label_lett[i]
-        label_soft = myTest.letterToSoftmax(current_label, letter_labels[:-1]) 
+        label_soft    = myTest.letterToSoftmax(current_label, letter_labels[:-1]) 
 
         pred = model.predict(data[i,:].reshape(1,data.shape[1]))
 
@@ -113,19 +87,36 @@ def plot_TestAccuracy(data, label_lett, model, letters):
             
         if(np.amax(pred[0,:]) != 0):
             max_i_pred = np.argmax(pred[0,:])
-                            
-        if (max_i_pred == max_i_true):
-            corr_ary[max_i_true] += 1
-            tot_ary[max_i_true]  += 1  
-        else:
-            tot_ary[max_i_true] += 1
 
+        conf_matrix[max_i_true, max_i_pred] = conf_matrix[max_i_true, max_i_pred] + 1
 
-    for i in range(0, len(corr_ary)):
-        if(tot_ary[i] != 0):
-            bar_values[i] = round(round(corr_ary[i]/tot_ary[i], 4)*100,2)
-    bar_values[-1] = round(round(sum(corr_ary)/sum(tot_ary), 4)*100,2)
+    return conf_matrix
     
+
+
+
+def plot_Accuracy(conf_matrix):
+                        
+    tot_cntr = 0
+    correct_cntr = 0
+
+    corr_ary   = np.zeros(5)
+    tot_ary    = np.zeros(5)
+    bar_values = np.zeros(6) 
+
+    letter_labels = ['A','E','I','O','U','Model']
+    blue2 = 'cornflowerblue'
+    colors = [blue2, blue2, blue2, blue2, blue2, 'steelblue']
+
+    for i in range(0, conf_matrix.shape[0]):
+        bar_values[i] = round(round(conf_matrix[i,i]/ sum(conf_matrix[i,:]), 4)*100,2)
+        tot_cntr += sum(conf_matrix[i,:])
+        correct_cntr += conf_matrix[i,i]
+
+    bar_values[-1] = round(round(correct_cntr/tot_cntr, 4)*100,2)
+    
+
+
     fig = plt.subplots(figsize =(10, 6))
 
     bar_plot = plt.bar(letter_labels, bar_values, color=colors, edgecolor='grey')
@@ -143,11 +134,82 @@ def plot_TestAccuracy(data, label_lett, model, letters):
     plt.ylabel('Accuracy %', fontsize = 20)
     plt.yticks(fontsize = 15)
     plt.xticks([r for r in range(len(letter_labels))], letter_labels, fontweight ='bold', fontsize = 15) # Write on x axis the letter name
-    #plt.title('Training KERAS - Test performance', fontweight ='bold', fontsize = 15)
     plt.savefig(PLOT_PATH + 'training_Test.jpg')
     plt.show()
 
     print(f"Total correct guesses  {sum(corr_ary)}  -> {round(round(sum(corr_ary)/sum(tot_ary), 4)*100,2)}%")
+
+
+
+
+def plot_ConfusionMatrix(conf_matrix):
+
+    figure = plt.figure()
+    axes = figure.add_subplot()
+
+    label = ['A','E','I','O','U']
+
+    caxes = axes.matshow(conf_matrix, cmap=plt.cm.Blues)
+    figure.colorbar(caxes)
+
+    for i in range(conf_matrix.shape[0]):
+        for j in range(conf_matrix.shape[1]):
+            axes.text(x=j, y=i,s=int(conf_matrix[i, j]), va='center', ha='center', size='large')
+
+    axes.xaxis.set_ticks_position("bottom")
+    axes.set_xticklabels([''] + label)
+    axes.set_yticklabels([''] + label)
+
+    plt.xlabel('PREDICTED LABEL', fontsize=15)
+    plt.ylabel('TRUE LABEL', fontsize=15)
+    
+    plt.savefig(PLOT_PATH + 'training_ConfMatrix.jpg')
+    plt.show()
+
+
+
+
+def plot_Table(conf_matrix):
+
+    table_values = np.zeros([3,conf_matrix.shape[0]])
+
+    for i in range(0, table_values.shape[1]):
+
+        if(sum(conf_matrix[i,:])==0):   # if for avoiding division by 0 that generates NAN                                
+            table_values[0,i] = 0
+        else:
+            table_values[0,i] = round(conf_matrix[i,i]/sum(conf_matrix[i,:]),2)      # ACCURACY
+
+        if(sum(conf_matrix[:,i])==0):   # if for avoiding division by 0 that generates NAN
+            table_values[1,i] = 0
+        else:
+            table_values[1,i] = round(conf_matrix[i,i]/sum(conf_matrix[:,i]),2)      # PRECISION 
+
+        if((table_values[1,i]+table_values[0,i])==0):     # if for avoiding division by 0 that generates NAN
+            table_values[2,i] = 0
+        else:
+            table_values[2,i] = round((2*table_values[1,i]*table_values[0,i])/(table_values[1,i]+table_values[0,i]),2)    # F1 SCORE
+
+    
+    fig, ax = plt.subplots(figsize=(6,4)) 
+    ax.set_axis_off() 
+    
+    table = ax.table( 
+        cellText = table_values,  
+        rowLabels = ['Accuracy', 'Precision', 'F1 score'],  
+        colLabels = ['A', 'E', 'I', 'O', 'U'], 
+        rowColours =["cornflowerblue"] * 200,  
+        colColours =["cornflowerblue"] * 200, 
+        cellLoc ='center',  
+        rowLoc='right',
+        loc ='center')   
+
+    table.set_fontsize(14)
+
+    plt.savefig(PLOT_PATH + 'training_Table.jpg')
+    plt.show()
+
+
 
 
 
@@ -164,18 +226,23 @@ def plot_History(train_hist):
 
     hist_loss     = train_hist.history['loss']
     hist_val_loss = train_hist.history['val_loss']
+    hist_acc      = train_hist.history['accuracy']
+    hist_val_acc  = train_hist.history['val_accuracy']
     epoch_list    = list(range(epochs))
 
-    fig = plt.subplots()
+    plt.subplot(211)
+    plt.plot(epoch_list, hist_acc,  label='Accuracy', linewidth=3)
+    plt.plot(epoch_list, hist_val_acc,  label='Validation accuracy', linewidth=3)
+    plt.legend(prop={'size': 17})
+    plt.xlabel('Epochs',  fontsize = 20)
+    plt.xticks(fontsize = 15)
+    plt.yticks(fontsize = 15)
 
-    plt.plot(epoch_list, hist_loss, 'bo', label='Training loss')
-    plt.plot(epoch_list, hist_val_loss, 'r', label='Validation loss')
-
-
-    #plt.title('Training and validation loss')
-    label_size = 20
-    plt.legend(prop={'size': label_size})
-    plt.xlabel('Epochs',  fontsize = label_size)
+    plt.subplot(212)
+    plt.plot(epoch_list, hist_loss, 'bo', label='Training loss', linewidth=3)
+    plt.plot(epoch_list, hist_val_loss, 'r', label='Validation loss', linewidth=3)
+    plt.legend(prop={'size': 17})
+    plt.xlabel('Epochs',  fontsize = 20)
     plt.xticks(fontsize = 15)
     plt.yticks(fontsize = 15)
 
@@ -241,8 +308,11 @@ results = model.evaluate(TF_data_test, myTest.letterToSoft_all(TF_label_test, vo
 
 
 # PLOTS OF THE TRAINING PERFORMANCES
+confusion_matrix = testing(TF_data_test, TF_label_test, model, vowels)
 plot_History(train_hist)
-plot_TestAccuracy(TF_data_test, TF_label_test, model, vowels)
+plot_Accuracy(confusion_matrix)
+plot_ConfusionMatrix(confusion_matrix)
+plot_Table(confusion_matrix)
 
 
 

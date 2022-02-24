@@ -162,39 +162,23 @@ Figure \ref{fig:structures} shows some examples of ML model structures aforement
 \end{figure}  
 
 \section{Continual on- line learning}
-% spiegareo cosa è CL
-% spiegare uso, utilizzo, come mai serve CL, a cosa è utile
-% spiegare i problemi che vengono introdotti, cosa deve aggirare
+% spiegareo cosa è CL - OK
+% spiegare uso, utilizzo, come mai serve CL, a cosa è utile - OK
+% spiegare i problemi che vengono introdotti, cosa deve aggirare - OK
 % iniziare a parlade di CL nella research, tipologie di algoritmi, accennare a algoritmi gia sviluppati
 % apralre di altri studi relativi a CL
-Applications of machine learning are based on the use of model for the elaboration of data. An important aspect regarding standard ML approaches is the possibility of these models to perform only inference over the inputs. This limits the scenarios in which these applications can be deployed. The models are not capable of adapting to changing context, which are very common and compose the vast majority of applications that concern the use of MCUs. To overcome this problem an additional aspect can be introduced into standard ML methods, which is continual learning. \\
-Continual learning is a paradigm of machine learning where models are trained in real time with streams of data presented sequentially. The main concern of this technology is to introduce to these meodel the ability to adapt to changes and drift over the data and the context. It is often the case that ML models are trained in ideal scenarios that use dataset composed of static data. This is not an optimal situation because later, at deploy time, the model could encounter problems such as drop in accuracy, and sub optimal behaviour. The use of CL fixes the rigidity of ML models by introducing the ability to train ML model in real time over stream of data. \\
-CL is a type of technology that finds a well suited field of application in IoT and TinyML. The application of ML o the edge is a good example of stydu in which CL shines.  mainly because of the intrinsic characteristic of typical applications scenario. Tiny devices are usually deployed for extended periods of time in an environment and are not 
-
-
-
-
-
-
-
-
-
-
-The goal of CL is to train model learn in real time new skills without forgetting previous gathered knowledge. One of the main challenges in not the creation of models that can train on stream of data, but rather the implementation of autonomous systems that can integrate dynamically the information observed inside the model using smart algorithms. \\
-Continual learning application are scenarios in which real time training is applied on ML models because of the lack of availability of entire dataset at once. CL aims at training a model on the sequences of data that are presented from time to time, with also all the problems implied, like catastrophic forgetting, data distribution shifts and scarce data problems. 
-
-
-
-
-In study \ref{} a categorization of different data samples is presented.
+Applications of machine learning are based on the use of model for the elaboration of data. An important aspect regarding standard ML approaches is the possibility of these models to perform only inference over the inputs. This limits the scenarios in which ML applications can be deployed. The models are not capable of adapting to changing context, which are very common and compose the vast majority of applications that concern the use of MCUs. To overcome this problem an additional aspect can be introduced into standard ML methods, which is Continual Learning (CL). \\
+Continual learning is a paradigm of machine learning where models are trained in real time with streams of data presented sequentially. The main concern of this technology is the introduction of the ability of models to adapt to drift and changes in the context. It is often the case that ML models are trained in ideal and controlled scenarios where static datasets are used. This is not an optimal situation because the models are trained to behave in specific ways only in certain scenarios. By later using these models in real life applications characterized by context drift, it is common to find that models drop in accuracy. These implementation of rigid models trained on specific tasks osmsub optimal, this is the main reason why CL strategies are applied.\\
+The main characteristics brought by CL are the ability of models to train in real time over sequential streams of data and the ability of models to recognize new classes and add them to the pool of possible classification groups. These two abilities make for self sustainable models that are able to both fine tune their structure and parameters and at the same time learn new tasks. An important classification that can be applied on data streams is the one proposed in study \autocite{}, which is the following:
 
 \begin{itemize}
-\item NI: New Instances, data samples contain new patterns of already known classes (example of images is different illumination or different background)
-\item NC: New Classes, data samples contain data regarding never seen classes. The model is not able to recognize in a different label these kind of samples. (example of images is a model trained to recognize dogs and cats, images of ducks are presented)
-\item NIC: New Instances and Classes, data samples containing both patterns of already known classes and samples ragarding new classes are present in the scenario. This is the most complete scenario, which also better represents real world applications.
+\item NI: New Instances, data samples contain new patterns of already known classes (example of image application: classification is done on dogs and cats, inputs present different illumination or different background)
+\item NC: New Classes, data samples contain data regarding never seen classes. The model is not able to recognize in a different label these kind of samples. (example of image classification: classification is done of dogs and cats, inputs presents images of ducks)
+\item NIC: New Instances and Classes, data samples containing both patterns of already known classes and samples regarding new classes are present in the scenario. This is the most complete scenario, which also better represents real world applications.
 \end{itemize}
 
-Summary \autocite{} also presents a nice classification of the strategies that can be adopted to apply CL. These strategies doffer from each other depending on their architectures, loss functions and general use of the data. 
+The implementation of CL strategies allows for improvements and enhancement of ML capabilities but it comes with additional problems and challenges. One of the main aspects to be aware of is catastrophic forgetting. Catastrophic forgetting \autocite{} is a phenomenon that occurs when a model, trained in real time, starts to drift from the original context, making the model forget the original knowledge in spide of new tasks. This problem is directly correlated to the real time training that tries to minimize the loss function at every step with no constraint. Keep in midn tha ttraditional trainign strategies are applied on batches, and the back propagation that is applied on weight and biases, used for training model is usually dependent on information coming from the batch itself and not single input samples. On the cintrary, in a standard real time training, the back propagation is computed from just a step, so the update to apply on weights depends only on the last sample. This means that the information obtained from the last sample can increase the classification abilities of the model for the recognition of that specific class, but it will destroy/deteriorate the classification abilities of all the others. It is then of extreme importance to develop strategyes that are able to maintain control over this aspect. In today's research many algorithms have been developed with the aim of performing CL with a look over catastrophic forgetting. Summary \autocite{} contains a good review of the most relevant and best performing algorithms. \\
+Before speaking in detail about strategies it is important to categorize them. In paper \autocite{} and \autocite{} the following categorization of CL strategies are proposed:
 
 \begin{itemize}
 \item Architectural: these algorithms are based on the usage of particular types of structures and architectures. Some common methods are weight-freezing, layer activation or dual-memories-models that try to imitate logn term memory and short term memory.
@@ -212,13 +196,40 @@ Figure \ref{} contains a Venn Diagram showing examples of the most known algorit
     \label{fig:CL_strategies}    
 \end{figure}  
 
+Note that the most suitable strategies for applications on MCUs are the regularization strategies. This because the strategies rely on the use of particular loss functions and they do not require any complex use of additional memoryes or compoutations. \\
+Continual learning is an already known and studied topic in the filed of ML. Recently it started to gain attention because of its implememntation of MCU, which opens a new field in TinyML. An important study related to general application of CL is described in \autocite{}. Here the author's goal is to implement several algorithms and test them to evaualte their ability to overcome catasatrophic forgetting. The study applies already known strategy like LEF \autocite{}, SI \autocite{}, EWC \autocite{} and it later proposes two custom made strategye called CWR and AR1. Note that CWR+ is an improvement of an already proposed algorithm developed in a previous paper by the same authors. \\
+Another interesting study, not directly realted to algorithms, is the one described in \autocite{}. Here the authors developed an easy to attach system that aims at balancing real time streams of data. From their point of view, real life applications of CL strategies, mainly for IoT devices, are cìnot characetrized by well balanced streams of that. This means that the input stream is not composed by the same amount of samples for each task, and each task is not composed of same classes. The authors propose a small plugin to be attached in between the raw input stream and the CL model that is able to apply pre processing procedure on the data and make the input stream of data balanced. \\
+One of the most relevant works for this thesis is the paper \autocite{}. Here the author developed a small framework for an Arduino microcntroller, that is able to perfomr a simple CL (or on line learning) strategy on a ML model with an autoecnoder structure. The system aims at fine tuning the pre trained model and enhance the pool of recognizable classes. The study aplies succesfully the system for the classification of vibration patterns from a PC fan and later improves it with a real application on a industrial machine in paper \autocite{}. 
+
+
+
+ because later, at deploy time, the model could encounter problems such as drop in accuracy, and sub optimal behaviour. The use of CL fixes the rigidity of ML models by introducing the ability to train ML model in real time over stream of data. \\
+CL is a type of technology that finds a well suited field of application in IoT and TinyML. The application of ML o the edge is a good example of stydu in which CL shines.  mainly because of the intrinsic characteristic of typical applications scenario. Tiny devices are usually deployed for extended periods of time in an environment and are not 
 
 
 
 
 
 
-Until recent times the application of ML on MCUs has always been focused on the creation of intelligent small system that maintain good performance with reasonable consumption, limited time of inference and long lifetimes. A major negative aspect of the TinyML solutions is their focus on the inference of streams of data. Which almost always requires the usage of powerful machines for the training of NN models that are later deployed on the MCU. This results in the creation of a static network which is not able to adapt to the data and adjust to different scenarios. The solution to this problem is the creation of a Continual Learning system. \\
+
+
+
+
+The goal of CL is to train model learn in real time new skills without forgetting previous gathered knowledge. One of the main challenges in not the creation of models that can train on stream of data, but rather the implementation of autonomous systems that can integrate dynamically the information observed inside the model using smart algorithms. \\
+Continual learning application are scenarios in which real time training is applied on ML models because of the lack of availability of entire dataset at once. CL aims at training a model on the sequences of data that are presented from time to time, with also all the problems implied, like catastrophic forgetting, data distribution shifts and scarce data problems. 
+
+
+
+
+
+
+
+
+
+
+
+
+Until recent times the application of ML on MCUs has always been focused on the creation of intelligent small system that maintain good performance with reasonable consumption, limited time of inference and long lifetimes. A major negative aspect of the TinyML solutions is their focus on the inference of streams of data. Which almost always requires the usage of powerful machines for the training of NN models that are later deployed on the MCU. This results in the creation of a static network which is not a ble to adapt to the data and adjust to different scenarios. The solution to this problem is the creation of a Continual Learning system. \\
 CL systems are a variation of the tipical pipeline of ML. The main focus of CL systems is to be able to continuously update the model in order to adapt its structure and parameters to overcome context drift, be able to recognize appearance of new patterns and to avoid catastrophic forgetting. The latter is a problem that is directly introduced by the nature of the paradigm itself. By having a model that is continuously updated with a feedback loop that is directly dependent on the current erross i'ts clear how it's immediate to update the model in such a way that the old tasks are forgetten for the sake of learning the new ones. This could be seen also as a over fitting of the model on the new tasks and if oc course to be avoided. Different algorithms have different ways for contrasting this phenomenon. \\
 In todays literature several CL algoprithms and strategies have been already proposed. A well organized summary is proposed in \cite{lesort2020continual}, where the most relevant methods are briefly classified in 4 categories, originally proposed by \autocite{maltoni2019continuous}.
 
@@ -258,7 +269,7 @@ An additional improvement brought by pruning is the reduced amount of computatio
 \begin{figure}[h!]
     \centering
     \includegraphics[width=110mm]{Figures/Chapter1/pruning.jpg} 
-    \caption{Block diagram showing the steps of a pruning procedure. IMMAGINE NON DEFINITIVA}
+    \caption{Block diagram showing the steps of a pruning and quantization procedure.}
     \label{fig:pruning}    
 \end{figure}  
 
@@ -619,7 +630,7 @@ Figure \ref{fig:letters_motion} shows the general path that was followed while d
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=90mm]{Figures/Chapter4/letters_motion.jpg} 
+    \includegraphics[width=120mm]{Figures/Chapter4/letters_motion.jpg} 
     \caption{Motion followed with the sensor for writing letters in the air.}
     \label{fig:letters_motion}    
 \end{figure}
@@ -676,9 +687,8 @@ The accuracy obtained from the testing is 96.83\%. Figure \ref{fig:training_lett
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=120mm]{Figures/Chapter4/training_letters.jpg} 
-    \caption{Letter recognition training: on the left the variation of loss and validation; on the right the accuracy for each class}
-    % Qui il grafico di destra va bene, magari puoi mettere dentro anche i plot di accuratezza e validation accuracy durante il trainin. Mentre il grafico di sinistra potrebbe essere sostituito con il risultato del test, quindi utilizzando il dataset specifico di test e non il risultato alla fine del training. In questo caso si potrebbe mostrare anche la confusion matrix e calcolare le metriche come precision, recall e fscore.
+    \includegraphics[width=130mm]{Figures/Chapter4/training_letters.png} 
+    \caption{Results after the Tensorflow training. Top right: variation of accuracy and loss during training and validation. Top right: accuracy of the model in each class. Bottom left: table resuming precision accuracy and F1 score. Bottol right confusion matrix.}
     \label{fig:training_letters}    
 \end{figure}
 
@@ -702,9 +712,8 @@ The relevant training characteristics are: $Adam$ as optimizer, $categorical$ $c
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=100mm]{Figures/Chapter4/training_letters.jpg} 
-    %Anche qui come prima sarebbe meglio mettere l'accuratezza calcolata con il dataset per il test
-    \caption{PLACEHOLDER}
+    \includegraphics[width=130mm]{Figures/Chapter4/training_digits.jpg} 
+    \caption{Results after the Tensorflow training. Top right: variation of accuracy and loss during training and validation. Top right: accuracy of the model in each class. Bottom left: table resuming precision accuracy and F1 score. Bottol right confusion matrix.}
     \label{fig:training_mnist}    
 \end{figure}
 
@@ -724,9 +733,8 @@ When the app is launched, the MCU should already be connected to the laptop, oth
 A complete training procedure lasts for about 10 minutes. At the end of the communication of all samples the python scripts automatically stops the transmission and generates some plots. Figure \ref{fig:python_stm_diagram} contains a block diagram that summarizes the steps of the app and the communication.
 
 \begin{figure}[h!]
-    \centering
-    \includegraphics[width=100mm]{Figures/Chapter4/PLACEHOLDER.jpg} 
-    \caption{PLACEHOLDER}
+    \centering    \includegraphics[width=110mm]{Figures/Chapter4/python_nucleo.png} 
+    \caption{Block diagram showing the communication between laptop and STM Nucleo.}
     \label{fig:python_stm_diagram}    
 \end{figure}
 
@@ -736,7 +744,7 @@ A complete training procedure lasts for about 10 minutes. At the end of the comm
 The application on the OpenMV camera is quite similar. Once the dataset, the model, the last layer, and the system are prepared, everything can be deployed on the MCU. This time, because of the custom board and custom firmware, the toolchain for the deployment of the model is different. Thanks to it, it is possible to include the ML model inside the MCU files and generate from scratch a new firmware that contains the model parameters and structure. This allows to later use built-in-tools for efficient, optimized, and fast inference directly from the MicroPython code. Once the firmware is generated, it can be loaded on the camera MCU through OpenMV IDE.\\
 The system developed for the application of CL strategies is basically the same as the one explained in the previous example. Initially, the code allocates the necessary parameters and memory, and later it enters in an infinite while loop. Here, the code continuously waits for a new sample which is then fed to the built-in-tools that perform the frozen model inference. Then, the output is propagated through the CL system. The only major difference in this application is the management of the memory for the matrices. Moreover, problems regarding the allocation of big matrices often block the code. It was decided to not have the entire classification layer inside one single matrix, but rather separate it in smaller sections. This can lead to a small increase of time for the inference, but it is actually required to obtain satisfying reults. \\
 Once the code is loaded in the $main.py$ file and the library $TinyOL.py$ is loaded on the MCU, the experiment can be carried out. As before, a Python app was developed for the creation of fast, reliable and repeatable training sessions. Here, the idea is not to send data via USB connection, but display on a screen images from the MNIST dataset while the camera is pointing at it. The USB connection is required anyway because the app needs to maintain sync with the camera and send labels representing the image displayed. This time the app requires the use of Tensorflow (for loading the dataset), OpenCV (for displaying the images on screen) and PySerial (for opening a serial port with the MCU). \\
-The app is divided into elemental blocks. At first, the app loads the dataset and extracts from it only the required number of samples. Then, the serial port is opened with the correct characteristics. After that, the app opens two windows, where the first is used for displaying MNIST digits where the camera is be pointed at, while the second is used for displaying in real time the point of view of the camera. At last, a while loop starts where the communication laptop-MCU is done. At every single step the laptop sends two messages to the camera. The first contains a small 4 char (QUI POTRESTI DARE QUALCHE DETTAGLIO IN PIU SU QUESTO COMANDO CHE CONTIENE 4 CHAR. ESEMPIO PERCHE 4 CHAR) command which defines the state of the OpenMV camera, the second message is just the label of the image displayed on the screen. Every time these two messages are received, the camera takes a picture and performs actions depending on its state. The possible states are defined by the user (through the python app) and are: 
+The app is divided into elemental blocks. At first, the app loads the dataset and extracts from it only the required number of samples. Then, the serial port is opened with the correct characteristics. After that, the app opens two windows, where the first is used for displaying MNIST digits where the camera is be pointed at, while the second is used for displaying in real time the point of view of the camera. At last, a while loop starts where the communication laptop-MCU is done. At every single step the laptop sends two messages to the camera. The first contains a small 4 char command which defines the state of the OpenMV camera. The size of 4 chars was chosen because it is a fast and unique way for sending a command that is also easy to read from the code point of view. The second message is just the label of the image displayed on the screen. Every time these two messages are received, the camera takes a picture and performs actions depending on its state. The possible states are defined by the user (through the python app) and are: 
 
 \begin{itemize}
 	\item $snap$ mode: the camera takes a photo, compresses it and sends it via UART to the laptop. This state is used for understanding where the camera is pointing and if the digit is inside the point of view of the OpenMV. The label received is not used and should be a char containing an $X$.
@@ -748,8 +756,8 @@ Once the training and the pseudo testing are performed, the app stops showing di
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=50mm]{Figures/Chapter4/PLACEHOLDER.jpg} 
-    \caption{PLACEHOLDER}
+    \includegraphics[width=110mm]{Figures/Chapter4/python_openmv.png} 
+    \caption{Block diagram showing the communication between laptop and OpenMV camera.}
     \label{fig:python_openmv_diagram}    
 \end{figure}
 
