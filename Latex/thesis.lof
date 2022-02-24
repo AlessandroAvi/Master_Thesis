@@ -3,44 +3,44 @@
 \contentsline {figure}{\numberline {1.2}{\ignorespaces Summary of characteristics about supervised, unsupervised and reinforcement learning. IMMAGINE NON DEFINITIVA\relax }}{9}{figure.caption.8}%
 \contentsline {figure}{\numberline {1.3}{\ignorespaces Block diagram showing an example of ML model structure: DNN, CNN and autoencoder. IMMAGINE NON DEFINITIVA\relax }}{11}{figure.caption.9}%
 \contentsline {figure}{\numberline {1.4}{\ignorespaces Venn Diagram showing the classification of some well known CL strategies.\relax }}{13}{figure.caption.10}%
-\contentsline {figure}{\numberline {1.5}{\ignorespaces Block diagram showing the steps of a pruning and quantization procedure.\relax }}{19}{figure.caption.11}%
+\contentsline {figure}{\numberline {1.5}{\ignorespaces Block diagram showing the steps of a pruning and quantization procedure.\relax }}{18}{figure.caption.11}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces Hardware used for the CL applications. On the left Nucelo ST32 F401-RE, on the left OpenMV camera.\relax }}{22}{figure.caption.12}%
-\contentsline {figure}{\numberline {2.2}{\ignorespaces Hardware used in the gesture recognition application. On the left the sensor shield IKS01A2, on the right the sensor shield mounted on the Nucleo STM32 F401-RE.\relax }}{23}{figure.caption.14}%
-\contentsline {figure}{\numberline {2.3}{\ignorespaces Hardware used in the image classification application. On the left the 3D printed tripod, on the right the OpenMV camera mounted on the 3D printed tripod.\relax }}{26}{figure.caption.16}%
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Hardware used for the CL applications. On the left Nucelo ST32 F401-RE, on the left OpenMV camera.\relax }}{21}{figure.caption.12}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Hardware used in the gesture recognition application. On the left the sensor shield IKS01A2, on the right the sensor shield mounted on the Nucleo STM32 F401-RE.\relax }}{22}{figure.caption.14}%
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Hardware used in the image classification application. On the left the 3D printed tripod, on the right the OpenMV camera mounted on the 3D printed tripod.\relax }}{25}{figure.caption.16}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Block diagram showing an example of model training\relax }}{30}{figure.caption.17}%
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Block diagram describing the algorithm TinyOL.\relax }}{35}{figure.caption.18}%
-\contentsline {figure}{\numberline {3.3}{\ignorespaces Block diagram describing the algorithm TinyOL with batches.\relax }}{35}{figure.caption.19}%
-\contentsline {figure}{\numberline {3.4}{\ignorespaces Block diagram describing the algorithm TinyOL V2.\relax }}{37}{figure.caption.20}%
-\contentsline {figure}{\numberline {3.5}{\ignorespaces Block diagram describing the algorithm TinyOL V2 with batches.\relax }}{37}{figure.caption.21}%
-\contentsline {figure}{\numberline {3.6}{\ignorespaces Block diagram describing the algorithm LWF.\relax }}{40}{figure.caption.22}%
-\contentsline {figure}{\numberline {3.7}{\ignorespaces Block diagram describing the algorithm CWR.\relax }}{42}{figure.caption.23}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Block diagram showing an example of model training\relax }}{29}{figure.caption.17}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Block diagram describing the algorithm TinyOL.\relax }}{34}{figure.caption.18}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Block diagram describing the algorithm TinyOL with batches.\relax }}{34}{figure.caption.19}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Block diagram describing the algorithm TinyOL V2.\relax }}{36}{figure.caption.20}%
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Block diagram describing the algorithm TinyOL V2 with batches.\relax }}{36}{figure.caption.21}%
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Block diagram describing the algorithm LWF.\relax }}{39}{figure.caption.22}%
+\contentsline {figure}{\numberline {3.7}{\ignorespaces Block diagram describing the algorithm CWR.\relax }}{41}{figure.caption.23}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Motion followed with the sensor for writing letters in the air.\relax }}{46}{figure.caption.24}%
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Stankey diagram showing how the letter dataset is divided\relax }}{47}{figure.caption.25}%
-\contentsline {figure}{\numberline {4.3}{\ignorespaces Example of images from the MNIST digits dataset\relax }}{47}{figure.caption.26}%
-\contentsline {figure}{\numberline {4.4}{\ignorespaces Stankey diagram showing how the MNIST dataset is divided\relax }}{48}{figure.caption.27}%
-\contentsline {figure}{\numberline {4.5}{\ignorespaces Letter recognition model: basic structure and its separation in frozen model and OL classification layer\relax }}{49}{figure.caption.28}%
-\contentsline {figure}{\numberline {4.6}{\ignorespaces Results after the Tensorflow training. Top right: variation of accuracy and loss during training and validation. Top right: accuracy of the model in each class. Bottom left: table resuming precision accuracy and F1 score. Bottol right confusion matrix.\relax }}{50}{figure.caption.29}%
-\contentsline {figure}{\numberline {4.7}{\ignorespaces Image classification model: basic structure and its separation in frozen model and OL classification layer\relax }}{51}{figure.caption.30}%
-\contentsline {figure}{\numberline {4.8}{\ignorespaces Results after the Tensorflow training. Top right: variation of accuracy and loss during training and validation. Top right: accuracy of the model in each class. Bottom left: table resuming precision accuracy and F1 score. Bottol right confusion matrix.\relax }}{52}{figure.caption.31}%
-\contentsline {figure}{\numberline {4.9}{\ignorespaces Block diagram showing the communication between laptop and STM Nucleo.\relax }}{56}{figure.caption.32}%
-\contentsline {figure}{\numberline {4.10}{\ignorespaces Block diagram showing the communication between laptop and OpenMV camera.\relax }}{58}{figure.caption.33}%
-\contentsline {figure}{\numberline {4.11}{\ignorespaces OpenMV camera pointing to a screen while in different states of the training. Top left is $idle$ mode, top right is $snap$ mode, bottom left is $elab$ mode, bottom right is $trai$ mode\relax }}{59}{figure.caption.34}%
-\contentsline {figure}{\numberline {4.12}{\ignorespaces Point of view of the OpenMV camera. On the left the original image taken with no compression and no elaboration, in the center an image taken in $snap$ mode, on the right an image taken in $elab$ mode.\relax }}{60}{figure.caption.35}%
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Motion followed with the sensor for writing letters in the air.\relax }}{45}{figure.caption.24}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Stankey diagram showing how the letter dataset is divided\relax }}{46}{figure.caption.25}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Example of images from the MNIST digits dataset\relax }}{46}{figure.caption.26}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Stankey diagram showing how the MNIST dataset is divided\relax }}{47}{figure.caption.27}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Letter recognition model: basic structure and its separation in frozen model and OL classification layer\relax }}{48}{figure.caption.28}%
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Results after the Tensorflow training. Top right: variation of accuracy and loss during training and validation. Top right: accuracy of the model in each class. Bottom left: table resuming precision accuracy and F1 score. Bottol right confusion matrix.\relax }}{49}{figure.caption.29}%
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Image classification model: basic structure and its separation in frozen model and OL classification layer\relax }}{50}{figure.caption.30}%
+\contentsline {figure}{\numberline {4.8}{\ignorespaces Results after the Tensorflow training. Top right: variation of accuracy and loss during training and validation. Top right: accuracy of the model in each class. Bottom left: table resuming precision accuracy and F1 score. Bottol right confusion matrix.\relax }}{51}{figure.caption.31}%
+\contentsline {figure}{\numberline {4.9}{\ignorespaces Block diagram showing the communication between laptop and STM Nucleo.\relax }}{55}{figure.caption.32}%
+\contentsline {figure}{\numberline {4.10}{\ignorespaces Block diagram showing the communication between laptop and OpenMV camera.\relax }}{57}{figure.caption.33}%
+\contentsline {figure}{\numberline {4.11}{\ignorespaces OpenMV camera pointing to a screen while in different states of the training. Top left is $idle$ mode, top right is $snap$ mode, bottom left is $elab$ mode, bottom right is $trai$ mode\relax }}{58}{figure.caption.34}%
+\contentsline {figure}{\numberline {4.12}{\ignorespaces Point of view of the OpenMV camera. On the left the original image taken with no compression and no elaboration, in the center an image taken in $snap$ mode, on the right an image taken in $elab$ mode.\relax }}{59}{figure.caption.35}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces PLACEHOLDER\relax }}{62}{figure.caption.36}%
-\contentsline {figure}{\numberline {5.2}{\ignorespaces PLACEHOLDER\relax }}{62}{figure.caption.37}%
-\contentsline {figure}{\numberline {5.3}{\ignorespaces PLACEHOLDER\relax }}{63}{figure.caption.38}%
-\contentsline {figure}{\numberline {5.4}{\ignorespaces PLACEHOLDER\relax }}{63}{figure.caption.39}%
-\contentsline {figure}{\numberline {5.5}{\ignorespaces PLACEHOLDER\relax }}{64}{figure.caption.40}%
-\contentsline {figure}{\numberline {5.6}{\ignorespaces PLACEHOLDER\relax }}{65}{figure.caption.41}%
-\contentsline {figure}{\numberline {5.7}{\ignorespaces PLACEHOLDER\relax }}{67}{figure.caption.42}%
-\contentsline {figure}{\numberline {5.8}{\ignorespaces PLACEHOLDER\relax }}{67}{figure.caption.43}%
-\contentsline {figure}{\numberline {5.9}{\ignorespaces PLACEHOLDER\relax }}{68}{figure.caption.44}%
-\contentsline {figure}{\numberline {5.10}{\ignorespaces PLACEHOLDER\relax }}{68}{figure.caption.45}%
-\contentsline {figure}{\numberline {5.11}{\ignorespaces PLACEHOLDER\relax }}{69}{figure.caption.46}%
-\contentsline {figure}{\numberline {5.12}{\ignorespaces PLACEHOLDER\relax }}{69}{figure.caption.47}%
-\contentsline {figure}{\numberline {5.13}{\ignorespaces PLACEHOLDER\relax }}{70}{figure.caption.50}%
+\contentsline {figure}{\numberline {5.1}{\ignorespaces PLACEHOLDER\relax }}{61}{figure.caption.36}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces PLACEHOLDER\relax }}{61}{figure.caption.37}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces PLACEHOLDER\relax }}{62}{figure.caption.38}%
+\contentsline {figure}{\numberline {5.4}{\ignorespaces PLACEHOLDER\relax }}{62}{figure.caption.39}%
+\contentsline {figure}{\numberline {5.5}{\ignorespaces PLACEHOLDER\relax }}{63}{figure.caption.40}%
+\contentsline {figure}{\numberline {5.6}{\ignorespaces PLACEHOLDER\relax }}{64}{figure.caption.41}%
+\contentsline {figure}{\numberline {5.7}{\ignorespaces PLACEHOLDER\relax }}{66}{figure.caption.42}%
+\contentsline {figure}{\numberline {5.8}{\ignorespaces PLACEHOLDER\relax }}{66}{figure.caption.43}%
+\contentsline {figure}{\numberline {5.9}{\ignorespaces PLACEHOLDER\relax }}{67}{figure.caption.44}%
+\contentsline {figure}{\numberline {5.10}{\ignorespaces PLACEHOLDER\relax }}{67}{figure.caption.45}%
+\contentsline {figure}{\numberline {5.11}{\ignorespaces PLACEHOLDER\relax }}{68}{figure.caption.46}%
+\contentsline {figure}{\numberline {5.12}{\ignorespaces PLACEHOLDER\relax }}{68}{figure.caption.47}%
+\contentsline {figure}{\numberline {5.13}{\ignorespaces PLACEHOLDER\relax }}{69}{figure.caption.50}%
 \addvspace {10\p@ }

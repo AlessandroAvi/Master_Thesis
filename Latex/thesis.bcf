@@ -2349,8 +2349,6 @@
   </bcf:bibdata>
   <bcf:section number="0">
     <bcf:citekey order="1">ReLU_explanation</bcf:citekey>
-    <bcf:citekey order="14">lesort2020continual</bcf:citekey>
-    <bcf:citekey order="15">maltoni2019continuous</bcf:citekey>
     <bcf:citekey order="16">pruning_article</bcf:citekey>
     <bcf:citekey order="17">tensorflow_quantization</bcf:citekey>
     <bcf:citekey order="18">nucleo_datasheet</bcf:citekey>
@@ -2380,27 +2378,26 @@
     <bcf:citekey order="42">maltoni2019continuous</bcf:citekey>
     <bcf:citekey order="43">github_repo</bcf:citekey>
     <bcf:citekey order="44">ReLU_explanation</bcf:citekey>
-    <bcf:citekey order="45">lesort2020continual</bcf:citekey>
-    <bcf:citekey order="46">maltoni2019continuous</bcf:citekey>
-    <bcf:citekey order="47">pruning_article</bcf:citekey>
-    <bcf:citekey order="48">tensorflow_quantization</bcf:citekey>
-    <bcf:citekey order="49">nucleo_datasheet</bcf:citekey>
-    <bcf:citekey order="50">openmv_datasheet</bcf:citekey>
-    <bcf:citekey order="51">stm_cube_ai</bcf:citekey>
-    <bcf:citekey order="52">shield_web_page</bcf:citekey>
-    <bcf:citekey order="53">abdelkader2017openmv</bcf:citekey>
-    <bcf:citekey order="54">openmv_web_page</bcf:citekey>
-    <bcf:citekey order="55">openmv_project</bcf:citekey>
-    <bcf:citekey order="56">zhou2019design</bcf:citekey>
-    <bcf:citekey order="57">wei2020design</bcf:citekey>
-    <bcf:citekey order="58">tripod_link</bcf:citekey>
-    <bcf:citekey order="59">github_repo</bcf:citekey>
-    <bcf:citekey order="60">ren2021tinyol</bcf:citekey>
-    <bcf:citekey order="61">ren2021synergy</bcf:citekey>
-    <bcf:citekey order="62">sudharsan2021train++</bcf:citekey>
-    <bcf:citekey order="63">li2017learning</bcf:citekey>
-    <bcf:citekey order="64">lomonaco2017core50</bcf:citekey>
-    <bcf:citekey order="65">batch_size_medium</bcf:citekey>
+    <bcf:citekey order="45">pruning_article</bcf:citekey>
+    <bcf:citekey order="46">tensorflow_quantization</bcf:citekey>
+    <bcf:citekey order="47">nucleo_datasheet</bcf:citekey>
+    <bcf:citekey order="48">openmv_datasheet</bcf:citekey>
+    <bcf:citekey order="49">stm_cube_ai</bcf:citekey>
+    <bcf:citekey order="50">shield_web_page</bcf:citekey>
+    <bcf:citekey order="51">abdelkader2017openmv</bcf:citekey>
+    <bcf:citekey order="52">openmv_web_page</bcf:citekey>
+    <bcf:citekey order="53">openmv_project</bcf:citekey>
+    <bcf:citekey order="54">zhou2019design</bcf:citekey>
+    <bcf:citekey order="55">wei2020design</bcf:citekey>
+    <bcf:citekey order="56">tripod_link</bcf:citekey>
+    <bcf:citekey order="57">github_repo</bcf:citekey>
+    <bcf:citekey order="58">ren2021tinyol</bcf:citekey>
+    <bcf:citekey order="59">ren2021synergy</bcf:citekey>
+    <bcf:citekey order="60">sudharsan2021train++</bcf:citekey>
+    <bcf:citekey order="61">li2017learning</bcf:citekey>
+    <bcf:citekey order="62">lomonaco2017core50</bcf:citekey>
+    <bcf:citekey order="63">maltoni2019continuous</bcf:citekey>
+    <bcf:citekey order="64">batch_size_medium</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">
