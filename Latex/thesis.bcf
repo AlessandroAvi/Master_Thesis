@@ -2349,6 +2349,7 @@
   </bcf:bibdata>
   <bcf:section number="0">
     <bcf:citekey order="1">ReLU_explanation</bcf:citekey>
+    <bcf:citekey order="2">maltoni2019continuous</bcf:citekey>
     <bcf:citekey order="3">french1999catastrophic</bcf:citekey>
     <bcf:citekey order="4">maltoni2019continuous</bcf:citekey>
     <bcf:citekey order="5">lesort2020continual</bcf:citekey>
@@ -2396,8 +2397,8 @@
     <bcf:citekey order="49">maltoni2019continuous</bcf:citekey>
     <bcf:citekey order="50">github_repo</bcf:citekey>
     <bcf:citekey order="51">ReLU_explanation</bcf:citekey>
-    <bcf:citekey order="52">french1999catastrophic</bcf:citekey>
-    <bcf:citekey order="53">maltoni2019continuous</bcf:citekey>
+    <bcf:citekey order="52">maltoni2019continuous</bcf:citekey>
+    <bcf:citekey order="53">french1999catastrophic</bcf:citekey>
     <bcf:citekey order="54">lesort2020continual</bcf:citekey>
     <bcf:citekey order="55">rusu2016progressive</bcf:citekey>
     <bcf:citekey order="56">cai2020tinytl</bcf:citekey>
