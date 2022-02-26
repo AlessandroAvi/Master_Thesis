@@ -1,10 +1,3 @@
-% thesis.tex (also saved as simple.tex) -- a simple thesis document
-% for demonstrating dalthesis.cls class file, or to use as a starting
-% document for writing a thesis.
-% If you are not familiar with TeX and LaTeX, the first thing that you
-% can learn that line comments start with the percent sign (%), so
-% these lines are ignored by the system.  Feel free to change them or
-% delete them.
 \documentclass[12pt]{report}
 \newcommand{\mychapter}[2]{
     \setcounter{chapter}{#1}
@@ -25,7 +18,7 @@
 \usepackage{multirow}
 
 
-\usepackage[backend=bibtex,style=verbose-trad2]{biblatex}
+\usepackage[backend=bibtex,style=numeric]{biblatex}
 \bibliography{thesis} 
 
 \newcommand\blankpage{%
@@ -39,7 +32,6 @@
 
 
 
-%\renewcommand{\footcite}[1]{\cite{#1}\hypercite{#1}}
 \begin{document}
 
 
@@ -49,20 +41,6 @@
 \end{figure}
 
 \afterpage{\blankpage}
-
-\chapter*{}
-\vspace*{\fill}
-\textit{"Frase"} 
-\begin{flushright}
-Mario Rossi
-\end{flushright}
-\vspace*{\fill}
-
-\afterpage{\blankpage}
-
-
-
-
 
 %\afterpage{\blankpage}
 \tableofcontents
@@ -932,11 +910,6 @@ One last possible future work comprehends more tests. In this study all test wer
 %2) implementare unsupervised learning
 %3) testare il istema con stream estremamente sbalanciati
 
-
-
-
-
 \printbibliography
-
 
 \end{document}

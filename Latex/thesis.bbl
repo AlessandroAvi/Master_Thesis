@@ -1,0 +1,1079 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated as
+% required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+\datalist[entry]{nty/global//global/global}
+  \entry{abdelkader2017openmv}{article}{}
+    \name{author}{3}{}{%
+      {{hash=AI}{%
+         family={Abdelkader},
+         familyi={A\bibinitperiod},
+         given={Ibrahim},
+         giveni={I\bibinitperiod},
+      }}%
+      {{hash=ESY}{%
+         family={El-Sonbaty},
+         familyi={E\bibinithyphendelim S\bibinitperiod},
+         given={Yasser},
+         giveni={Y\bibinitperiod},
+      }}%
+      {{hash=EHM}{%
+         family={El-Habrouk},
+         familyi={E\bibinithyphendelim H\bibinitperiod},
+         given={Mohamed},
+         giveni={M\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{AIESYEHM1}
+    \strng{fullhash}{AIESYEHM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{A}
+    \field{sortinithash}{A}
+    \field{title}{Openmv: A Python powered, extensible machine vision camera}
+    \field{journaltitle}{arXiv preprint arXiv:1711.10464}
+    \field{year}{2017}
+  \endentry
+
+  \entry{github_repo}{misc}{}
+    \name{author}{1}{}{%
+      {{hash=AA}{%
+         family={Avi},
+         familyi={A\bibinitperiod},
+         given={Alessandro},
+         giveni={A\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{AA1}
+    \strng{fullhash}{AA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{A}
+    \field{sortinithash}{A}
+    \field{howpublished}{\url{https://github.com/AlessandroAvi/Master_Thesis}}
+    \field{title}{GitHub repo of the project}
+  \endentry
+
+  \entry{cai2020tinytl}{article}{}
+    \name{author}{4}{}{%
+      {{hash=CH}{%
+         family={Cai},
+         familyi={C\bibinitperiod},
+         given={Han},
+         giveni={H\bibinitperiod},
+      }}%
+      {{hash=GC}{%
+         family={Gan},
+         familyi={G\bibinitperiod},
+         given={Chuang},
+         giveni={C\bibinitperiod},
+      }}%
+      {{hash=ZL}{%
+         family={Zhu},
+         familyi={Z\bibinitperiod},
+         given={Ligeng},
+         giveni={L\bibinitperiod},
+      }}%
+      {{hash=HS}{%
+         family={Han},
+         familyi={H\bibinitperiod},
+         given={Song},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{CH+1}
+    \strng{fullhash}{CHGCZLHS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{C}
+    \field{sortinithash}{C}
+    \field{title}{Tinytl: Reduce memory, not parameters for efficient on-device
+  learning}
+    \field{journaltitle}{arXiv preprint arXiv:2007.11622}
+    \field{year}{2020}
+  \endentry
+
+  \entry{disabato2020incremental}{inproceedings}{}
+    \name{author}{2}{}{%
+      {{hash=DS}{%
+         family={Disabato},
+         familyi={D\bibinitperiod},
+         given={Simone},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=RM}{%
+         family={Roveri},
+         familyi={R\bibinitperiod},
+         given={Manuel},
+         giveni={M\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{DSRM1}
+    \strng{fullhash}{DSRM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{D}
+    \field{sortinithash}{D}
+    \field{booktitle}{Proceedings of the 2nd International Workshop on
+  Challenges in Artificial Intelligence and Machine Learning for Internet of
+  Things}
+    \field{pages}{7\bibrangedash 13}
+    \field{title}{Incremental on-device tiny machine learning}
+    \field{year}{2020}
+  \endentry
+
+  \entry{french1999catastrophic}{article}{}
+    \name{author}{1}{}{%
+      {{hash=FRM}{%
+         family={French},
+         familyi={F\bibinitperiod},
+         given={Robert\bibnamedelima M},
+         giveni={R\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Elsevier}%
+    }
+    \strng{namehash}{FRM1}
+    \strng{fullhash}{FRM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{F}
+    \field{sortinithash}{F}
+    \field{number}{4}
+    \field{pages}{128\bibrangedash 135}
+    \field{title}{Catastrophic forgetting in connectionist networks}
+    \field{volume}{3}
+    \field{journaltitle}{Trends in cognitive sciences}
+    \field{year}{1999}
+  \endentry
+
+  \entry{grau2021device}{inproceedings}{}
+    \name{author}{3}{}{%
+      {{hash=GMM}{%
+         family={Grau},
+         familyi={G\bibinitperiod},
+         given={Marc\bibnamedelima Monfort},
+         giveni={M\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
+      {{hash=CRP}{%
+         family={Centelles},
+         familyi={C\bibinitperiod},
+         given={Roger\bibnamedelima Pueyo},
+         giveni={R\bibinitperiod\bibinitdelim P\bibinitperiod},
+      }}%
+      {{hash=FF}{%
+         family={Freitag},
+         familyi={F\bibinitperiod},
+         given={Felix},
+         giveni={F\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{GMMCRPFF1}
+    \strng{fullhash}{GMMCRPFF1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{G}
+    \field{sortinithash}{G}
+    \field{booktitle}{Proceedings of the Conference on Information Technology
+  for Social Good}
+    \field{pages}{198\bibrangedash 203}
+    \field{title}{On-Device Training of Machine Learning Models on
+  Microcontrollers With a Look at Federated Learning}
+    \field{year}{2021}
+  \endentry
+
+  \entry{kirkpatrick2017overcoming}{article}{}
+    \true{moreauthor}
+    \true{morelabelname}
+    \name{author}{10}{}{%
+      {{hash=KJ}{%
+         family={Kirkpatrick},
+         familyi={K\bibinitperiod},
+         given={James},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=PR}{%
+         family={Pascanu},
+         familyi={P\bibinitperiod},
+         given={Razvan},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=RN}{%
+         family={Rabinowitz},
+         familyi={R\bibinitperiod},
+         given={Neil},
+         giveni={N\bibinitperiod},
+      }}%
+      {{hash=VJ}{%
+         family={Veness},
+         familyi={V\bibinitperiod},
+         given={Joel},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=DG}{%
+         family={Desjardins},
+         familyi={D\bibinitperiod},
+         given={Guillaume},
+         giveni={G\bibinitperiod},
+      }}%
+      {{hash=RAA}{%
+         family={Rusu},
+         familyi={R\bibinitperiod},
+         given={Andrei\bibnamedelima A},
+         giveni={A\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+      {{hash=MK}{%
+         family={Milan},
+         familyi={M\bibinitperiod},
+         given={Kieran},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=QJ}{%
+         family={Quan},
+         familyi={Q\bibinitperiod},
+         given={John},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=RT}{%
+         family={Ramalho},
+         familyi={R\bibinitperiod},
+         given={Tiago},
+         giveni={T\bibinitperiod},
+      }}%
+      {{hash=GBA}{%
+         family={Grabska-Barwinska},
+         familyi={G\bibinithyphendelim B\bibinitperiod},
+         given={Agnieszka},
+         giveni={A\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {National Acad Sciences}%
+    }
+    \strng{namehash}{KJ+1}
+    \strng{fullhash}{KJPRRNVJDGRAAMKQJRTGBA+1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{K}
+    \field{sortinithash}{K}
+    \field{number}{13}
+    \field{pages}{3521\bibrangedash 3526}
+    \field{title}{Overcoming catastrophic forgetting in neural networks}
+    \field{volume}{114}
+    \field{journaltitle}{Proceedings of the national academy of sciences}
+    \field{year}{2017}
+  \endentry
+
+  \entry{lesort2020continual}{article}{}
+    \name{author}{6}{}{%
+      {{hash=LT}{%
+         family={Lesort},
+         familyi={L\bibinitperiod},
+         given={Timoth{\'e}e},
+         giveni={T\bibinitperiod},
+      }}%
+      {{hash=LV}{%
+         family={Lomonaco},
+         familyi={L\bibinitperiod},
+         given={Vincenzo},
+         giveni={V\bibinitperiod},
+      }}%
+      {{hash=SA}{%
+         family={Stoian},
+         familyi={S\bibinitperiod},
+         given={Andrei},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=MD}{%
+         family={Maltoni},
+         familyi={M\bibinitperiod},
+         given={Davide},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=FD}{%
+         family={Filliat},
+         familyi={F\bibinitperiod},
+         given={David},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=DRN}{%
+         family={D{\'\i}az-Rodr{\'\i}guez},
+         familyi={D\bibinithyphendelim R\bibinitperiod},
+         given={Natalia},
+         giveni={N\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Elsevier}%
+    }
+    \strng{namehash}{LT+1}
+    \strng{fullhash}{LTLVSAMDFDDRN1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{L}
+    \field{sortinithash}{L}
+    \field{pages}{52\bibrangedash 68}
+    \field{title}{Continual learning for robotics: Definition, framework,
+  learning strategies, opportunities and challenges}
+    \field{volume}{58}
+    \field{journaltitle}{Information fusion}
+    \field{year}{2020}
+  \endentry
+
+  \entry{li2017learning}{article}{}
+    \name{author}{2}{}{%
+      {{hash=LZ}{%
+         family={Li},
+         familyi={L\bibinitperiod},
+         given={Zhizhong},
+         giveni={Z\bibinitperiod},
+      }}%
+      {{hash=HD}{%
+         family={Hoiem},
+         familyi={H\bibinitperiod},
+         given={Derek},
+         giveni={D\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {IEEE}%
+    }
+    \strng{namehash}{LZHD1}
+    \strng{fullhash}{LZHD1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{L}
+    \field{sortinithash}{L}
+    \field{number}{12}
+    \field{pages}{2935\bibrangedash 2947}
+    \field{title}{Learning without forgetting}
+    \field{volume}{40}
+    \field{journaltitle}{IEEE transactions on pattern analysis and machine
+  intelligence}
+    \field{year}{2017}
+  \endentry
+
+  \entry{lomonaco2017core50}{inproceedings}{}
+    \name{author}{2}{}{%
+      {{hash=LV}{%
+         family={Lomonaco},
+         familyi={L\bibinitperiod},
+         given={Vincenzo},
+         giveni={V\bibinitperiod},
+      }}%
+      {{hash=MD}{%
+         family={Maltoni},
+         familyi={M\bibinitperiod},
+         given={Davide},
+         giveni={D\bibinitperiod},
+      }}%
+    }
+    \list{organization}{1}{%
+      {PMLR}%
+    }
+    \strng{namehash}{LVMD1}
+    \strng{fullhash}{LVMD1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{L}
+    \field{sortinithash}{L}
+    \field{booktitle}{Conference on Robot Learning}
+    \field{pages}{17\bibrangedash 26}
+    \field{title}{Core50: a new dataset and benchmark for continuous object
+  recognition}
+    \field{year}{2017}
+  \endentry
+
+  \entry{maltoni2019continuous}{article}{}
+    \name{author}{2}{}{%
+      {{hash=MD}{%
+         family={Maltoni},
+         familyi={M\bibinitperiod},
+         given={Davide},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=LV}{%
+         family={Lomonaco},
+         familyi={L\bibinitperiod},
+         given={Vincenzo},
+         giveni={V\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Elsevier}%
+    }
+    \strng{namehash}{MDLV1}
+    \strng{fullhash}{MDLV1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{M}
+    \field{sortinithash}{M}
+    \field{pages}{56\bibrangedash 73}
+    \field{title}{Continuous learning in single-incremental-task scenarios}
+    \field{volume}{116}
+    \field{journaltitle}{Neural Networks}
+    \field{year}{2019}
+  \endentry
+
+  \entry{openmv_datasheet}{misc}{}
+    \name{author}{1}{}{%
+      {{hash=O}{%
+         family={OpenMV},
+         familyi={O\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{O1}
+    \strng{fullhash}{O1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{O}
+    \field{sortinithash}{O}
+    \field{howpublished}{\url{https://openmv.io/products/openmv-cam-m7}}
+    \field{title}{OpenMV datahseet}
+  \endentry
+
+  \entry{openmv_project}{misc}{}
+    \name{author}{1}{}{%
+      {{hash=O}{%
+         family={OpenMV},
+         familyi={O\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{O1}
+    \strng{fullhash}{O1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{O}
+    \field{sortinithash}{O}
+  \field{howpublished}{\url{https://sigalrm.blogspot.com/2013/07/in-search-of-better-serial-camera-module.html}}
+    \field{title}{OpenMV project}
+  \endentry
+
+  \entry{openmv_web_page}{misc}{}
+    \name{author}{1}{}{%
+      {{hash=O}{%
+         family={OpenMV},
+         familyi={O\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{O1}
+    \strng{fullhash}{O1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{O}
+    \field{sortinithash}{O}
+    \field{howpublished}{\url{https://openmv.io/}}
+    \field{title}{OpenMV website}
+  \endentry
+
+  \entry{park2020convolutional}{article}{}
+    \name{author}{3}{}{%
+      {{hash=PGM}{%
+         family={Park},
+         familyi={P\bibinitperiod},
+         given={Gyeong-Moon},
+         giveni={G\bibinithyphendelim M\bibinitperiod},
+      }}%
+      {{hash=YSM}{%
+         family={Yoo},
+         familyi={Y\bibinitperiod},
+         given={Sahng-Min},
+         giveni={S\bibinithyphendelim M\bibinitperiod},
+      }}%
+      {{hash=KJH}{%
+         family={Kim},
+         familyi={K\bibinitperiod},
+         given={Jong-Hwan},
+         giveni={J\bibinithyphendelim H\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {IEEE}%
+    }
+    \strng{namehash}{PGMYSMKJH1}
+    \strng{fullhash}{PGMYSMKJH1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{P}
+    \field{sortinithash}{P}
+    \field{title}{Convolutional neural network with developmental memory for
+  continual learning}
+    \field{journaltitle}{IEEE Transactions on Neural Networks and Learning
+  Systems}
+    \field{year}{2020}
+  \endentry
+
+  \entry{ReLU_explanation}{misc}{}
+    \name{author}{1}{}{%
+      {{hash=PV}{%
+         family={Praharsha},
+         familyi={P\bibinitperiod},
+         given={Vivek},
+         giveni={V\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{PV1}
+    \strng{fullhash}{PV1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{P}
+    \field{sortinithash}{P}
+    \field{howpublished}{\url{https://iq.opengenus.org/relu-activation/}}
+    \field{title}{ReLU (Rectified Linear Unit) Activation Function}
+  \endentry
+
+  \entry{ren2021synergy}{article}{}
+    \name{author}{3}{}{%
+      {{hash=RH}{%
+         family={Ren},
+         familyi={R\bibinitperiod},
+         given={Haoyu},
+         giveni={H\bibinitperiod},
+      }}%
+      {{hash=AD}{%
+         family={Anicic},
+         familyi={A\bibinitperiod},
+         given={Darko},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=RT}{%
+         family={Runkler},
+         familyi={R\bibinitperiod},
+         given={Thomas},
+         giveni={T\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{RHADRT1}
+    \strng{fullhash}{RHADRT1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{R}
+    \field{sortinithash}{R}
+    \field{title}{The synergy of complex event processing and tiny machine
+  learning in industrial IoT}
+    \field{journaltitle}{arXiv preprint arXiv:2105.03371}
+    \field{year}{2021}
+  \endentry
+
+  \entry{ren2021tinyol}{article}{}
+    \name{author}{3}{}{%
+      {{hash=RH}{%
+         family={Ren},
+         familyi={R\bibinitperiod},
+         given={Haoyu},
+         giveni={H\bibinitperiod},
+      }}%
+      {{hash=AD}{%
+         family={Anicic},
+         familyi={A\bibinitperiod},
+         given={Darko},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=RT}{%
+         family={Runkler},
+         familyi={R\bibinitperiod},
+         given={Thomas},
+         giveni={T\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{RHADRT1}
+    \strng{fullhash}{RHADRT1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{R}
+    \field{sortinithash}{R}
+    \field{title}{TinyOL: TinyML with Online-Learning on Microcontrollers}
+    \field{journaltitle}{arXiv preprint arXiv:2103.08295}
+    \field{year}{2021}
+  \endentry
+
+  \entry{rusu2016progressive}{article}{}
+    \name{author}{8}{}{%
+      {{hash=RAA}{%
+         family={Rusu},
+         familyi={R\bibinitperiod},
+         given={Andrei\bibnamedelima A},
+         giveni={A\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+      {{hash=RNC}{%
+         family={Rabinowitz},
+         familyi={R\bibinitperiod},
+         given={Neil\bibnamedelima C},
+         giveni={N\bibinitperiod\bibinitdelim C\bibinitperiod},
+      }}%
+      {{hash=DG}{%
+         family={Desjardins},
+         familyi={D\bibinitperiod},
+         given={Guillaume},
+         giveni={G\bibinitperiod},
+      }}%
+      {{hash=SH}{%
+         family={Soyer},
+         familyi={S\bibinitperiod},
+         given={Hubert},
+         giveni={H\bibinitperiod},
+      }}%
+      {{hash=KJ}{%
+         family={Kirkpatrick},
+         familyi={K\bibinitperiod},
+         given={James},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=KK}{%
+         family={Kavukcuoglu},
+         familyi={K\bibinitperiod},
+         given={Koray},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=PR}{%
+         family={Pascanu},
+         familyi={P\bibinitperiod},
+         given={Razvan},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=HR}{%
+         family={Hadsell},
+         familyi={H\bibinitperiod},
+         given={Raia},
+         giveni={R\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{RAA+1}
+    \strng{fullhash}{RAARNCDGSHKJKKPRHR1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{R}
+    \field{sortinithash}{R}
+    \field{title}{Progressive neural networks}
+    \field{journaltitle}{arXiv preprint arXiv:1606.04671}
+    \field{year}{2016}
+  \endentry
+
+  \entry{schwarz2018progress}{inproceedings}{}
+    \name{author}{7}{}{%
+      {{hash=SJ}{%
+         family={Schwarz},
+         familyi={S\bibinitperiod},
+         given={Jonathan},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=CW}{%
+         family={Czarnecki},
+         familyi={C\bibinitperiod},
+         given={Wojciech},
+         giveni={W\bibinitperiod},
+      }}%
+      {{hash=LJ}{%
+         family={Luketina},
+         familyi={L\bibinitperiod},
+         given={Jelena},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=GBA}{%
+         family={Grabska-Barwinska},
+         familyi={G\bibinithyphendelim B\bibinitperiod},
+         given={Agnieszka},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=TYW}{%
+         family={Teh},
+         familyi={T\bibinitperiod},
+         given={Yee\bibnamedelima Whye},
+         giveni={Y\bibinitperiod\bibinitdelim W\bibinitperiod},
+      }}%
+      {{hash=PR}{%
+         family={Pascanu},
+         familyi={P\bibinitperiod},
+         given={Razvan},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=HR}{%
+         family={Hadsell},
+         familyi={H\bibinitperiod},
+         given={Raia},
+         giveni={R\bibinitperiod},
+      }}%
+    }
+    \list{organization}{1}{%
+      {PMLR}%
+    }
+    \strng{namehash}{SJ+1}
+    \strng{fullhash}{SJCWLJGBATYWPRHR1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+    \field{booktitle}{International Conference on Machine Learning}
+    \field{pages}{4528\bibrangedash 4537}
+    \field{title}{Progress \& compress: A scalable framework for continual
+  learning}
+    \field{year}{2018}
+  \endentry
+
+  \entry{batch_size_medium}{misc}{}
+    \name{author}{1}{}{%
+      {{hash=SK}{%
+         family={Shen},
+         familyi={S\bibinitperiod},
+         given={Kevin},
+         giveni={K\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{SK1}
+    \strng{fullhash}{SK1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+  \field{howpublished}{\url{https://medium.com/mini-distill/effect-of-batch-size-on-training-dynamics-21c14f7a716e}}
+    \field{title}{Effect of batch size on training dynamics}
+  \endentry
+
+  \entry{shield_web_page}{misc}{}
+    \name{author}{1}{}{%
+      {{hash=S}{%
+         family={STM},
+         familyi={S\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{S1}
+    \strng{fullhash}{S1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+  \field{howpublished}{\url{https://www.st.com/en/ecosystems/x-nucleo-iks01a2.html}}
+    \field{title}{Motion MEMS and environmental sensor expansion board for
+  STM32 Nucleo}
+  \endentry
+
+  \entry{nucleo_datasheet}{misc}{}
+    \name{author}{1}{}{%
+      {{hash=S}{%
+         family={STM},
+         familyi={S\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{S1}
+    \strng{fullhash}{S1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+  \field{howpublished}{\url{https://www.st.com/resource/en/datasheet/stm32f401re.pdf}}
+    \field{title}{STM F401-RE datasheet}
+  \endentry
+
+  \entry{stm_cube_ai}{misc}{}
+    \name{author}{1}{}{%
+      {{hash=S}{%
+         family={STM},
+         familyi={S\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{S1}
+    \strng{fullhash}{S1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+  \field{howpublished}{\url{https://blog.st.com/stm32cubeai-neural-networks/1}}
+    \field{title}{STM32Cube.AI: Convert Neural Networks into Optimized Code for
+  STM32}
+  \endentry
+
+  \entry{sudharsan2021imbal}{inproceedings}{}
+    \name{author}{3}{}{%
+      {{hash=SB}{%
+         family={Sudharsan},
+         familyi={S\bibinitperiod},
+         given={Bharath},
+         giveni={B\bibinitperiod},
+      }}%
+      {{hash=BJG}{%
+         family={Breslin},
+         familyi={B\bibinitperiod},
+         given={John\bibnamedelima G},
+         giveni={J\bibinitperiod\bibinitdelim G\bibinitperiod},
+      }}%
+      {{hash=AMI}{%
+         family={Ali},
+         familyi={A\bibinitperiod},
+         given={Muhammad\bibnamedelima Intizar},
+         giveni={M\bibinitperiod\bibinitdelim I\bibinitperiod},
+      }}%
+    }
+    \list{organization}{1}{%
+      {IEEE}%
+    }
+    \strng{namehash}{SBBJGAMI1}
+    \strng{fullhash}{SBBJGAMI1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+    \field{booktitle}{2021 IEEE International Conference on Big Data (Big
+  Data)}
+    \field{pages}{4974\bibrangedash 4978}
+    \field{title}{Imbal-OL: Online Machine Learning from Imbalanced Data
+  Streams in Real-world IoT}
+    \field{year}{2021}
+  \endentry
+
+  \entry{sudharsan2021train++}{inproceedings}{}
+    \name{author}{4}{}{%
+      {{hash=SB}{%
+         family={Sudharsan},
+         familyi={S\bibinitperiod},
+         given={Bharath},
+         giveni={B\bibinitperiod},
+      }}%
+      {{hash=YP}{%
+         family={Yadav},
+         familyi={Y\bibinitperiod},
+         given={Piyush},
+         giveni={P\bibinitperiod},
+      }}%
+      {{hash=BJG}{%
+         family={Breslin},
+         familyi={B\bibinitperiod},
+         given={John\bibnamedelima G},
+         giveni={J\bibinitperiod\bibinitdelim G\bibinitperiod},
+      }}%
+      {{hash=AMI}{%
+         family={Ali},
+         familyi={A\bibinitperiod},
+         given={Muhammad\bibnamedelima Intizar},
+         giveni={M\bibinitperiod\bibinitdelim I\bibinitperiod},
+      }}%
+    }
+    \list{organization}{1}{%
+      {IEEE}%
+    }
+    \strng{namehash}{SB+1}
+    \strng{fullhash}{SBYPBJGAMI1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+    \field{booktitle}{2021 IEEE SmartWorld, Ubiquitous Intelligence \&
+  Computing, Advanced \& Trusted Computing, Scalable Computing \&
+  Communications, Internet of People and Smart City Innovation
+  (SmartWorld/SCALCOM/UIC/ATC/IOP/SCI)}
+    \field{pages}{97\bibrangedash 106}
+    \field{title}{Train++: An incremental ml model training algorithm to create
+  self-learning iot devices}
+    \field{year}{2021}
+  \endentry
+
+  \entry{pruning_article}{misc}{}
+    \name{author}{1}{}{%
+      {{hash=TA}{%
+         family={Taneja},
+         familyi={T\bibinitperiod},
+         given={Ajay},
+         giveni={A\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{TA1}
+    \strng{fullhash}{TA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{T}
+    \field{sortinithash}{T}
+  \field{howpublished}{\url{https://www.linkedin.com/pulse/quantization-pruning-ajay-taneja}}
+    \field{title}{Quantization and pruning}
+  \endentry
+
+  \entry{tensorflow_quantization}{misc}{}
+    \name{author}{1}{}{%
+      {{hash=T}{%
+         family={Tensorflow},
+         familyi={T\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{T1}
+    \strng{fullhash}{T1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{T}
+    \field{sortinithash}{T}
+  \field{howpublished}{\url{https://www.tensorflow.org/lite/performance/post_training_quantization}}
+    \field{title}{Post-training quantization}
+  \endentry
+
+  \entry{tripod_link}{misc}{}
+    \name{author}{1}{}{%
+      {{hash=T}{%
+         family={Thingiverse},
+         familyi={T\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{T2}
+    \strng{fullhash}{T2}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{T}
+    \field{sortinithash}{T}
+    \field{howpublished}{\url{https://www.thingiverse.com/thing:4694593}}
+    \field{title}{3D printable tripod}
+  \endentry
+
+  \entry{wei2020design}{inproceedings}{}
+    \name{author}{4}{}{%
+      {{hash=WPZ}{%
+         family={Wei-Peng},
+         familyi={W\bibinithyphendelim P\bibinitperiod},
+         given={Zeng},
+         giveni={Z\bibinitperiod},
+      }}%
+      {{hash=LSC}{%
+         family={Li-Sha},
+         familyi={L\bibinithyphendelim S\bibinitperiod},
+         given={Cai},
+         giveni={C\bibinitperiod},
+      }}%
+      {{hash=EML}{%
+         family={Er-Min},
+         familyi={E\bibinithyphendelim M\bibinitperiod},
+         given={Lin},
+         giveni={L\bibinitperiod},
+      }}%
+      {{hash=FCZ}{%
+         family={Feng-Chun},
+         familyi={F\bibinithyphendelim C\bibinitperiod},
+         given={Zhang},
+         giveni={Z\bibinitperiod},
+      }}%
+    }
+    \list{organization}{1}{%
+      {IEEE}%
+    }
+    \strng{namehash}{WPZ+1}
+    \strng{fullhash}{WPZLSCEMLFCZ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{W}
+    \field{sortinithash}{W}
+    \field{booktitle}{2020 IEEE 5th Information Technology and Mechatronics
+  Engineering Conference (ITOEC)}
+    \field{pages}{1198\bibrangedash 1202}
+    \field{title}{Design and Production of Tracking System based on OpenMV
+  Image Recognition}
+    \field{year}{2020}
+  \endentry
+
+  \entry{zenke2017continual}{inproceedings}{}
+    \name{author}{3}{}{%
+      {{hash=ZF}{%
+         family={Zenke},
+         familyi={Z\bibinitperiod},
+         given={Friedemann},
+         giveni={F\bibinitperiod},
+      }}%
+      {{hash=PB}{%
+         family={Poole},
+         familyi={P\bibinitperiod},
+         given={Ben},
+         giveni={B\bibinitperiod},
+      }}%
+      {{hash=GS}{%
+         family={Ganguli},
+         familyi={G\bibinitperiod},
+         given={Surya},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \list{organization}{1}{%
+      {PMLR}%
+    }
+    \strng{namehash}{ZFPBGS1}
+    \strng{fullhash}{ZFPBGS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{Z}
+    \field{sortinithash}{Z}
+    \field{booktitle}{International Conference on Machine Learning}
+    \field{pages}{3987\bibrangedash 3995}
+    \field{title}{Continual learning through synaptic intelligence}
+    \field{year}{2017}
+  \endentry
+
+  \entry{zhou2019design}{inproceedings}{}
+    \name{author}{7}{}{%
+      {{hash=ZL}{%
+         family={Zhou},
+         familyi={Z\bibinitperiod},
+         given={Linjie},
+         giveni={L\bibinitperiod},
+      }}%
+      {{hash=XE}{%
+         family={Xu},
+         familyi={X\bibinitperiod},
+         given={Enyi},
+         giveni={E\bibinitperiod},
+      }}%
+      {{hash=CD}{%
+         family={Chen},
+         familyi={C\bibinitperiod},
+         given={Donghong},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=XC}{%
+         family={Xu},
+         familyi={X\bibinitperiod},
+         given={Chenghao},
+         giveni={C\bibinitperiod},
+      }}%
+      {{hash=CX}{%
+         family={Chen},
+         familyi={C\bibinitperiod},
+         given={Xiai},
+         giveni={X\bibinitperiod},
+      }}%
+      {{hash=XS}{%
+         family={Xu},
+         familyi={X\bibinitperiod},
+         given={Suan},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=WL}{%
+         family={Wang},
+         familyi={W\bibinitperiod},
+         given={Ling},
+         giveni={L\bibinitperiod},
+      }}%
+    }
+    \list{organization}{1}{%
+      {IOP Publishing}%
+    }
+    \strng{namehash}{ZL+1}
+    \strng{fullhash}{ZLXECDXCCXXSWL1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{Z}
+    \field{sortinithash}{Z}
+    \field{booktitle}{Journal of Physics: Conference Series}
+    \field{number}{1}
+    \field{pages}{012102}
+    \field{title}{Design of rolling ball control system based on OpenMV}
+    \field{volume}{1303}
+    \field{year}{2019}
+  \endentry
+\enddatalist
+\endinput

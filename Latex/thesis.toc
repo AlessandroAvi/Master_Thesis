@@ -1,4 +1,4 @@
-\contentsline {chapter}{Introduction}{1}{chapter*.6}%
+\contentsline {chapter}{Introduction}{1}{chapter*.5}%
 \contentsline {chapter}{\numberline {1}Related Works}{6}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Introduction to Machine Learning}{6}{section.1.1}%
 \contentsline {section}{\numberline {1.2}Continual on- line learning}{10}{section.1.2}%
@@ -14,9 +14,9 @@
 \contentsline {section}{\numberline {3.2}Implemented algorithms}{31}{section.3.2}%
 \contentsline {subsection}{\numberline {3.2.1}TinyOL}{32}{subsection.3.2.1}%
 \contentsline {subsection}{\numberline {3.2.2}TinyOL V2}{34}{subsection.3.2.2}%
-\contentsline {subsection}{\numberline {3.2.3}LWF}{36}{subsection.3.2.3}%
-\contentsline {subsection}{\numberline {3.2.4}CWR}{40}{subsection.3.2.4}%
-\contentsline {subsection}{\numberline {3.2.5}My algorithm}{42}{subsection.3.2.5}%
+\contentsline {subsection}{\numberline {3.2.3}LWF}{37}{subsection.3.2.3}%
+\contentsline {subsection}{\numberline {3.2.4}CWR}{39}{subsection.3.2.4}%
+\contentsline {subsection}{\numberline {3.2.5}My algorithm}{41}{subsection.3.2.5}%
 \contentsline {section}{\numberline {3.3}Gesture recognition application}{42}{section.3.3}%
 \contentsline {section}{\numberline {3.4}Image classification application}{42}{section.3.4}%
 \contentsline {chapter}{\numberline {4}Experimental setup}{43}{chapter.4}%
