@@ -3,8 +3,8 @@
 \contentsline {section}{\numberline {1.1}Introduction to Machine Learning}{6}{section.1.1}%
 \contentsline {section}{\numberline {1.2}Continual on- line learning}{10}{section.1.2}%
 \contentsline {section}{\numberline {1.3}Machine Learning on MCU}{16}{section.1.3}%
-\contentsline {subsection}{\numberline {1.3.1}Pruning and quantization}{18}{subsection.1.3.1}%
-\contentsline {subsection}{\numberline {1.3.2}Cloud vs edge inference}{20}{subsection.1.3.2}%
+\contentsline {subsection}{\numberline {1.3.1}Cloud vs edge inference}{17}{subsection.1.3.1}%
+\contentsline {subsection}{\numberline {1.3.2}Pruning and quantization}{18}{subsection.1.3.2}%
 \contentsline {chapter}{\numberline {2}Hardware}{21}{chapter.2}%
 \contentsline {section}{\numberline {2.1}Gesture recognition hardware}{21}{section.2.1}%
 \contentsline {section}{\numberline {2.2}Image classification hardware}{23}{section.2.2}%
@@ -14,11 +14,9 @@
 \contentsline {section}{\numberline {3.2}Implemented algorithms}{31}{section.3.2}%
 \contentsline {subsection}{\numberline {3.2.1}TinyOL}{32}{subsection.3.2.1}%
 \contentsline {subsection}{\numberline {3.2.2}TinyOL V2}{34}{subsection.3.2.2}%
-\contentsline {subsection}{\numberline {3.2.3}LWF}{37}{subsection.3.2.3}%
-\contentsline {subsection}{\numberline {3.2.4}CWR}{39}{subsection.3.2.4}%
-\contentsline {subsection}{\numberline {3.2.5}My algorithm}{41}{subsection.3.2.5}%
-\contentsline {section}{\numberline {3.3}Gesture recognition application}{42}{section.3.3}%
-\contentsline {section}{\numberline {3.4}Image classification application}{42}{section.3.4}%
+\contentsline {subsection}{\numberline {3.2.3}LWF}{36}{subsection.3.2.3}%
+\contentsline {subsection}{\numberline {3.2.4}CWR}{40}{subsection.3.2.4}%
+\contentsline {subsection}{\numberline {3.2.5}My algorithm}{42}{subsection.3.2.5}%
 \contentsline {chapter}{\numberline {4}Experimental setup}{43}{chapter.4}%
 \contentsline {section}{\numberline {4.1}Dataset collection}{43}{section.4.1}%
 \contentsline {subsection}{\numberline {4.1.1}Accelerometer dataset}{44}{subsection.4.1.1}%

@@ -197,6 +197,98 @@
     \field{year}{2021}
   \endentry
 
+  \entry{jokic2021battery}{inproceedings}{}
+    \name{author}{3}{}{%
+      {{hash=JP}{%
+         family={Jokic},
+         familyi={J\bibinitperiod},
+         given={Petar},
+         giveni={P\bibinitperiod},
+      }}%
+      {{hash=ES}{%
+         family={Emery},
+         familyi={E\bibinitperiod},
+         given={Stephane},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=BL}{%
+         family={Benini},
+         familyi={B\bibinitperiod},
+         given={Luca},
+         giveni={L\bibinitperiod},
+      }}%
+    }
+    \list{organization}{1}{%
+      {IEEE}%
+    }
+    \strng{namehash}{JPESBL1}
+    \strng{fullhash}{JPESBL1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{J}
+    \field{sortinithash}{J}
+    \field{booktitle}{2021 19th IEEE International New Circuits and Systems
+  Conference (NEWCAS)}
+    \field{pages}{1\bibrangedash 4}
+    \field{title}{Battery-less face recognition at the extreme edge}
+    \field{year}{2021}
+  \endentry
+
+  \entry{jokic2021sub}{inproceedings}{}
+    \name{author}{6}{}{%
+      {{hash=JP}{%
+         family={Jokic},
+         familyi={J\bibinitperiod},
+         given={Petar},
+         giveni={P\bibinitperiod},
+      }}%
+      {{hash=AE}{%
+         family={Azarkhish},
+         familyi={A\bibinitperiod},
+         given={Erfan},
+         giveni={E\bibinitperiod},
+      }}%
+      {{hash=CR}{%
+         family={Cattenoz},
+         familyi={C\bibinitperiod},
+         given={Regis},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=TE}{%
+         family={T{\"u}retken},
+         familyi={T\bibinitperiod},
+         given={Engin},
+         giveni={E\bibinitperiod},
+      }}%
+      {{hash=BL}{%
+         family={Benini},
+         familyi={B\bibinitperiod},
+         given={Luca},
+         giveni={L\bibinitperiod},
+      }}%
+      {{hash=ES}{%
+         family={Emery},
+         familyi={E\bibinitperiod},
+         given={Stephane},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \list{organization}{1}{%
+      {IEEE}%
+    }
+    \strng{namehash}{JP+1}
+    \strng{fullhash}{JPAECRTEBLES1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{J}
+    \field{sortinithash}{J}
+    \field{booktitle}{2021 Symposium on VLSI Circuits}
+    \field{pages}{1\bibrangedash 2}
+    \field{title}{A sub-mW dual-engine ML inference system-on-chip for complete
+  end-to-end face-analysis at the edge}
+    \field{year}{2021}
+  \endentry
+
   \entry{kirkpatrick2017overcoming}{article}{}
     \true{moreauthor}
     \true{morelabelname}
@@ -279,62 +371,6 @@
     \field{year}{2017}
   \endentry
 
-  \entry{lesort2020continual}{article}{}
-    \name{author}{6}{}{%
-      {{hash=LT}{%
-         family={Lesort},
-         familyi={L\bibinitperiod},
-         given={Timoth{\'e}e},
-         giveni={T\bibinitperiod},
-      }}%
-      {{hash=LV}{%
-         family={Lomonaco},
-         familyi={L\bibinitperiod},
-         given={Vincenzo},
-         giveni={V\bibinitperiod},
-      }}%
-      {{hash=SA}{%
-         family={Stoian},
-         familyi={S\bibinitperiod},
-         given={Andrei},
-         giveni={A\bibinitperiod},
-      }}%
-      {{hash=MD}{%
-         family={Maltoni},
-         familyi={M\bibinitperiod},
-         given={Davide},
-         giveni={D\bibinitperiod},
-      }}%
-      {{hash=FD}{%
-         family={Filliat},
-         familyi={F\bibinitperiod},
-         given={David},
-         giveni={D\bibinitperiod},
-      }}%
-      {{hash=DRN}{%
-         family={D{\'\i}az-Rodr{\'\i}guez},
-         familyi={D\bibinithyphendelim R\bibinitperiod},
-         given={Natalia},
-         giveni={N\bibinitperiod},
-      }}%
-    }
-    \list{publisher}{1}{%
-      {Elsevier}%
-    }
-    \strng{namehash}{LT+1}
-    \strng{fullhash}{LTLVSAMDFDDRN1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{sortinit}{L}
-    \field{sortinithash}{L}
-    \field{pages}{52\bibrangedash 68}
-    \field{title}{Continual learning for robotics: Definition, framework,
-  learning strategies, opportunities and challenges}
-    \field{volume}{58}
-    \field{journaltitle}{Information fusion}
-    \field{year}{2020}
-  \endentry
-
   \entry{li2017learning}{article}{}
     \name{author}{2}{}{%
       {{hash=LZ}{%
@@ -366,6 +402,56 @@
     \field{journaltitle}{IEEE transactions on pattern analysis and machine
   intelligence}
     \field{year}{2017}
+  \endentry
+
+  \entry{lin2020mcunet}{article}{}
+    \name{author}{6}{}{%
+      {{hash=LJ}{%
+         family={Lin},
+         familyi={L\bibinitperiod},
+         given={Ji},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=CWM}{%
+         family={Chen},
+         familyi={C\bibinitperiod},
+         given={Wei-Ming},
+         giveni={W\bibinithyphendelim M\bibinitperiod},
+      }}%
+      {{hash=LY}{%
+         family={Lin},
+         familyi={L\bibinitperiod},
+         given={Yujun},
+         giveni={Y\bibinitperiod},
+      }}%
+      {{hash=CJ}{%
+         family={Cohn},
+         familyi={C\bibinitperiod},
+         given={John},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=GC}{%
+         family={Gan},
+         familyi={G\bibinitperiod},
+         given={Chuang},
+         giveni={C\bibinitperiod},
+      }}%
+      {{hash=HS}{%
+         family={Han},
+         familyi={H\bibinitperiod},
+         given={Song},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{LJ+1}
+    \strng{fullhash}{LJCWMLYCJGCHS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{L}
+    \field{sortinithash}{L}
+    \field{title}{Mcunet: Tiny deep learning on iot devices}
+    \field{journaltitle}{arXiv preprint arXiv:2007.10319}
+    \field{year}{2020}
   \endentry
 
   \entry{lomonaco2017core50}{inproceedings}{}
@@ -976,6 +1062,67 @@
     \field{title}{Design and Production of Tracking System based on OpenMV
   Image Recognition}
     \field{year}{2020}
+  \endentry
+
+  \entry{yu2017survey}{article}{}
+    \name{author}{7}{}{%
+      {{hash=YW}{%
+         family={Yu},
+         familyi={Y\bibinitperiod},
+         given={Wei},
+         giveni={W\bibinitperiod},
+      }}%
+      {{hash=LF}{%
+         family={Liang},
+         familyi={L\bibinitperiod},
+         given={Fan},
+         giveni={F\bibinitperiod},
+      }}%
+      {{hash=HX}{%
+         family={He},
+         familyi={H\bibinitperiod},
+         given={Xiaofei},
+         giveni={X\bibinitperiod},
+      }}%
+      {{hash=HWG}{%
+         family={Hatcher},
+         familyi={H\bibinitperiod},
+         given={William\bibnamedelima Grant},
+         giveni={W\bibinitperiod\bibinitdelim G\bibinitperiod},
+      }}%
+      {{hash=LC}{%
+         family={Lu},
+         familyi={L\bibinitperiod},
+         given={Chao},
+         giveni={C\bibinitperiod},
+      }}%
+      {{hash=LJ}{%
+         family={Lin},
+         familyi={L\bibinitperiod},
+         given={Jie},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=YX}{%
+         family={Yang},
+         familyi={Y\bibinitperiod},
+         given={Xinyu},
+         giveni={X\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {IEEE}%
+    }
+    \strng{namehash}{YW+1}
+    \strng{fullhash}{YWLFHXHWGLCLJYX1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{Y}
+    \field{sortinithash}{Y}
+    \field{pages}{6900\bibrangedash 6919}
+    \field{title}{A survey on the edge computing for the Internet of Things}
+    \field{volume}{6}
+    \field{journaltitle}{IEEE access}
+    \field{year}{2017}
   \endentry
 
   \entry{zenke2017continual}{inproceedings}{}
