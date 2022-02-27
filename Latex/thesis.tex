@@ -21,6 +21,7 @@
 \usepackage[backend=bibtex,style=numeric]{biblatex}
 \bibliography{thesis} 
 
+
 \newcommand\blankpage{%
     \null
     \thispagestyle{empty}%
@@ -664,6 +665,7 @@ After this step, it is also possible to introduce the quantization operation. Th
 As in the previous application, the last step consists of the exportation of the model. The frozen model is exported as $model.h5$, while the classification layer parameters are exported in text file and later loaded in the MCU. 
 
 \section{STM F401-RE setup for gesture recognition}
+\label{nucleo_application}
 In this section, the setup needed for a correct gesture recognition application is described. Specifically, it is described how the CL system was implemented on the Nucleo board, hoe the ML model was deployed on the MCU and how the communication laptop-MCU works.\\
 In the gesture recognition application two software are exploited to add ML capabilities to the microcontroller. The first, STM-CUBE-MX, is a piece of software used for automatically generating chunks of code. This helps the user by lifting a lot of work required for the initial setup of the device. Thanks to this software, it is possible to use the UI and easily define the main characteristics of the MCU that is being programmed, starting from the definition of the main clock and the essential characteristics of all the peripherals enabled to the parameters of the communication protocols. The second piece of software is just an extension pack of STM-CUBE-MX, namely STM-CUBE-AI. This toolkit enhances capabilities of the MCU by adding the possibility to use machine learning models on the device. The main advantages brought by the extension pack are the possibility to automatically load and process ML models on the flash memory and run optimized routines for inference on the same model. This toolkit also allows the user to compress the model at deploy time. In this case, no compression is applied and the model is loaded as a $model.h5$ file.\\
 Once the ML abilities have been added to the MCU it is possible to incorporate the CL system inside the code. The system, as already explained in Chapter \ref{basic_system}, is attached at the end of the frozen model, and it is composed mainly of functions for the elaboration of the frozen model's output, management of memory, and management of data stream. The entire system is written in C code and it is almost entirely contained in one single library. The entire project is available on GitHub \cite{github_repo}.\\
@@ -721,135 +723,130 @@ Figures \ref{fig:openmv_pov} shows a better comparison between images taken in t
 
 
 \chapter{Experimental results} 
+In this chapter all the results from the experiments performed are described and discussed. In both applications the algorithms were tested with a shuffled dataset randomically. The dataset were composed of circa 500 samples from each class. The CL trainings are performed in supervised settings, where the samples are provided by a laptop that is maintained in sync with the device via USB cable.
 
 \section{Experiment A: Gesture recognition}
+For the gesture recognition application, initially the CL framework was implemented to be used on a laptop. Later the framework was loaded on the Nucleo STM-F401RE. By doing at first the simulations on the laptop it is possible to then compare the evolution of the training on both devices. This permits to understand how a training performs and behaves on an MCU. To draw relevant conclusions it was decided to store the entire evolution of some parameters regarding the CL system, which are: the output of the frozen model, all biases of the OL layer, 10 weights picked randomly from the weight matrix, and the predictions obtained from the OL layer. Figure \ref{fig:evolution_params} contains a block diagram showing which are the saved parameters. 
 
-\section{Experiment B: Image classification}
-
-This section contains and explains the results obtained from the test performed. Initially a description about the comparison between simulation and real application is performed with the aim of understanding if the training on the nucleo evolves as the simulation on the laptop. Then the results obtained from the application from the Nucleo are discussed and finally the results from the OpenMV application are described.\\
-To understand if the Nucleo STM32 F401-RE is able to perform a real-time ML training a study concerning the history of its parameters is done. The idea is to record the variation of the most important parameters from the OL layer at every training step and then compare its evolution to the same parameter evolutioin but recorded from the simulation carried out on the laptop. The parameters of interest are the biases of the OL layer, the predictions obtained from Softmax, the output of the frozen model, 10 weights picked randomically from the weight matrix. The evolution of the parameters is then displayed in a plot with the aim of observing how and if the history recorded from the laptop differs from the history recorded from the MCU. This is done qualitatively simply by looking at superimposition of the two lines. Figure \ref{fig:comparison_frozen} shows one example of comparison for the frozen model outpus, figure \ref{fig:comparison_bias} shows the comparison of the bias evolution, figure \ref{fig:comparison_weights} shows the comparison of the weights evolution, figure \ref{fig:comparison_softmax} shows the difference of the predictions obtained from Softmax.
-%
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=100mm]{Figures/Chapter5/bias_example.png} 
-    \caption{PLACEHOLDER}
-    \label{fig:comparison_bias}    
+    \includegraphics[width=100mm]{Figures/Chapter5/evolution.png} 
+    \caption{Block diagram showing the parameters saved for the evaluation of the training evolution.}
+    \label{fig:evolution_params}    
 \end{figure}
-%
-%
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=100mm]{Figures/Chapter5/weight_example.png} 
-    \caption{PLACEHOLDER}
-    \label{fig:comparison_weights}    
-\end{figure}
-%
-%
+
+Once the parameter evolution is saved from both devices it is possible to compare their evolution during the training steps. The following plots display the variations of the parameters during an entire training session. 
+
 \begin{figure}[h!]
     \centering
     \includegraphics[width=100mm]{Figures/Chapter5/frozen_example.png} 
-    \caption{PLACEHOLDER}
+    \caption{Plot showing the difference between the frozen model output recorded from laptop and from MCU.}
     \label{fig:comparison_frozen}    
 \end{figure}
-%
-%
+
+Figure \ref{fig:comparison_frozen} contains a plot that shows the difference between the output of the frozen model computed from the laptop and from the STM. Notice that the plot shows the difference of the output computes at training step number 544. This step has been selected becuse it showed the higest maximum peack of doifference. The plots is an example of the little difference that there is in between the inference performed on the STM and on the laptop. It can then be said that inference performed on the STM MCU, which exploits the package STM-CUBE-AI, is as reliable as an inference performed on a laptop with Tensorflow.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=100mm]{Figures/Chapter5/bias_example.png} 
+    \caption{Plot showing the variation of bias number 1 during a training session.}
+    \label{fig:comparison_bias}    
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=100mm]{Figures/Chapter5/weight_example.png} 
+    \caption{Plot showing the variation of weight number 2 during a training session.}
+    \label{fig:comparison_weights}    
+\end{figure}
+
+Figures \ref{fig:comparison_bias} and \ref{fig:comparison_weights} shows the variation of bias number 1 and weight number 1 during training. The comparison in this case is qualitative since conclusions should be draw by comparing graphically the two evolutions. Both plots show no discrepancies between the evolution on the MCU and on the laptop. It can be concluded that the evolution of the weights and biases is the same on both devices. Notice also that the plots are just an example of comparison of one weight and one bias, but they are representative of all the other plots.
+
 \begin{figure}[h!]
     \centering
     \includegraphics[width=100mm]{Figures/Chapter5/softmax_example.png} 
-    \caption{PLACEHOLDER}
+    \caption{Plot showing the difference between softmax output number 1 recorded from laptop and MCU during a training session.}
     \label{fig:comparison_softmax}    
 \end{figure}
-%
-The plots displayed above are examples of the evolution performed, but they are rappresentative of the behaviour of all parameters. It's clear from the results how the two applications are very close, differencing from each other by just a small magnitude and for very few training step. Only one difference can be noted in figure x, where the dofference of the softmax prediction is dofferent from zero but still very little. This error in fact doesn't introduce any problem in the evolution since in the following steps the error goes back to 0. \\
-One of the main concerns was about the feature extraction performed by the frozen model. Because of the limited resources of the MCU usually models are compressed to be later loaded on the device. In this case no pruning or quantization have been applied, so the frozen model loaded on the MCU and laptop are exactly the same. The concern regards how the prediction is carried out by the X-CUBE-AI tool on the MCU compared with Tensorflow on the laptop. Figure \ref{fig:comparison_max} contains two examples of comparison of frozen model outputs. The x axis contains the iterator representing the i-th difference computed between the i-th value from the Tensorflow and STM output from the frozen model. On the left the difference that contains the biggest error is displayed, while on the right is displayed the sample that contains the second biggest error. It's clear how the plot on the left is not a correct representation of the MCU behaviour since it has a magnitude far too high when compared to the second biggest error.
-%
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=100mm]{Figures/Chapter5/comparison_difference.png} 
-    \caption{PLACEHOLDER}
-    \label{fig:comparison_max}    
-\end{figure}
-%
-Thanks to this study it is possible to conclude that a training performed on such a small device is actually possible and in terms of accuracy and precision it is as reliable as a training performed on a powerful device. Because of these plots it is then possible to conclude that the evolution of the model on the MCU is reliable and correct. A model trained on such device is subject to the same exact evolution that would affect the model in the case the training were to be carried on a laptop. From this point on all the experiment and results are obtained from MCUs.
-\bigskip
 
-Speaking about the gesture recognition experiment once the training have been carried out it's possible to display the accuracy of every single algorithm for every single class. As mentioned in section REFERENCE SECTION the testing is performed on the last 20 \% of the dataset, so on a total of XXX samples. The bar plots containing the accuracies from every strategy together with their confusion matrices are displayed in Figures \ref{fig:letter_res_OL} \ref{fig:letter_res_OL_batch} \ref{fig:letter_res_OL_v2} \ref{fig:letter_res_OL_v2_batch} \ref{fig:letter_res_LWF} \ref{fig:letter_res_LWF_batch} \ref{fig:letter_res_CWR}.  
-%
+Figure \ref{fig:comparison_softmax} contains a plot that shows the difference between the prediction obtained from the softmax function for the class 1 that represents the letter A. It can be said that in the entire training session there are no discrepancies between the prediction perfomed on the laptop and MCU expect for one single difference. The difference is found at step 590 circa, and the magnitude is of $2.5 \cdot 10^{-58}$. Most probably the difference is due to floating point error. Also in this case the plot contains only the evolution of the prediction for class "A", but the conclusion still holds for all the other classes.\\
+Thanks to these comparisons it is possible to conclude that the CL framework has been correctly implemented on the Nucleo STM. Additionally it can be said that the MCU is capable of performing a real-time training with an accuracy comparable to a powerful device such as a laptop. Thanks to this it can be said that the CL application on the STM can be considered reliable. All the next results were performed only on the MCU since its implementation proved to be accurate and correct.\bigskip
+
+After this it was possible to test all the algorithms directly on the MCU. The tests were performed on the Nucleo by feeding to the device always the same dataset in the same order. As mentioned in Section \ref{nucleo_application}, the pseudo-test is performed on the last 20\% of the dataset, so on a total of 849 samples. Table \ref{table:nucleosmalltable} contains the overall accuracy of each method together with additional information regarding time inference and memory use.
+
+\begin{table}[]
+\caption{Table showing the overall accuracy, inference times and memory use for each method during testing of the gesture recognition application.}
+\label{table:nucleosmalltable}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Method\\ used\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Accuracy\\ {[}\%{]}\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Avrg inference\\ time frozen\\ model  {[}ms{]}\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Avrg inference\\ time OL\\ layer {[}ms{]}\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Max allocated\\ RAM\\ {[}kB{]}\end{tabular}} \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}OL\\ \: \end{tabular}}                                                    & 86.13                                                                & 10.65                                                                                           & 0.99                                                                                       & 26.1                                                                            \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}OL\\ batch\end{tabular}}    & 86.26                                                                & 10.65                                                                                           & 1.54                                                                                       & 29.8                                                                            \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}OL V2\\ \: \end{tabular}}                                                 & 87.98                                                                & 10.65                                                                                           & 1.03                                                                                       & 26.1                                                                            \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}OL V2\\ batch\end{tabular}} & 87.98                                                                & 10.65                                                                                           & 1.11                                                                                       & 29.8                                                                            \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}LWF\\ \: \end{tabular}}                                                   & 87.61                                                                & 10.65                                                                                           & 3.45                                                                                       & 29.9                                                                            \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}LWF\\ batch\end{tabular}}   & 86.50                                                                & 10.65                                                                                           & 3.26                                                                                       & 29.9                                                                            \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}CWR\\ \: \end{tabular}}                                                   & 88.47                                                                & 10.65                                                                                           & 2.11                                                                                       & 29.9                                                                            \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}MY\\ ALG \end{tabular}}                                                & 86.87                                                                & 10.65                                                                                           & 3.54                                                                                       & 29.9                                                                            \\ \hline
+\end{tabular}
+\end{table}
+
+To draw even better conclusions the table can be paired with bar plots and confusion matrices showing in detail the accuracy of each class from all methods. The bar plots and confusion matrices can be found in figures \ref{fig:letter_res_OL}, \ref{fig:letter_res_OL_batch}, \ref{fig:letter_res_OL_v2}, \ref{fig:letter_res_OL_v2_batch}, \ref{fig:letter_res_LWF}, \ref{fig:letter_res_LWF_batch}, \ref{fig:letter_res_CWR}.
+
 \begin{figure}[h!]
     \centering
     \includegraphics[width=100mm]{Figures/Chapter5/STM_barPlot_OL.jpg} 
-    \caption{PLACEHOLDER}
+    \caption{Bar plot and confusion matrix showing the results from the testing session performed with TinyOL algorithm.}
     \label{fig:letter_res_OL}    
 \end{figure}
-%
-%
+
 \begin{figure}[h!]
     \centering
     \includegraphics[width=100mm]{Figures/Chapter5/STM_barPlot_OL_batch.jpg} 
-    \caption{PLACEHOLDER}
+    \caption{Bar plot and confusion matrix showing the results from the testing session performed with TinyOL algorithm with batches.}
     \label{fig:letter_res_OL_batch}    
 \end{figure}
-%
-%
+
 \begin{figure}[h!]
     \centering
     \includegraphics[width=100mm]{Figures/Chapter5/STM_barPlot_OL_V2.jpg} 
-    \caption{PLACEHOLDER}
+    \caption{Bar plot and confusion matrix showing the results from the testing session performed with TinyOL V2 algorithm.}
     \label{fig:letter_res_OL_v2}    
 \end{figure}
-%
-%
+
 \begin{figure}[h!]
     \centering
     \includegraphics[width=100mm]{Figures/Chapter5/STM_barPlot_OL_V2_batch.jpg} 
-    \caption{PLACEHOLDER}
+    \caption{Bar plot and confusion matrix showing the results from the testing session performed with TinyOL V2 algorithm with batches.}
     \label{fig:letter_res_OL_v2_batch}    
 \end{figure}
-%
-%
+
 \begin{figure}[h!]
     \centering
     \includegraphics[width=100mm]{Figures/Chapter5/STM_barPlot_LWF.jpg} 
-    \caption{PLACEHOLDER}
+    \caption{Bar plot and confusion matrix showing the results from the testing session performed with LWF algorithm.}
     \label{fig:letter_res_LWF}    
 \end{figure}
-%
-%
+
 \begin{figure}[h!]
     \centering
     \includegraphics[width=100mm]{Figures/Chapter5/STM_barPlot_LWF_batch.jpg} 
-    \caption{PLACEHOLDER}
+    \caption{Bar plot and confusion matrix showing the results from the testing session performed with LWF algorithm with batches.}
     \label{fig:letter_res_LWF_batch}    
 \end{figure}
-%
-%
+
 \begin{figure}[h!]
     \centering
     \includegraphics[width=100mm]{Figures/Chapter5/STM_barPlot_CWR.jpg} 
-    \caption{PLACEHOLDER}
+    \caption{Bar plot and confusion matrix showing the results from the testing session performed with CWR algorithm.}
     \label{fig:letter_res_CWR}    
 \end{figure}
-%
-From these plots it is clear how all methods are quite good in digesting new classes and completely fuse them in the classification layer. No method in fact shows a bad learning on a specific class exept for the letter B that in all methods sees a lower accuracy when compared to others. It' easy to see from the cofusion matrix that the letter is not learned in a wrong way but rather the letter is easily confused with the letter R. Most probably this is because the path that has been followed when the dataset has beenc reated differs for just the leg of letter R. \\
-Table x and table x contain other important results from the experiment. 
-%
+
+Additionally Table \ref{table:nucleo_bigtable} contains the precision, accuracy and F1 score from each class and all methods.
+
 \begin{table}[]
-\begin{center}
-\begin{tabular}{l|cccc}
-                     & \multicolumn{1}{c|}{\textbf{Accuracy \%}} & \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Average time\\ inference frozen\\  model in ms\end{tabular}}} & \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Average time \\ inference OL\\ layer in ms\end{tabular}}} & \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Maximum allocated \\ RAM in kB\end{tabular}}} \\ \hline
-\textbf{OL}          & 86.13                                     & 10.65                                                                                                                & 0.99                                                                                                             & 26.1                                                                                                 \\ \cline{1-1}
-\textbf{OL batch}    & 86.26                                     & 10.65                                                                                                                & 1.54                                                                                                             & 29.8                                                                                                 \\ \cline{1-1}
-\textbf{OL V2}       & 87.98                                     & 10.65                                                                                                                & 1.03                                                                                                             & 26.1                                                                                                 \\ \cline{1-1}
-\textbf{OL V2 batch} & 87.98                                     & 10.65                                                                                                                & 1.11                                                                                                             & 29.8                                                                                                 \\ \cline{1-1}
-\textbf{LWF}         & 87.61                                     & 10.65                                                                                                                & 3.45                                                                                                             & 29.9                                                                                                 \\ \cline{1-1}
-\textbf{LWF batch}   & 86.5                                      & 10.65                                                                                                                & 3.26                                                                                                             & 29.9                                                                                                 \\ \cline{1-1}
-\textbf{CWR}         & 88.47                                     & 10.65                                                                                                                & 2.11                                                                                                             & 29.9                                                                                                 \\ \cline{1-1}
-\textbf{MY ALG}      & 86.87                                     & 10.65                                                                                                                & 3.54                                                                                                             & 29.9                                                                                                 \\ \cline{1-1}
-\end{tabular}
-\end{center}
-\end{table}
-%
-\begin{table}[]
+\label{table:nucleo_bigtable}
+\caption{Table showing the precision, accuracy and F1 score for each class and all methods during testing of the gesture recognition application.}
 \begin{tabular}{cc|cccccccccc}
 \multicolumn{1}{c|}{\multirow{2}{*}{Algorithm}} & \multirow{2}{*}{Parameter} & \multicolumn{8}{c|}{Class}                                                                                                                                                                            & \multicolumn{1}{c|}{\multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}batch\\ size\end{tabular}}} & \multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}learning\\ rate\end{tabular}} \\
 \multicolumn{1}{c|}{}                           &                            & \multicolumn{1}{c|}{A} & \multicolumn{1}{c|}{E} & \multicolumn{1}{c|}{I} & \multicolumn{1}{c|}{O} & \multicolumn{1}{c|}{U} & \multicolumn{1}{c|}{B} & \multicolumn{1}{c|}{R} & \multicolumn{1}{c|}{M} & \multicolumn{1}{c|}{}                                                                      &                                                                          \\ \hline
@@ -861,6 +858,33 @@ Table x and table x contain other important results from the experiment.
                                                 & F1 score                   & 0.91                   & 0.96                   & 0.88                   & 0.90                   & 0.87                   & 0.75                   & 0.78                   & 0.93                   &                                                                                            &                                                                          \\ \cline{1-2}
 \end{tabular}
 \end{table}
+
+
+
+
+
+\section{Experiment B: Image classification}
+
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=100mm]{Figures/Chapter5/comparison_difference.png} 
+    \caption{PLACEHOLDER}
+    \label{fig:comparison_max}    
+\end{figure}
+%
+\bigskip
+
+Speaking about the gesture recognition experiment once the training have been carried out it's possible to display the accuracy of every single algorithm for every single class. As mentioned in section REFERENCE SECTION the testing is performed on the last 20 \% of the dataset, so on a total of XXX samples. The bar plots containing the accuracies from every strategy together with their confusion matrices are displayed in Figures
+%
+
+%
+From these plots it is clear how all methods are quite good in digesting new classes and completely fuse them in the classification layer. No method in fact shows a bad learning on a specific class exept for the letter B that in all methods sees a lower accuracy when compared to others. It' easy to see from the cofusion matrix that the letter is not learned in a wrong way but rather the letter is easily confused with the letter R. Most probably this is because the path that has been followed when the dataset has beenc reated differs for just the leg of letter R. \\
+Table x and table x contain other important results from the experiment. 
+%
+
+%
+
 
 In table x the overall accuracy of the model with specific strategies is displayed. From here it's clear how the algorithm CWR performs the best with an accuracy of xx \%. All methods perform quite good with the lowest accuracy being xx \& from the method OL, which is just a drop of xx \% with respect to the accuracy obtained from the training of the frozen model performed with Tensorflow. Speaking about the time required for a training step the total time can be split in two portions. The first concerns the inference obtainde by the frozen model, which is of course constant for all strategies and takes 10.65 ms. The other part of the training step time is the time taken by the OL layer which contains the time required for the inference of the OL layer and the following computation of the back propagation and update of the layer's weights. From the table is clear how the faster methods are TinyOL and TinyOL v2, which are the only methods that do require only one OL layer, thus reducing the amount of computations require. On the other hand the slowest methods are LWF, LWF batch and MY ALG, which all require a double inference from the two classification layer. The time is in fact more than double the time required by all the other strategies. The last column concerns the amount of RAM allocated by the strategies. This value shows that the TinyOL and TinyOL v2 are the lightest methods since they require only the allocation of 1 weights matrix and 1 bias array. All the other methods require a very similar amount of RAM since they all work with double memories. A little difference of just 100 bytes is due to the allocation of some additional values particular for some strategies.  \\
 Another important study that has been carried out is the study of variation of the accuracy while changing the batch size. This study was of particular interest thanks to \ref{}, a blog post that studies in detail the impact that the batch size has on a ML training. The results are show in figure \ref{fig:batch_size_letter}. Here is clear how the only methods that drop their accuracy quite a bit are TinyOL and TinyOL v2, while all the other are able to mantain their accuracy quite constant.
