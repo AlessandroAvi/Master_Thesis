@@ -37,10 +37,18 @@
 \contentsline {figure}{\numberline {5.5}{\ignorespaces Plot showing the difference between softmax output number 1 recorded from laptop and MCU during a training session.\relax }}{63}{figure.caption.39}%
 \contentsline {figure}{\numberline {5.6}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with TinyOL algorithm.\relax }}{65}{figure.caption.41}%
 \contentsline {figure}{\numberline {5.7}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with TinyOL algorithm with batches.\relax }}{65}{figure.caption.42}%
-\contentsline {figure}{\numberline {5.8}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with TinyOL V2 algorithm.\relax }}{66}{figure.caption.43}%
-\contentsline {figure}{\numberline {5.9}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with TinyOL V2 algorithm with batches.\relax }}{66}{figure.caption.44}%
-\contentsline {figure}{\numberline {5.10}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with LWF algorithm.\relax }}{67}{figure.caption.45}%
-\contentsline {figure}{\numberline {5.11}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with LWF algorithm with batches.\relax }}{67}{figure.caption.46}%
-\contentsline {figure}{\numberline {5.12}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with CWR algorithm.\relax }}{68}{figure.caption.47}%
-\contentsline {figure}{\numberline {5.13}{\ignorespaces Plot showing the variation of accuracy from each method with the increase of the batch size.\relax }}{69}{figure.caption.49}%
+\contentsline {figure}{\numberline {5.8}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with TinyOL V2 algorithm.\relax }}{67}{figure.caption.43}%
+\contentsline {figure}{\numberline {5.9}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with TinyOL V2 algorithm with batches.\relax }}{67}{figure.caption.44}%
+\contentsline {figure}{\numberline {5.10}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with LWF algorithm.\relax }}{68}{figure.caption.45}%
+\contentsline {figure}{\numberline {5.11}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with LWF algorithm with batches.\relax }}{68}{figure.caption.46}%
+\contentsline {figure}{\numberline {5.12}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with CWR algorithm.\relax }}{69}{figure.caption.47}%
+\contentsline {figure}{\numberline {5.13}{\ignorespaces Plot showing the variation of accuracy from each method with the increase of the batch size.\relax }}{70}{figure.caption.49}%
+\contentsline {figure}{\numberline {5.14}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with TinyOL algorithm on the image classification experiment.\relax }}{71}{figure.caption.52}%
+\contentsline {figure}{\numberline {5.15}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with TinyOL algorithm with batches on the image classification experiment.\relax }}{73}{figure.caption.53}%
+\contentsline {figure}{\numberline {5.16}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with TinyOL V2 algorithm on the image classification experiment.\relax }}{73}{figure.caption.54}%
+\contentsline {figure}{\numberline {5.17}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with TinyOL V2 algorithm with batches on the image classification experiment.\relax }}{74}{figure.caption.55}%
+\contentsline {figure}{\numberline {5.18}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with LWF algorithm on the image classification experiment.\relax }}{74}{figure.caption.56}%
+\contentsline {figure}{\numberline {5.19}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with LWF algorithm with batches on the image classification experiment.\relax }}{75}{figure.caption.57}%
+\contentsline {figure}{\numberline {5.20}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with CWR algorithm on the image classification experiment.\relax }}{75}{figure.caption.58}%
+\contentsline {figure}{\numberline {5.21}{\ignorespaces Plot showing the variation of accuracy from each method with the increase of the batch size performed in the digits recognition experiment.\relax }}{76}{figure.caption.59}%
 \addvspace {10\p@ }
