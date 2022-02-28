@@ -42,6 +42,5 @@
 \contentsline {figure}{\numberline {5.10}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with LWF algorithm.\relax }}{67}{figure.caption.45}%
 \contentsline {figure}{\numberline {5.11}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with LWF algorithm with batches.\relax }}{67}{figure.caption.46}%
 \contentsline {figure}{\numberline {5.12}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with CWR algorithm.\relax }}{68}{figure.caption.47}%
-\contentsline {figure}{\numberline {5.13}{\ignorespaces PLACEHOLDER\relax }}{69}{figure.caption.49}%
-\contentsline {figure}{\numberline {5.14}{\ignorespaces PLACEHOLDER\relax }}{70}{figure.caption.50}%
+\contentsline {figure}{\numberline {5.13}{\ignorespaces Plot showing the variation of accuracy from each method with the increase of the batch size.\relax }}{69}{figure.caption.49}%
 \addvspace {10\p@ }
