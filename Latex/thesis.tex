@@ -16,6 +16,7 @@
 \usepackage[toc,page]{appendix}
 \usepackage{afterpage}
 \usepackage{multirow}
+\usepackage{lscape}
 
 
 \usepackage[backend=bibtex,style=numeric]{biblatex}
@@ -95,8 +96,8 @@ The hidden layers are all the layer that can be found in between the first and t
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=140mm]{Figures/Chapter1/modelstructure.jpeg} 
-    \caption{On the right an example of layers inside a ML model. On the left a scheme explaining how a neuron behaves. IMMAGINE NON DEFINITIVA}
+    \includegraphics[width=140mm]{Figures/Chapter1/modelstructure.jpg} 
+    \caption{On the left an example of layers inside a ML model. On the right a scheme of the behaviour of a neuron.}
     \label{fig:modelstructure}    
 \end{figure}
 
@@ -123,7 +124,7 @@ Figure \ref{fig:supervised} shows the main characteristic of the different train
 
 The training step is the process that allows a model to change its weight and make them converge toward an optimal state where the error committed by the prediction is minimized. An example of training step is the following. The model receives an input sample and propagates it through all hidden layers. Once the data reaches the output layer, a prediction is computed and later compared with the ground truth label (if the training is supervised). A loss function is used for computing the error performed by the prediction, then the back propagation algorithm is performed. This procedure consists of correcting all weights and biases of all previous layers with the aim of minimizing the error of future predictions. If the training is performed on a big enough and heterogeneous dataset, parameters should be now in a condition that allows the model to consistently make predictions that satisfying results.\\
 
-Depending on the types of layer used inside a ML model, several model types can be defined. Different structures can be exploited for many applications, some examples of basic models are DNN, CNN and autoencoders. \\
+Depending on the types of layer used inside a ML model, several model types can be defined. Different structures can be exploited for many applications, some examples of basic models are fully connected NN, CNN and autoencoders. \\
 Models that are composed of only fully connected layers, also called fully connected deep network are well suited for regression and classification of data. These layers are capable of performing elaboration of data simply by relying on the use of activation functions and correction over the weights and biases. 
 Convolutional layers are well suited for the elaboration of images. They use filters that move over an image to perform the convolution operation. This is one of the basic procedure used in image processing for the extraction of features from matrices of data (like pixel values inside an image). Notice that this operations does not lose information about the localization of features inside the image. This because the procedure applies the filters over a matrix and not on a flattened array. Usually these types of layers can be found in the initial portion of a Convolutional Neural Network (CNN) model. These models are usually divided in three part. The first is composed of multiple convolutional layers used for feature extraction. This is followed by flatten layers that are used for transforming matrices in arrays. The last portion is composed of fully connected layers that elaborate and then classify the data.	\\
 Other types of models are autoencoders. These models can be thought as generative models, because thei behave as constructor of lost data. An autoencoder is composed of two groups called Encoder and Decoder. The Encoder is just a sequence of fully connected layers with decreasing size, while the Decoder is a sequence of fully connected layers with increasing size. The goal of these types of models is to take an input samples, compress it into a smaller size, in what is called bottleneck, and then reconstruct the compressed array into the original values. If the training is done correctly, the Encoder can be discarded, and the Decoder part can be used as an artificial generator of data.\\
@@ -132,7 +133,7 @@ Figure \ref{fig:structures} shows some examples of ML model structures aforement
 \begin{figure}[h!]
     \centering
     \includegraphics[width=140mm]{Figures/Chapter1/structures.png} 
-    \caption{Block diagram showing an example of ML model structure: DNN, CNN and autoencoder. IMMAGINE NON DEFINITIVA}
+    \caption{Block diagram showing an example of ML model structure: fully connected NN, CNN and autoencoder.}
     \label{fig:structures}    
 \end{figure}  
 
@@ -724,60 +725,61 @@ Figures \ref{fig:openmv_pov} shows a better comparison between images taken in t
 
 
 \chapter{Experimental results} 
-In this chapter all the results from the experiments performed are described and discussed. In both applications the algorithms were tested with a shuffled dataset randomically. The dataset were composed of circa 500 samples from each class. The CL trainings are performed in supervised settings, where the samples are provided by a laptop that is maintained in sync with the device via USB cable.
+In this chapter all the results from the experiments performed are described and discussed. The experiments were implemented on the respective MCU and the results are recorded either by the MCU itself or by an external device. Both experiments were performed in supervised settings, where the dataset is manipulated and shuffled on a laptop only once before the training sessions. In this ways it is possible to use the same dataset in the same order for all tests.
 
 \section{Experiment A: Gesture recognition}
-For the gesture recognition application, initially the CL framework was implemented to be used on a laptop. Later the framework was loaded on the Nucleo STM-F401RE. By doing at first the simulations on the laptop it is possible to then compare the evolution of the training on both devices. This permits to understand how a training performs and behaves on an MCU. To draw relevant conclusions it was decided to store the entire evolution of some parameters regarding the CL system, which are: the output of the frozen model, all biases of the OL layer, 10 weights picked randomly from the weight matrix, and the predictions obtained from the OL layer. Figure \ref{fig:evolution_params} contains a block diagram showing which are the saved parameters. 
+For the gesture recognition application, initially the CL framework was implemented to be used on a laptop for better understanding the behaviour of the system and easier debugging. Later the framework was adapted and deployed on the Nucleo STM-F401RE. By performing with the same dataset simulations on the laptop and CL training on the MCU, is then possible to compare the results and the status of the two systems. To better compare the evolution of the CL system it has been decided to record the entire history of changes of the most relevant parameters during a training session. The parameters that were stored are: the output of the frozen model, all biases of from the classification layer, 10 weights picked randomly from the weight matrix of the classification layer, and the predictions obtained from the OL layer. Figure \ref{fig:evolution_params} contains a block diagram showing at which point in the training step the parameters are copied and stored. 
 
 \begin{figure}[h!]
     \centering
     \includegraphics[width=100mm]{Figures/Chapter5/evolution.png} 
-    \caption{Block diagram showing the parameters saved for the evaluation of the training evolution.}
+    \caption{Block diagram showing at which block in a training step the parameters are copied and saved.}
     \label{fig:evolution_params}    
 \end{figure}
 
-Once the parameter evolution is saved from both devices it is possible to compare their evolution during the training steps. The following plots display the variations of the parameters during an entire training session. 
+Once the parameters evolution is recorded on both devices (laptop and Nucleo STM32), it is possible to display plots that show a qualitative comparison of the evolutions. The following plots show the history of changes of the aforementioned parameters during a session of training and testing.
 
 \begin{figure}[h!]
     \centering
     \includegraphics[width=100mm]{Figures/Chapter5/frozen_example.png} 
-    \caption{Plot showing the difference between the frozen model output recorded from laptop and from MCU.}
+    \caption{Plot showing the element by element difference of two frozen model outputs (at training step 544) computed on the Nucleo MCU and on a laptop.}
     \label{fig:comparison_frozen}    
 \end{figure}
 
-Figure \ref{fig:comparison_frozen} contains a plot that shows the difference between the output of the frozen model computed from the laptop and from the STM. Notice that the plot shows the difference of the output computes at training step number 544. This step has been selected becuse it showed the higest maximum peack of doifference. The plots is an example of the little difference that there is in between the inference performed on the STM and on the laptop. It can then be said that inference performed on the STM MCU, which exploits the package STM-CUBE-AI, is as reliable as an inference performed on a laptop with Tensorflow.
+Figure \ref{fig:comparison_frozen} contains a plot that shows the difference between the output of the frozen model computed from the laptop and from the STM. On the X axis is represented the iterator of the i-th node, on the Y axis is represented the magnitude of the difference. Note that one frozen model output is an array of size $128 \times 1$, so this plots represents the difference, element by element, of the two outputs computed at training step number 544. This step has been selected because it showed the highest maximum peak of difference. The plot is a demonstration of how little difference there is between the frozen model output computed on the STM and on the laptop. It can then be said that inference performed on the MCU, which exploits the package STM-CUBE-AI, is as reliable as an inference performed on a laptop with Tensorflow.
+AGGIUNGERE UN ACCEMMO SUL VALORE MASSIMO DI ERRORE PERCENTUALE
 
 \begin{figure}[h!]
     \centering
     \includegraphics[width=100mm]{Figures/Chapter5/bias_example.png} 
-    \caption{Plot showing the variation of bias number 1 during a training session.}
+    \caption{Plot showing the variation of bias number 1 recorded on the Nucleo MCU and on a laptop during a training session.}
     \label{fig:comparison_bias}    
 \end{figure}
 
 \begin{figure}[h!]
     \centering
     \includegraphics[width=100mm]{Figures/Chapter5/weight_example.png} 
-    \caption{Plot showing the variation of weight number 2 during a training session.}
+    \caption{Plot showing the variation of weight number recorded on the Nucleo MCU and on a laptop 2 during a training session.}
     \label{fig:comparison_weights}    
 \end{figure}
 
-Figures \ref{fig:comparison_bias} and \ref{fig:comparison_weights} shows the variation of bias number 1 and weight number 1 during training. The comparison in this case is qualitative since conclusions should be draw by comparing graphically the two evolutions. Both plots show no discrepancies between the evolution on the MCU and on the laptop. It can be concluded that the evolution of the weights and biases is the same on both devices. Notice also that the plots are just an example of comparison of one weight and one bias, but they are representative of all the other plots.
+Figures \ref{fig:comparison_bias} and \ref{fig:comparison_weights} shows the evolution of bias number 1 and weight number 1 respectively. The plots X axis represents the number of training step, while the Y axis represents the value of the parameter. The plots contain in green the evolution of the parameter recorded on the laptop, and in red the evolution of the parameter recorded on the MCU. The comparison this time is qualitative because conclusions should be drawn graphically. Both plots show evolutions of parameters that are exactly overlapped. This allows to conclude that the back propagation that are applied on the classification layer are the same on laptop and MCU, which brings to models that evolve in the same way. Notice that the plots display the behaviour of only one weight and one bias. It can be assured that all parameters recorded show behaviours that are overlapped as displayed here.
 
 \begin{figure}[h!]
     \centering
     \includegraphics[width=100mm]{Figures/Chapter5/softmax_example.png} 
-    \caption{Plot showing the difference between softmax output number 1 recorded from laptop and MCU during a training session.}
+    \caption{Plot showing the difference of the prediction for class $A$ computed on the Nucleo MCU and on a laptop during a training session.}
     \label{fig:comparison_softmax}    
 \end{figure}
 
-Figure \ref{fig:comparison_softmax} contains a plot that shows the difference between the prediction obtained from the softmax function for the class 1 that represents the letter A. It can be said that in the entire training session there are no discrepancies between the prediction perfomed on the laptop and MCU expect for one single difference. The difference is found at step 590 circa, and the magnitude is of $2.5 \cdot 10^{-58}$. Most probably the difference is due to floating point error. Also in this case the plot contains only the evolution of the prediction for class "A", but the conclusion still holds for all the other classes.\\
-Thanks to these comparisons it is possible to conclude that the CL framework has been correctly implemented on the Nucleo STM. Additionally it can be said that the MCU is capable of performing a real-time training with an accuracy of weights modification comparable to a powerful device such as a laptop. Thanks to this it can be said that the CL application on the STM can be considered reliable. All the next results were performed only on the MCU since its implementation proved to be accurate and correct.\bigskip
+Figure \ref{fig:comparison_softmax} contains a plot that shows the difference computed between the laptop and MCU predictions of the classification layer for class $A$. The X axis of the plot represents the iteration of training steps, while the Y axis displays the magnitude of the difference. Also in this case it can be said that the prediction for the letter $A$ is the same on both devices because the difference computes is very close to 0. Only one discrepancy can be computed, which is around training step number 590 and has a magnitude of $2.5 \cdot 10^{-58}$. Also in this case the plot shows only the comparison of the prediction of class $A$, but also the other comparison show similar results.\\
+Thanks to these comparisons it is possible to conclude that the CL framework implementations of laptop and MCU show no differences, thus the application on the MCU can be considered correct. It can also be said that the STM Nucleo is able to perform a real-time training with a back propagation accuracy comparable to a powerful device such as a laptop. Consequently, the MCU application does not require any further comparison since it proved to be correct, reliable and accurate. From this point on, the results will be recorded only from the MCU.\bigskip
 
-After this it was possible to test all the algorithms directly on the MCU. The tests were performed on the Nucleo by feeding to the device always the same dataset in the same order. As mentioned in Section \ref{nucleo_application}, the pseudo-test is performed on the last 20\% of the dataset, so on a total of 849 samples. Table \ref{table:nucleosmalltable} contains the overall accuracy of each method together with additional information regarding time inference and memory use.
+After the comparisons between simulation and application it was possible to test all the algorithms on the Nucleo STM-F401RE. As mentioned in Section \ref{nucleo_application}, the pseudo-test is performed on the last $20\%$ of the dataset, so on a total of 849 samples. Table \ref{table:nucleo_smalltable} contains the overall accuracy of each method, the average time inference required by the frozen model and by the OL layer, and the peak memory use. Note that all the parameters were recorded while in pseudo testing. \\
 
 \begin{table}[]
 \caption{Table showing the overall accuracy, inference times and memory use for each method during testing of the gesture recognition application.}
-\label{table:nucleosmalltable}
+\label{table:nucleo_smalltable}
 \begin{tabular}{|c|c|c|c|c|}
 \hline
 \textbf{\begin{tabular}[c]{@{}c@{}}Method\\ used\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Accuracy\\ {[}\%{]}\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Avrg inference\\ time frozen\\ model  {[}ms{]}\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Avrg inference\\ time OL\\ layer {[}ms{]}\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Max allocated\\ RAM\\ {[}kB{]}\end{tabular}} \\ \hline
@@ -796,59 +798,59 @@ To draw even better conclusions the table can be paired with bar plots and confu
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=140mm]{Figures/Chapter5/STM_barPlot_OL.jpg} 
+    \includegraphics[width=140mm]{Figures/Chapter5/STM_barPlot_OL.png} 
 
-    \caption{Bar plot and confusion matrix showing the results from the testing session performed with TinyOL algorithm.}
+    \caption{Bar plot and confusion matrix showing the results from the testing session performed with TinyOL algorithm in the gesture recognition application.}
     \label{fig:letter_res_OL}    
 \end{figure}
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=140mm]{Figures/Chapter5/STM_barPlot_OL_batch.jpg} 
-    \caption{Bar plot and confusion matrix showing the results from the testing session performed with TinyOL algorithm with batches.}
+    \includegraphics[width=140mm]{Figures/Chapter5/STM_barPlot_OL_batch.png} 
+    \caption{Bar plot and confusion matrix showing the results from the testing session performed with TinyOL algorithm with batches in the gesture recognition application.}
     \label{fig:letter_res_OL_batch}    
 \end{figure}
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=140mm]{Figures/Chapter5/STM_barPlot_OL_V2.jpg} 
-    \caption{Bar plot and confusion matrix showing the results from the testing session performed with TinyOL V2 algorithm.}
+    \includegraphics[width=140mm]{Figures/Chapter5/STM_barPlot_OL_V2.png} 
+    \caption{Bar plot and confusion matrix showing the results from the testing session performed with TinyOL V2 algorithm in the gesture recognition application.}
     \label{fig:letter_res_OL_v2}    
 \end{figure}
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=140mm]{Figures/Chapter5/STM_barPlot_OL_V2_batch.jpg} 
-    \caption{Bar plot and confusion matrix showing the results from the testing session performed with TinyOL V2 algorithm with batches.}
+    \includegraphics[width=140mm]{Figures/Chapter5/STM_barPlot_OL_V2_batch.png} 
+    \caption{Bar plot and confusion matrix showing the results from the testing session performed with TinyOL V2 algorithm with batches in the gesture recognition application.}
     \label{fig:letter_res_OL_v2_batch}    
 \end{figure}
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=140mm]{Figures/Chapter5/STM_barPlot_LWF.jpg} 
-    \caption{Bar plot and confusion matrix showing the results from the testing session performed with LWF algorithm.}
+    \includegraphics[width=140mm]{Figures/Chapter5/STM_barPlot_LWF.png} 
+    \caption{Bar plot and confusion matrix showing the results from the testing session performed with LWF algorithm in the gesture recognition application.}
     \label{fig:letter_res_LWF}    
 \end{figure}
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=140mm]{Figures/Chapter5/STM_barPlot_LWF_batch.jpg} 
-    \caption{Bar plot and confusion matrix showing the results from the testing session performed with LWF algorithm with batches.}
+    \includegraphics[width=140mm]{Figures/Chapter5/STM_barPlot_LWF_batch.png} 
+    \caption{Bar plot and confusion matrix showing the results from the testing session performed with LWF algorithm with batches in the gesture recognition application.}
     \label{fig:letter_res_LWF_batch}    
 \end{figure}
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=140mm]{Figures/Chapter5/STM_barPlot_CWR.jpg} 
-    \caption{Bar plot and confusion matrix showing the results from the testing session performed with CWR algorithm.}
+    \includegraphics[width=140mm]{Figures/Chapter5/STM_barPlot_CWR.png} 
+    \caption{Bar plot and confusion matrix showing the results from the testing session performed with CWR algorithm in the gesture recognition application.}
     \label{fig:letter_res_CWR}    
 \end{figure}
 
-Additionally Table \ref{table:nucleo_bigtable} contains the precision, accuracy and F1 score from each class and all methods.
+Additionally Table \ref{table:nucleo_bigtable} contains the precision, accuracy and F1 score from each class and all methods. Since the model is used for multiclass classification it is not possible to compute just one value of accuracy, precision and F1 score for the entire model. It is necessary to compute the parameters aforementioned for each class.
 
 
 
-
+\begin{landscape}
 \begin{table}[]
 \label{table:nucleo_bigtable}
 \caption{Table showing the precision, accuracy and F1 score for each class and all methods during testing of the gesture recognition application.}
@@ -881,28 +883,29 @@ Additionally Table \ref{table:nucleo_bigtable} contains the precision, accuracy 
                                                                                   & F1 score                            & 0.91                            & 0.94                            & 0.93                            & 0.90                            & 0.81                            & 0.77                            & 0.80                            & 0.95                            &                                                                                  
 \end{tabular}
 \end{table}
+\end{landscape}
 
+From Table \ref{table:nucleo_smalltable} it is possible to conclude that all algorithms succeeded in the inclusion of three new classes since no strategy shows an accuracy below $85 \%$. All methods were able to allocate correctly weights and biases when required, and more importantly the algorithms were able to train in real-time the new allocated weights from an initial value of 0 to their last status. The worst performing strategy is TinyOL with an accuracy of $86.13 \%$, which is a drop of $10.7 \%$ from the accuracy of the original model trained with Tensorflow.On the other hand the best performing method is CWR with an accuracy of $88.47 \%$.\\
+The table contains also information regarding the average inference time required at each training step. The time taken for a standard training step can be divided in two parts, the inference performed with the frozen model and the propagation and training performed on the OL layer. As expected the inference time for the frozen model is constant for all methods and requires $10.65 ms$. On the other hand the inference and back propagation times required for the OL layer are dependent on the method used. As explained in Section \ref{algorithms} different strategies use different amount of memory and require different amounts of computations. From Table \ref{table:nucleo_smalltable} it is clear that the fastest methods are TinyOL and TinyOL V2, which are the only strategies that use only one classification layer, thus less computations. On the other hand, the slowest methods are LWF and LWF with batches. These strategies require a double prediction at every step, this is the main reason why they need almost double the inference time with respect to the other methods. \\
+The last column of the table contains information regarding the memory use. For computing this parameter a custom function that evaluates the free memory has been placed strategically in different parts of the code. The table shows that the lightest strategies are TinyOL and TinyOL V2, this because the are the only methods that allocate only one matrix and one bias array. All the other methods require a similar amount of memory. A little difference of 100 bytes is observed, which is be due to the extra allocation of small arrays and to the sensibility of the function implemented.\\
+Taking into consideration also the bar plots and confusion matrices, extended conclusions can be obtained. The main thing to be noted is the accuracy that regards classes $R$ and $B$. In all methods a clear pattern of reduced accuracy characterizes these two letters. This should not be confused with bad learning of the two letters, but rather it should be noticed, from the confusion matrices, that the model easily confuses only these two letter. The main reason is because of the very similar shape of the two letters, which is probably not very defined by accelerometer data.\\ 
 
-From Table \ref{table:nucleosmalltable} it is possible to conclude that all algorithms succeeded in the inclusion of three new classes inside the model structure. All methods show a relative high accuracy for all letters, meaning that the methods were able to allocate new weights and biases and train them in real-time from zero. All methods show high values of overall accuracy. The worst performing strategy is TinyOL with an accuracy of $86.13 \%$, which is a drop of $10.7 \%$ from the performance of the frozen model. The table contains also information regarding the average inference time required at each training step. A standard training step can be divided in two parts, the inference performed with the frozen model and the inference + training step performed on the OL layer. As expected the inference time for the frozen model is constant for all methods and requires $10.65 ms$. On the other hand the inference and back propagation times required for the OL layer are dependent on the method used. As explained in Section \ref{algorithms} different algorthms use different amount of memory and require different amounts of computations. From the table results it is clear that the fastest methods are TinyOL anf TinyOL V2, which are the only strategies that require one OL layer, thus less computations. On the other hand, the slowest methods are LWF and LWF with batches. These strategies require a double prediction at every step, this is the main reason why they need almost double the inference time with respect to the other methods. The last column of the table contains information regarding the memory usage. For computing this parameter a custom function that evaluates the free memory has been placed in strategic steps. The table shows that the lightest strategies are TinyOL and TinyOL V2, this because the are the only methods that allocate only one matrix and one bias array. All the other methods require a similar amount of memory. A little difference of 100 bytes is observed, which could be due to the extra allocation of small arrays and to the sensibility of the function implemented.\\
-The only thing to be noted regards the accuracy for the classes $B$ and $R$. In several methods these two classes show a pattern of small reduction in the accuracy. This shoudl not be confused with a bad learning of the model. In fact by checking also the confusion matrix it is possbile to note that the lower accuracy is due to some mis calssification that happen only between classes $R$ and $B$.Most probably this is due ti the high similarity of the two shapes, which also makes the pattern from the accelerometer very similar.\\ 
-Note also how the lowest model accuracy is of xx \%. This is an important result because it allows to conclude that even the worst CL method has a small drop of $10.7 \%$ when compared to the original version. The best performing algorithm is CWR, which reaches an accuracy of $88.47 \%$
-The testings have been performed all with the same batch size of 16. This value of batch size was chosen because it showed the best overall results. A study regarding the variation of accuracy has been performed also with different batch sizes. Figure \ref{fig:batch_size_letter} contains a plots shoing the results.
+The experiments were all performed with the same batch size of 16. This value was chosen because it showed the best behaviour from all methods. A study regarding the variation of accuracy with different batches has been performed. Figure \ref{fig:batch_size_letter} contains a plots showing the results.
 
 \begin{figure}[h!]
     \centering
     \includegraphics[width=100mm]{Figures/Chapter5/batch_size_letters.png} 
-    \caption{Plot showing the variation of accuracy from each method with the increase of the batch size.}
+    \caption{Plot showing the relation between accuracy and batch size for all the methods implemented in the gesture recognition application.}
     \label{fig:batch_size_letter}    
 \end{figure}
 
-The plot shows that the methods TinyOL and TinyOL V2 are the only strategies that drop in accuracy with an increase in batch size. Note that both methods rely on the same back propagation rule that is only applyed on different weights. On the other hand, all the other methods maintain the accuracy constant with the increase of batch size. This is a positive conclusion because it allows to apply CL methods that compute back propagation on big groups of data. This better optimizes the classification problem.
+The plot shows that the methods TinyOL and TinyOL V2 are the only strategies that drop in accuracy with an increase in batch size. Note that the two methods use the same back propagation rule with a small variation on which weights are frozen. All the other strategies maintain their accuracy constant with the increase of batch size. This is a positive conclusion because it allows to apply CL methods on bog groups of data. By using big batches it is possible to apply back propagations that depend on more samples, thus reducing possible problems brought by noisy data or overfitting.
 
 \section{Experiment B: Image classification}
 
-For the image recognition application the simulation step has not been performed. Once the framework proved to be working correctly on the Nucleo and on the laptop it was implemented also to be working on the OpenMV camera. Also for this case the testing is performed on the last $20 \%$ of the dataset meaning that 4000 samples are used for training and 1000 are used for pseudo testing. Table \ref{table:openmv_smalltable} contains an overview of the accuracy and inference time results, table \ref{table:openmv_bigtable} contains the detailed results about accuracy, precision and F1 score. Figures \ref{fig:openmv_res_OL}, \ref{fig:openmv_res_OL_batch}, \ref{fig:openmv_res_OL_v2}, \ref{fig:openmv_res_OL_v2_batch}, \ref{fig:openmv_res_LWF}, \ref{fig:openmv_res_LWF_batch}, \ref{fig:openmv_res_CWR} contain bar plots and confusion matrices showing the results of the testing procedure.
+For the image recognition application the simulation step has not been performed. Once the framework proved to be working correctly on the Nucleo and on the laptop it implemented to be working on the OpenMV camera. Also for this case the testing is performed on the last $20 \%$ of the dataset, meaning that 4000 samples are used for training and 1000 are used for testing. Table \ref{table:openmv_smalltable} contains an overview of the accuracies and times for the frozen model inference and for the propagation and training on the classification layer. Also in this case bar plots and confusion matrices are created for better understanding the accuracy of the algorithms for each class. The bar plots anf confusion matrices are displayed in Figures \ref{fig:openmv_res_OL}, \ref{fig:openmv_res_OL_batch}, \ref{fig:openmv_res_OL_v2}, \ref{fig:openmv_res_OL_v2_batch}, \ref{fig:openmv_res_LWF}, \ref{fig:openmv_res_LWF_batch}, \ref{fig:openmv_res_CWR}. At last also Table \ref{table:openmv_bigtable} is generated. Here are summarized the values of accuracy, precision and F1 score for each class and all algorithms. 
 
-
-
+\begin{center}
 \begin{table}[]
 \caption{Table showing the overall accuracy and inference times for each method during testing of the digits recognition application.}
 \label{table:openmv_smalltable}
@@ -919,8 +922,9 @@ For the image recognition application the simulation step has not been performed
 \textbf{\begin{tabular}[c]{@{}c@{}}MY\\ ALG\end{tabular}}      & 94.69                                                                & 15.88                                                                                          & 6.14                                                                                       \\ \hline
 \end{tabular}
 \end{table}
+\end{center}
 
-
+\begin{landscape}
 \begin{table}[]
 \label{table:nucleo_bigtable}
 \caption{Table showing the precision, accuracy and F1 score for each class and all methods during testing of the digits recognition application.}
@@ -953,8 +957,7 @@ For the image recognition application the simulation step has not been performed
                                                                                   & F1 score                            & 0.96                            & 0.97                            & 0.92                            & 0.92                            & 0.97                            & 0.95                            & 0.97                            & 0.94                            & 0.93                            & 0.92                            &                                                                                  
 \end{tabular}
 \end{table}
-
-
+\end{landscape}
 
 \begin{figure}[h!]
     \centering
@@ -1006,33 +1009,37 @@ For the image recognition application the simulation step has not been performed
     \label{fig:openmv_res_CWR}    
 \end{figure}
 
-From Table \ref{table:openmv_smalltable} considering the high accuracyes of the models it can be concluded that the CL trainin gperform was succesfult. This time the accuracy is higher than before, and also the varioation of accuracy between the strategeis is lower that experiment A. This is most probably due to the increased complexity of the modela nd the better quality of the dataset. From the first column of the table it can be said that all methods are able to maintain a quite high accuracy. The best performing is again the CWR method with an accuracy of $95.7 \%$, while the worst performing is TinyOL V2 with batches with an accuracy of $93.09 \%$. This time the drop of accuracy between the frozen model and the worst performing CL model is of only $6.7 \%$. The table again contains information related to the time of inference required for a training step. Again the time is divided in two parts, the inference performed on the frozen model by the built in tools and the time required for performing feed forward and training over the OL layer. Also in this application the time required for the inference on the frozen model is pretty much coinstant at it requires $10.56 ms$. On the other hand the times required for the CL step this time show a more distinct behaviour between methods. The fastest algorithms is TinyOL, which takes only $2.13 ms$, while the slowes is LWF with batches, whch takes $5.20 ms$. Again as before the reasosns of these results are the amount of computations required. The method TinyOL V2 requires inference on one classification layer but it applies back propagation only on a partion of the classification layer. The method LWF requires two inferences from two classification layers and it has to perform back proapgation on both.\\
-The results obtained from the tables can be paired with the Fogures containing the bar plots and the conusion matrices. This time all methods show a good behaviour on all classes. With respect to the experiment A, there are no digits that get confused with other classes. This is the proof that demonstrated that the methods are well implemented, and the previous problem regarding the confusion between classes R and B was merely dependent on the similarity of the data pattern.\\
-At last the same test regarding the study of the accuracy at the variation of the batch size were performed. Figure \ref{fig:openmv_batch_size} contains the plots that shows the results of the test.
+From Table \ref{table:openmv_smalltable}, considering the high accuracies of all models it can be concluded that the CL training performed was successful. This time all methods have high accuracy ant their value is not as dispersed as before. The improved performances are due to two factors, which are the frozen model increased complexity and the higher quality dataset. From the first column of Table \ref{table:openmv_smalltable} it can be said that the best performing algorithm is CWR with an accuracy of   $95.7 \%$, while the worst performing is TinyOL V2 with batches that has an accuracy of $93.09 \%$. This time the maximum drop of accuracywhen compared to the original model trained with Tensorflow, is of only $6.7 \%$.\\
+In the second and third columns of Table \ref{table:openmv_smalltable} the training step times are displayed. Again one training step is separated in frozen model inference time and time required for propagation and training of the classification layer. As expected the inference time of the frozen model is pretty much constant, at its value is of $10.56 ms$. For the training step, on the other hand, the time required changes depending on the algorithm chosen. The faster strategy is TinyOL V2, which takes only $2.13 ms$, while the slowest is LWF with batches, which takes $5.20 ms$. Again as before the reason that brings to different inference times is due to the amounts of computations that each algorithms has to perform.  The method TinyOL V2 performs only one prediction and updates only a portion of the classification layer, while the method LWF requires two predictions for each step and has to update all the weights from both layer once every batch.\\
+Additional conclusions can be obtained by checking also the bar plots and the confusion matrices. This time no method shows a particular behaviour for any class. This is the proof that demonstrates that the algorithms are well implemented and robust. The accuracy drop that affected classes $R$ and $B$ in the previous experiment can then be associated to the quality of the dataset, which of course is not as high as the MNIST dataset.\\
+At last the same test regarding the study of the accuracy at the variation of the batch size was performed. Figure \ref{fig:openmv_batch_size} contains the plots that shows the results of the test.
 
 \begin{figure}[h!]
     \centering
     \includegraphics[width=140mm]{Figures/Chapter5/batch_size_openmv.png} 
-    \caption{Plot showing the variation of accuracy from each method with the increase of the batch size performed in the digits recognition experiment.}
+    \caption{Plot showing the relation between accuracy and batch size for all the methods implemented in the digits recognition application.}
     \label{fig:openmv_batch_size}    
 \end{figure}
 
-Also in this case the only two methods that showed a decrease in performace are TinyOL and TinyOL V2. All the other methods show a constant accuracy value for a batch size that goes from 1 to 256.
+Also in this case the only two methods that showed a decrease in performance are TinyOL and TinyOL V2. All the other methods show a constant accuracy value for a batch size that goes from 1 to 256.
+\bigskip
+
+Both applications succeeded in the implementation of CL algorithms on MCU. The two application demonstrated that continual learning strategies can be adopted to generate smart and self sustaining devices. The best method revealed to be CWR, whichw as able to reach the best accuracy in both applications. Since in the two experiments all the algorithms demonstrated accuracy values very close one to the other, also the inference time, complexity, number of computations and memory use should be taken into consideration for applications of CL. Moreover it is to be noted that in all these tests the presence of catastrophic forgetting was not severe. Even the strategy TinyOL, which is the most vulnerable to the phenomenon, did not show any degradation due to the phenomenon. Most probably this is because of the balanced dataset and because of the randomization of the data. This in fact allows the models to be continuously refreshed with both new and old data, creating a situation where catastrophic forgetting is damped.
 
 
 \chapter{Conclusion}
 % 1 pag e mezza. Un carrellata di contesto, motivazioni, cosa ho fatto vedere. Per mezza pag poi descrivere future works da cui posso far partire il mio lavoro. 
 % Importante scrivere bene intro e conclusioni perchè sono le parti che la commissione legge durante la presentazione oThis thesis  prima. 
-This thesis introduces the concept of continual learning on microcontrollers for the application of self-learning ML models on smart sensors. In TinyML applications it is common to deploy devices in scenarios that are subject to context drift. This can make the models degrade in accuracy quite quickly, which leads to unusable and not reliable devices. In these cases it is necessary to apply continual learning strategies. These help the models by introducing flexibility and adaptability characteristics to the model that are now able to follow the context drift.\\
-In this thesis a total of 4 different CL strategies have been implemented. Four of these are state-of-the-art methods while one is a simple modification of of them. Additionally small variations of the same methods were implemented to allow for trainings over batches of data. The algorithms have been developed in a framework initially tested on a powerful device and later ported on two microcontrollers. The MCUs use built in tools for the application of ML inference paired with the framework for the integration of CL capabilities. Both microcontrollers perform classification on the data which are recorded from their relative sensors (an accelerometer and a camera).\\
-In application A, CL was applied for gesture recognition. An ML model was initially trained on a powerful device for the elaboration of accelerometer data representing letters written in the air. Initially the model was trained for the classification of only vowels, later the CL framework is used for recognizing, including and fine tuning three new classes representing three consonants (B,R,M). 
-In application B, the system is used for classification of images. A model is initially trained for the recognition of the first 6 digits (from 0 to 5) from the MNIST dataset. Later the model is equipped with the CL framework that permits the MCU to learn 4 new classes (digits from 6 to 9).\\
-Both applications have been implemented in supervised settings. For the gesture application the data and the label were provided via USB, while for the image classification case, the digits are displayed on a screen and the label is provided via USB cable.
-All algorithms in both applications proved to be effective in NIC scenarios (new instances and classes). After one training session each method showed that all classes were incorporated correctly in the model. No method was able to outperform the original version of the model (the one trained on the powerful device), but the accuracy drops are always acceptable. For the gesture recognition case the maximum drop is of $10.7 \%$, while for the image classification case the maximum drop is of $6.3 \%$. The degradation of performances is to be considered a necessary trade-off required for the implementation of flexible models that can adapt quickly to changes of context and appearance of new classes.\\
+This thesis introduces the concept of continual learning on microcontrollers for the application of self-learning ML models on smart sensors. In TinyML applications, it is common to deploy devices in scenarios that are subject to context drift. This can make the models degrade in accuracy quite quickly, which leads to unusable and not reliable devices. In these cases, it is necessary to apply continual learning strategies. These help the models by introducing flexibility and adaptability characteristics to the system that can now follow the context drift.\\
+In this thesis, a total of 4 different CL strategies were implemented. Four of these are state-of-the-art methods while one is a simple modification of one of them. Additionally, small variations of the same methods were implemented to allow for training over batches of data. The algorithms were developed in a framework initially tested on a powerful device and later ported on two microcontrollers. The MCUs use built-in tools for the application of ML inference paired with the framework for the integration of CL capabilities. Both microcontrollers perform classification on the data which are recorded from their relative sensors (i.e., an accelerometer and a camera).\\
+In application A, CL was applied for gesture recognition. An ML model was initially trained on a powerful device for the elaboration of accelerometer data representing letters written in the air. Initially, the model was trained for the classification of only vowels, later the CL framework is used for recognizing, including and fine tuning three new classes representing three consonants (i.e., B,R,M). 
+In application B, the system is used for classification of images. A model is initially trained for the recognition of the first 6 digits (from 0 to 5) of the MNIST dataset. Later, the model is equipped with the CL framework that permits the MCU to learn 4 new classes (i.e., digits from 6 to 9).\\
+Both applications were implemented in supervised settings. For the gesture application the data and the label were provided via USB, while for the image classification case, digits are displayed on a screen and the label is provided via USB cable.
+All algorithms in both applications are effective in NIC scenarios (i.e., new instances and classes). After one training session, each method showed that all classes were incorporated correctly in the model. No method tested on the MCU was able to outperform the original version of the model tested in a a powerful device, but the accuracy drops are always acceptable. The drop is a direct consequence of the application of ML on MCUs. One of the main reasons that does not permit the model to have better accuracy is the use of pruning and quantization procedures on the frozen model which inevitably degrades the model's performances. For the gesture recognition case the maximum drop is of $10.7 \%$, while for the image classification case the maximum drop is of $6.3 \%$. The degradation of performances is to be considered a necessary trade-off required for the implementation of flexible models that can adapt quickly to context changes and appearance of new classes.\\
 
-A possible future implementation of the work done up to now is the implementation of the framework for unsupervised settings. One of the main drawback of this study is the inability of the MCUs to be completely autonomous. This is due to the supervised setting in which the trainings are performed. The devices require one ground truth label for each sample provided, which in these tests is provided from the dataset itself. Such an application cannot be used in real-life application because of the lack of a continuous stream of labelled data.\\
-Another important implementation is the improvement of compatible layers. The applications seen here are focused on the use of CL for classifications. These models are characterized by the presence of $Softmax$ as activation function on the last layer, where CL is applied. This is an important aspect because the activation function defines the rule to be used for the back propagation. By expanding the compatibility of the framework to other types of layers, the framework could be deployed in many different applications and on different model.\\
-One last possible future work comprehends more tests. In this study all test were performed with dataset containing balanced and shuffled data. Scenarios like these damp the phenomenon of catastrophic forgetting because the randomization of the samples makes it possible for the model to continuously refresh old and new data. Real applications are characterized by chunks of correlated data, which would make the phenomenon of catastrophic forgetting more severe. For this reasons better testing could be done with bigger and artificially unbalanced training datasets.
+A possible future improvement of the CL framework is the implementation of the framework for unsupervised settings. One of the main drawback of this study is the inability of the MCUs to be completely autonomous. This is due to the supervised setting in which the trainings are performed. The devices require one ground truth label for each sample provided, which in these tests is provided from the dataset itself. Such an application cannot be used in real-life application because of the lack of a continuous stream of labeled data.\\
+Another important implementation is the improvement of compatible layers. The developed applications are focused on the use of CL for classifications. These models are characterized by the presence of a $Softmax$ activation function on the last layer where CL is applied. This is an important aspect because the activation function defines the rule to be used for the back propagation. By expanding the compatibility of the framework to other types of layers, the framework could be deployed in many different applications and on different models.\\
+Another future work comprehends more tests. In this study, all test were performed with dataset containing balanced and shuffled data. Scenarios like these damp the phenomenon of catastrophic forgetting because the randomization of samples allows the model to continuously refresh old and new data. Real applications are characterized by chunks of correlated data, which would make the phenomenon of catastrophic forgetting more severe. For this reasons, better testing could be done with bigger and artificially unbalanced training datasets.
 
 %altre possibili future work che non ho inserito perchè ritenute piccole modifiche
 %1) fare sistema che puo funzionare con altri modelli/layer/activation function

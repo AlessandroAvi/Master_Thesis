@@ -1,7 +1,7 @@
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {1.1}{\ignorespaces On the right an example of layers inside a ML model. On the left a scheme explaining how a neuron behaves. IMMAGINE NON DEFINITIVA\relax }}{7}{figure.caption.6}%
+\contentsline {figure}{\numberline {1.1}{\ignorespaces On the left an example of layers inside a ML model. On the right a scheme of the behaviour of a neuron.\relax }}{7}{figure.caption.6}%
 \contentsline {figure}{\numberline {1.2}{\ignorespaces Characteristic summary of supervised, unsupervised, and reinforcement learning.\relax }}{9}{figure.caption.7}%
-\contentsline {figure}{\numberline {1.3}{\ignorespaces Block diagram showing an example of ML model structure: DNN, CNN and autoencoder. IMMAGINE NON DEFINITIVA\relax }}{11}{figure.caption.8}%
+\contentsline {figure}{\numberline {1.3}{\ignorespaces Block diagram showing an example of ML model structure: fully connected NN, CNN and autoencoder.\relax }}{11}{figure.caption.8}%
 \contentsline {figure}{\numberline {1.4}{\ignorespaces Venn Diagram showing the classification of some well known CL strategies.\relax }}{14}{figure.caption.9}%
 \contentsline {figure}{\numberline {1.5}{\ignorespaces Block diagram showing the steps of a pruning and quantization procedure.\relax }}{19}{figure.caption.10}%
 \addvspace {10\p@ }
@@ -30,25 +30,25 @@
 \contentsline {figure}{\numberline {4.11}{\ignorespaces OpenMV camera pointing to a screen while in different states of the training. Top left is $idle$ mode, top right is $snap$ mode, bottom left is $elab$ mode, bottom right is $trai$ mode\relax }}{58}{figure.caption.33}%
 \contentsline {figure}{\numberline {4.12}{\ignorespaces Point of view of the OpenMV camera. On the left the original image taken with no compression and no elaboration, in the center an image taken in $snap$ mode, on the right an image taken in $elab$ mode.\relax }}{59}{figure.caption.34}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Block diagram showing the parameters saved for the evaluation of the training evolution.\relax }}{61}{figure.caption.35}%
-\contentsline {figure}{\numberline {5.2}{\ignorespaces Plot showing the difference between the frozen model output recorded from laptop and from MCU.\relax }}{61}{figure.caption.36}%
-\contentsline {figure}{\numberline {5.3}{\ignorespaces Plot showing the variation of bias number 1 during a training session.\relax }}{62}{figure.caption.37}%
-\contentsline {figure}{\numberline {5.4}{\ignorespaces Plot showing the variation of weight number 2 during a training session.\relax }}{63}{figure.caption.38}%
-\contentsline {figure}{\numberline {5.5}{\ignorespaces Plot showing the difference between softmax output number 1 recorded from laptop and MCU during a training session.\relax }}{63}{figure.caption.39}%
-\contentsline {figure}{\numberline {5.6}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with TinyOL algorithm.\relax }}{65}{figure.caption.41}%
-\contentsline {figure}{\numberline {5.7}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with TinyOL algorithm with batches.\relax }}{65}{figure.caption.42}%
-\contentsline {figure}{\numberline {5.8}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with TinyOL V2 algorithm.\relax }}{67}{figure.caption.43}%
-\contentsline {figure}{\numberline {5.9}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with TinyOL V2 algorithm with batches.\relax }}{67}{figure.caption.44}%
-\contentsline {figure}{\numberline {5.10}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with LWF algorithm.\relax }}{68}{figure.caption.45}%
-\contentsline {figure}{\numberline {5.11}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with LWF algorithm with batches.\relax }}{68}{figure.caption.46}%
-\contentsline {figure}{\numberline {5.12}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with CWR algorithm.\relax }}{69}{figure.caption.47}%
-\contentsline {figure}{\numberline {5.13}{\ignorespaces Plot showing the variation of accuracy from each method with the increase of the batch size.\relax }}{70}{figure.caption.49}%
-\contentsline {figure}{\numberline {5.14}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with TinyOL algorithm on the image classification experiment.\relax }}{71}{figure.caption.52}%
-\contentsline {figure}{\numberline {5.15}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with TinyOL algorithm with batches on the image classification experiment.\relax }}{73}{figure.caption.53}%
-\contentsline {figure}{\numberline {5.16}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with TinyOL V2 algorithm on the image classification experiment.\relax }}{73}{figure.caption.54}%
-\contentsline {figure}{\numberline {5.17}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with TinyOL V2 algorithm with batches on the image classification experiment.\relax }}{74}{figure.caption.55}%
-\contentsline {figure}{\numberline {5.18}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with LWF algorithm on the image classification experiment.\relax }}{74}{figure.caption.56}%
-\contentsline {figure}{\numberline {5.19}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with LWF algorithm with batches on the image classification experiment.\relax }}{75}{figure.caption.57}%
-\contentsline {figure}{\numberline {5.20}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with CWR algorithm on the image classification experiment.\relax }}{75}{figure.caption.58}%
-\contentsline {figure}{\numberline {5.21}{\ignorespaces Plot showing the variation of accuracy from each method with the increase of the batch size performed in the digits recognition experiment.\relax }}{76}{figure.caption.59}%
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Block diagram showing at which block in a training step the parameters are copied and saved.\relax }}{61}{figure.caption.35}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Plot showing the element by element difference of two frozen model outputs (at training step 544) computed on the Nucleo MCU and on a laptop.\relax }}{61}{figure.caption.36}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Plot showing the variation of bias number 1 recorded on the Nucleo MCU and on a laptop during a training session.\relax }}{62}{figure.caption.37}%
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Plot showing the variation of weight number recorded on the Nucleo MCU and on a laptop 2 during a training session.\relax }}{63}{figure.caption.38}%
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Plot showing the difference of the prediction for class $A$ computed on the Nucleo MCU and on a laptop during a training session.\relax }}{64}{figure.caption.39}%
+\contentsline {figure}{\numberline {5.6}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with TinyOL algorithm in the gesture recognition application.\relax }}{66}{figure.caption.41}%
+\contentsline {figure}{\numberline {5.7}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with TinyOL algorithm with batches in the gesture recognition application.\relax }}{66}{figure.caption.42}%
+\contentsline {figure}{\numberline {5.8}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with TinyOL V2 algorithm in the gesture recognition application.\relax }}{67}{figure.caption.43}%
+\contentsline {figure}{\numberline {5.9}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with TinyOL V2 algorithm with batches in the gesture recognition application.\relax }}{67}{figure.caption.44}%
+\contentsline {figure}{\numberline {5.10}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with LWF algorithm in the gesture recognition application.\relax }}{68}{figure.caption.45}%
+\contentsline {figure}{\numberline {5.11}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with LWF algorithm with batches in the gesture recognition application.\relax }}{68}{figure.caption.46}%
+\contentsline {figure}{\numberline {5.12}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with CWR algorithm in the gesture recognition application.\relax }}{69}{figure.caption.47}%
+\contentsline {figure}{\numberline {5.13}{\ignorespaces Plot showing the relation between accuracy and batch size for all the methods implemented in the gesture recognition application.\relax }}{72}{figure.caption.49}%
+\contentsline {figure}{\numberline {5.14}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with TinyOL algorithm on the image classification experiment.\relax }}{75}{figure.caption.52}%
+\contentsline {figure}{\numberline {5.15}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with TinyOL algorithm with batches on the image classification experiment.\relax }}{75}{figure.caption.53}%
+\contentsline {figure}{\numberline {5.16}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with TinyOL V2 algorithm on the image classification experiment.\relax }}{76}{figure.caption.54}%
+\contentsline {figure}{\numberline {5.17}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with TinyOL V2 algorithm with batches on the image classification experiment.\relax }}{76}{figure.caption.55}%
+\contentsline {figure}{\numberline {5.18}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with LWF algorithm on the image classification experiment.\relax }}{77}{figure.caption.56}%
+\contentsline {figure}{\numberline {5.19}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with LWF algorithm with batches on the image classification experiment.\relax }}{77}{figure.caption.57}%
+\contentsline {figure}{\numberline {5.20}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with CWR algorithm on the image classification experiment.\relax }}{78}{figure.caption.58}%
+\contentsline {figure}{\numberline {5.21}{\ignorespaces Plot showing the relation between accuracy and batch size for all the methods implemented in the digits recognition application.\relax }}{79}{figure.caption.59}%
 \addvspace {10\p@ }

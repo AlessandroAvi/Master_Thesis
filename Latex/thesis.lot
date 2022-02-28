@@ -5,7 +5,8 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {5.1}{\ignorespaces Table showing the overall accuracy, inference times and memory use for each method during testing of the gesture recognition application.\relax }}{64}{table.caption.40}%
-\contentsline {table}{\numberline {5.2}{\ignorespaces Table showing the precision, accuracy and F1 score for each class and all methods during testing of the gesture recognition application.\relax }}{66}{table.caption.48}%
-\contentsline {table}{\numberline {5.3}{\ignorespaces Table showing the overall accuracy and inference times for each method during testing of the digits recognition application.\relax }}{71}{table.caption.50}%
+\contentsline {table}{\numberline {5.1}{\ignorespaces Table showing the overall accuracy, inference times and memory use for each method during testing of the gesture recognition application.\relax }}{65}{table.caption.40}%
+\contentsline {table}{\numberline {5.2}{\ignorespaces Table showing the precision, accuracy and F1 score for each class and all methods during testing of the gesture recognition application.\relax }}{70}{table.caption.48}%
+\contentsline {table}{\numberline {5.3}{\ignorespaces Table showing the overall accuracy and inference times for each method during testing of the digits recognition application.\relax }}{73}{table.caption.50}%
+\contentsline {table}{\numberline {5.4}{\ignorespaces Table showing the precision, accuracy and F1 score for each class and all methods during testing of the digits recognition application.\relax }}{74}{table.caption.51}%
 \addvspace {10\p@ }

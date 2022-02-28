@@ -28,5 +28,5 @@
 \contentsline {section}{\numberline {4.4}OpenMV setup for image classification}{54}{section.4.4}%
 \contentsline {chapter}{\numberline {5}Experimental results}{60}{chapter.5}%
 \contentsline {section}{\numberline {5.1}Experiment A: Gesture recognition}{60}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Experiment B: Image classification}{70}{section.5.2}%
-\contentsline {chapter}{\numberline {6}Conclusion}{77}{chapter.6}%
+\contentsline {section}{\numberline {5.2}Experiment B: Image classification}{72}{section.5.2}%
+\contentsline {chapter}{\numberline {6}Conclusion}{80}{chapter.6}%
