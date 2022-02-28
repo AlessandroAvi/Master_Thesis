@@ -516,6 +516,25 @@
     \field{year}{2019}
   \endentry
 
+  \entry{pytorch_mobile}{misc}{}
+    \name{author}{1}{}{%
+      {{hash=mP}{%
+         family={mobile},
+         familyi={m\bibinitperiod},
+         given={PyThorch},
+         giveni={P\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{mP1}
+    \strng{fullhash}{mP1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{M}
+    \field{sortinithash}{M}
+    \field{howpublished}{\url{https://pytorch.org/mobile/home/}}
+    \field{title}{Official website of PyTorch mobile}
+  \endentry
+
   \entry{openmv_datasheet}{misc}{}
     \name{author}{1}{}{%
       {{hash=O}{%
@@ -1001,6 +1020,23 @@
     \field{sortinithash}{T}
   \field{howpublished}{\url{https://www.tensorflow.org/lite/performance/post_training_quantization}}
     \field{title}{Post-training quantization}
+  \endentry
+
+  \entry{TF_lite}{misc}{}
+    \name{author}{1}{}{%
+      {{hash=T}{%
+         family={Tensorflow},
+         familyi={T\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{T1}
+    \strng{fullhash}{T1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{T}
+    \field{sortinithash}{T}
+    \field{howpublished}{\url{https://www.tensorflow.org/lite/}}
+    \field{title}{Tensorflow Lite for Mobile and IoT}
   \endentry
 
   \entry{tripod_link}{misc}{}

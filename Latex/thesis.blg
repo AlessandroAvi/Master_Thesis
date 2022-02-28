@@ -20,52 +20,52 @@ Reallocating 'singl_function' (item size: 4) to 100 items.
 Reallocating 'singl_function' (item size: 4) to 100 items.
 Reallocating 'singl_function' (item size: 4) to 100 items.
 Reallocating 'singl_function' (item size: 4) to 100 items.
-Reallocating 'field_info' (item size: 4) to 10180 items.
+Reallocating 'field_info' (item size: 4) to 10460 items.
 Database file #1: thesis-blx.bib
 Database file #2: thesis.bib
 Warning--I didn't find a database entry for "lesort2020continual"
 Biblatex version: 3.17
 Reallocating 'wiz_functions' (item size: 4) to 9000 items.
 Reallocating 'singl_function' (item size: 4) to 100 items.
-You've used 36 entries,
+You've used 38 entries,
             6399 wiz_defined-function locations,
-            1370 strings with 15254 characters,
-and the built_in function-call counts, 298655 in all, are:
-= -- 24546
-> -- 4031
-< -- 1032
-+ -- 9173
-- -- 1543
-* -- 21278
-:= -- 35459
+            1378 strings with 15441 characters,
+and the built_in function-call counts, 306269 in all, are:
+= -- 24992
+> -- 4198
+< -- 1080
++ -- 9319
+- -- 1593
+* -- 21750
+:= -- 36136
 add.period$ -- 0
-call.type$ -- 36
-change.case$ -- 420
+call.type$ -- 38
+change.case$ -- 436
 chr.to.int$ -- 42
-cite$ -- 70
-duplicate$ -- 32261
-empty$ -- 25388
-format.name$ -- 2675
-if$ -- 59302
+cite$ -- 74
+duplicate$ -- 33150
+empty$ -- 26155
+format.name$ -- 2774
+if$ -- 60943
 int.to.chr$ -- 0
-int.to.str$ -- 97
+int.to.str$ -- 103
 missing$ -- 0
-newline$ -- 1203
-num.names$ -- 1612
-pop$ -- 13200
+newline$ -- 1239
+num.names$ -- 1700
+pop$ -- 13868
 preamble$ -- 1
-purify$ -- 656
+purify$ -- 676
 quote$ -- 0
-skip$ -- 6421
+skip$ -- 6747
 stack$ -- 0
-substring$ -- 45073
-swap$ -- 5266
-text.length$ -- 1028
-text.prefix$ -- 35
+substring$ -- 45673
+swap$ -- 5472
+text.length$ -- 1076
+text.prefix$ -- 37
 top$ -- 1
-type$ -- 1212
+type$ -- 1280
 warning$ -- 0
-while$ -- 4426
+while$ -- 4514
 width$ -- 0
-write$ -- 1168
+write$ -- 1202
 (There was 1 warning)
