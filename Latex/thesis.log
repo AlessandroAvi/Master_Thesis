@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.1) (preloaded format=pdflatex 2022.2.26)  28 FEB 2022 19:47
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.1) (preloaded format=pdflatex 2022.2.26)  28 FEB 2022 19:52
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1517,7 +1517,7 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 nmv.png>]
 Chapter 6.
 
-Underfull \hbox (badness 10000) in paragraph at lines 1033--1039
+Underfull \hbox (badness 10000) in paragraph at lines 1031--1037
 
  []
 
@@ -1526,55 +1526,55 @@ Underfull \hbox (badness 10000) in paragraph at lines 1033--1039
 ] [81] [82] [83
 
 ]
-Overfull \hbox (5.7051pt too wide) in paragraph at lines 1051--1051
+Overfull \hbox (5.7051pt too wide) in paragraph at lines 1049--1049
 []\OT1/cmr/m/n/12 Davide Mal-toni and Vin-cenzo Lomonaco. ``Con-tin-u-ous learn
 -ing in single-
  []
 
 
-Overfull \hbox (9.38815pt too wide) in paragraph at lines 1051--1051
+Overfull \hbox (9.38815pt too wide) in paragraph at lines 1049--1049
 []\OT1/cmr/m/n/12 PyThorch mo-bile. \OT1/cmr/m/it/12 Of-fi-cial web-site of Py-
 Torch mo-bile\OT1/cmr/m/n/12 . []$\OT1/cmtt/m/n/12 https : / / pytorch .
  []
 
 
-Overfull \hbox (5.00597pt too wide) in paragraph at lines 1051--1051
+Overfull \hbox (5.00597pt too wide) in paragraph at lines 1049--1049
 []\OT1/cmr/m/n/12 OpenMV. \OT1/cmr/m/it/12 OpenMV datah-seet\OT1/cmr/m/n/12 . [
 ]$\OT1/cmtt/m/n/12 https : / / openmv . io / products / openmv -[]
  []
 
 
-Overfull \hbox (43.21442pt too wide) in paragraph at lines 1051--1051
+Overfull \hbox (43.21442pt too wide) in paragraph at lines 1049--1049
 \OT1/cmr/m/n/12 with Online-Learning on Mi-cro-con-trollers''. In: \OT1/cmr/m/i
 t/12 arXiv preprint arXiv:2103.08295
  []
 
 [84]
-Overfull \hbox (0.87166pt too wide) in paragraph at lines 1051--1051
+Overfull \hbox (0.87166pt too wide) in paragraph at lines 1049--1049
 \OT1/cmr/m/n/12 for con-tin-ual learn-ing''. In: \OT1/cmr/m/it/12 In-ter-na-tio
 nal Con-fer-ence on Ma-chine Learn-
  []
 
 
-Overfull \hbox (8.23096pt too wide) in paragraph at lines 1051--1051
+Overfull \hbox (8.23096pt too wide) in paragraph at lines 1049--1049
 []\OT1/cmr/m/n/12 Bharath Sud-harsan, John G Bres-lin, and Muham-mad In-ti-zar 
 Ali. ``Imbal-
  []
 
 
-Overfull \hbox (3.127pt too wide) in paragraph at lines 1051--1051
+Overfull \hbox (3.127pt too wide) in paragraph at lines 1049--1049
 \OT1/cmr/m/it/12 World, Ubiq-ui-tous In-tel-li-gence & Com-put-ing, Ad-vanced &
  Trusted Com-
  []
 
 
-Overfull \hbox (8.76712pt too wide) in paragraph at lines 1051--1051
+Overfull \hbox (8.76712pt too wide) in paragraph at lines 1049--1049
 \OT1/cmr/m/it/12 Smart City In-no-va-tion (Smart-World/SCALCOM/UIC/ATC/IOP/SCI)
 \OT1/cmr/m/n/12 .
  []
 
 
-Overfull \hbox (25.92328pt too wide) in paragraph at lines 1051--1051
+Overfull \hbox (25.92328pt too wide) in paragraph at lines 1049--1049
 []\OT1/cmr/m/n/12 Tensorflow. \OT1/cmr/m/it/12 Ten-sor-flow Lite for Mo-bile an
 d IoT\OT1/cmr/m/n/12 . []$\OT1/cmtt/m/n/12 https : / / www . tensorflow .
  []
@@ -1620,7 +1620,7 @@ y8.pfb><C:/Users/massi/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfont
 s/cm/cmti12.pfb><C:/Users/massi/AppData/Local/Programs/MiKTeX/fonts/type1/publi
 c/amsfonts/cm/cmtt12.pfb><C:/Users/massi/AppData/Local/Programs/MiKTeX/fonts/ty
 pe1/public/cm-super/sfrm1200.pfb>
-Output written on thesis.pdf (96 pages, 7773443 bytes).
+Output written on thesis.pdf (96 pages, 7773343 bytes).
 PDF statistics:
  1194 PDF objects out of 1200 (max. 8388607)
  261 named destinations out of 1000 (max. 500000)

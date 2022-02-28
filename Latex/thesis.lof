@@ -33,7 +33,7 @@
 \contentsline {figure}{\numberline {5.1}{\ignorespaces Block diagram showing at which block in a training step the parameters are copied and saved.\relax }}{61}{figure.caption.35}%
 \contentsline {figure}{\numberline {5.2}{\ignorespaces Plot showing the element by element difference of two frozen model outputs (at training step 544) computed on the Nucleo MCU and on a laptop.\relax }}{61}{figure.caption.36}%
 \contentsline {figure}{\numberline {5.3}{\ignorespaces Plot showing the variation of bias number 1 recorded on the Nucleo MCU and on a laptop during a training session.\relax }}{62}{figure.caption.37}%
-\contentsline {figure}{\numberline {5.4}{\ignorespaces Plot showing the variation of weight number recorded on the Nucleo MCU and on a laptop 2 during a training session.\relax }}{63}{figure.caption.38}%
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Plot showing the variation of weight number recorded on the Nucleo MCU and on a laptop during a training session.\relax }}{63}{figure.caption.38}%
 \contentsline {figure}{\numberline {5.5}{\ignorespaces Plot showing the difference of the prediction for class $A$ computed on the Nucleo MCU and on a laptop during a training session.\relax }}{64}{figure.caption.39}%
 \contentsline {figure}{\numberline {5.6}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with TinyOL algorithm in the gesture recognition application.\relax }}{66}{figure.caption.41}%
 \contentsline {figure}{\numberline {5.7}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with TinyOL algorithm with batches in the gesture recognition application.\relax }}{66}{figure.caption.42}%
