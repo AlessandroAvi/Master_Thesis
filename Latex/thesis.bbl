@@ -68,6 +68,14 @@
     \field{title}{GitHub repo of the project}
   \endentry
 
+  \entry{derivation_passages}{misc}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+  \field{howpublished}{\url{https://stats.stackexchange.com/questions/235528/backpropagation-with-softmax-cross-entropy}}
+    \field{title}{Backpropagation with Softmax and Cross Entropy}
+  \endentry
+
   \entry{cai2020tinytl}{article}{}
     \name{author}{4}{}{%
       {{hash=CH}{%
@@ -105,6 +113,33 @@
   learning}
     \field{journaltitle}{arXiv preprint arXiv:2007.11622}
     \field{year}{2020}
+  \endentry
+
+  \entry{deng2012mnist}{article}{}
+    \name{author}{1}{}{%
+      {{hash=DL}{%
+         family={Deng},
+         familyi={D\bibinitperiod},
+         given={Li},
+         giveni={L\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {IEEE}%
+    }
+    \strng{namehash}{DL1}
+    \strng{fullhash}{DL1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{D}
+    \field{sortinithash}{D}
+    \field{number}{6}
+    \field{pages}{141\bibrangedash 142}
+    \field{title}{The mnist database of handwritten digit images for machine
+  learning research [best of the web]}
+    \field{volume}{29}
+    \field{journaltitle}{IEEE Signal Processing Magazine}
+    \field{year}{2012}
   \endentry
 
   \entry{disabato2020incremental}{inproceedings}{}
@@ -369,6 +404,62 @@
     \field{volume}{114}
     \field{journaltitle}{Proceedings of the national academy of sciences}
     \field{year}{2017}
+  \endentry
+
+  \entry{lesort2020continual}{article}{}
+    \name{author}{6}{}{%
+      {{hash=LT}{%
+         family={Lesort},
+         familyi={L\bibinitperiod},
+         given={Timoth{\'e}e},
+         giveni={T\bibinitperiod},
+      }}%
+      {{hash=LV}{%
+         family={Lomonaco},
+         familyi={L\bibinitperiod},
+         given={Vincenzo},
+         giveni={V\bibinitperiod},
+      }}%
+      {{hash=SA}{%
+         family={Stoian},
+         familyi={S\bibinitperiod},
+         given={Andrei},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=MD}{%
+         family={Maltoni},
+         familyi={M\bibinitperiod},
+         given={Davide},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=FD}{%
+         family={Filliat},
+         familyi={F\bibinitperiod},
+         given={David},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=DRN}{%
+         family={D{\'\i}az-Rodr{\'\i}guez},
+         familyi={D\bibinithyphendelim R\bibinitperiod},
+         given={Natalia},
+         giveni={N\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Elsevier}%
+    }
+    \strng{namehash}{LT+1}
+    \strng{fullhash}{LTLVSAMDFDDRN1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{L}
+    \field{sortinithash}{L}
+    \field{pages}{52\bibrangedash 68}
+    \field{title}{Continual learning for robotics: Definition, framework,
+  learning strategies, opportunities and challenges}
+    \field{volume}{58}
+    \field{journaltitle}{Information fusion}
+    \field{year}{2020}
   \endentry
 
   \entry{li2017learning}{article}{}

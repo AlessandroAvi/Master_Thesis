@@ -1,11 +1,11 @@
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {1.1}{\ignorespaces On the left an example of layers inside a ML model. On the right a scheme of the behaviour of a neuron.\relax }}{7}{figure.caption.6}%
 \contentsline {figure}{\numberline {1.2}{\ignorespaces Characteristic summary of supervised, unsupervised, and reinforcement learning.\relax }}{9}{figure.caption.7}%
-\contentsline {figure}{\numberline {1.3}{\ignorespaces Block diagram showing an example of ML model structure: fully connected NN, CNN and autoencoder.\relax }}{11}{figure.caption.8}%
+\contentsline {figure}{\numberline {1.3}{\ignorespaces Block diagram showing examples of ML model structures: in the top left there is a fully connected NN, in the top right there is a CNN and in the bottom part there is an autoencoder.\relax }}{11}{figure.caption.8}%
 \contentsline {figure}{\numberline {1.4}{\ignorespaces Venn Diagram showing the classification of some well known CL strategies.\relax }}{14}{figure.caption.9}%
 \contentsline {figure}{\numberline {1.5}{\ignorespaces Block diagram showing the steps of a pruning and quantization procedure.\relax }}{19}{figure.caption.10}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces Hardware used for the CL applications. On the left Nucelo ST32 F401-RE, on the left OpenMV camera.\relax }}{22}{figure.caption.11}%
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Hardware used for the CL applications. On the left Nucelo STM32 F401-RE, on the right OpenMV camera.\relax }}{22}{figure.caption.11}%
 \contentsline {figure}{\numberline {2.2}{\ignorespaces Hardware used in the gesture recognition application. On the left the sensor shield IKS01A2, on the right the sensor shield mounted on the Nucleo STM32 F401-RE.\relax }}{23}{figure.caption.13}%
 \contentsline {figure}{\numberline {2.3}{\ignorespaces Hardware used in the image classification application. On the left the 3D printed tripod, on the right the OpenMV camera mounted on the 3D printed tripod.\relax }}{26}{figure.caption.15}%
 \addvspace {10\p@ }
@@ -21,20 +21,20 @@
 \contentsline {figure}{\numberline {4.2}{\ignorespaces Stankey diagram showing how the letter dataset is divided\relax }}{46}{figure.caption.24}%
 \contentsline {figure}{\numberline {4.3}{\ignorespaces Example of images from the MNIST digits dataset\relax }}{46}{figure.caption.25}%
 \contentsline {figure}{\numberline {4.4}{\ignorespaces Stankey diagram showing how the MNIST dataset is divided\relax }}{47}{figure.caption.26}%
-\contentsline {figure}{\numberline {4.5}{\ignorespaces Letter recognition model: basic structure and its separation in frozen model and OL classification layer\relax }}{48}{figure.caption.27}%
-\contentsline {figure}{\numberline {4.6}{\ignorespaces Results after the Tensorflow training. Top left: variation of accuracy and loss during training and validation. Top right: accuracy of the model in each class. Bottom left: table resuming precision accuracy and F1 score. Bottol right confusion matrix.\relax }}{49}{figure.caption.28}%
-\contentsline {figure}{\numberline {4.7}{\ignorespaces Image classification model: basic structure and its separation in frozen model and OL classification layer\relax }}{50}{figure.caption.29}%
-\contentsline {figure}{\numberline {4.8}{\ignorespaces Results after the Tensorflow training. Top left: variation of accuracy and loss during training and validation. Top right: accuracy of the model in each class. Bottom left: table resuming precision accuracy and F1 score. Bottom right confusion matrix.\relax }}{51}{figure.caption.30}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Letter recognition model: basic structure and its separation in frozen model and CL classification layer\relax }}{48}{figure.caption.27}%
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Results after the Tensorflow training. Top left: variation of accuracy and loss during training and validation. Top right: accuracy of the model in each class. Bottom left: table resuming precision accuracy and F1 score. Bottom right: confusion matrix of the testing.\relax }}{49}{figure.caption.28}%
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Image classification model: basic structure and its separation in frozen model and CL classification layer\relax }}{50}{figure.caption.29}%
+\contentsline {figure}{\numberline {4.8}{\ignorespaces Results after the Tensorflow training. Top left: variation of accuracy and loss during training and validation. Top right: accuracy of the model in each class. Bottom left: table resuming precision accuracy and F1 score. Bottom right confusion matrix.\relax }}{52}{figure.caption.30}%
 \contentsline {figure}{\numberline {4.9}{\ignorespaces Block diagram showing the communication between laptop and STM Nucleo.\relax }}{55}{figure.caption.31}%
-\contentsline {figure}{\numberline {4.10}{\ignorespaces Block diagram showing the communication between laptop and OpenMV camera.\relax }}{57}{figure.caption.32}%
-\contentsline {figure}{\numberline {4.11}{\ignorespaces OpenMV camera pointing to a screen while in different states of the training. Top left is $idle$ mode, top right is $snap$ mode, bottom left is $elab$ mode, bottom right is $trai$ mode\relax }}{58}{figure.caption.33}%
+\contentsline {figure}{\numberline {4.10}{\ignorespaces Block diagram showing the communication between laptop and OpenMV camera.\relax }}{58}{figure.caption.32}%
+\contentsline {figure}{\numberline {4.11}{\ignorespaces OpenMV camera pointing to a screen while in different states of the training. Top left is $idle$ mode, top right is $snap$ mode, bottom left is $elab$ mode, bottom right is $trai$ mode\relax }}{59}{figure.caption.33}%
 \contentsline {figure}{\numberline {4.12}{\ignorespaces Point of view of the OpenMV camera. On the left the original image taken with no compression and no elaboration, in the center an image taken in $snap$ mode, on the right an image taken in $elab$ mode.\relax }}{59}{figure.caption.34}%
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {5.1}{\ignorespaces Block diagram showing at which block in a training step the parameters are copied and saved.\relax }}{61}{figure.caption.35}%
-\contentsline {figure}{\numberline {5.2}{\ignorespaces Plot showing the element by element difference of two frozen model outputs (at training step 544) computed on the Nucleo MCU and on a laptop.\relax }}{61}{figure.caption.36}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Plot showing the element by element difference of two frozen model outputs (at training step 544) computed on the Nucleo MCU and on a laptop.\relax }}{62}{figure.caption.36}%
 \contentsline {figure}{\numberline {5.3}{\ignorespaces Plot showing the variation of bias number 1 recorded on the Nucleo MCU and on a laptop during a training session.\relax }}{62}{figure.caption.37}%
 \contentsline {figure}{\numberline {5.4}{\ignorespaces Plot showing the variation of weight number recorded on the Nucleo MCU and on a laptop during a training session.\relax }}{63}{figure.caption.38}%
-\contentsline {figure}{\numberline {5.5}{\ignorespaces Plot showing the difference of the prediction for class $A$ computed on the Nucleo MCU and on a laptop during a training session.\relax }}{64}{figure.caption.39}%
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Plot showing the difference of the prediction for class $A$ computed on the Nucleo MCU and on a laptop during a training session.\relax }}{63}{figure.caption.39}%
 \contentsline {figure}{\numberline {5.6}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with TinyOL algorithm in the gesture recognition application.\relax }}{66}{figure.caption.41}%
 \contentsline {figure}{\numberline {5.7}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with TinyOL algorithm with batches in the gesture recognition application.\relax }}{66}{figure.caption.42}%
 \contentsline {figure}{\numberline {5.8}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with TinyOL V2 algorithm in the gesture recognition application.\relax }}{67}{figure.caption.43}%
