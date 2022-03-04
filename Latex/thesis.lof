@@ -1,54 +1,54 @@
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {1.1}{\ignorespaces On the left an example of layers inside a ML model. On the right a scheme of the behaviour of a neuron.\relax }}{7}{figure.caption.6}%
-\contentsline {figure}{\numberline {1.2}{\ignorespaces Characteristic summary of supervised, unsupervised, and reinforcement learning.\relax }}{9}{figure.caption.7}%
-\contentsline {figure}{\numberline {1.3}{\ignorespaces Block diagram showing examples of ML model structures: in the top left there is a fully connected NN, in the top right there is a CNN and in the bottom part there is an autoencoder.\relax }}{11}{figure.caption.8}%
-\contentsline {figure}{\numberline {1.4}{\ignorespaces Venn Diagram showing the classification of some well known CL strategies.\relax }}{14}{figure.caption.9}%
-\contentsline {figure}{\numberline {1.5}{\ignorespaces Block diagram showing the steps of a pruning and quantization procedure.\relax }}{19}{figure.caption.10}%
+\contentsline {figure}{\numberline {1.1}{\ignorespaces On the left an example of layers inside a ML model. On the right a scheme of the behaviour of a neuron.\relax }}{8}{figure.caption.6}%
+\contentsline {figure}{\numberline {1.2}{\ignorespaces Characteristic summary of supervised, unsupervised, and reinforcement learning.\relax }}{10}{figure.caption.7}%
+\contentsline {figure}{\numberline {1.3}{\ignorespaces Block diagram showing examples of ML model structures: in the top left there is a fully connected NN, in the top right there is a CNN and in the bottom part there is an autoencoder.\relax }}{12}{figure.caption.8}%
+\contentsline {figure}{\numberline {1.4}{\ignorespaces Venn Diagram showing the classification of some well known CL strategies.\relax }}{15}{figure.caption.9}%
+\contentsline {figure}{\numberline {1.5}{\ignorespaces Block diagram showing the steps of a pruning and quantization procedure.\relax }}{20}{figure.caption.10}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces Hardware used for the CL applications. On the left Nucelo STM32 F401-RE, on the right OpenMV camera.\relax }}{22}{figure.caption.11}%
-\contentsline {figure}{\numberline {2.2}{\ignorespaces Hardware used in the gesture recognition application. On the left the sensor shield IKS01A2, on the right the sensor shield mounted on the Nucleo STM32 F401-RE.\relax }}{23}{figure.caption.13}%
-\contentsline {figure}{\numberline {2.3}{\ignorespaces Hardware used in the image classification application. On the left the 3D printed tripod, on the right the OpenMV camera mounted on the 3D printed tripod.\relax }}{26}{figure.caption.15}%
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Hardware used for the CL applications. On the left Nucelo STM32 F401-RE, on the right OpenMV camera.\relax }}{24}{figure.caption.11}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Hardware used in the gesture recognition application. On the left the sensor shield IKS01A2, on the right the sensor shield mounted on the Nucleo STM32 F401-RE.\relax }}{25}{figure.caption.13}%
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Hardware used in the image classification application. On the left the 3D printed tripod, on the right the OpenMV camera mounted on the 3D printed tripod.\relax }}{28}{figure.caption.15}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Block diagram showing an example of model training\relax }}{29}{figure.caption.16}%
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Block diagram describing the algorithm TinyOL.\relax }}{34}{figure.caption.17}%
-\contentsline {figure}{\numberline {3.3}{\ignorespaces Block diagram describing the algorithm TinyOL with batches.\relax }}{35}{figure.caption.18}%
-\contentsline {figure}{\numberline {3.4}{\ignorespaces Block diagram describing the algorithm TinyOL V2.\relax }}{37}{figure.caption.19}%
-\contentsline {figure}{\numberline {3.5}{\ignorespaces Block diagram describing the algorithm TinyOL V2 with batches.\relax }}{37}{figure.caption.20}%
-\contentsline {figure}{\numberline {3.6}{\ignorespaces Block diagram describing the algorithm LWF.\relax }}{40}{figure.caption.21}%
-\contentsline {figure}{\numberline {3.7}{\ignorespaces Block diagram describing the algorithm CWR.\relax }}{42}{figure.caption.22}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Block diagram showing an example of model training\relax }}{31}{figure.caption.16}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Block diagram describing the algorithm TinyOL.\relax }}{36}{figure.caption.17}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Block diagram describing the algorithm TinyOL with batches.\relax }}{37}{figure.caption.18}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Block diagram describing the algorithm TinyOL V2.\relax }}{39}{figure.caption.19}%
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Block diagram describing the algorithm TinyOL V2 with batches.\relax }}{39}{figure.caption.20}%
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Block diagram describing the algorithm LWF.\relax }}{42}{figure.caption.21}%
+\contentsline {figure}{\numberline {3.7}{\ignorespaces Block diagram describing the algorithm CWR.\relax }}{44}{figure.caption.22}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Motion followed with the sensor for writing letters in the air.\relax }}{45}{figure.caption.23}%
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Stankey diagram showing how the letter dataset is divided\relax }}{46}{figure.caption.24}%
-\contentsline {figure}{\numberline {4.3}{\ignorespaces Example of images from the MNIST digits dataset\relax }}{46}{figure.caption.25}%
-\contentsline {figure}{\numberline {4.4}{\ignorespaces Stankey diagram showing how the MNIST dataset is divided\relax }}{47}{figure.caption.26}%
-\contentsline {figure}{\numberline {4.5}{\ignorespaces Letter recognition model: basic structure and its separation in frozen model and CL classification layer\relax }}{48}{figure.caption.27}%
-\contentsline {figure}{\numberline {4.6}{\ignorespaces Results after the Tensorflow training. Top left: variation of accuracy and loss during training and validation. Top right: accuracy of the model in each class. Bottom left: table resuming precision accuracy and F1 score. Bottom right: confusion matrix of the testing.\relax }}{49}{figure.caption.28}%
-\contentsline {figure}{\numberline {4.7}{\ignorespaces Image classification model: basic structure and its separation in frozen model and CL classification layer\relax }}{50}{figure.caption.29}%
-\contentsline {figure}{\numberline {4.8}{\ignorespaces Results after the Tensorflow training. Top left: variation of accuracy and loss during training and validation. Top right: accuracy of the model in each class. Bottom left: table resuming precision accuracy and F1 score. Bottom right confusion matrix.\relax }}{52}{figure.caption.30}%
-\contentsline {figure}{\numberline {4.9}{\ignorespaces Block diagram showing the communication between laptop and STM Nucleo.\relax }}{55}{figure.caption.31}%
-\contentsline {figure}{\numberline {4.10}{\ignorespaces Block diagram showing the communication between laptop and OpenMV camera.\relax }}{58}{figure.caption.32}%
-\contentsline {figure}{\numberline {4.11}{\ignorespaces OpenMV camera pointing to a screen while in different states of the training. Top left is $idle$ mode, top right is $snap$ mode, bottom left is $elab$ mode, bottom right is $trai$ mode\relax }}{59}{figure.caption.33}%
-\contentsline {figure}{\numberline {4.12}{\ignorespaces Point of view of the OpenMV camera. On the left the original image taken with no compression and no elaboration, in the center an image taken in $snap$ mode, on the right an image taken in $elab$ mode.\relax }}{59}{figure.caption.34}%
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Motion followed with the sensor for writing letters in the air.\relax }}{47}{figure.caption.23}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Stankey diagram showing how the letter dataset is divided\relax }}{48}{figure.caption.24}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Example of images from the MNIST digits dataset\relax }}{48}{figure.caption.25}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Stankey diagram showing how the MNIST dataset is divided\relax }}{49}{figure.caption.26}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Letter recognition model: basic structure and its separation in frozen model and CL classification layer\relax }}{50}{figure.caption.27}%
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Results after the Tensorflow training. Top left: variation of accuracy and loss during training and validation. Top right: accuracy of the model in each class. Bottom left: table resuming precision accuracy and F1 score. Bottom right: confusion matrix of the testing.\relax }}{51}{figure.caption.28}%
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Image classification model: basic structure and its separation in frozen model and CL classification layer\relax }}{52}{figure.caption.29}%
+\contentsline {figure}{\numberline {4.8}{\ignorespaces Results after the Tensorflow training. Top left: variation of accuracy and loss during training and validation. Top right: accuracy of the model in each class. Bottom left: table resuming precision accuracy and F1 score. Bottom right confusion matrix.\relax }}{54}{figure.caption.30}%
+\contentsline {figure}{\numberline {4.9}{\ignorespaces Block diagram showing the communication between laptop and STM Nucleo.\relax }}{57}{figure.caption.31}%
+\contentsline {figure}{\numberline {4.10}{\ignorespaces Block diagram showing the communication between laptop and OpenMV camera.\relax }}{60}{figure.caption.32}%
+\contentsline {figure}{\numberline {4.11}{\ignorespaces OpenMV camera pointing to a screen while in different states of the training. Top left is $idle$ mode, top right is $snap$ mode, bottom left is $elab$ mode, bottom right is $trai$ mode\relax }}{61}{figure.caption.33}%
+\contentsline {figure}{\numberline {4.12}{\ignorespaces Point of view of the OpenMV camera. On the left the original image taken with no compression and no elaboration, in the center an image taken in $snap$ mode, on the right an image taken in $elab$ mode.\relax }}{61}{figure.caption.34}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Block diagram showing at which block in a training step the parameters are copied and saved.\relax }}{61}{figure.caption.35}%
-\contentsline {figure}{\numberline {5.2}{\ignorespaces Plot showing the element by element difference of two frozen model outputs (at training step 544) computed on the Nucleo MCU and on a laptop.\relax }}{62}{figure.caption.36}%
-\contentsline {figure}{\numberline {5.3}{\ignorespaces Plot showing the variation of bias number 1 recorded on the Nucleo MCU and on a laptop during a training session.\relax }}{62}{figure.caption.37}%
-\contentsline {figure}{\numberline {5.4}{\ignorespaces Plot showing the variation of weight number recorded on the Nucleo MCU and on a laptop during a training session.\relax }}{63}{figure.caption.38}%
-\contentsline {figure}{\numberline {5.5}{\ignorespaces Plot showing the difference of the prediction for class $A$ computed on the Nucleo MCU and on a laptop during a training session.\relax }}{63}{figure.caption.39}%
-\contentsline {figure}{\numberline {5.6}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with TinyOL algorithm in the gesture recognition application.\relax }}{66}{figure.caption.41}%
-\contentsline {figure}{\numberline {5.7}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with TinyOL algorithm with batches in the gesture recognition application.\relax }}{66}{figure.caption.42}%
-\contentsline {figure}{\numberline {5.8}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with TinyOL V2 algorithm in the gesture recognition application.\relax }}{67}{figure.caption.43}%
-\contentsline {figure}{\numberline {5.9}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with TinyOL V2 algorithm with batches in the gesture recognition application.\relax }}{67}{figure.caption.44}%
-\contentsline {figure}{\numberline {5.10}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with LWF algorithm in the gesture recognition application.\relax }}{68}{figure.caption.45}%
-\contentsline {figure}{\numberline {5.11}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with LWF algorithm with batches in the gesture recognition application.\relax }}{68}{figure.caption.46}%
-\contentsline {figure}{\numberline {5.12}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with CWR algorithm in the gesture recognition application.\relax }}{69}{figure.caption.47}%
-\contentsline {figure}{\numberline {5.13}{\ignorespaces Plot showing the relation between accuracy and batch size for all the methods implemented in the gesture recognition application.\relax }}{72}{figure.caption.49}%
-\contentsline {figure}{\numberline {5.14}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with TinyOL algorithm on the image classification experiment.\relax }}{75}{figure.caption.52}%
-\contentsline {figure}{\numberline {5.15}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with TinyOL algorithm with batches on the image classification experiment.\relax }}{75}{figure.caption.53}%
-\contentsline {figure}{\numberline {5.16}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with TinyOL V2 algorithm on the image classification experiment.\relax }}{76}{figure.caption.54}%
-\contentsline {figure}{\numberline {5.17}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with TinyOL V2 algorithm with batches on the image classification experiment.\relax }}{76}{figure.caption.55}%
-\contentsline {figure}{\numberline {5.18}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with LWF algorithm on the image classification experiment.\relax }}{77}{figure.caption.56}%
-\contentsline {figure}{\numberline {5.19}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with LWF algorithm with batches on the image classification experiment.\relax }}{77}{figure.caption.57}%
-\contentsline {figure}{\numberline {5.20}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with CWR algorithm on the image classification experiment.\relax }}{78}{figure.caption.58}%
-\contentsline {figure}{\numberline {5.21}{\ignorespaces Plot showing the relation between accuracy and batch size for all the methods implemented in the digits recognition application.\relax }}{79}{figure.caption.59}%
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Block diagram showing at which block in a training step the parameters are copied and saved.\relax }}{64}{figure.caption.35}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Plot showing the element by element difference of two frozen model outputs (at training step 544) computed on the Nucleo MCU and on a laptop.\relax }}{65}{figure.caption.36}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Plot showing the variation of bias number 1 recorded on the Nucleo MCU and on a laptop during a training session.\relax }}{65}{figure.caption.37}%
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Plot showing the variation of weight number recorded on the Nucleo MCU and on a laptop during a training session.\relax }}{66}{figure.caption.38}%
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Plot showing the difference of the prediction for class $A$ computed on the Nucleo MCU and on a laptop during a training session.\relax }}{66}{figure.caption.39}%
+\contentsline {figure}{\numberline {5.6}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with TinyOL algorithm in the gesture recognition application.\relax }}{69}{figure.caption.41}%
+\contentsline {figure}{\numberline {5.7}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with TinyOL algorithm with batches in the gesture recognition application.\relax }}{69}{figure.caption.42}%
+\contentsline {figure}{\numberline {5.8}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with TinyOL V2 algorithm in the gesture recognition application.\relax }}{70}{figure.caption.43}%
+\contentsline {figure}{\numberline {5.9}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with TinyOL V2 algorithm with batches in the gesture recognition application.\relax }}{70}{figure.caption.44}%
+\contentsline {figure}{\numberline {5.10}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with LWF algorithm in the gesture recognition application.\relax }}{71}{figure.caption.45}%
+\contentsline {figure}{\numberline {5.11}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with LWF algorithm with batches in the gesture recognition application.\relax }}{71}{figure.caption.46}%
+\contentsline {figure}{\numberline {5.12}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with CWR algorithm in the gesture recognition application.\relax }}{72}{figure.caption.47}%
+\contentsline {figure}{\numberline {5.13}{\ignorespaces Plot showing the relation between accuracy and batch size for all the methods implemented in the gesture recognition application.\relax }}{75}{figure.caption.49}%
+\contentsline {figure}{\numberline {5.14}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with TinyOL algorithm on the image classification experiment.\relax }}{78}{figure.caption.52}%
+\contentsline {figure}{\numberline {5.15}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with TinyOL algorithm with batches on the image classification experiment.\relax }}{78}{figure.caption.53}%
+\contentsline {figure}{\numberline {5.16}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with TinyOL V2 algorithm on the image classification experiment.\relax }}{79}{figure.caption.54}%
+\contentsline {figure}{\numberline {5.17}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with TinyOL V2 algorithm with batches on the image classification experiment.\relax }}{79}{figure.caption.55}%
+\contentsline {figure}{\numberline {5.18}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with LWF algorithm on the image classification experiment.\relax }}{80}{figure.caption.56}%
+\contentsline {figure}{\numberline {5.19}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with LWF algorithm with batches on the image classification experiment.\relax }}{80}{figure.caption.57}%
+\contentsline {figure}{\numberline {5.20}{\ignorespaces Bar plot and confusion matrix showing the results from the testing session performed with CWR algorithm on the image classification experiment.\relax }}{81}{figure.caption.58}%
+\contentsline {figure}{\numberline {5.21}{\ignorespaces Plot showing the relation between accuracy and batch size for all the methods implemented in the digits recognition application.\relax }}{82}{figure.caption.59}%
 \addvspace {10\p@ }
