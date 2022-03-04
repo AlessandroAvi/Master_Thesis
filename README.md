@@ -1,6 +1,7 @@
 # HOW THE REPO IS STRUCTURED
 
 The code is contained in folders `Latter_application` and `OpenMV_application`.
+
 `Letter_application` contains the code developed for: i) the simulation of continual learning on the laptop, ii) the implementation of continual learning on the STM32 microcontroller.
 Inside `Letter_application` the diorectpries `Pyhton` and `STM` can be found. In `STM` there is the C code used by the STM32 microcontroller. In `Python` there is the code used for the simulation on the laptop; the code for generating plots, tables, confusion matrices; the code used for communication laptop-STM 
 
