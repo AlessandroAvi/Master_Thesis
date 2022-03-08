@@ -1,53 +1,41 @@
 # EXPLANATION OF THE DIRECTORY STRUCTURE
 
-This repo contains the code that I developed for a small demo of application for the continual learning.
+Here it can be found the scripts for the CL simulation, for the generation of plots and for the syncronization laptop-STM.
 
+## DIRECTORIES
 
-
-### MAIN CODES
-
-The main code is divided in 4 runnable scripts. which are:
-
-- `TinyOL.ipynb`: contains a notebook code that is used for simulating the different training algorithms for the continual learning method. This code is the most important part of the simulations. 
-- `run_parseData`: is a python code that is used for merging all the txt files that contain different parts of the dataset. This code takes these txt files and creates 
-                   one single txt file for each letter that contains all the important data in a clean and ordered form.
-- `run_sendLetterUART`: is a python code that contains the script used for sending the dataset to the STM board in a fast way. In order to use it just plug in the STM, 
-                        start the Python code and then press the BLUE BUTTON when shown on the screen. This will start the communication and the automatic prediction 
-                        performed by the STM.
-- `run_trainFrozenModel.py`: contains the code that is used for training the frozen model part with keras.
-- `run_createPlot.py`: is a python code that is used to generate all the plots. The idea is that in both the STM application and in the PC simulation the results from the trainigs are written in a specific txt file as a form of confusion matrix. The info are then extrapolated from here in order to create the pltos. In this way is possible to generate the plots without ruttin ghte entire trainings. It makes it easyer to change colors/dimensions, ...
-
-
-For the file `TinyOL.ipynb` I used in the Jupyter IDE. I used notebooks because it was easier for me to debug and perform small changes understanding where the mistakes are.
-
-
-
-### LIBRARIES
-
-All the other python files that begin with `myLib_` are libraries that contain functions definitions that are used used in the notebook and in the `run_` files. 
-The names of these libraries are self explainatory and the functions are well commented and described in the files.
-
-
-
-### OTHER FOLDERS
-
-In the other foldes that can be found in this directory there is contained:
+- `Debug_files`: contains txt file where the evolution of the most relevant training parameters of the STM Nucleo training is stored.
 
 - `Letter_dataset`: contains two directory in which different versions of the dataset can be found. 
-  - `Raw_dataset` contains the raw txt files recorder from the MobaXterm 
-  - `Clean_dataset` contains the dataset elaorated from the script `run_parseData.py` . In here the dataset is parses into a clean and ordered txt file with only numbers.
-- `Plots`  contains all the plots and images created from the scripts. 
-  - `DatasetPlots` contains the pie charts about the contents of the dataset
-  - `ReadmeImages` contains some images that are used in the readme about the theory
-  - `STM_results` contains the bar charts, tales and confusion amtrices generated from the STM application
-  - `TinyOL_plots` contains the bar charts, tales and confusion amtrices generated from the laptop simulation
-  - `Training_plots` contains the history of the keras training and a bar chart about the testing
-- `Saved_models` contains the saved keras models that are loade in the stm and used in the simulation
-  - `Frozen_model `contains the cut model created in the `TinyOL.ipyp` file. 
-  - `Original_model` containe sthe roginal tensorflow model creaded by the training
-- `SimulationResults` contains some txt file in which the results from sever simulations are saved. This is used for computing the average accuracy of the method across multiple simulation
+  - `Raw_dataset` contains the raw txt files recorder from the MobaXterm.
+  - `Clean_dataset` contains the dataset elaborated from the python script.
+
+- `Plots`: contains all the plots and images created from the scripts.
 
 
+- `Saved_model`: contains the saved keras models that are loades in the STM and used in the simulation.
+  - `Frozen_model `contains the cut version of the model created in the `TinyOL.ipyp` file. 
+  - `Original_model` contains the original Tensorflow model saved after training
+
+- `Script_temporanei`: script sused for generating fast plots for the presentation, paper and thesis. Not relevant for the application.
+
+- `SimulatioResult`: contains some txt file in which the results from sever simulations are saved. This is used for computing the average accuracy of the method across multiple simulation
+
+- `lib`: contains all the functions that are used for the generation of plots, tables, confusion matrices, pie charts, writing data, parsing the dataset.
+
+## SCRIPTS  
+
+- `TinyOL.ipynb`: contains a notebook code that is used for simulating the different training algorithms for the continual learning method. This code is the most important part of the simulations. 
+
+- `run_createPlots.py`is a python code that is used to generate all the plots. The idea is that in both the STM application and in the PC simulation the results from the trainigs are written in a specific txt file as a form of confusion matrix. The info are then extrapolated from here in order to create the pltos. In this way is possible to generate the plots without ruttin ghte entire trainings. It makes it easyer to change colors/dimensions, ...
+
+- `run_parseDataset.py`: is a python code that is used for merging all the txt files that contain different parts of the dataset. This code takes these txt files and creates one single txt file for each letter that contains all the important data in a clean and ordered form.
+
+- `run_sendLetterUART.py`: is a python code that contains the script used for sending the dataset to the STM board in a fast way. In order to use it just plug in the STM, start the Python code and then press the BLUE BUTTON when shown on the screen. This will start the communication and the automatic prediction performed by the STM.
+
+- `run_trainFrozenModel.py`: contains the code that is used for training the frozen model part with keras.
+
+For the file `TinyOL.ipynb` I used in the Jupyter IDE. I used notebooks because it was easier for me to debug and perform small changes understanding where the mistakes are.
 
 ## EXPLANATION OF THE COMMUNICATION PROTOCOL
 

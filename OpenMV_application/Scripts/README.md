@@ -10,7 +10,7 @@
 
 - `Training_Images`: contains 2 images used for showing the state of the camera while training. 
 
-- `lib`: contaisn 2 script where useful functions are defined for the manipulation of the MNISTA DATASET.
+- `lib`: contains 2 script where useful functions are defined for the manipulation of the MNIST DATASET.
 
 ## SCRIPTS
 

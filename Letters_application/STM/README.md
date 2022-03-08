@@ -1,11 +1,12 @@
 # DIRECTORY CONTENTS
- This repo contains the projects developed for the STM mcu. Each folder contains a different project:
+ This repo contains the two projects developed for usign the STM microcontroller. The two projects are:
 
-- `Log_data` : this folder contains the project that is used for recosrding the accelerometer data
-- `TinyOL` : this folder contains the main project, where the entire OL system is developed and works for performin the ON LINE learning with all the method seen in the simulation in python. This project works together with a python script that sends trhough the UART all the data for the inference.
+- `Log_data`:  contains the project that is used for recording the accelerometer data. 
 
-Notice that there is a file `STM_GPIO.png` in which is shown the jumper cable that should be connected to the board in order to have the code work correctly. As showhn in the picture below
+- `TinyOL`: contains the project for the application of continual learning on the STM Nucleo. During thtrainin ght device should work together with a python script that is ran at the same time on the laptop. This permits to maintain sync between the devices.
 
-![image_for_github_repo](https://github.com/AlessandroAvi/Master_Thesis/blob/main/Letters_application/Python/Plots/ReadmeImages/STM_GPIO.png) 
+# ADDITIONAL NOTE
 
-<img src="C:\Users\massi\UNI\Magistrale\Anno 5\Semestre 2\Tesi\Code\Letters_application\Python\Plots\ReadmeImages\STM_GPIO.png" style="zoom:60%;" />
+To perform a correct CL training on the Nucleo it is required to connect a jumper in between two GPIO of the microcontroller. The connection is shown below:
+
+<img src="https://github.com/AlessandroAvi/Master_Thesis/blob/main/Images/NucleoSTM/STM_GPIO.png" width=50% height=50%>
