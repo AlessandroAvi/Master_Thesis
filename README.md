@@ -1,11 +1,17 @@
 # HOW THE REPO IS STRUCTURED
 
-The code is contained in folders `Latter_application` and `OpenMV_application`.
+The repo is structured in the following components:
 
-`Letter_application` contains the code developed for: i) the simulation of continual learning on the laptop, ii) the implementation of continual learning on the STM32 microcontroller.
-Inside `Letter_application` the diorectpries `Pyhton` and `STM` can be found. In `STM` there is the C code used by the STM32 microcontroller. In `Python` there is the code used for the simulation on the laptop; the code for generating plots, tables, confusion matrices; the code used for communication laptop-STM 
+- `Images`: contains images used in the readme files from both applications. It also contains images showing how the OpenMV training setup. 
 
-`OpenMV_application` contains the the code devloped for the implementation of continual learning on the OpenMV camera.
+- `Lattex`: contains the source for the Latex and all the images used for the thesis.
+
+- `Letters_application`: contains the code developed for: i) the simulation of continual learning on the laptop, ii) the implementation of continual learning on the STM32 microcontroller. Inside the `STM` directory there is the C code used by the STM32 microcontroller. In `Python` there is the code used for the simulation on the laptop, the code for generating plots, tables, confusion matrices, and the code used for communication laptop-STM 
+
+- `OpenMV_application`: the dorectory contains: the codes developed for the implementation of continual learning on the OpenMV camera (plus all the plots, the script for maintaining sync with the laptop, ...), the `stl` file used for 3D printing the camera support, a presentation used for setting up the ubuntu environment. 
+
+- `Presentation_files`: contains images and two presentations: i) the presentation used for keeping track of the work done; ii) the final presentation for the thesis.
+
 
 
 
