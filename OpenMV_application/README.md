@@ -1,63 +1,28 @@
-# EXPLANATION OF THE DIRECTORY STRUCTURE
+# DIRECTORY STRUCTURE
 
 This repo contains the code that I developed for a demo of application for the continual learning on the OpenMV camera. This repo contains other directorys that are explained here below:
 
-- `Documentation`: contains the power point given to me by the lab in which is exaplined how to flash the firmware on the OpenMV camera
+- `Documentation`: contains the power point that shows how to use the Ubuntu system for the creation of the OpenMV firmware
 
 - `OpenMV_tripod`: contains the `stl` files used for 3D printing teh camera support
 
-- `Scripts`: contains the micro python code that I developed and that is used on the OpenMV camera together with the jupyter notebooks used for the training of the frozen model performed on the laptop
+- `Scripts`: contains jupyter, and python scripts used for performing continual learning on the laptop, maintaining in sync the camera with the laptop, and for running CL algorithms on the OpenMV camera
 
-  - `OpenMV`
-
-    - `Plots_results` folder that contains the plots generated from the training
-    - `OpenMV_myLib.py` python code that contain the library that is loaded on the OpnMV camera. Inside here there are all the functions used by the OL trianing.
-    - `OpenMV_OL_training_debug.py` python code that contains the main file for the OpneMV camera. Consists of the initializations and the infinite while loop. Sync because it can be used only if the camera is not connected to the IDE. This contains the real training
-    - `OpenMV_OL_training_sync.py` python code that contains the main file for the OpneMV camera. Consists of the initializations and the infinite while loop. Debug because it can be used directly from the IDE
-    - `run_create_plots.py` python code that reads the txt file written by the OpnMV camera (contains the confusion matrix ofthe training) and creates a bar plot, a table and a confusion matrix
-    - `training_results.txt` txt file generated from teh OpenMV camera. This contains the results of the training performed on teh camera.
-
-  - `Trainings`
-
-    - `Saved_models` contains the keras models (frozen and original model) generated from the keras training performed on the laptop
-    - `Training_Images` contains some saved mnist digits. Used for the training version 1
-    - `ImageDisplay.py` main python code used for training the OpenMV camera. It displays the MNIST digit on screen and sends throught UART the correct label for the camera.
-    - `ImportMnist.py` python library that contains a big function used for manipulating the MNIST dataset and extracting a smaller dataset
-    - `myLib.py` python library in which are defined the functions for performing the simulation on jupyter notebook
-    - `Save_MNIST_images.ipynb` jupyter notebook that I use for saving on the computer 200 images of digits. These images are then shown to the OpenMV camera in order to perform the OL training
-    - `Simulation.ipynb` jupyter notebook used for simulating the OL training that will be applied on the camera. Used only to see if the OL pplied on CNN still works (it does)
-    - `Train_MINST_all.ipynb` jupyter notebook used for training a model on the recognition of all the digits in the MNIST dataset
-    - `Train_MINST_half.ipynb` jupyter notebook used for training a model on the recognition of half (0,1,2,3,4,5) the digits in the MNIST dataset
-    - `train_network_rgb.ipynb` ?? don't know. Training script from the lab.
-
-    
-- `Shared_openmv_env`: is a directory used as a shared space in between the ubuntu virtual machine and the original host system
+- `Shared_openmv_env`: is a directory used as a shared space in between the Ubuntu virtual machine and the original host system
 
 
+# APPLICATION OF CONTINUAL LEARNING ON THE OpenMV camera
 
+In part of the project the goal is to apply the same algorithms and ides developed for the gesture recognition case but with an [OpenMV](https://openmv.io/) camera. The OpenMV camera is a small device based on STM32 H7 microcontroller. The product is very powerful and easy to use for fast prototyping and aims at becoming the main product for Machine Vision. In this project the device is used for the application of machine learning with continual learning capabilities on images.
+The device is the following:
 
-### HOW TO RUN  THE CODE
+<img src="https://github.com/AlessandroAvi/Master_Thesis/blob/main/Images/OpenMV/stand_1.jpg" width=50% height=50%>
 
-In order to reproduce correctly the OpenMV project some steps are necessary. 
+The idea of this application is to train a frozen model to classify images from the MNIST digits dataset. Initially the model is trained to recognize digits from 0 to 5, then continual learning is applied to learn in real time also the digits 6 to 9.
 
-- Train a model to recognize only half of the digits. This can be done in [this](https://github.com/AlessandroAvi/Master_Thesis/blob/main/OpenMV_application/Scripts/Trainings/Train_MNIST_half.ipynb) jupyter notebook. It will also automatically save the trained model and the last layer (as a txt file) in a specific directory.
-- Load the trained model on the OpenMV camera. Simply follow the instructions in [this](https://github.com/AlessandroAvi/Master_Thesis/tree/main/OpenMV_application/Documentation) this power point. 
-- Load in the SD card of the OpenMV cam the library called `OpenMV_myLib.py` and the two files in which weights and biases of the last layer are saved. These two fils are called `ll_weights.txt` and `ll_biases.txt`. 
-- Flash on the camera the main code that I developed, which is called `OpenMV_OL_training.py` 
-- Is now very important to connect the camera to the PC but do not connect it to the IDE. This because my script uses the UART connection for sending the true labels and in debugging mode (camera connected to the IDE) the UART connection is not available (occupied by the video stream). 
-- Now for performing the training simply run the code `ImageDisplay.py`, point the camera to the SYNC APP window and toggle the bar. Once the bar is toggled the script automatically syncs with the camera and shows the image on screen + sends the label to the camera.
+The camera uses a CNN model and the continual learning framework trains in real time only the last layer of the model (the classification layer) in supervised settings.
 
+The experiment requires the device to be connected to the laptop while training. The camera points to a computer screen that dislays the image of interest, while the laptop sends via USB the correct label of the digit shown.
+Here is an image of the training:
 
-
-
-
-## GOOD TO KNOW
-
-Here are some useful links for understanding some problems I had on the camera. In general by searching in the forum it's quite easy to find the answer. If nothing can be found the developer are very quick to answer new issues.
-
-- In order to read files written from the camera on the SD (like a txt file) it's necessary to unplug and plug again hte camera. [See link here](https://forums.openmv.io/t/saving-a-txt-file/700)
-- In order to use the COM port for sending data from the PC to the camera it's necessary to load the scipr on the camera as a main.py file and not use the IDE. This because the connection camera-IDE turns the camera in debugging mode, which will use the COM port to send the video stream and other things, so the UART communication is occupied (or use the externa pins on the camera for the UART). See these [link 1](https://forums.openmv.io/t/usb-vcp-acces-denied-with-pyserial/2026) [link 2](https://forums.openmv.io/t/is-the-serial-terminal-in-ide-output-only/850/3) [link 3](https://forums.openmv.io/search?q=serial%20)
-- The toolchain developed by students in the Embedded systems lab for flashing the firmware with a trained neural network the camera allows the use of tensorflow 2.4 or lower. (Because the tool fro STM CUBE accepts only this one). To avoid the error train the model with tenworflow 2.4 from the beginning.
-
-
-
+<img src="https://github.com/AlessandroAvi/Master_Thesis/blob/main/Images/OpenMV/stand_5.jpg" width=50% height=50%>
