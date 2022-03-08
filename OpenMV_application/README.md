@@ -11,7 +11,7 @@ This repo contains the code that I developed for a demo of application for the c
 - `Shared_openmv_env`: is a directory used as a shared space in between the Ubuntu virtual machine and the original host system
 
 
-# APPLICATION OF CONTINUAL LEARNING ON THE OpenMV camera
+# APPLICATION OF CONTINUAL LEARNING ON THE OpenMV CAMERA
 
 In part of the project the goal is to apply the same algorithms and ides developed for the gesture recognition case but with an [OpenMV](https://openmv.io/) camera. The OpenMV camera is a small device based on STM32 H7 microcontroller. The product is very powerful and easy to use for fast prototyping and aims at becoming the main product for Machine Vision. In this project the device is used for the application of machine learning with continual learning capabilities on images.
 The device is the following:

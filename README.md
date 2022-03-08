@@ -1,4 +1,4 @@
-# HOW THE REPO IS STRUCTURED
+# REPOSITORY STRUCTURE
 
 The repo is structured in the following components:
 
@@ -12,21 +12,25 @@ The repo is structured in the following components:
 
 - `Presentation_files`: contains images and two presentations: i) the presentation used for keeping track of the work done; ii) the final presentation for the thesis.
 
-
-
-
-
 # IDEA OF THE PROJECT
 
-## PART 1 : implementation of a simulation + application on nucelo F401RE
+The code in this repo is the project thet I developed for my masther thesis. The project concerns the application of several continual learning (CL) strategies on two applications using two microcontrollers. The two applications are examples of possible real life applications and they regard image classification and gesure recognition.
 
-The project in this repository is the code that I developed for my master thesis. The project is an application of continual/on line learning on NN/ CNN applied on microcontrollers (in my case initally a NUCELO STM32 F401RE and in future a OpenMV camera).
-The main objective of the project is to deploy a NN model on a microcontroller and be able to train the last layer while the microcontroller perform inferences, from this the name continual learning. Not only the models should be able to fine tune its last layer and improve the predictions on the original classes, but it should also be able to exand its dimensions in order to predict new possible classes (if it's a classification model).
+Better explanation of the work done can be found in the `Latex` folder, where the PDF version of the thesis is stored.
 
-The original idea of the project was to develop something similar to what is shown in the paper [TinyOL: TinyML with Online-Learning on Microcontrollers](https://scholar.google.it/scholar?hl=en&as_sdt=0%2C5&q=TinyOL%3A+TinyML+with+Online-Learning+on+Microcontrollers&btnG=). In that paper the authors created a framework to be applied on an arduino in which the microcontroller is able to classify the modes of vibration of a fan. The part of continuous learning is used to better train the model and also learn new classes/modes of vibration. In this case the NN model is a bit different from the one that I used but the idea is quite similar. 
+## WHAT IS CONTINUAL LEARNING
 
-This project is based on the recognition and classification of some accelerometer data. In this case the data has been recorded while writing in the air letters with a NUCELO STM32 F401RE paired witht the additional shield X-NUCLEO-IKS01A2. The idea of the project is to train on the laptop a NN model for the classification of the data (initially classification of 5 classes: A E I O U), deploy the model on the NUCLEO STM and expose the microcontroller to new unknown labelled data. The objetive is to be able to increase the dimensions of the last layer of the model (because of computation ond space) and train the new weights and biases in order to classify correctly the new and old letters. The new unknown labels contain the letters B R M. 
-The biggest challenge is to avoid catastrophic forgetting (so forget the already learned classes and predict incorrectly old letters) and be able to improve the classification ability of the model simply by training in real time only the last layer.
+Continual learning is a branch of machine learning that aims at enhancing the classification abilities of a model. The idea is to give the ML model the ability to train in real-time over new data samples recorded and also give the model the ability to dinamically change its structure to better incorporate new classes. 
+
+The main objective of such technology is to allow ML models to be always up to date, avoid changes of the data context, include new classes when detected and fine tune the weights over input samples.
+
+The original idea of the project was to develop something similar to what is shown in the paper [TinyOL: TinyML with Online-Learning on Microcontrollers](https://scholar.google.it/scholar?hl=en&as_sdt=0%2C5&q=TinyOL%3A+TinyML+with+Online-Learning+on+Microcontrollers&btnG=). In that paper the authors created a framework to be applied on an Arduino in which the MCU is able to classify the modes of vibration of a fan. The part of continuous learning is used to better train the model and also learn new classes/modes of vibration. In this case the NN model is a bit different from the one that I used but the idea is quite similar. 
+
+This project applies a similar framework in two applications. In the first the idea is to use a NN model for the recognition of gestures. The applications aims at recognizing letters written in the air. The data to be manipulated by the NN are arrays containing accelerations recorded by an accelerometer sensor. The model is initially trained to recognize vwels written in the air (A,E,I,O,U) and continual lerning is later used for teching the model also cononants B,R,M.
+The second application uses a OpenMV, which is a MCU equipped with a camera. The idea in this case is to train a CNN to initially recognize only the MNIST digits from 0 to 5, an leter use CL strategies for teaching the model the digits from 6 to 9.
+
+
+# EXPLANATION OF THE BASIC FRAMEWORK: GESTRE RECOGNITION EXAMPLE
 
 ### DATASET
 
@@ -89,20 +93,4 @@ The algorithms implemented in this project are:
 | LWF           | - Simple to implement, it's a weighted average<br />- Depending on how I select lambda I can change the learning of the weights | - Update of lambda can be tricky<br />- Requires 2 copies of the last layer |
 | LWF batches   | - Simple to implement, it's a weighted average<br />- Depending on how I select lambda I can change the learning of the weights<br />- I can update the original weight matrix once in a while, it avoids the system to be too dependant on old weights | - Update of lambda can be tricky<br />- Requires 2 copies of the last layer |
 | CWR           | Simple to implement, it's just a weighted average            | Requires 2 copies of the last layer<br />Requires more computations |
-
-### HOW  TO RUN THE CODE
-
-In order to reproduce correctly the entire project some steps need to be applied in order. 
-
-- run the code `run_parseDataset.py`, this code will stack together all the different txt file in which the data for the different letters is stores and it will save the entire datasets in new txt file. This code also shuffles the dataset, so if the user wants to shuffle the data in a new way is neccessary to change the seed in the file `myLib_parseData.py` and put a new number in the function `shuffleDataset` (the last one) in the line `random.seed(562)`
-- run the code `run_trainingFrozenModel.py`, this code will perform the keras training on the frozen model, save the model in a file.h5 in a specific directory and also save the necessary data for the OL layer. 
-- at this point is possible to perform the training on the STM or on the laptop in the code `TinyOL.ipynb`
-- for the training on the laptop do the following:
-  - open the file and simply run it all
-- for the training on the STM do the following:
-  - after the training of the model on the laptop is necessary to deploy it on the STM nucleo. Open the project in STMCubeMX or STMCubeIDE, open the section called "Software packs", open the X_CUBE_AI section and in the tab "network" select the correct path to the model trained with keras (Code/Letters_application/Python/Saved_models/Frozen_modelmodel.h5). After this perform the automatic generation of the code done by CubeMX. 
-    Do not forget to go in the main.c file and comment out the line `//MX_X_CUBE_AI_Process()` at the end of the infinite while loop. This is required because I had to customize the prediction perfmed by the STM.
-  - After that is necessary to copy the file "layer_weights.h" (in the same directory of the model.h), in the libraries folder for the STM. This files contains the already trained last layer that is able to recognize the vowels. It's the starting point for the weight for the new letters. You should copy the file in the folder Code/Letters_application/STM/TinyOL/Core/Inc
-  - After this flash the code on the STM
-  - In order to send the data and train the STM is necessary to run the code `run_sendLetterUART.py`. This file will send the entire dataset over the USB cable and will also receive informations about the prediction from the STM. The code is able to recognize automatically when the training is finished, at that point it will automatically save the info received from the STM (this is the testing of the model) and when all the data is sent it will display on screen some plots and tables. 
 
