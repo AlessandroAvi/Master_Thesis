@@ -106,11 +106,3 @@ In order to reproduce correctly the entire project some steps need to be applied
   - After this flash the code on the STM
   - In order to send the data and train the STM is necessary to run the code `run_sendLetterUART.py`. This file will send the entire dataset over the USB cable and will also receive informations about the prediction from the STM. The code is able to recognize automatically when the training is finished, at that point it will automatically save the info received from the STM (this is the testing of the model) and when all the data is sent it will display on screen some plots and tables. 
 
-## PART 2: application ofthe idea on the OpenMV camera
-
-In this part of the project the main goal is to apply the same code and idea developed for the nucelo F401RE on the OpenMV camera. This is a very small device based on a STM32 H7 microcontroller that is specifically developed for the application of machine learning with images taken from camera built on the chip. The device is the following:
-
-<img src="https://github.com/AlessandroAvi/Master_Thesis/blob/main/Images/OpenMV/stand_1.jpg" width=50% height=50%>
-
-In the first part of this section the idea is to apply a CNN model that is trained for the recognition of the famous MNIST dataset of written digits. The idea here is to train the model to recognize only the digits from 0 to 5 and later try to apply the OL method with the aim of obtaining a model that has learned all the digits. The training is done directly on the OpenMV camera which is paired with a python script that is run on the laptop. The idea is to use the python script to show a digit on the screen, notify the camera that a new digit has been shown and communicate to it the label through the UART connection. At this point the camera can take the frame and use it to train the model on the new class. 
-
