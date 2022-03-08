@@ -30,7 +30,7 @@ This project applies a similar framework in two applications. In the first the i
 The second application uses a OpenMV, which is a MCU equipped with a camera. The idea in this case is to train a CNN to initially recognize only the MNIST digits from 0 to 5, an leter use CL strategies for teaching the model the digits from 6 to 9.
 
 
-# EXPLANATION OF THE BASIC FRAMEWORK: GESTRE RECOGNITION EXAMPLE
+# EXPLANATION OF THE BASIC FRAMEWORK: gesture recognition example
 
 ### DATASET
 
