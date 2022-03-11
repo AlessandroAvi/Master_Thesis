@@ -94,8 +94,8 @@ method_used = int(info[0])
 def plot_barChart(confusion_matrix):
 
 
-    bl = 'cornflowerblue'
-    bl2 = 'steelblue'
+    bl = '#7a0c0c'# 'cornflowerblue'
+    bl2 = '#253035'
     colors = [bl, bl, bl, bl, bl, bl, bl, bl, bl, bl, bl2]
     bar_values = np.zeros(size+1)  
 
@@ -136,7 +136,7 @@ def plot_barChart(confusion_matrix):
     plt.yticks(fontsize = 20)
     plt.xlabel('Classes', fontsize = 24)
     plt.xticks([r for r in range(size)], real_labels, fontsize = 20)
-    plt.savefig(SAVE_PLOTS__PATH + save_name[method_used] +'barPlot.png')
+    plt.savefig(SAVE_PLOTS__PATH + save_name[method_used] +'barPlot.png', transparent=True)
     plt.show()
 
 
@@ -145,27 +145,27 @@ def plot_barChart(confusion_matrix):
 
 def plot_STM_confMatrix(confusion_matrix):
 
-    fig2 = plt.figure(figsize =(17,17))
+    fig2 = plt.figure(figsize =(4,4))
     plt.clf()
     ax = fig2.add_subplot(111)
     ax.set_aspect(1)
-    res = ax.imshow(confusion_matrix, cmap=plt.cm.Blues, interpolation='nearest')
+    res = ax.imshow(confusion_matrix, cmap=plt.cm.Reds, interpolation='nearest')
     width, height = confusion_matrix.shape
 
 
 
-    txt_size = 33
+    txt_size = 10
 
     for x in range(width):
         for y in range(height):
-            ax.annotate(str(int(confusion_matrix[x,y])), xy=(y, x), ha="center", va="center", fontsize=27)
+            ax.annotate(str(int(confusion_matrix[x,y])), xy=(y, x), ha="center", va="center", fontsize=10)
 
     ax.xaxis.set_ticks_position("bottom")
     # The 2 following lines generate and error - I was not able to solve that but is not problematic
 
 
-    plt.xlabel('PREDICTED LABEL', fontsize=33)
-    plt.ylabel('TRUE LABEL', fontsize=33)
+    plt.xlabel('PREDICTED LABEL', fontsize=10)
+    plt.ylabel('TRUE LABEL', fontsize=10)
 
 
     
@@ -176,7 +176,7 @@ def plot_STM_confMatrix(confusion_matrix):
     plt.xticks(fontsize = txt_size)
     plt.yticks(fontsize = txt_size)
 
-    plt.savefig(SAVE_PLOTS__PATH + save_name[method_used] +'confusionMatrix.png')
+    plt.savefig(SAVE_PLOTS__PATH + save_name[method_used] +'confusionMatrix.png', transparent=True)
 
     plt.show()
 
