@@ -12,7 +12,7 @@ import matplotlib.image as mpimg
 
 bar_width = 0.35
 title_size = 30
-label_size = 30
+label_size = 33
 txt_size = 28
 legend_size = 28
 
@@ -36,16 +36,16 @@ save_name = ['OL', 'OL_batch', 'OL_V2', 'OL_V2_batch', 'LWF', 'LWF_batch', 'CWR'
 
 def plot11():
 
-    label = ['Dogs','Cats','Ducks', 'Mouse']
+    label = ['Dogs','Cats','Ducks'] #'Mouse'
     blue2 = '#7a0c0c'  
-    colors = [blue2, blue2, blue2, blue2]  
+    colors = [blue2, blue2, blue2]  
 
-    bar_values = np.zeros(4)
+    bar_values = np.zeros(3)
 
-    bar_values[0] = 17
-    bar_values[1] = 26
-    bar_values[2] = 20
-    bar_values[3] = 97
+    bar_values[0] = 91 #17
+    bar_values[1] = 85 #26
+    bar_values[2] = 96 #20
+    #bar_values[3] = 97 #97
 
     fig = plt.subplots(figsize =(12, 8))
     bar_plot = plt.bar(label, bar_values, color=colors, edgecolor='grey')
